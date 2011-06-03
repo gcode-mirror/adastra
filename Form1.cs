@@ -26,25 +26,11 @@ namespace CursorControl
         public Form1()
         {
             InitializeComponent();
-
-            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
-            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
-            //---------------------------------------
+            label1.Text = "";
 
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
-        }
-
-        void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F5)
-            {
-                MouseMovementEnabled = false;
-                button1.Text = "Cursor Disabled";
-            }
-
-            e.Handled = true;
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,6 +158,27 @@ namespace CursorControl
             //    </Setting>
             //</Settings>
                
+        }
+
+        public static void OpenLinkInBrowser(string url)
+        {
+            // workaround since the default way to start a default browser does not always seem to work...
+
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = "rundll32.exe";
+            process.StartInfo.Arguments = "url.dll,FileProtocolHandler " + url;
+            process.StartInfo.UseShellExecute = true;
+            process.Start();
+        }
+
+        private void homepageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenLinkInBrowser("http://code.google.com/p/adastra/");
+        }
+
+        private void openVibesHomepageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenLinkInBrowser("http://openvibe.inria.fr/");
         }
     }
 }

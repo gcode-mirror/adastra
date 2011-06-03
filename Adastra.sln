@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CursorControl", "CursorControl.csproj", "{35559E73-B585-49E6-A8CC-9F4AC69372BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adastra", "Adastra.csproj", "{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{35559E73-B585-49E6-A8CC-9F4AC69372BA}.Debug|x86.ActiveCfg = Debug|x86
-		{35559E73-B585-49E6-A8CC-9F4AC69372BA}.Debug|x86.Build.0 = Debug|x86
-		{35559E73-B585-49E6-A8CC-9F4AC69372BA}.Release|x86.ActiveCfg = Release|x86
-		{35559E73-B585-49E6-A8CC-9F4AC69372BA}.Release|x86.Build.0 = Release|x86
+		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Debug|x86.ActiveCfg = Debug|x86
+		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Debug|x86.Build.0 = Debug|x86
+		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Release|x86.ActiveCfg = Release|x86
+		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
