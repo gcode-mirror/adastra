@@ -17,12 +17,19 @@ namespace CursorControl
 
         public static void Start()
         {
+            if (!OpenVibeDesignerWorkingFolder.EndsWith("\\")) OpenVibeDesignerWorkingFolder += "\\";
+
+            string executable = OpenVibeDesignerWorkingFolder+"ov-designer.cmd";
+            if (!System.IO.File.Exists(executable))
+                executable = OpenVibeDesignerWorkingFolder+"openvibe-designer.cmd";
+            if (!System.IO.File.Exists(executable)) { System.Windows.Forms.MessageBox.Show("Executable not found!"); return; }
+
             string parameters="";
             if (FastPlay) parameters+= " --play-fast " + Scenario;
             else parameters += " --play " + Scenario;
 
             if (NoGUI) parameters += " --no-gui ";
-            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(OpenVibeDesignerWorkingFolder + "ov-designer.cmd", parameters);
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(executable, parameters);
             
             psi.WorkingDirectory = OpenVibeDesignerWorkingFolder;
             psi.RedirectStandardOutput = false;

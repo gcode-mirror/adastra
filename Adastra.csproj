@@ -8,8 +8,8 @@
     <ProjectGuid>{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Palermo</RootNamespace>
-    <AssemblyName>Palermo</AssemblyName>
+    <RootNamespace>Adastra</RootNamespace>
+    <AssemblyName>Adastra</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
