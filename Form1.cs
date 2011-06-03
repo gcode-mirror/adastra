@@ -116,9 +116,6 @@ namespace CursorControl
             OpenVibeController.NoGUI = true;
             OpenVibeController.Start();
 
-            //2.  Activate timer
-            //_timer.Enabled = true; // Enable it
-
             while (!bwAsync.CancellationPending)
             {
                 analog.Update();
@@ -139,7 +136,20 @@ namespace CursorControl
 
         private void buttonSelectScenario_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog dialog
+            OpenFileDialog fo = new OpenFileDialog();
+
+            DialogResult result = fo.ShowDialog(); // Show the dialog.
+            if (result == DialogResult.OK) // Test result.
+            {
+                try
+                {
+                    textBoxScenario.Text = fo.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error:"+ex.Message);
+                }
+            }
 
             //check for vrpn box
 
@@ -175,6 +185,24 @@ namespace CursorControl
         private void openVibesHomepageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenLinkInBrowser("http://openvibe.inria.fr/");
+        }
+
+        private void buttonSelectOpenVibeWorkingFolder_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fo = new OpenFileDialog();
+
+            DialogResult result = fo.ShowDialog(); // Show the dialog.
+            if (result == DialogResult.OK) // Test result.
+            {
+                try
+                {
+                    textBoxOpenVibeWorkingFolder.Text = fo.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error:" + ex.Message);
+                }
+            }
         }
     }
 }
