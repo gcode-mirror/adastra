@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,15 +40,15 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.homepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.openVibesHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxOpenVibeWorkingFolder = new System.Windows.Forms.TextBox();
+            this.textBoxScenario = new System.Windows.Forms.TextBox();
             this.buttonSelectOpenVibeWorkingFolder = new System.Windows.Forms.Button();
             this.buttonSelectScenario = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.openVibesHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -74,16 +74,16 @@
             // 
             // chart1
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart1.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(11, 211);
             this.chart1.Name = "chart1";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart1.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(749, 192);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -126,23 +126,33 @@
             // homepageToolStripMenuItem
             // 
             this.homepageToolStripMenuItem.Name = "homepageToolStripMenuItem";
-            this.homepageToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.homepageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.homepageToolStripMenuItem.Text = "Adastra\'s homepage";
             this.homepageToolStripMenuItem.Click += new System.EventHandler(this.homepageToolStripMenuItem_Click);
             // 
-            // textBox1
+            // openVibesHomepageToolStripMenuItem
             // 
-            this.textBox1.Location = new System.Drawing.Point(141, 83);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(506, 20);
-            this.textBox1.TabIndex = 4;
+            this.openVibesHomepageToolStripMenuItem.Name = "openVibesHomepageToolStripMenuItem";
+            this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openVibesHomepageToolStripMenuItem.Text = "OpenVibe\'s homepage";
+            this.openVibesHomepageToolStripMenuItem.Click += new System.EventHandler(this.openVibesHomepageToolStripMenuItem_Click);
             // 
-            // textBox2
+            // textBoxOpenVibeWorkingFolder
             // 
-            this.textBox2.Location = new System.Drawing.Point(141, 118);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(506, 20);
-            this.textBox2.TabIndex = 5;
+            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(141, 83);
+            this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
+            this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(506, 20);
+            this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
+            this.textBoxOpenVibeWorkingFolder.Text = "D:\\e\\openvibe_src\\dist\\";
+            // 
+            // textBoxScenario
+            // 
+            this.textBoxScenario.Location = new System.Drawing.Point(141, 118);
+            this.textBoxScenario.Name = "textBoxScenario";
+            this.textBoxScenario.Size = new System.Drawing.Size(506, 20);
+            this.textBoxScenario.TabIndex = 5;
+            this.textBoxScenario.Text = "D:\\e\\openvibe_src\\dist\\share\\openvibe-scenarios\\bci\\motor-imagery\\motor-imagery-b" +
+                "ci-4-replay-VRPN.xml";
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
@@ -199,13 +209,6 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Displays values streamed by OpenVibe\'s Analog VRPN server";
             // 
-            // openVibesHomepageToolStripMenuItem
-            // 
-            this.openVibesHomepageToolStripMenuItem.Name = "openVibesHomepageToolStripMenuItem";
-            this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.openVibesHomepageToolStripMenuItem.Text = "OpenVibe\'s homepage";
-            this.openVibesHomepageToolStripMenuItem.Click += new System.EventHandler(this.openVibesHomepageToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,8 +220,8 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.buttonSelectScenario);
             this.Controls.Add(this.buttonSelectOpenVibeWorkingFolder);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxScenario);
+            this.Controls.Add(this.textBoxOpenVibeWorkingFolder);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
@@ -244,8 +247,8 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem homepageToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxOpenVibeWorkingFolder;
+        private System.Windows.Forms.TextBox textBoxScenario;
         private System.Windows.Forms.Button buttonSelectOpenVibeWorkingFolder;
         private System.Windows.Forms.Button buttonSelectScenario;
         private System.Windows.Forms.TextBox textBox3;

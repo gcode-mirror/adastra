@@ -121,6 +121,6 @@
     <value>17, 17</value>
   </metadata>
   <data name="textBox3.Text" xml:space="preserve">
-    <value>The following application connects is used to control and visualize the ouput from OpenVibe. OpenVibe is a BCI application. The output is in the form sceratious to execute and the ouput is recived from OpenVibe through the OpenVibe protocol.</value>
+    <value>Adastra is a demo .NET application and it acts as a wrapper of OpenVibe. OpenVibe is a BCI application. Adastra supplies input for OpenVibe and captures the output from OpenVibe through OpenVibe's VRPN server. Adastra was developed by Anton Andreev.</value>
   </data>
 </root>

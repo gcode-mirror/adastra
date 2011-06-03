@@ -15,13 +15,9 @@ namespace CursorControl
 {
     public partial class Form1 : Form
     {
-
         static AnalogRemote analog;
 
-       // static System.Timers.Timer _timer; // From System.Timers
-
         Queue result = Queue.Synchronized(new Queue());
-        bool MouseMovementEnabled=true;
 
         public Form1()
         {
@@ -55,13 +51,13 @@ namespace CursorControl
                 result.Dequeue();
             }
 
-            if (MouseMovementEnabled && Math.Abs(v) > 2)
-            {
-                if (v > 0) //left
-                    Cursor.Position = new System.Drawing.Point(Cursor.Position.X-Convert.ToInt32(v*100), Cursor.Position.Y);
-                //right
-                else Cursor.Position = new System.Drawing.Point(Cursor.Position.X - Convert.ToInt32(v * 100), Cursor.Position.Y);
-            }
+            //if (MouseMovementEnabled && Math.Abs(v) > 2)
+            //{
+            //    if (v > 0) //left
+            //        Cursor.Position = new System.Drawing.Point(Cursor.Position.X-Convert.ToInt32(v*100), Cursor.Position.Y);
+            //    //right
+            //    else Cursor.Position = new System.Drawing.Point(Cursor.Position.X - Convert.ToInt32(v * 100), Cursor.Position.Y);
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -110,12 +106,12 @@ namespace CursorControl
             throw new NotImplementedException();
         }
 
-        static void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
+        void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            OpenVibeController.OpenVibeDesignerWorkingFolder = @"D:\e\openvibe_src\dist\";
-            OpenVibeController.Scenario = @"D:\e\openvibe_src\dist\share\openvibe-scenarios\bci\motor-imagery\motor-imagery-bci-4-replay-VRPN.xml";
+            OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
+            OpenVibeController.Scenario = this.textBoxScenario.Text;
             OpenVibeController.FastPlay = false;
             OpenVibeController.NoGUI = true;
             OpenVibeController.Start();
