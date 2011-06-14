@@ -182,14 +182,14 @@ namespace Adastra
 
         private void buttonSelectOpenVibeWorkingFolder_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fo = new OpenFileDialog();
+            System.Windows.Forms.FolderBrowserDialog fo = new FolderBrowserDialog();
 
             DialogResult result = fo.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
                 try
                 {
-                    textBoxOpenVibeWorkingFolder.Text = fo.FileName;
+                    textBoxOpenVibeWorkingFolder.Text = fo.SelectedPath;
                 }
                 catch (Exception ex)
                 {
