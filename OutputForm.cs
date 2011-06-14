@@ -25,8 +25,6 @@ namespace Adastra
         {
             InitializeComponent();
 
-
-
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
             chart1.ChartAreas[0].AxisY.Maximum = 0.3;
@@ -76,8 +74,11 @@ namespace Adastra
 
         void asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
-            int i;
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message + " " +e.Error.StackTrace);
+            }
+            //else MessageBox.Show("Complete");
         }
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -121,9 +122,9 @@ namespace Adastra
 
             while (!bwAsync.CancellationPending)
             {
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(100);
                 analog.Update();
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(100);
             }
 
             if (bwAsync.CancellationPending)

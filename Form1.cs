@@ -72,6 +72,8 @@ namespace Adastra
         {
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
+
+            asyncWorker = null;
         }
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
