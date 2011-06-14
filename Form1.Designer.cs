@@ -204,8 +204,8 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Display multi-channel EEG output",
-            "Display LDA/SVM classification output",
+            "Display multi-channel OpenVibe output",
+            "Display two channel LDA/SVM classification output",
             "Process input - e.x. train classifier"});
             this.comboBox1.Location = new System.Drawing.Point(256, 154);
             this.comboBox1.Name = "comboBox1";

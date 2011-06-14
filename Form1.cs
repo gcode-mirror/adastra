@@ -15,7 +15,7 @@ namespace Adastra
 {
     public partial class Form1 : Form
     {
-        
+        static OutputForm of;
 
         public Form1()
         {
@@ -48,9 +48,9 @@ namespace Adastra
             }
         }
 
-        public  BackgroundWorker asyncWorker;
+        private  BackgroundWorker asyncWorker;
 
-        public  BackgroundWorker AsyncWorker
+        private  BackgroundWorker AsyncWorker
         {
             get
             {
@@ -76,7 +76,9 @@ namespace Adastra
 
         static void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            of = new OutputForm();
+            of.Show();
+            of.Process();
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -89,15 +91,17 @@ namespace Adastra
             OpenVibeController.NoGUI = true;
             OpenVibeController.Start();
 
-            System.Threading.Thread.Sleep(1000*4);
+            //OutputForm of = new OutputForm();
+            //of.Show();
+            //of.Process();
 
-            OutputForm of = new OutputForm();
-            of.Show();
+            bwAsync.ReportProgress(-1, "Loaded");
 
-            while (!bwAsync.CancellationPending)
-            {
-                of.analog.Update();
-            }
+            while (!bwAsync.CancellationPending) ;
+            //{
+            //    of.analog.Update();
+            //}
+            //while (!bwAsync.CancellationPending) ;
 
             if (bwAsync.CancellationPending)
             {

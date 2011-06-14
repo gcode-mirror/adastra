@@ -44,7 +44,56 @@ namespace Adastra
 
             chart1.Series[0].Color = Color.Red;
 
+
+            //if (charts.Count == 0)
+            //{
+            //    GenerateCharts(11);
+            //}
             
+        }
+
+        public void Process()
+        {
+            AsyncWorker.RunWorkerAsync();
+        }
+
+        public BackgroundWorker asyncWorker;
+        private BackgroundWorker AsyncWorker
+        {
+            get
+            {
+                if (asyncWorker == null)
+                {
+                    asyncWorker = new BackgroundWorker();
+                    asyncWorker.WorkerReportsProgress = true;
+                    asyncWorker.WorkerSupportsCancellation = true;
+                    asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
+                    //asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
+                    asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
+                }
+
+                return asyncWorker;
+            }
+        }
+
+        void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            GenerateCharts(e.ProgressPercentage);
+        }
+
+        void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bwAsync = sender as BackgroundWorker;
+
+            while (!bwAsync.CancellationPending)
+            {
+                System.Threading.Thread.Sleep(100);
+                analog.Update();
+                System.Threading.Thread.Sleep(100);
+            }
+
+            if (bwAsync.CancellationPending)
+                e.Cancel = true; ;
         }
 
         void GenerateCharts(int n)
@@ -104,9 +153,9 @@ namespace Adastra
                 q = new Queue[e.Channels.Length];
             }
 
-            if (charts.Count==0)
+            if (AsyncWorker.IsBusy && charts.Count==0)
             {
-                GenerateCharts(e.Channels.Length);
+                AsyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
             }
 
             if (count % 1 == 0)
@@ -137,34 +186,6 @@ namespace Adastra
                         q[i].Dequeue();
                     }
                 }
-
-                //result.Enqueue(Convert.ToDouble(e.Channels[0]));
-                //result2.Enqueue(Convert.ToDouble(e.Channels[1]));
-                //count = 0;
-
-
-                ////chart1.ChartAreas[0].AxisY.ScaleView.Zoomable = false;
-
-
-                //if (result.Count > 22)
-                //{
-                //    //label1.Text = e.Channels[0].ToString();
-
-                //    chart1.Series[0].Points.DataBindY(result.ToArray());
-
-
-                //    chart1.Update();
-
-                //    result.Dequeue();
-
-                //    //----------------------------------------------------
-
-                //    charts[1].Series[0].Points.DataBindY(result2.ToArray());
-
-                //    charts[1].Update();
-
-                //    result2.Dequeue();
-                //}
             }
 
             //if (MouseMovementEnabled && Math.Abs(v) > 2)
@@ -174,6 +195,18 @@ namespace Adastra
             //    //right
             //    else Cursor.Position = new System.Drawing.Point(Cursor.Position.X - Convert.ToInt32(v * 100), Cursor.Position.Y);
             //}
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            AsyncWorker.CancelAsync();
+            this.Close();
+        }
+
+        private void OutputForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!AsyncWorker.CancellationPending)
+               AsyncWorker.CancelAsync();
         }
     }
 }
