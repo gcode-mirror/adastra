@@ -15,7 +15,7 @@ namespace Adastra
 {
     public partial class Form1 : Form
     {
-        static OutputForm of;
+        OutputForm of;
 
         public Form1()
         {
@@ -74,7 +74,7 @@ namespace Adastra
             buttonStart.Enabled = true;
         }
 
-        static void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             of = new OutputForm();
             of.Show();
@@ -108,6 +108,7 @@ namespace Adastra
 
             if (bwAsync.CancellationPending)
             {
+                of.Stop();
                 of.Close();
                 OpenVibeController.Stop();
                 e.Cancel = true;

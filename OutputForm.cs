@@ -15,7 +15,7 @@ namespace Adastra
 {
     public partial class OutputForm : Form
     {
-        public AnalogRemote analog;
+        //public AnalogRemote analog;
 
         Queue[] q = null;
 
@@ -25,9 +25,7 @@ namespace Adastra
         {
             InitializeComponent();
 
-            analog = new AnalogRemote("openvibe-vrpn@localhost");
-            analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
-            analog.MuteWarnings = true;
+
 
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
@@ -68,7 +66,7 @@ namespace Adastra
                     asyncWorker.WorkerReportsProgress = true;
                     asyncWorker.WorkerSupportsCancellation = true;
                     asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
-                    //asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
+                    asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
                     asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
                 }
 
@@ -76,24 +74,60 @@ namespace Adastra
             }
         }
 
+        void asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+            int i;
+        }
+
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            GenerateCharts(e.ProgressPercentage);
+            BackgroundWorker bwAsync = sender as BackgroundWorker;
+
+            if (e.UserState is string && (string)e.UserState == "LoadCharts")
+                GenerateCharts(e.ProgressPercentage);
+            else
+            {
+                int i = e.ProgressPercentage;
+
+                var array=((Queue)e.UserState).ToArray();
+
+                if (!bwAsync.CancellationPending)
+                {
+                    if (i == 0)
+                    {
+                        chart1.Series[0].Points.DataBindY(array);
+
+                        chart1.Update();
+                    }
+                    else
+                        if (i <= charts.Count)
+                        {
+                            charts[i - 1].Series[0].Points.DataBindY(array);
+                            charts[i - 1].Update();
+                        }
+                }
+            }
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
+            AnalogRemote analog;
+            analog = new AnalogRemote("openvibe-vrpn@localhost");
+            analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
+            analog.MuteWarnings = true;
+
             while (!bwAsync.CancellationPending)
             {
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(200);
                 analog.Update();
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(200);
             }
 
             if (bwAsync.CancellationPending)
-                e.Cancel = true; ;
+                e.Cancel = true;
         }
 
         void GenerateCharts(int n)
@@ -170,18 +204,7 @@ namespace Adastra
 
                     if (q[i].Count > 22)
                     {
-                        if (i == 0)
-                        {
-                            chart1.Series[0].Points.DataBindY(q[i].ToArray());
-
-                            chart1.Update();
-                        }
-                        else
-                            if (i <= charts.Count)
-                            {
-                                charts[i - 1].Series[0].Points.DataBindY(q[i].ToArray());
-                                charts[i - 1].Update();
-                            }
+                        AsyncWorker.ReportProgress(i, q[i]);
 
                         q[i].Dequeue();
                     }
@@ -206,7 +229,14 @@ namespace Adastra
         private void OutputForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!AsyncWorker.CancellationPending)
-               AsyncWorker.CancelAsync();
+            {
+                AsyncWorker.CancelAsync();
+            }
+        }
+
+        public void Stop()
+        {
+            AsyncWorker.CancelAsync();
         }
     }
 }
