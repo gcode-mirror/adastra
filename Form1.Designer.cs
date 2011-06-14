@@ -45,14 +45,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxScenarioType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(141, 136);
+            this.buttonStart.Location = new System.Drawing.Point(141, 140);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(198, 34);
             this.buttonStart.TabIndex = 2;
@@ -63,7 +63,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(60, 114);
+            this.label1.Location = new System.Drawing.Point(59, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 1;
@@ -135,7 +135,7 @@
             // 
             // textBoxScenario
             // 
-            this.textBoxScenario.Location = new System.Drawing.Point(141, 75);
+            this.textBoxScenario.Location = new System.Drawing.Point(141, 95);
             this.textBoxScenario.Name = "textBoxScenario";
             this.textBoxScenario.Size = new System.Drawing.Size(506, 20);
             this.textBoxScenario.TabIndex = 5;
@@ -153,7 +153,7 @@
             // 
             // buttonSelectScenario
             // 
-            this.buttonSelectScenario.Location = new System.Drawing.Point(653, 75);
+            this.buttonSelectScenario.Location = new System.Drawing.Point(654, 95);
             this.buttonSelectScenario.Name = "buttonSelectScenario";
             this.buttonSelectScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectScenario.TabIndex = 7;
@@ -164,7 +164,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 40);
+            this.label2.Location = new System.Drawing.Point(8, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 9;
@@ -173,7 +173,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(59, 75);
+            this.label3.Location = new System.Drawing.Point(58, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 10;
@@ -182,7 +182,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(587, 130);
+            this.buttonExit.Location = new System.Drawing.Point(587, 134);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(141, 40);
             this.buttonExit.TabIndex = 12;
@@ -190,25 +190,29 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
-            // comboBox1
+            // comboBoxScenarioType
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Display multi-channel OpenVibe output",
-            "Display two channel LDA/SVM classification output",
-            "Prcosses output from feature aggegator"});
-            this.comboBox1.Location = new System.Drawing.Point(141, 106);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(326, 21);
-            this.comboBox1.TabIndex = 13;
+            this.comboBoxScenarioType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxScenarioType.FormattingEnabled = true;
+            this.comboBoxScenarioType.Items.AddRange(new object[] {
+            "1. Display multi-channel OpenVibe output",
+            "2. Display two channel LDA/SVM classification output",
+            "3. Train LDA classifier using OpenVibe\'s feature aggegator output",
+            "4. Dispaly classes using OpenVibe\'s feature aggegator and already trained classif" +
+                "ier",
+            "5. Control mouse cursor using OpenVibe\'s feature aggegator and already trained cl" +
+                "assifier"});
+            this.comboBoxScenarioType.Location = new System.Drawing.Point(141, 66);
+            this.comboBoxScenarioType.Name = "comboBoxScenarioType";
+            this.comboBoxScenarioType.Size = new System.Drawing.Size(506, 21);
+            this.comboBoxScenarioType.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 186);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxScenarioType);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -246,7 +250,7 @@
         private System.Windows.Forms.ToolStripMenuItem openVibesHomepageToolStripMenuItem;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxScenarioType;
     }
 }
 

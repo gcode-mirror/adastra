@@ -20,7 +20,7 @@ namespace Adastra
         public Form1()
         {
             InitializeComponent();
-            label1.Text = "";
+            comboBoxScenarioType.SelectedIndex = 0;
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
