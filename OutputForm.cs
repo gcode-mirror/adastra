@@ -50,7 +50,7 @@ namespace Adastra
             
         }
 
-        public void Process()
+        public void Start()
         {
             AsyncWorker.RunWorkerAsync();
         }

@@ -78,7 +78,7 @@ namespace Adastra
         {
             of = new OutputForm();
             of.Show();
-            of.Process();
+            of.Start();
             
         }
 
