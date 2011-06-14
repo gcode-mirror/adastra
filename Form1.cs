@@ -79,6 +79,7 @@ namespace Adastra
             of = new OutputForm();
             of.Show();
             of.Process();
+            
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -91,11 +92,13 @@ namespace Adastra
             OpenVibeController.NoGUI = true;
             OpenVibeController.Start();
 
+            System.Threading.Thread.Sleep(4 * 1000);
             //OutputForm of = new OutputForm();
             //of.Show();
             //of.Process();
 
             bwAsync.ReportProgress(-1, "Loaded");
+            
 
             while (!bwAsync.CancellationPending) ;
             //{
