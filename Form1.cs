@@ -34,39 +34,21 @@ namespace Adastra
             analog.MuteWarnings = true;
 
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
+
             chart1.ChartAreas[0].AxisY.Maximum = 0.3;
             chart1.ChartAreas[0].AxisY.Minimum = -0.3;
 
+            chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
             chart1.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled = false;
-            chart1.ChartAreas[0].AxisX.Maximum = 10;
-            chart1.ChartAreas[0].AxisX.Minimum = 10;
+
+            chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Milliseconds;
 
             chart1.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
 
             chart1.Series[0].Color = Color.Red;
 
-            //chart1.Series[0].BackGradientStyle=System.Windows.Forms.DataVisualization.Charting.GradientStyle.None;
-            //chart1.ChartAreas[0].BackGradientStyle=System.Windows.Forms.DataVisualization.Charting.GradientStyle.None;
-            //chart1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.None;
-
-            //chart1.ChartAreas[0].BackColor = Color.Transparent;
-            //chart1.Series[0].BackSecondaryColor = Color.Transparent;
-            //chart1.ChartAreas[0].BackSecondaryColor = Color.Transparent;
-            //chart1.ChartAreas[0].BorderColor = Color.Transparent;
-            //chart1.ChartAreas[0].BackImageTransparentColor = Color.Transparent;
-            //chart1.ChartAreas[0].ShadowColor = Color.Transparent;
-            //chart1.ChartAreas[0].BackHatchStyle = System.Windows.Forms.DataVisualization.Charting.ChartHatchStyle.None;
-            //chart1.Series[0].BackHatchStyle = System.Windows.Forms.DataVisualization.Charting.ChartHatchStyle.None;
-
-            //chart2.Series[0].Color = Color.Green;
-            //chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            //chart2.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
-            //chart2.ChartAreas[0].AxisY.Maximum = 0.3;
-            //chart2.ChartAreas[0].AxisY.Minimum = -0.3;
-
-            for (int i = 2; i <= 6; i++)
+            for (int i = 2; i <= 7; i++)
             {
                 System.Windows.Forms.DataVisualization.Charting.Chart c = new System.Windows.Forms.DataVisualization.Charting.Chart();
                 c.Name = "chart" + i.ToString();
@@ -101,6 +83,8 @@ namespace Adastra
 
                 c.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = chart1.ChartAreas[0].AxisY.MajorGrid.LineDashStyle;
                 c.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle;
+
+                c.ChartAreas[0].AxisX.IntervalType = chart1.ChartAreas[0].AxisX.IntervalType;
 
                 this.Controls.Add(c);
                 c.Show();
@@ -195,12 +179,15 @@ namespace Adastra
         {
             if (AsyncWorker.IsBusy)
             {
+                this.TopMost = false;
+
                 buttonStart.Enabled = false;
 
                 AsyncWorker.CancelAsync();
             }
             else //start new process
             {
+                this.TopMost = true;
                 buttonStart.Text = "Cancel";
                 AsyncWorker.RunWorkerAsync();
             }

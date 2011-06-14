@@ -83,9 +83,9 @@
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(11, 211);
             this.chart1.Name = "chart1";
-            //series1.ChartArea = "ChartArea1";
-            //series1.Legend = "Legend1";
-            //series1.Name = "Series1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(749, 69);
             this.chart1.TabIndex = 0;
@@ -161,8 +161,7 @@
             this.textBoxScenario.Name = "textBoxScenario";
             this.textBoxScenario.Size = new System.Drawing.Size(506, 20);
             this.textBoxScenario.TabIndex = 5;
-            this.textBoxScenario.Text = "C:\\Users\\toncho\\Desktop\\Adastra\\scenarios\\motor-imagery-bci-4-replay-VRPN-export." +
-                "xml";
+            this.textBoxScenario.Text = "C:\\Users\\toncho\\Desktop\\Adastra\\scenarios\\signal-processing-VRPN-export.xml";
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
