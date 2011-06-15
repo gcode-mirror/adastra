@@ -52,9 +52,9 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(141, 140);
+            this.buttonStart.Location = new System.Drawing.Point(302, 110);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(198, 34);
+            this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
@@ -63,7 +63,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(59, 69);
+            this.label1.Location = new System.Drawing.Point(9, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 1;
@@ -76,7 +76,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(741, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(798, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -127,23 +127,23 @@
             // 
             // textBoxOpenVibeWorkingFolder
             // 
-            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(141, 40);
+            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(142, 186);
             this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
-            this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(506, 20);
+            this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(179, 20);
             this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
             this.textBoxOpenVibeWorkingFolder.Text = "D:\\e\\openvibe_src\\dist\\";
             // 
             // textBoxScenario
             // 
-            this.textBoxScenario.Location = new System.Drawing.Point(141, 95);
+            this.textBoxScenario.Location = new System.Drawing.Point(169, 74);
             this.textBoxScenario.Name = "textBoxScenario";
-            this.textBoxScenario.Size = new System.Drawing.Size(506, 20);
+            this.textBoxScenario.Size = new System.Drawing.Size(536, 20);
             this.textBoxScenario.TabIndex = 5;
             this.textBoxScenario.Text = "C:\\Users\\toncho\\Desktop\\Adastra\\scenarios\\signal-processing-VRPN-export.xml";
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
-            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(653, 40);
+            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(327, 186);
             this.buttonSelectOpenVibeWorkingFolder.Name = "buttonSelectOpenVibeWorkingFolder";
             this.buttonSelectOpenVibeWorkingFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectOpenVibeWorkingFolder.TabIndex = 6;
@@ -153,7 +153,7 @@
             // 
             // buttonSelectScenario
             // 
-            this.buttonSelectScenario.Location = new System.Drawing.Point(654, 95);
+            this.buttonSelectScenario.Location = new System.Drawing.Point(711, 72);
             this.buttonSelectScenario.Name = "buttonSelectScenario";
             this.buttonSelectScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectScenario.TabIndex = 7;
@@ -164,7 +164,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 43);
+            this.label2.Location = new System.Drawing.Point(9, 189);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 9;
@@ -173,7 +173,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(58, 98);
+            this.label3.Location = new System.Drawing.Point(87, 74);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 10;
@@ -182,7 +182,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(587, 134);
+            this.buttonExit.Location = new System.Drawing.Point(645, 169);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(141, 40);
             this.buttonExit.TabIndex = 12;
@@ -202,16 +202,16 @@
                 "ier",
             "5. Control mouse cursor using OpenVibe\'s feature aggegator and already trained cl" +
                 "assifier"});
-            this.comboBoxScenarioType.Location = new System.Drawing.Point(141, 66);
+            this.comboBoxScenarioType.Location = new System.Drawing.Point(90, 41);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
-            this.comboBoxScenarioType.Size = new System.Drawing.Size(506, 21);
+            this.comboBoxScenarioType.Size = new System.Drawing.Size(615, 21);
             this.comboBoxScenarioType.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 186);
+            this.ClientSize = new System.Drawing.Size(798, 219);
             this.Controls.Add(this.comboBoxScenarioType);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label3);
