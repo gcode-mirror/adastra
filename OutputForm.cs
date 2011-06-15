@@ -20,18 +20,23 @@ namespace Adastra
         Queue[] q = null;
 
         List<System.Windows.Forms.DataVisualization.Charting.Chart> charts = new List<System.Windows.Forms.DataVisualization.Charting.Chart>();
-        
+
+        bool ScallingDisabled = false;
+
         public OutputForm()
         {
             InitializeComponent();
 
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
-            chart1.ChartAreas[0].AxisY.Maximum = 0.3;
-            chart1.ChartAreas[0].AxisY.Minimum = -0.3;
+            if (ScallingDisabled)
+            {
+                chart1.ChartAreas[0].AxisY.Maximum = 0.3;
+                chart1.ChartAreas[0].AxisY.Minimum = -0.3;
 
-            chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
-            chart1.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled = false;
+                chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
+                chart1.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled = false;
+            }
 
             chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Milliseconds;
 
