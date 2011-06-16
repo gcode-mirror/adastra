@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adastra", "Adastra.csproj", "{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adastra", "Adastra\Adastra.csproj", "{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Math", "Accord\Accord.Math\Accord.Math.csproj", "{F718E9A8-DB62-4785-8C49-4333A60D256A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Statistics", "Accord\Accord.Statistics\Accord.Statistics.csproj", "{FD8101DD-C95D-42D6-AD44-AE01C25F2811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,26 @@ Global
 		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Release|Mixed Platforms.Build.0 = Release|x86
 		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Release|x86.ActiveCfg = Release|x86
 		{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}.Release|x86.Build.0 = Release|x86
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F718E9A8-DB62-4785-8C49-4333A60D256A}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FD8101DD-C95D-42D6-AD44-AE01C25F2811}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
