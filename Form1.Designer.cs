@@ -58,7 +58,7 @@
             this.buttonStart.TabIndex = 2;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.button1_Click);
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // label1
             // 
@@ -195,17 +195,19 @@
             this.comboBoxScenarioType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxScenarioType.FormattingEnabled = true;
             this.comboBoxScenarioType.Items.AddRange(new object[] {
-            "1. Display multi-channel OpenVibe output",
-            "2. Display two channel LDA/SVM classification output",
-            "3. Train LDA classifier using OpenVibe\'s feature aggegator output",
-            "4. Dispaly classes using OpenVibe\'s feature aggegator and already trained classif" +
-                "ier",
-            "5. Control mouse cursor using OpenVibe\'s feature aggegator and already trained cl" +
-                "assifier"});
+            "1. Display: multi-channel EEG from OpenVibe",
+            "2. Display: LDA/SVM classification output from OpenVibe",
+            "3. Train:  using OpenVibe\'s feature aggegator + Adastra\'s LDA trainer",
+            "4. Train: using EEG signal +  Adastra\'s feature aggregator and LDA trainer",
+            "5. Display: classes using OpenVibe\'s feature aggegator + Adastra\'s LDA classifier" +
+                "",
+            "6. Control: mouse cursor using OpenVibe\'s feature aggegator + Adastra\'s LDA class" +
+                "ifier"});
             this.comboBoxScenarioType.Location = new System.Drawing.Point(90, 41);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
             this.comboBoxScenarioType.Size = new System.Drawing.Size(615, 21);
             this.comboBoxScenarioType.TabIndex = 13;
+            this.comboBoxScenarioType.SelectedIndexChanged += new System.EventHandler(this.comboBoxScenarioType_SelectedIndexChanged);
             // 
             // Form1
             // 

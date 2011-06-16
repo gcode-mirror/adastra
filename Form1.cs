@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Vrpn;
+//using Vrpn;
 using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
@@ -20,7 +20,7 @@ namespace Adastra
         public Form1()
         {
             InitializeComponent();
-            comboBoxScenarioType.SelectedIndex = 0;
+            comboBoxScenarioType.SelectedIndex = 2;
         }
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -28,9 +28,8 @@ namespace Adastra
             OpenVibeController.Stop();
         }
 
-        
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonStart_Click(object sender, EventArgs e)
         {
             if (AsyncWorker.IsBusy)
             {
@@ -95,18 +94,10 @@ namespace Adastra
             OpenVibeController.Start();
 
             System.Threading.Thread.Sleep(4 * 1000);
-            //OutputForm of = new OutputForm();
-            //of.Show();
-            //of.Process();
 
             bwAsync.ReportProgress(-1, "Loaded");
             
-
             while (!bwAsync.CancellationPending) ;
-            //{
-            //    of.analog.Update();
-            //}
-            //while (!bwAsync.CancellationPending) ;
 
             if (bwAsync.CancellationPending)
             {
@@ -205,6 +196,23 @@ namespace Adastra
         {
             OpenVibeController.Stop();
             Application.Exit();
+        }
+
+        private void comboBoxScenarioType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string scenario = "";
+            switch (comboBoxScenarioType.SelectedIndex)
+            {
+                case 0: scenario = "signal-processing-VRPN-export.xml"; break;
+                case 1: scenario = "motor-imagery-bci-4-replay-VRPN-export.xml"; break;
+                case 2: scenario = "feature-aggregator-VRPN-export.xml"; break;
+            }
+
+            int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
+            if (lastSlash != -1)
+            {
+                textBoxScenario.Text = textBoxScenario.Text.Substring(0, lastSlash+1)+scenario;
+            }
         }
     }
 }

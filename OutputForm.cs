@@ -21,7 +21,7 @@ namespace Adastra
 
         List<System.Windows.Forms.DataVisualization.Charting.Chart> charts = new List<System.Windows.Forms.DataVisualization.Charting.Chart>();
 
-        bool ScallingDisabled = false;
+        bool ScallingDisabled = true;
 
         public OutputForm()
         {
@@ -127,9 +127,9 @@ namespace Adastra
 
             while (!bwAsync.CancellationPending)
             {
-                System.Threading.Thread.Sleep(100);
+                //System.Threading.Thread.Sleep(200);
                 analog.Update();
-                System.Threading.Thread.Sleep(100);
+                //System.Threading.Thread.Sleep(200);
             }
 
             if (bwAsync.CancellationPending)
