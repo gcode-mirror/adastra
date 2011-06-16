@@ -10,16 +10,15 @@ using Vrpn;
 using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Adastra
 {
     public partial class OutputForm : Form
     {
-        //public AnalogRemote analog;
-
         Queue[] q = null;
 
-        List<System.Windows.Forms.DataVisualization.Charting.Chart> charts = new List<System.Windows.Forms.DataVisualization.Charting.Chart>();
+        List<Chart> charts = new List<Chart>();
 
         bool ScallingDisabled = true;
 
@@ -27,6 +26,7 @@ namespace Adastra
         {
             InitializeComponent();
 
+            #region Set First chart
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
             if (ScallingDisabled)
@@ -44,13 +44,7 @@ namespace Adastra
             chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
 
             chart1.Series[0].Color = Color.Red;
-
-
-            //if (charts.Count == 0)
-            //{
-            //    GenerateCharts(11);
-            //}
-            
+            #endregion
         }
 
         public void Start()
@@ -182,38 +176,29 @@ namespace Adastra
             }
         }
 
-        static int count = 0;
-
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            count++;
-
             if (q == null)
             {
                 q = new Queue[e.Channels.Length];
             }
 
-            if (AsyncWorker.IsBusy && charts.Count==0)
+            if (AsyncWorker.IsBusy && charts.Count == 0)
             {
                 AsyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
             }
 
-            if (count % 1 == 0)
+            for (int i = 0; i < q.Length; i++)
             {
-                //double d = Convert.ToDouble(e.Channels[0]);
+                if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
 
-                for (int i = 0; i < q.Length; i++)
+                q[i].Enqueue(e.Channels[i]);
+
+                if (q[i].Count > 22)
                 {
-                    if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
+                    AsyncWorker.ReportProgress(i, q[i]);
 
-                    q[i].Enqueue(e.Channels[i]);
-
-                    if (q[i].Count > 22)
-                    {
-                        AsyncWorker.ReportProgress(i, q[i]);
-
-                        q[i].Dequeue();
-                    }
+                    q[i].Dequeue();
                 }
             }
 
@@ -228,21 +213,21 @@ namespace Adastra
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            AsyncWorker.CancelAsync();
+            Stop();
             this.Close();
         }
 
         private void OutputForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!AsyncWorker.CancellationPending)
-            {
-                AsyncWorker.CancelAsync();
-            }
+            Stop();
         }
 
         public void Stop()
         {
-            AsyncWorker.CancelAsync();
+            if (!AsyncWorker.CancellationPending)
+            {
+                AsyncWorker.CancelAsync();
+            }
         }
     }
 }

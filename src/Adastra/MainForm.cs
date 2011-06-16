@@ -15,6 +15,7 @@ namespace Adastra
     public partial class MainForm : Form
     {
         OutputForm of;
+        TrainForm tf;
 
         private BackgroundWorker asyncWorker;
 
@@ -22,6 +23,7 @@ namespace Adastra
         {
             InitializeComponent();
             comboBoxScenarioType.SelectedIndex = 2;
+            treeView1.ExpandAll();
 
             #region BackgroundWorker for OpenVibe
             asyncWorker = new BackgroundWorker();
@@ -61,9 +63,12 @@ namespace Adastra
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            of = new OutputForm();
-            of.Show();
-            of.Start();
+            switch (comboBoxScenarioType.SelectedIndex)
+            {
+                case 0: of = new OutputForm();of.Show(); of.Start(); break;
+                case 2: tf = new TrainForm(); tf.Show(); break;
+            }
+            
             
         }
 
@@ -85,8 +90,12 @@ namespace Adastra
 
             if (bwAsync.CancellationPending)
             {
-                of.Stop();
-                of.Close();
+                switch (comboBoxScenarioType.SelectedIndex)
+                {
+                    case 0: of.Stop(); of.Close(); of = null; break;
+                    case 2: tf.Close(); tf = null; break;
+                }
+                
                 OpenVibeController.Stop();
                 e.Cancel = true;
 

@@ -29,6 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode10,
+            treeNode12});
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -46,6 +71,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
             this.comboBoxScenarioType = new System.Windows.Forms.ComboBox();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -209,11 +235,47 @@
             this.comboBoxScenarioType.TabIndex = 13;
             this.comboBoxScenarioType.SelectedIndexChanged += new System.EventHandler(this.comboBoxScenarioType_SelectedIndexChanged);
             // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(12, 238);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "Node2";
+            treeNode1.Text = "EEG signal";
+            treeNode2.Name = "Node6";
+            treeNode2.Text = "Claffication output from OpenVibe";
+            treeNode3.Name = "Node1";
+            treeNode3.Text = "Display";
+            treeNode4.Name = "Node7";
+            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode5.Name = "Node8";
+            treeNode5.Text = "Using Adastra\'s feature aggregator";
+            treeNode6.Name = "Node4";
+            treeNode6.Text = "Train";
+            treeNode7.Name = "Node11";
+            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode8.Name = "Node12";
+            treeNode8.Text = "Using Adastra\'s feature aggregator";
+            treeNode9.Name = "Node5";
+            treeNode9.Text = "Classify";
+            treeNode10.Name = "Node3";
+            treeNode10.Text = "Classification";
+            treeNode11.Name = "Node10";
+            treeNode11.Text = "Mouse cursor";
+            treeNode12.Name = "Node9";
+            treeNode12.Text = "Device control";
+            treeNode13.Name = "Node0";
+            treeNode13.Text = "Scenario";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            this.treeView1.Size = new System.Drawing.Size(295, 242);
+            this.treeView1.TabIndex = 14;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 219);
+            this.ClientSize = new System.Drawing.Size(798, 492);
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.comboBoxScenarioType);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label3);
@@ -254,6 +316,7 @@
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxScenarioType;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 
