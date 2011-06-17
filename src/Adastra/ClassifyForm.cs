@@ -31,14 +31,7 @@ namespace Adastra
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            string r = "";
-
-            for (int i = 0; i < e.Channels.Length; i++)
-            {
-                r += e.Channels[i].ToString();
-            }
-
-            lda.Classify(e.Channels);
+            int cls = lda.Classify(e.Channels);
         }
     }
 }

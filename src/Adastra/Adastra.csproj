@@ -61,6 +61,12 @@
     <Compile Include="ClassifyForm.Designer.cs">
       <DependentUpon>ClassifyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CursorControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CursorControlForm.Designer.cs">
+      <DependentUpon>CursorControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     </Compile>
     <EmbeddedResource Include="ClassifyForm.resx">
       <DependentUpon>ClassifyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CursorControlForm.resx">
+      <DependentUpon>CursorControlForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
