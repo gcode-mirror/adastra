@@ -55,6 +55,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassifyForm.Designer.cs">
+      <DependentUpon>ClassifyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     <Compile Include="TrainForm.Designer.cs">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ClassifyForm.resx">
+      <DependentUpon>ClassifyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Algorithms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Accord\Accord.Statistics\Accord.Statistics.csproj">
+      <Project>{FD8101DD-C95D-42D6-AD44-AE01C25F2811}</Project>
+      <Name>Accord.Statistics</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
