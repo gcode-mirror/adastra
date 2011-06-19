@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Neuro">
+      <HintPath>..\..\lib\AForge.Neuro.dll</HintPath>
+    </Reference>
     <Reference Include="InputSimulator">
       <HintPath>lib\InputSimulator.dll</HintPath>
     </Reference>

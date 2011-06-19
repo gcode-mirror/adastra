@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.buttonRecordAction = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonCalculate = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,6 +39,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonSaveModel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -51,15 +53,16 @@
             this.buttonRecordAction.UseVisualStyleBackColor = true;
             this.buttonRecordAction.Click += new System.EventHandler(this.buttonRecordAction_Click);
             // 
-            // button2
+            // buttonCalculate
             // 
-            this.button2.Location = new System.Drawing.Point(25, 208);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(691, 80);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Train";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCalculate.Location = new System.Drawing.Point(25, 208);
+            this.buttonCalculate.Name = "buttonCalculate";
+            this.buttonCalculate.Size = new System.Drawing.Size(691, 80);
+            this.buttonCalculate.TabIndex = 2;
+            this.buttonCalculate.Text = "Compute";
+            this.buttonCalculate.UseVisualStyleBackColor = true;
+            this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
             // 
             // comboBox1
             // 
@@ -102,7 +105,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(80, 352);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(438, 20);
+            this.textBox2.Size = new System.Drawing.Size(378, 20);
             this.textBox2.TabIndex = 7;
             // 
             // label2
@@ -116,7 +119,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(533, 352);
+            this.button1.Location = new System.Drawing.Point(464, 350);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 9;
@@ -125,9 +128,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(641, 352);
+            this.button3.Location = new System.Drawing.Point(634, 352);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 38);
+            this.button3.Size = new System.Drawing.Size(82, 38);
             this.button3.TabIndex = 10;
             this.button3.Text = "Close";
             this.button3.UseVisualStyleBackColor = true;
@@ -142,11 +145,32 @@
             this.comboBox2.Size = new System.Drawing.Size(43, 21);
             this.comboBox2.TabIndex = 11;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 189);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(281, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Afer all recordings, please, compute a classification model:\r\n";
+            // 
+            // buttonSaveModel
+            // 
+            this.buttonSaveModel.Location = new System.Drawing.Point(545, 350);
+            this.buttonSaveModel.Name = "buttonSaveModel";
+            this.buttonSaveModel.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveModel.TabIndex = 13;
+            this.buttonSaveModel.Text = "Save";
+            this.buttonSaveModel.UseVisualStyleBackColor = true;
+            this.buttonSaveModel.Click += new System.EventHandler(this.buttonSaveModel_Click);
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 402);
+            this.Controls.Add(this.buttonSaveModel);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
@@ -156,7 +180,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonCalculate);
             this.Controls.Add(this.buttonRecordAction);
             this.Name = "TrainForm";
             this.Text = "TrainForm";
@@ -168,7 +192,7 @@
         #endregion
 
         private System.Windows.Forms.Button buttonRecordAction;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonCalculate;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
@@ -178,6 +202,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonSaveModel;
 
     }
 }
