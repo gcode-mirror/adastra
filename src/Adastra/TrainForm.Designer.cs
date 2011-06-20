@@ -30,14 +30,14 @@
         {
             this.buttonRecordAction = new System.Windows.Forms.Button();
             this.buttonCalculate = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxSelectedClass = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxFeatureVector = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonCloseForm = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonSaveModel = new System.Windows.Forms.Button();
@@ -64,19 +64,19 @@
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
             // 
-            // comboBox1
+            // comboBoxSelectedClass
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxSelectedClass.FormattingEnabled = true;
+            this.comboBoxSelectedClass.Items.AddRange(new object[] {
             "Left",
             "Right",
             "Up",
             "Down",
             "Double-Click"});
-            this.comboBox1.Location = new System.Drawing.Point(30, 12);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(172, 21);
-            this.comboBox1.TabIndex = 3;
+            this.comboBoxSelectedClass.Location = new System.Drawing.Point(30, 12);
+            this.comboBoxSelectedClass.Name = "comboBoxSelectedClass";
+            this.comboBoxSelectedClass.Size = new System.Drawing.Size(172, 21);
+            this.comboBoxSelectedClass.TabIndex = 3;
             // 
             // progressBar1
             // 
@@ -94,12 +94,12 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Incoming feature vector";
             // 
-            // textBox1
+            // textBoxFeatureVector
             // 
-            this.textBox1.Location = new System.Drawing.Point(377, 156);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(339, 20);
-            this.textBox1.TabIndex = 6;
+            this.textBoxFeatureVector.Location = new System.Drawing.Point(377, 156);
+            this.textBoxFeatureVector.Name = "textBoxFeatureVector";
+            this.textBoxFeatureVector.Size = new System.Drawing.Size(339, 20);
+            this.textBoxFeatureVector.TabIndex = 6;
             // 
             // textBox2
             // 
@@ -126,14 +126,15 @@
             this.button1.Text = "Select";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // buttonCloseForm
             // 
-            this.button3.Location = new System.Drawing.Point(634, 352);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(82, 38);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Close";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonCloseForm.Location = new System.Drawing.Point(634, 352);
+            this.buttonCloseForm.Name = "buttonCloseForm";
+            this.buttonCloseForm.Size = new System.Drawing.Size(82, 38);
+            this.buttonCloseForm.TabIndex = 10;
+            this.buttonCloseForm.Text = "Close";
+            this.buttonCloseForm.UseVisualStyleBackColor = true;
+            this.buttonCloseForm.Click += new System.EventHandler(this.buttonCloseForm_Click);
             // 
             // comboBox2
             // 
@@ -172,14 +173,14 @@
             this.Controls.Add(this.buttonSaveModel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.buttonCloseForm);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxFeatureVector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxSelectedClass);
             this.Controls.Add(this.buttonCalculate);
             this.Controls.Add(this.buttonRecordAction);
             this.Name = "TrainForm";
@@ -193,14 +194,14 @@
 
         private System.Windows.Forms.Button buttonRecordAction;
         private System.Windows.Forms.Button buttonCalculate;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxSelectedClass;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxFeatureVector;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonCloseForm;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSaveModel;

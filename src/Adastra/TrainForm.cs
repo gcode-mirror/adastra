@@ -16,6 +16,17 @@ namespace Adastra
 {
     public partial class TrainForm : Form
     {
+        List<double[]> vrpnIncomingSignal = new List<double[]>();
+        int vrpnDimensions=-1;
+
+        int SelectedClass
+        {
+            get
+            {
+                return comboBoxSelectedClass.SelectedIndex+1;
+            }
+        }
+
         public TrainForm()
         {
             InitializeComponent();
@@ -24,51 +35,72 @@ namespace Adastra
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
+
+            comboBoxSelectedClass.SelectedIndex = 0;
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            string r = "";
+            vrpnDimensions = e.Channels.Length;
 
-            for (int i = 0; i < e.Channels.Length; i++)
+            //string r = "";
+            //for (int i = 0; i < e.Channels.Length; i++)
+            //{
+            //    r += e.Channels[i].ToString();
+            //}
+            //textBoxFeatureVector.Text=r;
+
+            double[] output_input = new double[e.Channels.Length + 1];
+            output_input[0] = SelectedClass;
+            for (int i = 1; i < e.Channels.Length; i++)
             {
-                r += e.Channels[i].ToString();
+                output_input[i] = e.Channels[i-1];
             }
 
-            //queue data
+            vrpnIncomingSignal.Add(e.Channels);
         }
 
 
         private void buttonRecordAction_Click(object sender, EventArgs e)
         {
-            //System.Threading.Thread.Sleep(200);
-            //for (int i = 0; i < 10000; i++)
-            //    analog.Update();
-            //System.Threading.Thread.Sleep(200);
+            //start thread with 
 
-            //extend input, output
+            //analog.Update();
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            double[,] inputs = 
-            {
-              {  4,  1 }, 
-              {  2,  4 },
-              {  2,  3 },
-              {  3,  6 },
-              {  4,  4 },
-              {  9, 10 }, 
-              {  6,  8 },
-              {  9,  5 },
-              {  8,  7 },
-              { 10,  8 }
-            };
+            double[,] inputs = new double[vrpnIncomingSignal.Count, vrpnDimensions];
+            int[] output=new int[vrpnIncomingSignal.Count];
 
-            int[] output = 
+            for(int i=0;i<vrpnIncomingSignal.Count;i++)
             {
-              1, 1, 3, 1, 1, 2, 3, 2, 2, 2
-            };
+                output[i] = Convert.ToInt32((vrpnIncomingSignal[i])[0]);
+
+                for (int j = 1; j < vrpnDimensions; j++)
+                {
+                    inputs[i, j] = (vrpnIncomingSignal[i])[j];
+                }
+            }
+
+            //double[,] inputs = 
+            //{
+            //  {  4,  1 }, 
+            //  {  2,  4 },
+            //  {  2,  3 },
+            //  {  3,  6 },
+            //  {  4,  4 },
+            //  {  9, 10 }, 
+            //  {  6,  8 },
+            //  {  9,  5 },
+            //  {  8,  7 },
+            //  { 10,  8 }
+            //};
+
+            //int[] output = 
+            //{
+            //  1, 1, 3, 1, 1, 2, 3, 2, 2, 2
+            //};
 
             var lda = new LinearDiscriminantAnalysis(inputs, output);
 
@@ -121,12 +153,19 @@ namespace Adastra
                 // check error value to see if we need to stop
                 // ...
             }
+
+            //now we have model of a NN which we can use for classification
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
         {
             //save computed lda
             //save computed NN
+        }
+
+        private void buttonCloseForm_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
