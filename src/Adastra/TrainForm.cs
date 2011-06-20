@@ -71,8 +71,9 @@ namespace Adastra
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
             double[,] inputs = new double[vrpnIncomingSignal.Count, vrpnDimensions];
-            int[] output=new int[vrpnIncomingSignal.Count];
+            int[] output = new int[vrpnIncomingSignal.Count];
 
+            #region convert to LDA format
             for(int i=0;i<vrpnIncomingSignal.Count;i++)
             {
                 output[i] = Convert.ToInt32((vrpnIncomingSignal[i])[0]);
@@ -82,25 +83,7 @@ namespace Adastra
                     inputs[i, j] = (vrpnIncomingSignal[i])[j];
                 }
             }
-
-            //double[,] inputs = 
-            //{
-            //  {  4,  1 }, 
-            //  {  2,  4 },
-            //  {  2,  3 },
-            //  {  3,  6 },
-            //  {  4,  4 },
-            //  {  9, 10 }, 
-            //  {  6,  8 },
-            //  {  9,  5 },
-            //  {  8,  7 },
-            //  { 10,  8 }
-            //};
-
-            //int[] output = 
-            //{
-            //  1, 1, 3, 1, 1, 2, 3, 2, 2, 2
-            //};
+            #endregion
 
             var lda = new LinearDiscriminantAnalysis(inputs, output);
 
@@ -108,14 +91,15 @@ namespace Adastra
             lda.Compute();
 
             double[,] projection = lda.Transform(inputs);
-
+             
             int vector_count = projection.GetLength(0);
             int dimensions = projection.GetLength(1);
 
-            // conver for NN
+            // convert for NN format
             double[][] input2 = new double[vector_count][];
             double[][] output2 = new double[vector_count][];
-
+            
+            #region convert to NN format
             for (int i = 0; i < input2.Length; i++)
             {
                 input2[i] = new double[projection.GetLength(1)];
@@ -126,22 +110,23 @@ namespace Adastra
 
                 output2[i] = new double[1];
 
+                //we turn classes from ints to doubles in the range [0..1], because we use sigmoid for the NN
                 output2[i][0] = Convert.ToDouble(output[i]) / 10;
             }
-
-
+            #endregion
 
             // create neural network
             ActivationNetwork network = new ActivationNetwork(
                 new SigmoidFunction(2),
-                dimensions, // two inputs in the network
-                dimensions, // two neurons in the first layer
+                dimensions, // inputs neurons in the network
+                dimensions, // neurons in the first layer
                 1); // one neuron in the second layer
 
             // create teacher
             BackPropagationLearning teacher = new BackPropagationLearning(network);
+            
+            
             // loop
-
             int p = 0;
             while (true)
             {
