@@ -19,18 +19,26 @@ namespace Adastra
         {
         }
 
-        public int Classify(double[,] sample)
+        public int Classify(double[] input)
         {
-            //double[,] sample = { { 10, 8 } };
+            double[,] sample = new double[1,input.Length];
+
+            #region convert to LDA format
+            for (int i = 0; i < input.Length; i++)
+            {
+               sample[0, i] = input[i];
+            }
+            #endregion
 
             double[,] projectedSample = lda.Transform(sample);
 
-
-            //error this is not 2 dimensional 
-            double[] projectedSample2 = new double[2];
-            projectedSample2[0] = projectedSample[0, 0];
-            projectedSample2[1] = projectedSample[0, 1];
-
+            #region convert to NN format
+            double[] projectedSample2 = new double[projectedSample.GetLength(1)];
+            for (int i = 0; i < projectedSample.GetLength(1); i++)
+            {
+                projectedSample2[i] = projectedSample[0, i];
+            }
+            #endregion
 
             double[] classs = network.Compute(projectedSample2);
 

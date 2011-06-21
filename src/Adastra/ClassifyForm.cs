@@ -14,24 +14,21 @@ namespace Adastra
 {
     public partial class ClassifyForm : Form
     {
-        double[,] inputs;
-        int[] output;
-
-        LinearDiscriminantAnalysis lda;
+        AdastraMachineLearningModel model;
 
         public ClassifyForm()
         {
             InitializeComponent();
-
-            lda = new LinearDiscriminantAnalysis(inputs, output);
-
-            // Compute the analysis
-            lda.Compute();
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            int cls = lda.Classify(e.Channels);
+            model.Classify(e.Channels);
+        }
+
+        private void buttonModel_Click(object sender, EventArgs e)
+        {
+            //load model
         }
     }
 }

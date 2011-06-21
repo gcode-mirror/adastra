@@ -52,12 +52,12 @@ namespace Adastra
 
             double[] output_input = new double[e.Channels.Length + 1];
             output_input[0] = SelectedClass;
-            for (int i = 1; i < e.Channels.Length; i++)
+            for (int i = 1; i < e.Channels.Length+1; i++)
             {
                 output_input[i] = e.Channels[i-1];
             }
 
-            vrpnIncomingSignal.Add(e.Channels);
+            vrpnIncomingSignal.Add(output_input);
         }
 
 
@@ -106,9 +106,9 @@ namespace Adastra
             {
                 output[i] = Convert.ToInt32((vrpnIncomingSignal[i])[0]);
 
-                for (int j = 1; j < vrpnDimensions; j++)
+                for (int j = 1; j < vrpnDimensions+1; j++)
                 {
-                    inputs[i, j] = (vrpnIncomingSignal[i])[j];
+                    inputs[i, j-1] = (vrpnIncomingSignal[i])[j];
                 }
             }
             #endregion

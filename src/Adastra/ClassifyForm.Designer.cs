@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonModel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -41,14 +41,15 @@
             this.textBox1.Size = new System.Drawing.Size(300, 20);
             this.textBox1.TabIndex = 0;
             // 
-            // button1
+            // buttonModel
             // 
-            this.button1.Location = new System.Drawing.Point(464, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Load";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonModel.Location = new System.Drawing.Point(464, 10);
+            this.buttonModel.Name = "buttonModel";
+            this.buttonModel.Size = new System.Drawing.Size(75, 23);
+            this.buttonModel.TabIndex = 1;
+            this.buttonModel.Text = "Load";
+            this.buttonModel.UseVisualStyleBackColor = true;
+            this.buttonModel.Click += new System.EventHandler(this.buttonModel_Click);
             // 
             // label1
             // 
@@ -75,7 +76,7 @@
             this.ClientSize = new System.Drawing.Size(683, 354);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonModel);
             this.Controls.Add(this.textBox1);
             this.Name = "ClassifyForm";
             this.Text = "ClassifyForm";
@@ -87,7 +88,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonModel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }
