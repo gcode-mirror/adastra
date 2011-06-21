@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdastraMachineLearningModel.cs" />
     <Compile Include="ClassifyForm.cs">
       <SubType>Form</SubType>
     </Compile>

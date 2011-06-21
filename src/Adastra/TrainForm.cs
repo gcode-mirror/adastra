@@ -174,6 +174,8 @@ namespace Adastra
         {
             //save computed lda
             //save computed NN
+
+            
         }
 
         private void buttonCloseForm_Click(object sender, EventArgs e)
