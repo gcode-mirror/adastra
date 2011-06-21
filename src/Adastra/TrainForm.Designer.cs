@@ -42,6 +42,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.buttonSaveModel = new System.Windows.Forms.Button();
             this.textBoxLogger = new System.Windows.Forms.TextBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -59,7 +61,7 @@
             this.buttonCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCalculate.Location = new System.Drawing.Point(30, 208);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(686, 80);
+            this.buttonCalculate.Size = new System.Drawing.Size(530, 80);
             this.buttonCalculate.TabIndex = 2;
             this.buttonCalculate.Text = "Compute";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -177,11 +179,35 @@
             this.textBoxLogger.Size = new System.Drawing.Size(696, 78);
             this.textBoxLogger.TabIndex = 14;
             // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(588, 223);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(74, 17);
+            this.radioButton1.TabIndex = 15;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "LDA+MLP";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(588, 255);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(75, 17);
+            this.radioButton2.TabIndex = 16;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "LDA+SVM";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 496);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.textBoxLogger);
             this.Controls.Add(this.buttonSaveModel);
             this.Controls.Add(this.label3);
@@ -219,6 +245,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSaveModel;
         private System.Windows.Forms.TextBox textBoxLogger;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
 
     }
 }
