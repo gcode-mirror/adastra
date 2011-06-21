@@ -12,14 +12,21 @@ using Vrpn;
 using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
+using Db4objects.Db4o;
 
 namespace Adastra
 {
     public partial class TrainForm : Form
     {
         List<double[]> vrpnIncomingSignal = new List<double[]>();
+
         int vrpnDimensions=-1;
+
         AnalogRemote analog;
+
+        AdastraMachineLearningModel model;
+
+        Dictionary<string, int> actions = new Dictionary<string, int>();
 
         int SelectedClass
         {
@@ -30,7 +37,6 @@ namespace Adastra
         public TrainForm()
         {
             InitializeComponent();
-
             
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
@@ -51,7 +57,9 @@ namespace Adastra
             //textBoxFeatureVector.Text=r;
 
             double[] output_input = new double[e.Channels.Length + 1];
+
             output_input[0] = SelectedClass;
+            
             for (int i = 1; i < e.Channels.Length+1; i++)
             {
                 output_input[i] = e.Channels[i-1];
@@ -64,6 +72,10 @@ namespace Adastra
         private void buttonRecordAction_Click(object sender, EventArgs e)
         {
             SelectedClass = comboBoxSelectedClass.SelectedIndex + 1;
+            string ClassName = comboBoxSelectedClass.Items[comboBoxSelectedClass.SelectedIndex].ToString();
+
+            if (!actions.Keys.Contains(ClassName))
+                actions.Add(ClassName, SelectedClass);
 
             textBoxLogger.Text += "Recoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
 
@@ -161,26 +173,34 @@ namespace Adastra
                 double error = teacher.RunEpoch(input2, output2);
 
                 p++;
-                if (p > 1000) break;
+                if (p > 100) break;
                 // check error value to see if we need to stop
                 
                 
             }
 
-            //now we have a model of a NN which we can use for classification
+            //now we have a model of a NN+LDA which we can use for classification
+            model = new AdastraMachineLearningModel(lda,network);
+            model.ActionList = actions;
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
         {
-            //save computed lda
-            //save computed NN
-
+            using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
+            {
+                db.Store(model);
+            }
             
         }
 
         private void buttonCloseForm_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonSelectModelLocation_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -28,56 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonModel = new System.Windows.Forms.Button();
+            this.textBoxModelPath = new System.Windows.Forms.TextBox();
+            this.buttonLoadModel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.buttonStartProcessing = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxModelPath
             // 
-            this.textBox1.Location = new System.Drawing.Point(134, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(300, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBoxModelPath.Location = new System.Drawing.Point(130, 9);
+            this.textBoxModelPath.Name = "textBoxModelPath";
+            this.textBoxModelPath.Size = new System.Drawing.Size(300, 20);
+            this.textBoxModelPath.TabIndex = 0;
             // 
-            // buttonModel
+            // buttonLoadModel
             // 
-            this.buttonModel.Location = new System.Drawing.Point(464, 10);
-            this.buttonModel.Name = "buttonModel";
-            this.buttonModel.Size = new System.Drawing.Size(75, 23);
-            this.buttonModel.TabIndex = 1;
-            this.buttonModel.Text = "Load";
-            this.buttonModel.UseVisualStyleBackColor = true;
-            this.buttonModel.Click += new System.EventHandler(this.buttonModel_Click);
+            this.buttonLoadModel.Location = new System.Drawing.Point(525, 7);
+            this.buttonLoadModel.Name = "buttonLoadModel";
+            this.buttonLoadModel.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoadModel.TabIndex = 1;
+            this.buttonLoadModel.Text = "Load";
+            this.buttonLoadModel.UseVisualStyleBackColor = true;
+            this.buttonLoadModel.Click += new System.EventHandler(this.buttonModel_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 18);
+            this.label1.Location = new System.Drawing.Point(9, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 13);
+            this.label1.Size = new System.Drawing.Size(120, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "TrainedClassifier model";
+            this.label1.Text = "Trained classifier model:";
             // 
-            // label2
+            // buttonStartProcessing
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(258, 157);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "RESULT";
+            this.buttonStartProcessing.Location = new System.Drawing.Point(175, 53);
+            this.buttonStartProcessing.Name = "buttonStartProcessing";
+            this.buttonStartProcessing.Size = new System.Drawing.Size(301, 40);
+            this.buttonStartProcessing.TabIndex = 4;
+            this.buttonStartProcessing.Text = "Process";
+            this.buttonStartProcessing.UseVisualStyleBackColor = true;
+            this.buttonStartProcessing.Click += new System.EventHandler(this.buttonStartProcessing_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(21, 117);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(579, 95);
+            this.listBox1.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(444, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // ClassifyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(683, 354);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(621, 225);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.buttonStartProcessing);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonModel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.buttonLoadModel);
+            this.Controls.Add(this.textBoxModelPath);
             this.Name = "ClassifyForm";
             this.Text = "ClassifyForm";
             this.ResumeLayout(false);
@@ -87,9 +109,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonModel;
+        private System.Windows.Forms.TextBox textBoxModelPath;
+        private System.Windows.Forms.Button buttonLoadModel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonStartProcessing;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

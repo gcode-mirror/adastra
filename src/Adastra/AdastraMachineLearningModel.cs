@@ -11,12 +11,16 @@ namespace Adastra
 {
     public class AdastraMachineLearningModel
     {
-        LinearDiscriminantAnalysis lda;
+        LinearDiscriminantAnalysis _lda;
 
-        ActivationNetwork network;
+        ActivationNetwork _network;
 
-        public AdastraMachineLearningModel()
+        public AdastraMachineLearningModel(LinearDiscriminantAnalysis lda, ActivationNetwork network)
         {
+            _lda = lda;
+            _network = network;
+
+            ActionList = new Dictionary<string,int>();
         }
 
         public int Classify(double[] input)
@@ -30,7 +34,7 @@ namespace Adastra
             }
             #endregion
 
-            double[,] projectedSample = lda.Transform(sample);
+            double[,] projectedSample = _lda.Transform(sample);
 
             #region convert to NN format
             double[] projectedSample2 = new double[projectedSample.GetLength(1)];
@@ -40,7 +44,7 @@ namespace Adastra
             }
             #endregion
 
-            double[] classs = network.Compute(projectedSample2);
+            double[] classs = _network.Compute(projectedSample2);
 
             //we convert back to int classes by first rounding and then multipling by 10 (because we devided to 10 before)
             //rounding might be a problem
@@ -48,7 +52,8 @@ namespace Adastra
             int converted = Convert.ToInt32(Math.Round(classs[0], 1, MidpointRounding.AwayFromZero) * 10);
 
             return converted;
- 
         }
+
+        public Dictionary<string,int> ActionList;
     }
 }

@@ -34,9 +34,9 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxFeatureVector = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxModelLocation = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSelectModelLocation = new System.Windows.Forms.Button();
             this.buttonCloseForm = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -103,12 +103,12 @@
             this.textBoxFeatureVector.Size = new System.Drawing.Size(339, 20);
             this.textBoxFeatureVector.TabIndex = 6;
             // 
-            // textBox2
+            // textBoxModelLocation
             // 
-            this.textBox2.Location = new System.Drawing.Point(80, 352);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(378, 20);
-            this.textBox2.TabIndex = 7;
+            this.textBoxModelLocation.Location = new System.Drawing.Point(80, 352);
+            this.textBoxModelLocation.Name = "textBoxModelLocation";
+            this.textBoxModelLocation.Size = new System.Drawing.Size(378, 20);
+            this.textBoxModelLocation.TabIndex = 7;
             // 
             // label2
             // 
@@ -119,14 +119,15 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Save to:";
             // 
-            // button1
+            // buttonSelectModelLocation
             // 
-            this.button1.Location = new System.Drawing.Point(464, 350);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Select";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonSelectModelLocation.Location = new System.Drawing.Point(464, 350);
+            this.buttonSelectModelLocation.Name = "buttonSelectModelLocation";
+            this.buttonSelectModelLocation.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectModelLocation.TabIndex = 9;
+            this.buttonSelectModelLocation.Text = "Select";
+            this.buttonSelectModelLocation.UseVisualStyleBackColor = true;
+            this.buttonSelectModelLocation.Click += new System.EventHandler(this.buttonSelectModelLocation_Click);
             // 
             // buttonCloseForm
             // 
@@ -186,9 +187,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.buttonCloseForm);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonSelectModelLocation);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxModelLocation);
             this.Controls.Add(this.textBoxFeatureVector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
@@ -210,9 +211,9 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxFeatureVector;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxModelLocation;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSelectModelLocation;
         private System.Windows.Forms.Button buttonCloseForm;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label3;
