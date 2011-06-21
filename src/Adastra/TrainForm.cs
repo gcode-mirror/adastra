@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 using Vrpn;
 using Accord.Statistics.Analysis;
@@ -18,20 +19,19 @@ namespace Adastra
     {
         List<double[]> vrpnIncomingSignal = new List<double[]>();
         int vrpnDimensions=-1;
+        AnalogRemote analog;
 
         int SelectedClass
         {
-            get
-            {
-                return comboBoxSelectedClass.SelectedIndex+1;
-            }
+            get;
+            set;
         }
 
         public TrainForm()
         {
             InitializeComponent();
 
-            AnalogRemote analog;
+            
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
@@ -63,13 +63,41 @@ namespace Adastra
 
         private void buttonRecordAction_Click(object sender, EventArgs e)
         {
-            //start thread with 
+            SelectedClass = comboBoxSelectedClass.SelectedIndex + 1;
 
-            //analog.Update();
+            textBoxLogger.Text += "Recoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
+
+            Thread oThread = new Thread(new ThreadStart(Record));
+            oThread.Start();
+        }
+
+        public void Record()
+        {
+            DateTime startTime = DateTime.Now;
+            bool needStop = false; ;
+
+            while (!needStop)
+            {
+                analog.Update();
+                DateTime stopTime = DateTime.Now;
+                TimeSpan duration = stopTime - startTime;
+                if (duration.Seconds > 5) needStop = true;
+            }
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
+            #region UI
+            textBoxLogger.Text += "\r\nCreating machine learning model to be used for classification.";
+            if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("You need to first record some data for specific action"); return; }
+            #endregion
+
+            #region prepare data
+            // randomize vectors positions
+            // split in training and validation sets 
+            // train NN until validation set
+            #endregion
+
             double[,] inputs = new double[vrpnIncomingSignal.Count, vrpnDimensions];
             int[] output = new int[vrpnIncomingSignal.Count];
 
@@ -87,7 +115,7 @@ namespace Adastra
 
             var lda = new LinearDiscriminantAnalysis(inputs, output);
 
-            //// Compute the analysis
+            // Compute the analysis
             lda.Compute();
 
             double[,] projection = lda.Transform(inputs);
@@ -125,8 +153,7 @@ namespace Adastra
             // create teacher
             BackPropagationLearning teacher = new BackPropagationLearning(network);
             
-            
-            // loop
+            // train
             int p = 0;
             while (true)
             {
@@ -134,12 +161,13 @@ namespace Adastra
                 double error = teacher.RunEpoch(input2, output2);
 
                 p++;
-                if (p > 5000000) break;
+                if (p > 1000) break;
                 // check error value to see if we need to stop
-                // ...
+                
+                
             }
 
-            //now we have model of a NN which we can use for classification
+            //now we have a model of a NN which we can use for classification
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)

@@ -41,6 +41,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonSaveModel = new System.Windows.Forms.Button();
+            this.textBoxLogger = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -56,9 +57,9 @@
             // buttonCalculate
             // 
             this.buttonCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCalculate.Location = new System.Drawing.Point(25, 208);
+            this.buttonCalculate.Location = new System.Drawing.Point(30, 208);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(691, 80);
+            this.buttonCalculate.Size = new System.Drawing.Size(686, 80);
             this.buttonCalculate.TabIndex = 2;
             this.buttonCalculate.Text = "Compute";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -66,6 +67,7 @@
             // 
             // comboBoxSelectedClass
             // 
+            this.comboBoxSelectedClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectedClass.FormattingEnabled = true;
             this.comboBoxSelectedClass.Items.AddRange(new object[] {
             "Left",
@@ -80,9 +82,9 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(25, 306);
+            this.progressBar1.Location = new System.Drawing.Point(30, 306);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(691, 23);
+            this.progressBar1.Size = new System.Drawing.Size(686, 23);
             this.progressBar1.TabIndex = 4;
             // 
             // label1
@@ -165,11 +167,21 @@
             this.buttonSaveModel.UseVisualStyleBackColor = true;
             this.buttonSaveModel.Click += new System.EventHandler(this.buttonSaveModel_Click);
             // 
+            // textBoxLogger
+            // 
+            this.textBoxLogger.Location = new System.Drawing.Point(28, 406);
+            this.textBoxLogger.Multiline = true;
+            this.textBoxLogger.Name = "textBoxLogger";
+            this.textBoxLogger.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxLogger.Size = new System.Drawing.Size(696, 78);
+            this.textBoxLogger.TabIndex = 14;
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 402);
+            this.ClientSize = new System.Drawing.Size(736, 496);
+            this.Controls.Add(this.textBoxLogger);
             this.Controls.Add(this.buttonSaveModel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox2);
@@ -205,6 +217,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSaveModel;
+        private System.Windows.Forms.TextBox textBoxLogger;
 
     }
 }
