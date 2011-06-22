@@ -35,7 +35,7 @@ namespace Adastra
             foreach (var key in model.ActionList.Keys)
             {
                 if (model.ActionList[key] == action)
-                    textBoxModelPath.Text += "\r\n" + key;
+                    textBoxModelLocation.Text += "\r\n" + key;
             }
         }
 
@@ -43,12 +43,17 @@ namespace Adastra
         {
             IObjectSet result;
 
-            using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelPath.Text))
+            using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
             {
                 result = db.QueryByExample(typeof(AdastraMachineLearningModel));
             }
 
             model = (AdastraMachineLearningModel)result[0];
+
+            foreach(var item in model.ActionList)
+            {
+                listBoxClasses.Items.Add(item.Key);
+            }
         }
 
         private void buttonStartProcessing_Click(object sender, EventArgs e)
@@ -56,7 +61,28 @@ namespace Adastra
             if (model == null)
                 MessageBox.Show("Please load a machine learning model first!");
 
-            analog.Update();
+            double[] test = new double[] { 0, 1,2,3,4,5,6,7,8,9,10};
+            model.Classify(test);
+            //analog.Update();
+        }
+
+        private void buttonSelectModel_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fo = new OpenFileDialog();
+            fo.InitialDirectory = Environment.CurrentDirectory;
+
+            DialogResult result = fo.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    textBoxModelLocation.Text = fo.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error:" + ex.Message);
+                }
+            }
         }
     }
 }

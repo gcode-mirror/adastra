@@ -28,24 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxModelPath = new System.Windows.Forms.TextBox();
+            this.textBoxModelLocation = new System.Windows.Forms.TextBox();
             this.buttonLoadModel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonStartProcessing = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSelectModel = new System.Windows.Forms.Button();
+            this.listBoxClasses = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBoxModelPath
+            // textBoxModelLocation
             // 
-            this.textBoxModelPath.Location = new System.Drawing.Point(130, 9);
-            this.textBoxModelPath.Name = "textBoxModelPath";
-            this.textBoxModelPath.Size = new System.Drawing.Size(300, 20);
-            this.textBoxModelPath.TabIndex = 0;
+            this.textBoxModelLocation.Location = new System.Drawing.Point(135, 11);
+            this.textBoxModelLocation.Name = "textBoxModelLocation";
+            this.textBoxModelLocation.Size = new System.Drawing.Size(300, 20);
+            this.textBoxModelLocation.TabIndex = 0;
             // 
             // buttonLoadModel
             // 
-            this.buttonLoadModel.Location = new System.Drawing.Point(525, 7);
+            this.buttonLoadModel.Location = new System.Drawing.Point(525, 9);
             this.buttonLoadModel.Name = "buttonLoadModel";
             this.buttonLoadModel.Size = new System.Drawing.Size(75, 23);
             this.buttonLoadModel.TabIndex = 1;
@@ -64,7 +66,7 @@
             // 
             // buttonStartProcessing
             // 
-            this.buttonStartProcessing.Location = new System.Drawing.Point(175, 53);
+            this.buttonStartProcessing.Location = new System.Drawing.Point(268, 73);
             this.buttonStartProcessing.Name = "buttonStartProcessing";
             this.buttonStartProcessing.Size = new System.Drawing.Size(301, 40);
             this.buttonStartProcessing.TabIndex = 4;
@@ -75,33 +77,53 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(21, 117);
+            this.listBox1.Location = new System.Drawing.Point(12, 145);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(579, 95);
+            this.listBox1.Size = new System.Drawing.Size(588, 95);
             this.listBox1.TabIndex = 5;
             // 
-            // button1
+            // buttonSelectModel
             // 
-            this.button1.Location = new System.Drawing.Point(444, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonSelectModel.Location = new System.Drawing.Point(444, 9);
+            this.buttonSelectModel.Name = "buttonSelectModel";
+            this.buttonSelectModel.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectModel.TabIndex = 6;
+            this.buttonSelectModel.Text = "Browse";
+            this.buttonSelectModel.UseVisualStyleBackColor = true;
+            this.buttonSelectModel.Click += new System.EventHandler(this.buttonSelectModel_Click);
+            // 
+            // listBoxClasses
+            // 
+            this.listBoxClasses.FormattingEnabled = true;
+            this.listBoxClasses.Location = new System.Drawing.Point(12, 63);
+            this.listBoxClasses.Name = "listBoxClasses";
+            this.listBoxClasses.Size = new System.Drawing.Size(217, 69);
+            this.listBoxClasses.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Available classes:";
             // 
             // ClassifyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 225);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(621, 252);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.listBoxClasses);
+            this.Controls.Add(this.buttonSelectModel);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.buttonStartProcessing);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonLoadModel);
-            this.Controls.Add(this.textBoxModelPath);
+            this.Controls.Add(this.textBoxModelLocation);
             this.Name = "ClassifyForm";
-            this.Text = "ClassifyForm";
+            this.Text = "Classify EEG signal";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,11 +131,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxModelPath;
+        private System.Windows.Forms.TextBox textBoxModelLocation;
         private System.Windows.Forms.Button buttonLoadModel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonStartProcessing;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSelectModel;
+        private System.Windows.Forms.ListBox listBoxClasses;
+        private System.Windows.Forms.Label label2;
     }
 }

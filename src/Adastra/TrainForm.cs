@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 using Vrpn;
 using Accord.Statistics.Analysis;
@@ -185,7 +186,7 @@ namespace Adastra
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
-        {
+        { 
             using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
             {
                 db.Store(model);
@@ -200,7 +201,21 @@ namespace Adastra
 
         private void buttonSelectModelLocation_Click(object sender, EventArgs e)
         {
+            SaveFileDialog fo = new SaveFileDialog();
+            fo.InitialDirectory = Environment.CurrentDirectory;
 
+            DialogResult result = fo.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    textBoxModelLocation.Text = fo.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error:"+ex.Message);
+                }
+            }
         }
     }
 }
