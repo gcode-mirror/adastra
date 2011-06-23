@@ -1,0 +1,16 @@
+﻿1. Save/Load model
+
+2. Background test for Train Form  
+- record
+- Process
+
+3. Background thread for the ClassifyForm
+
+4. Make 4 scenarios for release 2.0 
+- train\classify + EEG visualize + OpenVibe Classification output
+- change enumeration
+- fix parameter problem
+
+5. Make MLP train properly 
+- randomize input vectors 
+- separate 1:4 validate\train sets
