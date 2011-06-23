@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using Vrpn;
 using Accord.Statistics.Analysis;
-using Db4objects.Db4o;
+//using Db4objects.Db4o;
 
 namespace Adastra
 {
@@ -41,14 +41,14 @@ namespace Adastra
 
         private void buttonModel_Click(object sender, EventArgs e)
         {
-            IObjectSet result;
+            //IObjectSet result;
 
-            using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
-            {
-                result = db.QueryByExample(typeof(AdastraMachineLearningModel));
-            }
+            //using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
+            //{
+            //    result = db.QueryByExample(typeof(AdastraMachineLearningModel));
+            //}
 
-            model = (AdastraMachineLearningModel)result[0];
+            //model = (AdastraMachineLearningModel)result[0];
 
             foreach(var item in model.ActionList)
             {

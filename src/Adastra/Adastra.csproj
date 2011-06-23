@@ -37,11 +37,8 @@
     <Reference Include="AForge.Neuro">
       <HintPath>..\..\lib\AForge.Neuro.dll</HintPath>
     </Reference>
-    <Reference Include="Db4objects.Db4o">
-      <HintPath>..\..\lib\Db4objects.Db4o.dll</HintPath>
-    </Reference>
     <Reference Include="InputSimulator">
-      <HintPath>lib\InputSimulator.dll</HintPath>
+      <HintPath>..\..\lib\InputSimulator.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -57,7 +54,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="VrpnNet, Version=1.1.1.29021, Culture=neutral, PublicKeyToken=d88711d9dd279d9f, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\VrpnNet.dll</HintPath>
+      <HintPath>..\..\lib\VrpnNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

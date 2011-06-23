@@ -13,7 +13,7 @@ using Vrpn;
 using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
-using Db4objects.Db4o;
+//using Db4objects.Db4o;
 
 namespace Adastra
 {
@@ -187,10 +187,10 @@ namespace Adastra
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
         { 
-            using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
-            {
-                db.Store(model);
-            }
+            //using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
+            //{
+            //    db.Store(model);
+            //}
             
         }
 
