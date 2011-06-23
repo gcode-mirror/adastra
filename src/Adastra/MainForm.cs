@@ -16,6 +16,7 @@ namespace Adastra
     {
         OutputForm of;
         TrainForm tf;
+        ClassifyForm cf;
 
         private BackgroundWorker asyncWorker;
 
@@ -67,6 +68,7 @@ namespace Adastra
             {
                 case 0: of = new OutputForm();of.Show(); of.Start(); break;
                 case 2: tf = new TrainForm(); tf.Show(); break;
+                case 4: cf = new ClassifyForm(); cf.Show(); break;
             }
             
             
@@ -199,6 +201,7 @@ namespace Adastra
                 case 0: scenario = "signal-processing-VRPN-export.xml"; break;
                 case 1: scenario = "motor-imagery-bci-4-replay-VRPN-export.xml"; break;
                 case 2: scenario = "feature-aggregator-VRPN-export.xml"; break;
+                case 4: scenario = "feature-aggregator-VRPN-export.xml"; break;
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");

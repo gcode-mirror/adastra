@@ -37,6 +37,19 @@
     <Reference Include="AForge.Neuro">
       <HintPath>..\..\lib\AForge.Neuro.dll</HintPath>
     </Reference>
+    <Reference Include="Eloquera.Client, Version=3.1.3.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Eloquera 3.1.3\Eloquera.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Eloquera.Common, Version=3.1.3.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Eloquera 3.1.3\Eloquera.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Eloquera.Server, Version=3.1.3.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\..\lib\Eloquera 3.1.3\Eloquera.Server.exe</HintPath>
+    </Reference>
     <Reference Include="InputSimulator">
       <HintPath>..\..\lib\InputSimulator.dll</HintPath>
     </Reference>
@@ -117,6 +130,7 @@
     <EmbeddedResource Include="TrainForm.resx">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Eloquera.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

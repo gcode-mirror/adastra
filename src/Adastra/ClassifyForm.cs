@@ -6,10 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 using Vrpn;
 using Accord.Statistics.Analysis;
 //using Db4objects.Db4o;
+using Eloquera.Client;
 
 namespace Adastra
 {
@@ -19,6 +21,8 @@ namespace Adastra
 
         AnalogRemote analog;
 
+        List<AdastraMachineLearningModel> models;
+
         public ClassifyForm()
         {
             InitializeComponent();
@@ -26,6 +30,9 @@ namespace Adastra
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
+
+            Thread oThread = new Thread(new ThreadStart(LoadModels));
+            oThread.Start();
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
@@ -35,53 +42,54 @@ namespace Adastra
             foreach (var key in model.ActionList.Keys)
             {
                 if (model.ActionList[key] == action)
-                    textBoxModelLocation.Text += "\r\n" + key;
+                    listBoxResult.Items.Add(key);
             }
         }
 
         private void buttonModel_Click(object sender, EventArgs e)
         {
-            //IObjectSet result;
+            Thread oThread = new Thread(new ThreadStart(LoadModels));
+            oThread.Start();
+        }
 
-            //using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
-            //{
-            //    result = db.QueryByExample(typeof(AdastraMachineLearningModel));
-            //}
+        private void LoadModels()
+        {
+            const string dbName = "AdastraDB";
 
-            //model = (AdastraMachineLearningModel)result[0];
+            string fullpath = Environment.CurrentDirectory + "\\" + dbName;
 
-            foreach(var item in model.ActionList)
+            var db = new DB("server=(local);options=none;");
+
+            db.OpenDatabase(fullpath);
+
+            var result = from AdastraMachineLearningModel sample in db select sample;
+
+            models = result.ToList();
+
+            db.Close();
+
+            foreach (var item in models)
             {
-                listBoxClasses.Items.Add(item.Key);
+                listBoxModels.Items.Add(item.Name);
             }
         }
 
         private void buttonStartProcessing_Click(object sender, EventArgs e)
         {
-            if (model == null)
-                MessageBox.Show("Please load a machine learning model first!");
+            
 
             double[] test = new double[] { 0, 1,2,3,4,5,6,7,8,9,10};
             model.Classify(test);
             //analog.Update();
         }
 
-        private void buttonSelectModel_Click(object sender, EventArgs e)
+        private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            OpenFileDialog fo = new OpenFileDialog();
-            fo.InitialDirectory = Environment.CurrentDirectory;
+            model = models[listBoxModels.SelectedIndex];
 
-            DialogResult result = fo.ShowDialog();
-            if (result == DialogResult.OK)
+            foreach (var item in model.ActionList)
             {
-                try
-                {
-                    textBoxModelLocation.Text = fo.FileName;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error:" + ex.Message);
-                }
+                listBoxClasses.Items.Add(item.Key);
             }
         }
     }

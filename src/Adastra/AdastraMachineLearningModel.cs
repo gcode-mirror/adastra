@@ -15,6 +15,12 @@ namespace Adastra
 
         ActivationNetwork _network;
 
+        public string Name
+        {
+            get;
+            set;
+        }
+
         public AdastraMachineLearningModel(LinearDiscriminantAnalysis lda, ActivationNetwork network)
         {
             _lda = lda;

@@ -28,37 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxModelLocation = new System.Windows.Forms.TextBox();
-            this.buttonLoadModel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonStartProcessing = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.buttonSelectModel = new System.Windows.Forms.Button();
+            this.listBoxResult = new System.Windows.Forms.ListBox();
             this.listBoxClasses = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.listBoxModels = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // textBoxModelLocation
-            // 
-            this.textBoxModelLocation.Location = new System.Drawing.Point(135, 11);
-            this.textBoxModelLocation.Name = "textBoxModelLocation";
-            this.textBoxModelLocation.Size = new System.Drawing.Size(300, 20);
-            this.textBoxModelLocation.TabIndex = 0;
-            // 
-            // buttonLoadModel
-            // 
-            this.buttonLoadModel.Location = new System.Drawing.Point(525, 9);
-            this.buttonLoadModel.Name = "buttonLoadModel";
-            this.buttonLoadModel.Size = new System.Drawing.Size(75, 23);
-            this.buttonLoadModel.TabIndex = 1;
-            this.buttonLoadModel.Text = "Load";
-            this.buttonLoadModel.UseVisualStyleBackColor = true;
-            this.buttonLoadModel.Click += new System.EventHandler(this.buttonModel_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 14);
+            this.label1.Location = new System.Drawing.Point(12, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 13);
             this.label1.TabIndex = 2;
@@ -66,62 +47,59 @@
             // 
             // buttonStartProcessing
             // 
-            this.buttonStartProcessing.Location = new System.Drawing.Point(268, 73);
+            this.buttonStartProcessing.Location = new System.Drawing.Point(161, 184);
             this.buttonStartProcessing.Name = "buttonStartProcessing";
-            this.buttonStartProcessing.Size = new System.Drawing.Size(301, 40);
+            this.buttonStartProcessing.Size = new System.Drawing.Size(298, 40);
             this.buttonStartProcessing.TabIndex = 4;
             this.buttonStartProcessing.Text = "Process";
             this.buttonStartProcessing.UseVisualStyleBackColor = true;
             this.buttonStartProcessing.Click += new System.EventHandler(this.buttonStartProcessing_Click);
             // 
-            // listBox1
+            // listBoxResult
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 145);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(588, 95);
-            this.listBox1.TabIndex = 5;
-            // 
-            // buttonSelectModel
-            // 
-            this.buttonSelectModel.Location = new System.Drawing.Point(444, 9);
-            this.buttonSelectModel.Name = "buttonSelectModel";
-            this.buttonSelectModel.Size = new System.Drawing.Size(75, 23);
-            this.buttonSelectModel.TabIndex = 6;
-            this.buttonSelectModel.Text = "Browse";
-            this.buttonSelectModel.UseVisualStyleBackColor = true;
-            this.buttonSelectModel.Click += new System.EventHandler(this.buttonSelectModel_Click);
+            this.listBoxResult.FormattingEnabled = true;
+            this.listBoxResult.Location = new System.Drawing.Point(15, 246);
+            this.listBoxResult.Name = "listBoxResult";
+            this.listBoxResult.Size = new System.Drawing.Size(585, 95);
+            this.listBoxResult.TabIndex = 5;
             // 
             // listBoxClasses
             // 
             this.listBoxClasses.FormattingEnabled = true;
-            this.listBoxClasses.Location = new System.Drawing.Point(12, 63);
+            this.listBoxClasses.Location = new System.Drawing.Point(302, 55);
             this.listBoxClasses.Name = "listBoxClasses";
-            this.listBoxClasses.Size = new System.Drawing.Size(217, 69);
+            this.listBoxClasses.Size = new System.Drawing.Size(279, 82);
             this.listBoxClasses.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 47);
+            this.label2.Location = new System.Drawing.Point(299, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Available classes:";
             // 
+            // listBoxModels
+            // 
+            this.listBoxModels.FormattingEnabled = true;
+            this.listBoxModels.Location = new System.Drawing.Point(15, 55);
+            this.listBoxModels.Name = "listBoxModels";
+            this.listBoxModels.Size = new System.Drawing.Size(265, 108);
+            this.listBoxModels.TabIndex = 9;
+            this.listBoxModels.SelectedIndexChanged += new System.EventHandler(this.listBoxModels_SelectedIndexChanged);
+            // 
             // ClassifyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 252);
+            this.ClientSize = new System.Drawing.Size(612, 361);
+            this.Controls.Add(this.listBoxModels);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxClasses);
-            this.Controls.Add(this.buttonSelectModel);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxResult);
             this.Controls.Add(this.buttonStartProcessing);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonLoadModel);
-            this.Controls.Add(this.textBoxModelLocation);
             this.Name = "ClassifyForm";
             this.Text = "Classify EEG signal";
             this.ResumeLayout(false);
@@ -131,13 +109,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxModelLocation;
-        private System.Windows.Forms.Button buttonLoadModel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonStartProcessing;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button buttonSelectModel;
+        private System.Windows.Forms.ListBox listBoxResult;
         private System.Windows.Forms.ListBox listBoxClasses;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox listBoxModels;
     }
 }

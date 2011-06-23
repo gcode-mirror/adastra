@@ -14,6 +14,7 @@ using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
 //using Db4objects.Db4o;
+using Eloquera.Client;
 
 namespace Adastra
 {
@@ -84,7 +85,7 @@ namespace Adastra
             oThread.Start();
         }
 
-        public void Record()
+        private void Record()
         {
             DateTime startTime = DateTime.Now;
             bool needStop = false; ;
@@ -186,12 +187,43 @@ namespace Adastra
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
-        { 
-            //using (IObjectContainer db = Db4oEmbedded.OpenFile(textBoxModelLocation.Text))
-            //{
-            //    db.Store(model);
-            //}
-            
+        {
+            Thread oThread = new Thread(new ThreadStart(SaveModel));
+            oThread.Start();
+        }
+
+        private void SaveModel()
+        {
+            if (textBoxModelName.Text.Length == 0)
+            { MessageBox.Show("Please enter model name!"); return; }
+
+            model.Name = textBoxModelName.Text;
+
+            const string dbName = "AdastraDB";
+
+            string fullpath = Environment.CurrentDirectory + "\\" + dbName;
+
+            var db = new DB("server=(local);options=none;");
+
+            bool justCreated = false;
+            if (!File.Exists(fullpath + ".eq"))
+            {
+                db.CreateDatabase(fullpath);
+                justCreated = true;
+            }
+
+            db.OpenDatabase(fullpath);
+
+            if (justCreated)
+            {
+                db.RegisterType(typeof(AdastraMachineLearningModel));
+                db.RegisterType(typeof(LinearDiscriminantAnalysis));
+                db.RegisterType(typeof(ActivationNetwork));
+            }
+
+            db.Store(model);
+
+            db.Close();
         }
 
         private void buttonCloseForm_Click(object sender, EventArgs e)
@@ -209,7 +241,7 @@ namespace Adastra
             {
                 try
                 {
-                    textBoxModelLocation.Text = fo.FileName;
+                    textBoxModelName.Text = fo.FileName;
                 }
                 catch (Exception ex)
                 {
