@@ -132,12 +132,14 @@ namespace Adastra
             }
             #endregion
 
-            double[] classs = _network.Compute(projectedSample2);
+            double[] result = _network.Compute(projectedSample2);
 
             //we convert back to int classes by first rounding and then multipling by 10 (because we devided to 10 before)
             //rounding might be a problem
             //insted of rounding -> check closest class
-            int converted = Convert.ToInt32(Math.Round(classs[0], 1, MidpointRounding.AwayFromZero) * 10);
+
+            //? check by distance which is the closes class insted of rounding below
+            int converted = Convert.ToInt32(Math.Round(result[0], 1, MidpointRounding.AwayFromZero) * 10);
 
             return converted;
         }

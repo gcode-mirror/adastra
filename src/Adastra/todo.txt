@@ -14,3 +14,5 @@
 5. Make MLP train properly 
 - randomize input vectors 
 - separate 1:4 validate\train sets
+
+check by distance which is the closest class insted of rounding below

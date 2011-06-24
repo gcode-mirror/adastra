@@ -157,7 +157,7 @@
             this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
             this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(179, 20);
             this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
-            this.textBoxOpenVibeWorkingFolder.Text = "D:\\e\\openvibe_src\\dist\\";
+            this.textBoxOpenVibeWorkingFolder.Text = "D:\\Program Files\\openvibe";
             // 
             // textBoxScenario
             // 
@@ -225,7 +225,7 @@
             "2. Display: LDA/SVM classification output from OpenVibe",
             "3. Train:  using OpenVibe\'s feature aggegator + Adastra\'s LDA/MLP trainer",
             "4. Display: EEG classification using OpenVibe\'s feature aggegator + Adastra\'s LDA" +
-                " classifier"});
+                "/MLP classifier"});
             this.comboBoxScenarioType.Location = new System.Drawing.Point(90, 41);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
             this.comboBoxScenarioType.Size = new System.Drawing.Size(615, 21);

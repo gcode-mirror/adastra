@@ -23,6 +23,8 @@ namespace Adastra
 
         List<AdastraMachineLearningModel> models;
 
+        public EventHandler handler;
+
         public ClassifyForm()
         {
             InitializeComponent();
@@ -30,6 +32,8 @@ namespace Adastra
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
+
+            listBoxModels.SelectedIndex = -1;
 
             Thread oThread = new Thread(new ThreadStart(LoadModels));
             oThread.Start();
@@ -77,20 +81,35 @@ namespace Adastra
 
         private void buttonStartProcessing_Click(object sender, EventArgs e)
         {
-            
-
             double[] test = new double[] { 0, 1,2,3,4,5,6,7,8,9,10};
-            model.Classify(test);
+            int c=model.Classify(test);
+
+            foreach(string key in model.ActionList.Keys)
+            {
+                if (model.ActionList[key] == c)
+                {
+                    listBoxResult.Items.Add(key);
+                }
+            }
+
             //analog.Update();
         }
 
+        /// <summary>
+        /// ?????????????????????????????????????
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            model = models[listBoxModels.SelectedIndex];
-
-            foreach (var item in model.ActionList)
+            if (listBoxModels.SelectedIndex != -1)
             {
-                listBoxClasses.Items.Add(item.Key);
+                model = models[listBoxModels.SelectedIndex];
+
+                foreach (var item in model.ActionList)
+                {
+                    listBoxClasses.Items.Add(item.Key);
+                }
             }
         }
     }

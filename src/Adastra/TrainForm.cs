@@ -95,7 +95,7 @@ namespace Adastra
                 analog.Update();
                 DateTime stopTime = DateTime.Now;
                 TimeSpan duration = stopTime - startTime;
-                if (duration.Seconds > 5) needStop = true;
+                if (duration.Seconds > 3) needStop = true;
             }
         }
 
@@ -106,8 +106,8 @@ namespace Adastra
             if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("You need to first record some data for specific action"); return; }
             #endregion
 
-            AdastraMachineLearningModel m = new AdastraMachineLearningModel();
-            m.Train(vrpnIncomingSignal, vrpnDimensions);
+            model = new AdastraMachineLearningModel();
+            model.Train(vrpnIncomingSignal, vrpnDimensions);
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
