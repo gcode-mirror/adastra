@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Adastra
 {
@@ -22,7 +23,10 @@ namespace Adastra
             string executable = OpenVibeDesignerWorkingFolder+"ov-designer.cmd";
             if (!System.IO.File.Exists(executable))
                 executable = OpenVibeDesignerWorkingFolder+"openvibe-designer.cmd";
+
             if (!System.IO.File.Exists(executable)) { System.Windows.Forms.MessageBox.Show("Executable not found!"); return; }
+
+			FixParametersBug(executable);
 
             string parameters="";
             if (FastPlay) parameters+= " --play-fast " + Scenario;
@@ -82,5 +86,36 @@ namespace Adastra
                 }
             }
         }
+
+		private static void FixParametersBug(string file)
+		{
+			string text = File.ReadAllText(file);
+
+			string[] lines = text.Split(new char[] {'\r','\n'});
+
+			bool replace = false;
+			for (int i = 0; i < lines.Length;i++)
+			{
+				if (lines[i].ToLower().EndsWith("OpenViBE-designer-dynamic.exe".ToLower()))
+				{
+					lines[i] += " %1 %2 %3 %4 %5 %6";
+					replace = true;
+				}
+			}
+
+			if (replace)
+			{
+				TextWriter tw = new StreamWriter(file,false);
+
+				// write a line of text to the file
+				foreach (string line in lines)
+				{
+					tw.WriteLine(line);
+				}
+
+				// close the stream
+				tw.Close();
+			}
+		}
     }
 }
