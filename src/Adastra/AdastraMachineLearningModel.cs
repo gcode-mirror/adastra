@@ -29,7 +29,7 @@ namespace Adastra
             ActionList = new Dictionary<string,int>();
         }
 
-        public void Train(List<double[]> vrpnIncomingSignal, int vrpnDimensions)
+        public void Train(List<double[]> outputInput, int inputVectorDimensions)
         {
             #region prepare data
             // randomize vectors positions
@@ -37,17 +37,17 @@ namespace Adastra
             // train NN until validation set
             #endregion
 
-            double[,] inputs = new double[vrpnIncomingSignal.Count, vrpnDimensions];
-            int[] output = new int[vrpnIncomingSignal.Count];
+            double[,] inputs = new double[outputInput.Count, inputVectorDimensions];
+            int[] output = new int[outputInput.Count];
 
             #region convert to LDA format
-            for (int i = 0; i < vrpnIncomingSignal.Count; i++)
+            for (int i = 0; i < outputInput.Count; i++)
             {
-                output[i] = Convert.ToInt32((vrpnIncomingSignal[i])[0]);
+                output[i] = Convert.ToInt32((outputInput[i])[0]);
 
-                for (int j = 1; j < vrpnDimensions + 1; j++)
+                for (int j = 1; j < inputVectorDimensions + 1; j++)
                 {
-                    inputs[i, j - 1] = (vrpnIncomingSignal[i])[j];
+                    inputs[i, j - 1] = (outputInput[i])[j];
                 }
             }
             #endregion
