@@ -58,9 +58,10 @@ namespace Adastra
 
             string fullpath = Environment.CurrentDirectory + "\\" + dbName;
 
-            var db = new DB("server=(local);options=none;");
+            var db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
 
             db.OpenDatabase(fullpath);
+            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
             var result = from AdastraMachineLearningModel sample in db select sample;
 

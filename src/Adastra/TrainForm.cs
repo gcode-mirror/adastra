@@ -127,7 +127,8 @@ namespace Adastra
 
             string fullpath = Environment.CurrentDirectory + "\\" + dbName;
 
-            var db = new DB("server=(local);options=none;");
+            //var db = new DB("server=(local);options=none;");
+            var db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
 
             bool justCreated = false;
             if (!File.Exists(fullpath + ".eq"))
@@ -137,6 +138,7 @@ namespace Adastra
             }
 
             db.OpenDatabase(fullpath);
+            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
             if (justCreated)
             {
