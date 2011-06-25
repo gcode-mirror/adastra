@@ -29,31 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("EEG signal");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode15});
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
-            treeNode17,
-            treeNode18});
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
-            treeNode20,
-            treeNode21});
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode19,
-            treeNode22});
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Mouse cursor");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
-            treeNode24});
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode23,
-            treeNode25});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode10,
+            treeNode12});
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -157,7 +157,7 @@
             this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
             this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(179, 20);
             this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
-            this.textBoxOpenVibeWorkingFolder.Text = "D:\\Program Files\\openvibe";
+            this.textBoxOpenVibeWorkingFolder.Text = "D:\\e\\openvibe_src\\dist";
             // 
             // textBoxScenario
             // 
@@ -236,34 +236,34 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(12, 212);
             this.treeView1.Name = "treeView1";
-            treeNode14.Name = "Node2";
-            treeNode14.Text = "EEG signal";
-            treeNode15.Name = "Node6";
-            treeNode15.Text = "Claffication output from OpenVibe";
-            treeNode16.Name = "Node1";
-            treeNode16.Text = "Display";
-            treeNode17.Name = "Node7";
-            treeNode17.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode18.Name = "Node8";
-            treeNode18.Text = "Using Adastra\'s feature aggregator";
-            treeNode19.Name = "Node4";
-            treeNode19.Text = "Train";
-            treeNode20.Name = "Node11";
-            treeNode20.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode21.Name = "Node12";
-            treeNode21.Text = "Using Adastra\'s feature aggregator";
-            treeNode22.Name = "Node5";
-            treeNode22.Text = "Classify";
-            treeNode23.Name = "Node3";
-            treeNode23.Text = "Classification";
-            treeNode24.Name = "Node10";
-            treeNode24.Text = "Mouse cursor";
-            treeNode25.Name = "Node9";
-            treeNode25.Text = "Device control";
-            treeNode26.Name = "Node0";
-            treeNode26.Text = "Scenario";
+            treeNode1.Name = "Node2";
+            treeNode1.Text = "EEG signal";
+            treeNode2.Name = "Node6";
+            treeNode2.Text = "Claffication output from OpenVibe";
+            treeNode3.Name = "Node1";
+            treeNode3.Text = "Display";
+            treeNode4.Name = "Node7";
+            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode5.Name = "Node8";
+            treeNode5.Text = "Using Adastra\'s feature aggregator";
+            treeNode6.Name = "Node4";
+            treeNode6.Text = "Train";
+            treeNode7.Name = "Node11";
+            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode8.Name = "Node12";
+            treeNode8.Text = "Using Adastra\'s feature aggregator";
+            treeNode9.Name = "Node5";
+            treeNode9.Text = "Classify";
+            treeNode10.Name = "Node3";
+            treeNode10.Text = "Classification";
+            treeNode11.Name = "Node10";
+            treeNode11.Text = "Mouse cursor";
+            treeNode12.Name = "Node9";
+            treeNode12.Text = "Device control";
+            treeNode13.Name = "Node0";
+            treeNode13.Text = "Scenario";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode26});
+            treeNode13});
             this.treeView1.Size = new System.Drawing.Size(295, 242);
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;

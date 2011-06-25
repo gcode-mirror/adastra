@@ -202,8 +202,8 @@ namespace Adastra
             {
                 case 0: scenario = "signal-processing-VRPN-export.xml"; break;
                 case 1: scenario = "motor-imagery-bci-4-replay-VRPN-export.xml"; break;
-                case 2: scenario = "feature-aggregator-VRPN-export.xml"; break;
-                case 3: scenario = "feature-aggregator-VRPN-export.xml"; break;
+                case 2: scenario = "feature-aggregator-VRPN-export.xml"; break;//train
+                case 3: scenario = "feature-aggregator-VRPN-export.xml"; break;//classify
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
