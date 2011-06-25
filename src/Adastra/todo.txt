@@ -15,4 +15,5 @@
 - randomize input vectors 
 - separate 1:4 validate\train sets
 
-check by distance which is the closest class insted of rounding below
+- check by distance which is the closest class insted of rounding below
+- or make NN has an ouput for every class
