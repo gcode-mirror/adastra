@@ -71,7 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdastraMachineLearningModel.cs" />
+    <Compile Include="Algorithms\AdastraMachineLearningModel.cs" />
     <Compile Include="ClassifyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,9 +150,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Algorithms\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Accord\Accord.Math\Accord.Math.csproj">
       <Project>{F718E9A8-DB62-4785-8C49-4333A60D256A}</Project>
