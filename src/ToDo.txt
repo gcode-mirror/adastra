@@ -1,4 +1,7 @@
-﻿﻿1. Save/Load model
+﻿next: finish train form
+
+
+﻿1. Save/Load model
  - too slow?
  
 Background thread for Train Form  

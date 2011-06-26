@@ -79,6 +79,11 @@ namespace Adastra
             }
         }
 
+        /// <summary>
+        /// Start training. This method will create a model based on recorded signal which is used for later classification.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonStartProcessing_Click(object sender, EventArgs e)
         {
             double[] test = new double[] { 0, 1,2,3,4,5,6,7,8,9,10};
