@@ -42,6 +42,7 @@
             this.textBoxLogger = new System.Windows.Forms.TextBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -106,7 +107,7 @@
             // 
             // textBoxModelName
             // 
-            this.textBoxModelName.Location = new System.Drawing.Point(83, 216);
+            this.textBoxModelName.Location = new System.Drawing.Point(85, 250);
             this.textBoxModelName.Name = "textBoxModelName";
             this.textBoxModelName.Size = new System.Drawing.Size(390, 20);
             this.textBoxModelName.TabIndex = 7;
@@ -114,7 +115,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 219);
+            this.label2.Location = new System.Drawing.Point(14, 253);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 8;
@@ -122,7 +123,7 @@
             // 
             // buttonCloseForm
             // 
-            this.buttonCloseForm.Location = new System.Drawing.Point(582, 204);
+            this.buttonCloseForm.Location = new System.Drawing.Point(584, 248);
             this.buttonCloseForm.Name = "buttonCloseForm";
             this.buttonCloseForm.Size = new System.Drawing.Size(116, 42);
             this.buttonCloseForm.TabIndex = 10;
@@ -144,7 +145,7 @@
             // 
             // buttonSaveModel
             // 
-            this.buttonSaveModel.Location = new System.Drawing.Point(479, 214);
+            this.buttonSaveModel.Location = new System.Drawing.Point(493, 250);
             this.buttonSaveModel.Name = "buttonSaveModel";
             this.buttonSaveModel.Size = new System.Drawing.Size(75, 23);
             this.buttonSaveModel.TabIndex = 13;
@@ -154,11 +155,11 @@
             // 
             // textBoxLogger
             // 
-            this.textBoxLogger.Location = new System.Drawing.Point(10, 269);
+            this.textBoxLogger.Location = new System.Drawing.Point(12, 303);
             this.textBoxLogger.Multiline = true;
             this.textBoxLogger.Name = "textBoxLogger";
             this.textBoxLogger.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLogger.Size = new System.Drawing.Size(688, 78);
+            this.textBoxLogger.Size = new System.Drawing.Size(688, 89);
             this.textBoxLogger.TabIndex = 14;
             // 
             // radioButton1
@@ -184,11 +185,19 @@
             this.radioButton2.Text = "LDA+SVM";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(13, 209);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(685, 23);
+            this.progressBar2.TabIndex = 17;
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 365);
+            this.ClientSize = new System.Drawing.Size(717, 417);
+            this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.textBoxLogger);
@@ -226,6 +235,7 @@
         private System.Windows.Forms.TextBox textBoxLogger;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.ProgressBar progressBar2;
 
     }
 }

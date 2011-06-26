@@ -45,6 +45,7 @@ namespace Adastra
             analog.MuteWarnings = true;
 
             comboBoxSelectedClass.SelectedIndex = 0;
+            comboBoxRecordTime.SelectedIndex = 0;
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
@@ -88,14 +89,16 @@ namespace Adastra
         private void Record()
         {
             DateTime startTime = DateTime.Now;
-            bool needStop = false; ;
+            bool needStop = false;
+
+            int recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
 
             while (!needStop)
             {
                 analog.Update();
                 DateTime stopTime = DateTime.Now;
                 TimeSpan duration = stopTime - startTime;
-                if (duration.Seconds > 3) needStop = true;
+                if (duration.Seconds > recordTime) needStop = true;
             }
         }
 
