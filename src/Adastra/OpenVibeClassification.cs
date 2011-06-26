@@ -15,8 +15,8 @@ using Vrpn;
 namespace Adastra
 {
     /// <summary>
-    /// This form uses the classification result from OpenVibe streamed from OpenVibe.
-    /// The main job is done by OpenVibe, Adastra is used to process (display) the result.
+    /// This form uses the classification result streamed from OpenVibe.
+    /// The main job is done by OpenVibe, Adastra is used to process (display) the result in a bars chart .
     /// </summary>
     public partial class OpenVibeClassification : Form
     {
@@ -28,18 +28,9 @@ namespace Adastra
         {
             InitializeComponent();
 
-            InitializeComponent();
-            //label1.Text = "";
-
             analog = new AnalogRemote("openvibe-vrpn@localhost");
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
-
-            //chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
-           // chart1.ChartAreas[0].AxisY.Maximum = 0.3;
-            //chart1.ChartAreas[0].AxisY.Minimum = -0.3;
-
-            //chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
         }
 
         public void Start()
@@ -49,20 +40,17 @@ namespace Adastra
 
         private void OpenVibeClassification_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (AsyncWorker.IsBusy)
+                AsyncWorker.CancelAsync();
+
             OpenVibeController.Stop();
         }
 
-        //static int count = 0;
-
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            //count++;
-            System.Threading.Thread.Sleep(100);
-            //if (count % 1 == 0)
             {
                 double v = Convert.ToDouble(e.Channels[0]);
                 result.Enqueue(v);
-                //count = 0;
 
                 if (result.Count > 22)
                 {
@@ -71,7 +59,6 @@ namespace Adastra
                     result.Dequeue();
                 }
             }
-
         }
 
         public BackgroundWorker asyncWorker;
@@ -86,7 +73,6 @@ namespace Adastra
                     asyncWorker.WorkerReportsProgress = true;
                     asyncWorker.WorkerSupportsCancellation = true;
                     asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
-                    asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
                     asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
                 }
 
@@ -94,15 +80,10 @@ namespace Adastra
             }
         }
 
-        void asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //empty
-        }
-
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            chart1.Series[0].Points.DataBindY(result.ToArray());
-            chart1.Update();
+            chartClassification.Series[0].Points.DataBindY(result.ToArray());
+            chartClassification.Update();
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -118,13 +99,17 @@ namespace Adastra
             {
                 OpenVibeController.Stop();
                 e.Cancel = true;
-
             }
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void buttonClose_Click(object sender, EventArgs e)
         {
-            AsyncWorker.CancelAsync();
+            if (AsyncWorker.IsBusy)
+                AsyncWorker.CancelAsync();
+
+            OpenVibeController.Stop();
+
+            this.Close();
         }
     }
 }

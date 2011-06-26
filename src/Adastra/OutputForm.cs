@@ -14,6 +14,9 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Adastra
 {
+    /// <summary>
+    /// This form is used to display all the channels from the provided EEG signal.
+    /// </summary>
     public partial class OutputForm : Form
     {
         Queue[] q = null;

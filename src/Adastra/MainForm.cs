@@ -102,7 +102,6 @@ namespace Adastra
                 
                 OpenVibeController.Stop();
                 e.Cancel = true;
-
             }
         }
 
@@ -133,21 +132,7 @@ namespace Adastra
                 {
                     MessageBox.Show("Error:"+ex.Message);
                 }
-            }
-
-            //check for vrpn box
-
-            //<Name>Analog VRPN Server</Name>
-
-            //<Settings>
-            //    <Setting>
-            //        <TypeIdentifier>(0x79a9edeb, 0x245d83fc)</TypeIdentifier>
-            //        <Name>Peripheral name</Name>
-            //        <DefaultValue>openvibe-vrpn</DefaultValue>
-            //        <Value>openvibe-vrpn</Value>
-            //    </Setting>
-            //</Settings>
-               
+            }      
         }
 
         public static void OpenLinkInBrowser(string url)
