@@ -27,6 +27,8 @@ namespace Adastra
             comboBoxScenarioType.SelectedIndex = 2;
             treeView1.ExpandAll();
 
+            textBoxOpenVibeWorkingFolder.Text = ProgramFilesx86();
+
             #region BackgroundWorker for OpenVibe
             asyncWorker = new BackgroundWorker();
             asyncWorker.WorkerReportsProgress = true;
@@ -202,6 +204,18 @@ namespace Adastra
         {
             OpenVibeController.Stop();
         }
+
+        static string ProgramFilesx86()
+        {
+            if (8 == IntPtr.Size
+                || (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
+            {
+                return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+            }
+
+            return Environment.GetEnvironmentVariable("ProgramFiles");
+        }
+
 
     }
 }
