@@ -30,6 +30,10 @@ namespace Adastra
 
         Dictionary<string, int> actions = new Dictionary<string, int>();
 
+        private BackgroundWorker AsyncWorkerCalculate;
+
+        private BackgroundWorker AsyncWorkerRecord;
+
         int SelectedClass
         {
             get;
@@ -46,6 +50,76 @@ namespace Adastra
 
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
+
+            AsyncWorkerCalculate = new BackgroundWorker();
+            AsyncWorkerCalculate.WorkerReportsProgress = true;
+            AsyncWorkerCalculate.WorkerSupportsCancellation = true;
+            //asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
+            AsyncWorkerCalculate.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerCalculate_RunWorkerCompleted);
+            AsyncWorkerCalculate.DoWork += new DoWorkEventHandler(AsyncWorkerCalculate_DoWork);
+
+            AsyncWorkerRecord = new BackgroundWorker();
+            AsyncWorkerRecord.WorkerReportsProgress = true;
+            AsyncWorkerRecord.WorkerSupportsCancellation = true;
+            AsyncWorkerRecord.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerRecord_ProgressChanged);
+            AsyncWorkerRecord.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerRecord_RunWorkerCompleted);
+            AsyncWorkerRecord.DoWork += new DoWorkEventHandler(AsyncWorkerRecord_DoWork);
+        }
+
+        void AsyncWorkerRecord_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBarRecord.Value = e.ProgressPercentage;
+        }
+
+        void AsyncWorkerRecord_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            buttonRecordAction.Enabled = true;
+            textBoxLogger.Text += "\r\nRecording completed.";
+            
+        }
+
+        void AsyncWorkerRecord_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bwAsync = sender as BackgroundWorker;
+
+            progressBarRecord.Value = 0;
+
+            DateTime startTime = DateTime.Now;
+            //bool needStop = false;
+
+            double recordTime = Convert.ToInt32(comboBoxRecordTime.Text)+0.2;
+
+            int count = 0;
+            while (true)
+            {
+                count++;
+
+                analog.Update();
+                DateTime stopTime = DateTime.Now;
+
+                TimeSpan duration = stopTime - startTime;
+
+                int percentCompleted = Convert.ToInt32((duration.TotalMilliseconds / (recordTime * 1000))*100) ;
+
+                if (percentCompleted>100) break;
+
+                if (percentCompleted % 7 == 0)
+                    bwAsync.ReportProgress(percentCompleted);
+            }
+
+            bwAsync.ReportProgress(100);
+        }
+
+        void AsyncWorkerCalculate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            buttonCalculate.Enabled = true;
+            textBoxLogger.Text += "\r\nCalculating model has completed.";
+        }
+
+        void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
+        {
+            model = new AdastraMachineLearningModel();
+            model.Train(vrpnIncomingSignal, vrpnDimensions);
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
@@ -74,43 +148,45 @@ namespace Adastra
 
         private void buttonRecordAction_Click(object sender, EventArgs e)
         {
-            SelectedClass = comboBoxSelectedClass.SelectedIndex + 1;
-            string ClassName = comboBoxSelectedClass.Items[comboBoxSelectedClass.SelectedIndex].ToString();
-
-            if (!actions.Keys.Contains(ClassName))
-                actions.Add(ClassName, SelectedClass);
-
-            textBoxLogger.Text += "Recoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
-
-            Thread oThread = new Thread(new ThreadStart(Record));
-            oThread.Start();
-        }
-
-        private void Record()
-        {
-            DateTime startTime = DateTime.Now;
-            bool needStop = false;
-
-            int recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
-
-            while (!needStop)
+            if (AsyncWorkerCalculate.IsBusy)
             {
-                analog.Update();
-                DateTime stopTime = DateTime.Now;
-                TimeSpan duration = stopTime - startTime;
-                if (duration.Seconds > recordTime) needStop = true;
+                buttonRecordAction.Enabled = false;
+
+                AsyncWorkerRecord.CancelAsync();
+            }
+            else
+            {
+                buttonRecordAction.Enabled = false;
+
+                SelectedClass = comboBoxSelectedClass.SelectedIndex + 1;
+                string ClassName = comboBoxSelectedClass.Items[comboBoxSelectedClass.SelectedIndex].ToString();
+
+                if (!actions.Keys.Contains(ClassName))
+                    actions.Add(ClassName, SelectedClass);
+
+                textBoxLogger.Text += "Recoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
+
+                AsyncWorkerRecord.RunWorkerAsync();
             }
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            #region UI
-            textBoxLogger.Text += "\r\nCreating machine learning model to be used for classification.";
-            if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("You need to first record some data for specific action"); return; }
-            #endregion
+            if (AsyncWorkerCalculate.IsBusy)
+            {
+                buttonCalculate.Enabled = false;
 
-            model = new AdastraMachineLearningModel();
-            model.Train(vrpnIncomingSignal, vrpnDimensions);
+                AsyncWorkerCalculate.CancelAsync();
+            }
+            else //start new process
+            {
+                textBoxLogger.Text += "\r\nCreating machine learning model to be used for classification.";
+                if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("You need to first record some data for specific action"); return; }
+
+                buttonCalculate.Enabled = false;
+                //buttonCalculate.Text = "Cancel";
+                AsyncWorkerCalculate.RunWorkerAsync();
+            }
         }
 
         private void buttonSaveModel_Click(object sender, EventArgs e)

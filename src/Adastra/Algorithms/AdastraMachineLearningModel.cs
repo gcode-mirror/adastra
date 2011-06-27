@@ -100,7 +100,7 @@ namespace Adastra
                 double error = teacher.RunEpoch(input2, output2);
 
                 p++;
-                if (p > 100) break;
+                if (p > 10000) break;
                 // check error value to see if we need to stop
 
 
