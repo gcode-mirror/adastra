@@ -54,8 +54,12 @@ namespace Adastra
 
             _lda = new LinearDiscriminantAnalysis(inputs, output);
 
+            this.Progress(10);
+
             // Compute the analysis
             _lda.Compute();
+
+            this.Progress(35);
 
             double[,] projection = _lda.Transform(inputs);
 
@@ -109,6 +113,7 @@ namespace Adastra
             //now we have a model of a NN+LDA which we can use for classification
             //model = new AdastraMachineLearningModel(lda, network);
             //model.ActionList = actions;
+            this.Progress(100);
         }
 
         public int Classify(double[] input)
@@ -145,5 +150,9 @@ namespace Adastra
         }
 
         public Dictionary<string,int> ActionList;
+
+        public delegate void ChangedEventHandler(int progress);
+
+        public event ChangedEventHandler Progress;
     }
 }

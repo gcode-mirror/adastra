@@ -75,54 +75,28 @@ namespace Adastra
         {
             buttonRecordAction.Enabled = true;
             textBoxLogger.Text += "\r\nRecording completed.";
-            
         }
 
-        static int toal_seconds = 7;
-        static DateTime start;
-        static System.Timers.Timer myTimer = new System.Timers.Timer();
+        static int recordTime;
+        static DateTime startRecord;
+        static System.Timers.Timer recordTimer = new System.Timers.Timer();
 
         void AsyncWorkerRecord_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
             progressBarRecord.Value = 0;
+            recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
 
-            //DateTime startTime = DateTime.Now;
-            //bool needStop = false;
-
-            //double recordTime = Convert.ToInt32(comboBoxRecordTime.Text)+0.2;
-
-            //System.Timers.Timer myTimer = new System.Timers.Timer();
-            //myTimer.Interval = //recordTime*1000 / 5;
-            //myTimer.Enabled = true;
-            //myTimer.Elapsed += new System.Timers.ElapsedEventHandler(myTimer_Elapsed);
-
-            //myTimer.Start();
-            myTimer = new System.Timers.Timer();
-            myTimer.Interval = 1000;
-            myTimer.Enabled = true;
-            myTimer.Elapsed += new System.Timers.ElapsedEventHandler(myTimer_Elapsed);
-            start = DateTime.Now;
-            myTimer.Start();
-
-            int count = 0;
+            recordTimer.Interval = 1000;
+            recordTimer.Enabled = true;
+            recordTimer.Elapsed += new System.Timers.ElapsedEventHandler(recordTimer_Elapsed);
+            startRecord = DateTime.Now;
+            recordTimer.Start();
 
             while (!bwAsync.CancellationPending)
             {
-                count++;
-
                 analog.Update();
-                //DateTime stopTime = DateTime.Now;
-
-                //TimeSpan duration = stopTime - startTime;
-
-                //int percentCompleted = Convert.ToInt32((duration.TotalMilliseconds / (recordTime * 1000))*100) ;
-
-                //if (percentCompleted>100) break;
-
-                //if (percentCompleted % 7 == 0)
-                //    bwAsync.ReportProgress(percentCompleted);
             }
 
             if (bwAsync.CancellationPending) e.Cancel = true;
@@ -130,18 +104,18 @@ namespace Adastra
             bwAsync.ReportProgress(100);
         }
 
-        void myTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void recordTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            TimeSpan t = e.SignalTime - start;
+            TimeSpan elapsedTime = e.SignalTime - startRecord;
 
-            if (t.TotalMilliseconds >= (toal_seconds * 1000))
+            if (elapsedTime.TotalMilliseconds >= (recordTime * 1000))
             {
-                myTimer.Stop();
+                recordTimer.Stop();
                 AsyncWorkerRecord.CancelAsync();
             }
             else
             {
-                int percentCompleted = Convert.ToInt32((t.TotalMilliseconds / (toal_seconds * 1000)) * 100);
+                int percentCompleted = Convert.ToInt32((elapsedTime.TotalMilliseconds / (recordTime * 1000)) * 100);
                 AsyncWorkerRecord.ReportProgress(percentCompleted);
             }
         }
@@ -155,7 +129,13 @@ namespace Adastra
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
             model = new AdastraMachineLearningModel();
+            model.Progress += new AdastraMachineLearningModel.ChangedEventHandler(model_Progress);
             model.Train(vrpnIncomingSignal, vrpnDimensions);
+        }
+
+        void model_Progress(int progress)
+        {
+            progressBarModelCalculation.Value = progress;
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
@@ -200,7 +180,7 @@ namespace Adastra
                 if (!actions.Keys.Contains(ClassName))
                     actions.Add(ClassName, SelectedClass);
 
-                textBoxLogger.Text += "Recoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
+                textBoxLogger.Text += "\r\nRecoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
 
                 AsyncWorkerRecord.RunWorkerAsync();
             }

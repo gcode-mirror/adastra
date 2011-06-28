@@ -40,7 +40,7 @@
             this.textBoxLogger = new System.Windows.Forms.TextBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.progressBarModelCalculation = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -166,19 +166,19 @@
             this.radioButton2.Text = "LDA+SVM";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // progressBar2
+            // progressBarModelCalculation
             // 
-            this.progressBar2.Location = new System.Drawing.Point(13, 201);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(685, 23);
-            this.progressBar2.TabIndex = 17;
+            this.progressBarModelCalculation.Location = new System.Drawing.Point(13, 201);
+            this.progressBarModelCalculation.Name = "progressBarModelCalculation";
+            this.progressBarModelCalculation.Size = new System.Drawing.Size(685, 23);
+            this.progressBarModelCalculation.TabIndex = 17;
             // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 417);
-            this.Controls.Add(this.progressBar2);
+            this.Controls.Add(this.progressBarModelCalculation);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.textBoxLogger);
@@ -212,7 +212,7 @@
         private System.Windows.Forms.TextBox textBoxLogger;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.ProgressBar progressBarModelCalculation;
 
     }
 }
