@@ -54,6 +54,12 @@ namespace Adastra
         {
             Thread oThread = new Thread(new ThreadStart(LoadModels));
             oThread.Start();
+
+            oThread.Join();
+            foreach (var item in models)
+            {
+                listBoxModels.Items.Add(item.Name);
+            }
         }
 
         private void LoadModels()
@@ -72,11 +78,6 @@ namespace Adastra
             models = result.ToList();
 
             db.Close();
-
-            foreach (var item in models)
-            {
-                listBoxModels.Items.Add(item.Name);
-            }
         }
 
         /// <summary>

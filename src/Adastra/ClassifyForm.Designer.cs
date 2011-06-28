@@ -68,7 +68,7 @@
             this.listBoxClasses.FormattingEnabled = true;
             this.listBoxClasses.Location = new System.Drawing.Point(302, 55);
             this.listBoxClasses.Name = "listBoxClasses";
-            this.listBoxClasses.Size = new System.Drawing.Size(279, 82);
+            this.listBoxClasses.Size = new System.Drawing.Size(279, 108);
             this.listBoxClasses.TabIndex = 7;
             // 
             // label2
