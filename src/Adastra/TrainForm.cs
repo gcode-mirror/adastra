@@ -13,7 +13,6 @@ using Vrpn;
 using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
-//using Db4objects.Db4o;
 using Eloquera.Client;
 
 namespace Adastra
@@ -34,6 +33,8 @@ namespace Adastra
 
         private BackgroundWorker AsyncWorkerRecord;
 
+        private BackgroundWorker AsyncWorkerSaveModel;
+
         int SelectedClass
         {
             get;
@@ -51,10 +52,14 @@ namespace Adastra
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
 
+            recordTimer = new System.Timers.Timer();
+            recordTimer.Enabled = true;
+            recordTimer.Interval = 1000;
+            recordTimer.Elapsed += new System.Timers.ElapsedEventHandler(recordTimer_Elapsed);
+
             AsyncWorkerCalculate = new BackgroundWorker();
             AsyncWorkerCalculate.WorkerReportsProgress = true;
             AsyncWorkerCalculate.WorkerSupportsCancellation = true;
-            //asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
             AsyncWorkerCalculate.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerCalculate_RunWorkerCompleted);
             AsyncWorkerCalculate.DoWork += new DoWorkEventHandler(AsyncWorkerCalculate_DoWork);
 
@@ -64,6 +69,55 @@ namespace Adastra
             AsyncWorkerRecord.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerRecord_ProgressChanged);
             AsyncWorkerRecord.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerRecord_RunWorkerCompleted);
             AsyncWorkerRecord.DoWork += new DoWorkEventHandler(AsyncWorkerRecord_DoWork);
+
+            AsyncWorkerSaveModel = new BackgroundWorker();
+            AsyncWorkerSaveModel.WorkerReportsProgress = true;
+            AsyncWorkerSaveModel.WorkerSupportsCancellation = true;
+            AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
+            AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
+        }
+
+        void AsyncWorkerSaveModel_DoWork(object sender, DoWorkEventArgs e)
+        {
+            const string dbName = "AdastraDB";
+
+            string fullpath = Environment.CurrentDirectory + "\\" + dbName;
+
+            //var db = new DB("server=(local);options=none;");
+            var db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
+
+            bool justCreated = false;
+            if (!File.Exists(fullpath + ".eq"))
+            {
+                db.CreateDatabase(fullpath);
+                justCreated = true;
+            }
+
+            db.OpenDatabase(fullpath);
+            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
+
+            if (justCreated)
+            {
+                db.RegisterType(typeof(AdastraMachineLearningModel));
+                db.RegisterType(typeof(LinearDiscriminantAnalysis));
+                db.RegisterType(typeof(ActivationNetwork));
+            }
+
+            db.Store(model);
+
+            db.Close();
+        }
+
+        void AsyncWorkerSaveModel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            else
+            {
+                textBoxLogger.Text += "\r\nModel saved.";
+            }
+            buttonSaveModel.Enabled = true;
+            
         }
 
         void AsyncWorkerRecord_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -73,13 +127,18 @@ namespace Adastra
 
         void AsyncWorkerRecord_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (e.Error != null)
+            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            else
+            {
+                textBoxLogger.Text += "\r\nRecording completed.";
+            }
             buttonRecordAction.Enabled = true;
-            textBoxLogger.Text += "\r\nRecording completed.";
         }
 
         static int recordTime;
         static DateTime startRecord;
-        static System.Timers.Timer recordTimer = new System.Timers.Timer();
+        static System.Timers.Timer recordTimer;
 
         void AsyncWorkerRecord_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -88,9 +147,6 @@ namespace Adastra
             progressBarRecord.Value = 0;
             recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
 
-            recordTimer.Interval = 1000;
-            recordTimer.Enabled = true;
-            recordTimer.Elapsed += new System.Timers.ElapsedEventHandler(recordTimer_Elapsed);
             startRecord = DateTime.Now;
             recordTimer.Start();
 
@@ -122,8 +178,13 @@ namespace Adastra
 
         void AsyncWorkerCalculate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (e.Error != null)
+            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            else
+            {
+                textBoxLogger.Text += "\r\nCalculating model has completed.";
+            }
             buttonCalculate.Enabled = true;
-            textBoxLogger.Text += "\r\nCalculating model has completed.";
         }
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
@@ -142,13 +203,6 @@ namespace Adastra
         {
             vrpnDimensions = e.Channels.Length;
 
-            //string r = "";
-            //for (int i = 0; i < e.Channels.Length; i++)
-            //{
-            //    r += e.Channels[i].ToString();
-            //}
-            //textBoxFeatureVector.Text=r;
-
             double[] output_input = new double[e.Channels.Length + 1];
 
             output_input[0] = SelectedClass;
@@ -164,7 +218,7 @@ namespace Adastra
 
         private void buttonRecordAction_Click(object sender, EventArgs e)
         {
-            if (AsyncWorkerCalculate.IsBusy)
+            if (AsyncWorkerRecord.IsBusy)
             {
                 buttonRecordAction.Enabled = false;
 
@@ -207,68 +261,34 @@ namespace Adastra
 
         private void buttonSaveModel_Click(object sender, EventArgs e)
         {
-            Thread oThread = new Thread(new ThreadStart(SaveModel));
-            oThread.Start();
-        }
-
-        private void SaveModel()
-        {
-            if (textBoxModelName.Text.Length == 0)
-            { MessageBox.Show("Please enter model name!"); return; }
-
-            model.Name = textBoxModelName.Text;
-
-            const string dbName = "AdastraDB";
-
-            string fullpath = Environment.CurrentDirectory + "\\" + dbName;
-
-            //var db = new DB("server=(local);options=none;");
-            var db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
-
-            bool justCreated = false;
-            if (!File.Exists(fullpath + ".eq"))
+            if (AsyncWorkerCalculate.IsBusy)
             {
-                db.CreateDatabase(fullpath);
-                justCreated = true;
+                buttonSaveModel.Enabled = false;
+
+                AsyncWorkerSaveModel.CancelAsync();
             }
-
-            db.OpenDatabase(fullpath);
-            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
-
-            if (justCreated)
+            else
             {
-                db.RegisterType(typeof(AdastraMachineLearningModel));
-                db.RegisterType(typeof(LinearDiscriminantAnalysis));
-                db.RegisterType(typeof(ActivationNetwork));
+                textBoxLogger.Text += "\r\nSaving model ...";
+
+                if (textBoxModelName.Text.Length == 0)
+                { MessageBox.Show("Please enter model name!"); return; }
+
+                if (model==null)
+                { MessageBox.Show("You need to calculate model first!"); return; }
+
+                buttonSaveModel.Enabled = false;
+
+                model.Name = textBoxModelName.Text;
+                model.ActionList = actions;
+
+                AsyncWorkerSaveModel.RunWorkerAsync();
             }
-
-            db.Store(model);
-
-            db.Close();
         }
 
         private void buttonCloseForm_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void buttonSelectModelLocation_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog fo = new SaveFileDialog();
-            fo.InitialDirectory = Environment.CurrentDirectory;
-
-            DialogResult result = fo.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                try
-                {
-                    textBoxModelName.Text = fo.FileName;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error:"+ex.Message);
-                }
-            }
         }
     }
 }

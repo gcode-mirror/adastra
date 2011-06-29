@@ -25,6 +25,8 @@ namespace Adastra
 
         public EventHandler handler;
 
+        private BackgroundWorker AsyncWorkerLoadModels;
+
         public ClassifyForm()
         {
             InitializeComponent();
@@ -35,8 +37,36 @@ namespace Adastra
 
             listBoxModels.SelectedIndex = -1;
 
-            Thread oThread = new Thread(new ThreadStart(LoadModels));
-            oThread.Start();
+            AsyncWorkerLoadModels = new BackgroundWorker();
+            AsyncWorkerLoadModels.WorkerReportsProgress = true;
+            AsyncWorkerLoadModels.WorkerSupportsCancellation = true;
+            AsyncWorkerLoadModels.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerLoadModels_RunWorkerCompleted);
+            AsyncWorkerLoadModels.DoWork += new DoWorkEventHandler(AsyncWorkerLoadModels_DoWork);
+
+            toolStripStatusLabel1.Text = "Loading models. Please wait. It make take several minutes to load.";
+            AsyncWorkerLoadModels.RunWorkerAsync();
+        }
+
+        void AsyncWorkerLoadModels_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            else
+            {
+                foreach (AdastraMachineLearningModel m in models)
+                {
+                    listBoxModels.Items.Add(m.Name);
+                }
+
+                if (models != null && models.Count > 0)
+                    toolStripStatusLabel1.Text = "Models loaded: " + models.Count;
+                else toolStripStatusLabel1.Text = "No models loaded.";
+            }
+        }
+
+        void AsyncWorkerLoadModels_DoWork(object sender, DoWorkEventArgs e)
+        {
+            LoadModels();
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
@@ -47,18 +77,6 @@ namespace Adastra
             {
                 if (model.ActionList[key] == action)
                     listBoxResult.Items.Add(key);
-            }
-        }
-
-        private void buttonModel_Click(object sender, EventArgs e)
-        {
-            Thread oThread = new Thread(new ThreadStart(LoadModels));
-            oThread.Start();
-
-            oThread.Join();
-            foreach (var item in models)
-            {
-                listBoxModels.Items.Add(item.Name);
             }
         }
 
@@ -81,7 +99,7 @@ namespace Adastra
         }
 
         /// <summary>
-        /// Start training. This method will create a model based on recorded signal which is used for later classification.
+        /// Start processing signal and classification
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -101,11 +119,6 @@ namespace Adastra
             //analog.Update();
         }
 
-        /// <summary>
-        /// ?????????????????????????????????????
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxModels.SelectedIndex != -1)
