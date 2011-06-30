@@ -31,14 +31,10 @@ namespace Adastra
 
         public void Train(List<double[]> outputInput, int inputVectorDimensions)
         {
-            #region prepare data
-            // randomize vectors positions
-            // split in training and validation sets 
-            // train NN until validation set
-            #endregion
-
             double[,] inputs = new double[outputInput.Count, inputVectorDimensions];
             int[] output = new int[outputInput.Count];
+
+      
 
             #region convert to LDA format
             for (int i = 0; i < outputInput.Count; i++)
@@ -96,23 +92,34 @@ namespace Adastra
             // create teacher
             BackPropagationLearning teacher = new BackPropagationLearning(_network);
 
-            // train
-            int p = 0;
-            while (true)
+            TrainDataIterator iter = new TrainDataIterator(4, input2, output2);
+
+            //actual training
+            while (iter.HasMore) //we do the training each time spliting the data to different 'train' and 'validate' sets 
             {
-                // run epoch of learning procedure
-                double error = teacher.RunEpoch(input2, output2);
+                double[][] trainDataInput;
+                double[][] trainDataOutput;
+                double[][] validateDataInput;
+                double[][] validateDataOutput;
 
-                p++;
-                if (p > 10000) break;
-                // check error value to see if we need to stop
+                iter.GetData(out trainDataInput,out trainDataOutput,out validateDataInput,out validateDataOutput);
 
+                double error;
+                double errorPrev=-1;
 
+                while (true) //we do the training over the 'train' set until the error of the 'validate' set start to increase
+                {
+                    teacher.RunEpoch(trainDataInput, trainDataOutput);
+
+                    error = teacher.RunEpoch(validateDataInput, validateDataOutput);
+
+                    if (error > errorPrev)
+                        break;
+                    errorPrev = error;
+                }
             }
 
             //now we have a model of a NN+LDA which we can use for classification
-            //model = new AdastraMachineLearningModel(lda, network);
-            //model.ActionList = actions;
             this.Progress(100);
         }
 
@@ -154,5 +161,35 @@ namespace Adastra
         public delegate void ChangedEventHandler(int progress);
 
         public event ChangedEventHandler Progress;
+
+        class TrainDataIterator
+        {
+            private TrainDataIterator()
+            {
+            }
+
+            public TrainDataIterator(int ratio,double[][] input,double[][] output)
+            {
+                //randomize vectors
+            }
+
+            public void GetData(out double[][] trainDataInput, out double[][] trainDataOutput, out double[][] validateDataInput, out double[][] validateDataOutput)
+            {
+                //slice data
+
+                trainDataInput = new double[0][];
+                trainDataOutput = new double[0][];
+                validateDataInput = new double[0][];
+                validateDataOutput = new double[0][];
+            }
+
+            public bool HasMore
+            {
+                get
+                {
+                    return true;
+                }
+            }
+        }
     }
 }
