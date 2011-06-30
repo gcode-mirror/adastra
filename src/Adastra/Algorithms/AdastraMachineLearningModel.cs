@@ -34,8 +34,6 @@ namespace Adastra
             double[,] inputs = new double[outputInput.Count, inputVectorDimensions];
             int[] output = new int[outputInput.Count];
 
-      
-
             #region convert to LDA format
             for (int i = 0; i < outputInput.Count; i++)
             {
