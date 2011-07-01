@@ -1,13 +1,12 @@
 ﻿next: finish train form:
 
- - fix NaN bug
-
  - make NN has an ouput for every class
 
  - fix classify form
 
 +=====================================
- - separate 1:4 validate\train sets
+- fix NaN bug
+- separate 1:4 validate\train sets
 - randomize input vectors 
 change enumeration - done
 fix parameter problem - done
