@@ -1,7 +1,8 @@
-﻿- fix classify form
-     - add processing thread
+﻿
 
 +=====================================
+- fix classify form
+     - add processing thread
  - make NN has an ouput for every class
 - fix NaN bug
 - separate 1:4 validate\train sets

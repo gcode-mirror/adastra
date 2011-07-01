@@ -27,6 +27,8 @@ namespace Adastra
 
         private BackgroundWorker AsyncWorkerLoadModels;
 
+        BackgroundWorker AsyncWorkerProcess;
+
         public ClassifyForm()
         {
             InitializeComponent();
@@ -45,6 +47,40 @@ namespace Adastra
 
             toolStripStatusLabel1.Text = "Loading models. Please wait. It make take several minutes to load.";
             AsyncWorkerLoadModels.RunWorkerAsync();
+
+            AsyncWorkerProcess = new BackgroundWorker();
+            AsyncWorkerProcess.WorkerReportsProgress = true;
+            AsyncWorkerProcess.WorkerSupportsCancellation = true;
+            AsyncWorkerProcess.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerProcess_ProgressChanged);
+            AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
+            AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
+        }
+
+        void AsyncWorkerProcess_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            { MessageBox.Show("Error:" + e.Error.Message); }
+            else
+            {
+                listBoxResult.Items.Add("Done.");
+            }
+            buttonStartProcessing.Enabled = true;
+            buttonStartProcessing.Text = "Process";
+        }
+
+        void AsyncWorkerProcess_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            listBoxResult.Items.Add((string)e.UserState);
+        }
+
+        void AsyncWorkerProcess_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (!AsyncWorkerProcess.CancellationPending)
+            {
+                analog.Update();
+            }
+
+            if (AsyncWorkerProcess.CancellationPending) e.Cancel = true;
         }
 
         void AsyncWorkerLoadModels_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -76,7 +112,7 @@ namespace Adastra
             foreach (var key in model.ActionList.Keys)
             {
                 if (model.ActionList[key] == action)
-                    listBoxResult.Items.Add(key);
+                    AsyncWorkerProcess.ReportProgress(action, key);
             }
         }
 
@@ -105,18 +141,19 @@ namespace Adastra
         /// <param name="e"></param>
         private void buttonStartProcessing_Click(object sender, EventArgs e)
         {
-            //double[] test = new double[] { 0.23, 0.345,0.45,0.123,0.42432,0.423423,0.42342,0.42343,0.42342,0.423432,0.42423};
-            //int c=model.Classify(test);
+            if (AsyncWorkerProcess.IsBusy)
+            {
+                buttonStartProcessing.Enabled = false;
 
-            //foreach(string key in model.ActionList.Keys)
-            //{
-            //    if (model.ActionList[key] == c)
-            //    {
-            //        listBoxResult.Items.Add(key);
-            //    }
-            //}
+                AsyncWorkerProcess.CancelAsync();
+            }
+            else
+            {
+                buttonStartProcessing.Text = "Cancel";
+                listBoxResult.Items.Add("Classification started...");
 
-            analog.Update();
+                AsyncWorkerProcess.RunWorkerAsync();
+            }
         }
 
         private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
