@@ -250,8 +250,8 @@ namespace Adastra
             }
             else //start new process
             {
-                textBoxLogger.Text += "\r\nCreating machine learning model to be used for classification.";
-                if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("You need to first record some data for specific action"); return; }
+                textBoxLogger.Text += "\r\nCreating machine learning model to be used for classification...";
+                if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("First you need to record some data for specific action!"); return; }
 
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";

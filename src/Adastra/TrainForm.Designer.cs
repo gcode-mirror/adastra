@@ -41,13 +41,15 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.progressBarModelCalculation = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonRecordAction
             // 
-            this.buttonRecordAction.Location = new System.Drawing.Point(68, 51);
+            this.buttonRecordAction.Location = new System.Drawing.Point(148, 57);
             this.buttonRecordAction.Name = "buttonRecordAction";
-            this.buttonRecordAction.Size = new System.Drawing.Size(116, 23);
+            this.buttonRecordAction.Size = new System.Drawing.Size(130, 23);
             this.buttonRecordAction.TabIndex = 1;
             this.buttonRecordAction.Text = "Record action";
             this.buttonRecordAction.UseVisualStyleBackColor = true;
@@ -56,7 +58,7 @@
             // buttonCalculate
             // 
             this.buttonCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCalculate.Location = new System.Drawing.Point(12, 121);
+            this.buttonCalculate.Location = new System.Drawing.Point(12, 92);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(542, 60);
             this.buttonCalculate.TabIndex = 2;
@@ -74,21 +76,21 @@
             "Up",
             "Down",
             "Double-Click"});
-            this.comboBoxSelectedClass.Location = new System.Drawing.Point(12, 12);
+            this.comboBoxSelectedClass.Location = new System.Drawing.Point(97, 17);
             this.comboBoxSelectedClass.Name = "comboBoxSelectedClass";
-            this.comboBoxSelectedClass.Size = new System.Drawing.Size(172, 21);
+            this.comboBoxSelectedClass.Size = new System.Drawing.Size(181, 21);
             this.comboBoxSelectedClass.TabIndex = 3;
             // 
             // progressBarRecord
             // 
-            this.progressBarRecord.Location = new System.Drawing.Point(205, 53);
+            this.progressBarRecord.Location = new System.Drawing.Point(284, 57);
             this.progressBarRecord.Name = "progressBarRecord";
-            this.progressBarRecord.Size = new System.Drawing.Size(349, 21);
+            this.progressBarRecord.Size = new System.Drawing.Size(270, 21);
             this.progressBarRecord.TabIndex = 4;
             // 
             // textBoxModelName
             // 
-            this.textBoxModelName.Location = new System.Drawing.Point(85, 242);
+            this.textBoxModelName.Location = new System.Drawing.Point(85, 213);
             this.textBoxModelName.Name = "textBoxModelName";
             this.textBoxModelName.Size = new System.Drawing.Size(390, 20);
             this.textBoxModelName.TabIndex = 7;
@@ -96,7 +98,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 245);
+            this.label2.Location = new System.Drawing.Point(14, 216);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 8;
@@ -104,7 +106,7 @@
             // 
             // buttonCloseForm
             // 
-            this.buttonCloseForm.Location = new System.Drawing.Point(584, 240);
+            this.buttonCloseForm.Location = new System.Drawing.Point(584, 211);
             this.buttonCloseForm.Name = "buttonCloseForm";
             this.buttonCloseForm.Size = new System.Drawing.Size(116, 42);
             this.buttonCloseForm.TabIndex = 10;
@@ -119,14 +121,14 @@
             "3",
             "5",
             "10"});
-            this.comboBoxRecordTime.Location = new System.Drawing.Point(12, 53);
+            this.comboBoxRecordTime.Location = new System.Drawing.Point(97, 59);
             this.comboBoxRecordTime.Name = "comboBoxRecordTime";
-            this.comboBoxRecordTime.Size = new System.Drawing.Size(43, 21);
+            this.comboBoxRecordTime.Size = new System.Drawing.Size(45, 21);
             this.comboBoxRecordTime.TabIndex = 11;
             // 
             // buttonSaveModel
             // 
-            this.buttonSaveModel.Location = new System.Drawing.Point(493, 242);
+            this.buttonSaveModel.Location = new System.Drawing.Point(493, 213);
             this.buttonSaveModel.Name = "buttonSaveModel";
             this.buttonSaveModel.Size = new System.Drawing.Size(75, 23);
             this.buttonSaveModel.TabIndex = 13;
@@ -136,7 +138,7 @@
             // 
             // textBoxLogger
             // 
-            this.textBoxLogger.Location = new System.Drawing.Point(12, 295);
+            this.textBoxLogger.Location = new System.Drawing.Point(12, 266);
             this.textBoxLogger.Multiline = true;
             this.textBoxLogger.Name = "textBoxLogger";
             this.textBoxLogger.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -147,7 +149,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(582, 121);
+            this.radioButton1.Location = new System.Drawing.Point(598, 92);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(74, 17);
             this.radioButton1.TabIndex = 15;
@@ -159,7 +161,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(582, 153);
+            this.radioButton2.Location = new System.Drawing.Point(598, 124);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(75, 17);
             this.radioButton2.TabIndex = 16;
@@ -168,16 +170,36 @@
             // 
             // progressBarModelCalculation
             // 
-            this.progressBarModelCalculation.Location = new System.Drawing.Point(13, 201);
+            this.progressBarModelCalculation.Location = new System.Drawing.Point(13, 172);
             this.progressBarModelCalculation.Name = "progressBarModelCalculation";
             this.progressBarModelCalculation.Size = new System.Drawing.Size(685, 23);
             this.progressBarModelCalculation.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(51, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Action:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Record time (s):";
             // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 417);
+            this.ClientSize = new System.Drawing.Size(712, 368);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBarModelCalculation);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
@@ -213,6 +235,8 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.ProgressBar progressBarModelCalculation;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
 
     }
 }

@@ -160,14 +160,25 @@ namespace Adastra
 
         public event ChangedEventHandler Progress;
 
+        /// <summary>
+        /// This class is used for two operations:
+        /// 1. Randomize feature vectors
+        /// 2. Split data in several combinations of 'train' and 'validate' data
+        /// This class is used to train over the 'train' data until the error over 'validate' set is satisfactory (usually just before starting to increase)
+        /// </summary>
         class TrainDataIterator
         {
+            int _ratio;
+            double[][] _input;
+            double[][] _output;
+
             private TrainDataIterator()
-            {
+            { //we can not have a instance witout data
             }
 
             public TrainDataIterator(int ratio,double[][] input,double[][] output)
             {
+
                 //randomize vectors
             }
 
