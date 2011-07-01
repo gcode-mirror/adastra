@@ -113,15 +113,19 @@
     </Compile>
     <EmbeddedResource Include="ClassifyForm.resx">
       <DependentUpon>ClassifyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CursorControlForm.resx">
       <DependentUpon>CursorControlForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenVibeClassification.resx">
       <DependentUpon>OpenVibeClassification.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OutputForm.resx">
       <DependentUpon>OutputForm.cs</DependentUpon>

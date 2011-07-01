@@ -223,9 +223,10 @@
             this.comboBoxScenarioType.Items.AddRange(new object[] {
             "1. Display: multi-channel EEG from OpenVibe",
             "2. Display: LDA/SVM classification output from OpenVibe",
-            "3. Train:  using OpenVibe\'s feature aggegator + Adastra\'s LDA/MLP trainer",
+            "3. Train:  using OpenVibe\'s feature aggegator + Adastra\'s LDA/MLP trainer (relate" +
+                "d scenario 4)",
             "4. Display: EEG classification using OpenVibe\'s feature aggegator + Adastra\'s LDA" +
-                "/MLP classifier"});
+                "/MLP classifier (related scenario 3)"});
             this.comboBoxScenarioType.Location = new System.Drawing.Point(90, 41);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
             this.comboBoxScenarioType.Size = new System.Drawing.Size(615, 21);

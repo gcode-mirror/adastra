@@ -46,6 +46,7 @@ namespace Adastra
             }
             #endregion
 
+            //output classes must be consecutive: 1,2,3 ...
             _lda = new LinearDiscriminantAnalysis(inputs, output);
 
             this.Progress(10);
@@ -103,19 +104,25 @@ namespace Adastra
 
                 iter.GetData(out trainDataInput,out trainDataOutput,out validateDataInput,out validateDataOutput);
 
-                double error;
+                double errorValidationSet;
+                double errorTrainSet;
                 double errorPrev=1000000;
 
+                int count = 0;
                 while (true) //we do the training over the 'train' set until the error of the 'validate' set start to increase
                 {
-                    teacher.RunEpoch(trainDataInput, trainDataOutput);
+                    count++;
+                    errorTrainSet = teacher.RunEpoch(trainDataInput, trainDataOutput);
 
-                    error = teacher.RunEpoch(validateDataInput, validateDataOutput);
-                    if (double.IsNaN(error)) throw new Exception("Computation failed!");
+                    if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
+                    {
+                        errorValidationSet = teacher.RunEpoch(validateDataInput, validateDataOutput);
+                        if (double.IsNaN(errorValidationSet)) throw new Exception("Computation failed!");
 
-                    if (error > errorPrev)
-                        break;
-                    errorPrev = error;
+                        if (errorValidationSet > errorPrev /*|| Math.Abs(errorTrainSet - errorValidationSet)<0.0001*/)
+                            break;
+                        errorPrev = errorValidationSet;
+                    }
                 }
 
                 this.Progress(35 + (iter.CurrentIterationIndex)*(65/ratio));
@@ -206,7 +213,9 @@ namespace Adastra
                     _input[i] = input[numbers[num]];
                     _output[i] = output[numbers[num]];
 
+                    int temp = numbers[num];
                     numbers[num] = numbers[max - 1];
+                    numbers[max - 1] = temp;
 
                     max--;
                 }

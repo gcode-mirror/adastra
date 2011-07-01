@@ -35,11 +35,10 @@ namespace Adastra
 
         private BackgroundWorker AsyncWorkerSaveModel;
 
-        int SelectedClass
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        /// Increases after each recording. It is different from comboBoxSelectedClass.SelectedIndex
+        /// </summary>
+        int SelectedClassNumeric = 0;
 
         public TrainForm()
         {
@@ -151,7 +150,7 @@ namespace Adastra
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
             bwAsync.ReportProgress(0);
-            recordTime = 3;// Convert.ToInt32(comboBoxRecordTime.Text);
+            recordTime = 3;//Convert.ToInt32(comboBoxRecordTime.Text);
 
             startRecord = DateTime.Now;
             recordTimer.Start();
@@ -211,7 +210,7 @@ namespace Adastra
 
             double[] output_input = new double[e.Channels.Length + 1];
 
-            output_input[0] = SelectedClass;
+            output_input[0] = SelectedClassNumeric;
             
             for (int i = 1; i < e.Channels.Length+1; i++)
             {
@@ -234,13 +233,14 @@ namespace Adastra
             {
                 buttonRecordAction.Enabled = false;
 
-                SelectedClass = comboBoxSelectedClass.SelectedIndex + 1;
+                SelectedClassNumeric++;
+
                 string ClassName = comboBoxSelectedClass.Items[comboBoxSelectedClass.SelectedIndex].ToString();
 
                 if (!actions.Keys.Contains(ClassName))
-                    actions.Add(ClassName, SelectedClass);
+                    actions.Add(ClassName, SelectedClassNumeric);
 
-                textBoxLogger.Text += "\r\nRecoding data for action " + comboBoxSelectedClass.Text + " (class " + SelectedClass + ").";
+                textBoxLogger.Text += "\r\nRecoding data for action \"" + comboBoxSelectedClass.Text + "\" (class " + SelectedClassNumeric + ").";
 
                 AsyncWorkerRecord.RunWorkerAsync();
             }
