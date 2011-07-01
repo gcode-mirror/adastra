@@ -117,7 +117,7 @@ namespace Adastra
         void AsyncWorkerSaveModel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            { MessageBox.Show("Error:" + e.Error.Message);}
             else
             {
                 textBoxLogger.Text += "\r\nModel saved.";
@@ -134,7 +134,7 @@ namespace Adastra
         void AsyncWorkerRecord_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            { MessageBox.Show("Error:" + e.Error.Message); }
             else
             {
                 textBoxLogger.Text += "\r\nRecording completed.";
@@ -150,7 +150,7 @@ namespace Adastra
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            progressBarRecord.Value = 0;
+            bwAsync.ReportProgress(0);
             recordTime = 3;// Convert.ToInt32(comboBoxRecordTime.Text);
 
             startRecord = DateTime.Now;
@@ -185,7 +185,7 @@ namespace Adastra
         void AsyncWorkerCalculate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            { MessageBox.Show("Error:" + e.Error.Message);}
             else
             {
                 textBoxLogger.Text += "\r\nCalculating model has completed.";

@@ -90,7 +90,8 @@ namespace Adastra
             // create teacher
             BackPropagationLearning teacher = new BackPropagationLearning(_network);
 
-            TrainDataIterator iter = new TrainDataIterator(4, input2, output2);
+            int ratio = 4;
+            TrainDataIterator iter = new TrainDataIterator(ratio, input2, output2);
 
             //actual training
             while (iter.HasMore) //we do the training each time spliting the data to different 'train' and 'validate' sets 
@@ -103,18 +104,21 @@ namespace Adastra
                 iter.GetData(out trainDataInput,out trainDataOutput,out validateDataInput,out validateDataOutput);
 
                 double error;
-                double errorPrev=-1;
+                double errorPrev=1000000;
 
                 while (true) //we do the training over the 'train' set until the error of the 'validate' set start to increase
                 {
                     teacher.RunEpoch(trainDataInput, trainDataOutput);
 
                     error = teacher.RunEpoch(validateDataInput, validateDataOutput);
+                    if (double.IsNaN(error)) throw new Exception("Computation failed!");
 
                     if (error > errorPrev)
                         break;
                     errorPrev = error;
                 }
+
+                this.Progress(35 + (iter.CurrentIterationIndex)*(65/ratio));
             }
 
             //now we have a model of a NN+LDA which we can use for classification
@@ -172,15 +176,18 @@ namespace Adastra
             double[][] _input;
             double[][] _output;
 
+            int _currentValidateIndex;
+
             private TrainDataIterator()
             { //we can not have an instance without data
             }
 
-            public TrainDataIterator(int ratio,double[][] input,double[][] output)
+            public TrainDataIterator(int ratio, double[][] input, double[][] output)
             {
                 _ratio = ratio;
+                _currentValidateIndex = 0;
 
-                //randomize vectors
+                #region randomize vectors
                 int[] numbers = new int[input.GetLength(0)];
                 for (int i = 0; i < input.GetLength(0); i++)
                 {
@@ -196,29 +203,52 @@ namespace Adastra
                 {
                     int num = random.Next(max);
 
-                    _input[i]=input[numbers[num]];
-                    _output[i]=output[numbers[num]];
+                    _input[i] = input[numbers[num]];
+                    _output[i] = output[numbers[num]];
 
                     numbers[num] = numbers[max - 1];
 
                     max--;
                 }
+                #endregion
             }
 
             public void GetData(out double[][] trainDataInput, out double[][] trainDataOutput, out double[][] validateDataInput, out double[][] validateDataOutput)
             {
-                //slice data
-                trainDataInput = _input.Skip(3).Take(5).ToArray();
-                trainDataOutput = (double[][])_output.Skip(3).Take(5);
-                validateDataInput = new double[0][];
-                validateDataOutput = new double[0][];
+                if (_currentValidateIndex < _ratio)
+                {
+                    #region slice data into 'train' and 'validate' sets
+                    int sliceLength = _input.GetLength(0) / _ratio;
+
+                    int startValidateSlice = _currentValidateIndex * sliceLength;
+                    int endValidateSlice = startValidateSlice + sliceLength;
+
+                    validateDataInput = _input.Skip(startValidateSlice).Take(sliceLength).ToArray();
+                    validateDataOutput = _output.Skip(startValidateSlice).Take(sliceLength).ToArray();
+
+                    trainDataInput = _input.Take(startValidateSlice).ToArray().Concat(_input.Skip(endValidateSlice).Take(_input.GetLength(0) - endValidateSlice)).ToArray();
+                    trainDataOutput = _output.Take(startValidateSlice).ToArray().Concat(_output.Skip(endValidateSlice).Take(_output.GetLength(0) - endValidateSlice)).ToArray();
+                    #endregion
+
+                    _currentValidateIndex++;
+                }
+
+                else throw new Exception("Adastra: Access beyond array boundaries!");
             }
 
             public bool HasMore
             {
                 get
                 {
-                    return true;
+                    return (_currentValidateIndex < _ratio);
+                }
+            }
+
+            public int CurrentIterationIndex
+            {
+                get
+                {
+                    return _currentValidateIndex;
                 }
             }
         }
