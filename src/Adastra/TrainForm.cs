@@ -60,6 +60,7 @@ namespace Adastra
             AsyncWorkerCalculate = new BackgroundWorker();
             AsyncWorkerCalculate.WorkerReportsProgress = true;
             AsyncWorkerCalculate.WorkerSupportsCancellation = true;
+            AsyncWorkerCalculate.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerCalculate_ProgressChanged);
             AsyncWorkerCalculate.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerCalculate_RunWorkerCompleted);
             AsyncWorkerCalculate.DoWork += new DoWorkEventHandler(AsyncWorkerCalculate_DoWork);
 
@@ -75,6 +76,11 @@ namespace Adastra
             AsyncWorkerSaveModel.WorkerSupportsCancellation = true;
             AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
+        }
+
+        void AsyncWorkerCalculate_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBarModelCalculation.Value = e.ProgressPercentage;
         }
 
         void AsyncWorkerSaveModel_DoWork(object sender, DoWorkEventArgs e)
@@ -145,7 +151,7 @@ namespace Adastra
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
             progressBarRecord.Value = 0;
-            recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
+            recordTime = 3;// Convert.ToInt32(comboBoxRecordTime.Text);
 
             startRecord = DateTime.Now;
             recordTimer.Start();
@@ -196,7 +202,7 @@ namespace Adastra
 
         void model_Progress(int progress)
         {
-            progressBarModelCalculation.Value = progress;
+            AsyncWorkerCalculate.ReportProgress(progress); 
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)

@@ -163,8 +163,8 @@ namespace Adastra
         /// <summary>
         /// This class is used for two operations:
         /// 1. Randomize feature vectors
-        /// 2. Split data in several combinations of 'train' and 'validate' data
-        /// This class is used to train over the 'train' data until the error over 'validate' set is satisfactory (usually just before starting to increase)
+        /// 2. Split feature vectors set in several combinations of 'train' and 'validate' data
+        /// This class is used to train over the 'train' set until the error over 'validate' set is satisfactory (usually just before starting to increase)
         /// </summary>
         class TrainDataIterator
         {
@@ -173,21 +173,43 @@ namespace Adastra
             double[][] _output;
 
             private TrainDataIterator()
-            { //we can not have a instance witout data
+            { //we can not have an instance without data
             }
 
             public TrainDataIterator(int ratio,double[][] input,double[][] output)
             {
+                _ratio = ratio;
 
                 //randomize vectors
+                int[] numbers = new int[input.GetLength(0)];
+                for (int i = 0; i < input.GetLength(0); i++)
+                {
+                    numbers[i] = i;
+                }
+
+                int max = input.GetLength(0);
+                Random random = new Random();
+                _input = new double[input.GetLength(0)][];
+                _output = new double[input.GetLength(0)][];
+
+                for (int i = 0; i < input.GetLength(0); i++)
+                {
+                    int num = random.Next(max);
+
+                    _input[i]=input[numbers[num]];
+                    _output[i]=output[numbers[num]];
+
+                    numbers[num] = numbers[max - 1];
+
+                    max--;
+                }
             }
 
             public void GetData(out double[][] trainDataInput, out double[][] trainDataOutput, out double[][] validateDataInput, out double[][] validateDataOutput)
             {
                 //slice data
-
-                trainDataInput = new double[0][];
-                trainDataOutput = new double[0][];
+                trainDataInput = _input.Skip(3).Take(5).ToArray();
+                trainDataOutput = (double[][])_output.Skip(3).Take(5);
                 validateDataInput = new double[0][];
                 validateDataOutput = new double[0][];
             }
