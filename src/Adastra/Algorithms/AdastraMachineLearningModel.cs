@@ -60,6 +60,7 @@ namespace Adastra
 
             int vector_count = projection.GetLength(0);
             int dimensions = projection.GetLength(1);
+            int output_count=_lda.ClassCount.Count();
 
             // convert for NN format
             double[][] input2 = new double[vector_count][];
@@ -74,10 +75,8 @@ namespace Adastra
                     input2[i][j] = projection[i, j];
                 }
 
-                output2[i] = new double[1];
-
-                //we turn classes from ints to doubles in the range [0..1], because we use sigmoid for the NN
-                output2[i][0] = Convert.ToDouble(output[i]) / 10;
+                output2[i] = new double[output_count];
+                output2[i][output[i]-1] = 1;
             }
             #endregion
 
@@ -86,7 +85,7 @@ namespace Adastra
                 new SigmoidFunction(2),
                 dimensions, // inputs neurons in the network
                 dimensions, // neurons in the first layer
-                1); // one neuron in the second layer
+                output_count); // output neurons
 
             // create teacher
             BackPropagationLearning teacher = new BackPropagationLearning(_network);
@@ -155,14 +154,18 @@ namespace Adastra
 
             double[] result = _network.Compute(projectedSample2);
 
-            //we convert back to int classes by first rounding and then multipling by 10 (because we devided to 10 before)
-            //rounding might be a problem
-            //insted of rounding -> check closest class
+            int pos=-1;
+            double max=-1;
+            for(int i = 0; i < result.Length; i++)
+            {
+                if (result[i] > max)
+                {
+                    pos = i;
+                    max = result[i];
+                }
+            }
 
-            //? check by distance which is the closes class insted of rounding below
-            int converted = Convert.ToInt32(Math.Round(result[0], 1, MidpointRounding.AwayFromZero) * 10);
-
-            return converted;
+            return pos+1;
         }
 
         public Dictionary<string,int> ActionList;

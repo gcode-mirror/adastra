@@ -105,18 +105,18 @@ namespace Adastra
         /// <param name="e"></param>
         private void buttonStartProcessing_Click(object sender, EventArgs e)
         {
-            double[] test = new double[] { 0, 1,2,3,4,5,6,7,8,9,10};
-            int c=model.Classify(test);
+            //double[] test = new double[] { 0.23, 0.345,0.45,0.123,0.42432,0.423423,0.42342,0.42343,0.42342,0.423432,0.42423};
+            //int c=model.Classify(test);
 
-            foreach(string key in model.ActionList.Keys)
-            {
-                if (model.ActionList[key] == c)
-                {
-                    listBoxResult.Items.Add(key);
-                }
-            }
+            //foreach(string key in model.ActionList.Keys)
+            //{
+            //    if (model.ActionList[key] == c)
+            //    {
+            //        listBoxResult.Items.Add(key);
+            //    }
+            //}
 
-            //analog.Update();
+            analog.Update();
         }
 
         private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
