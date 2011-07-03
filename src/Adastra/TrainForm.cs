@@ -35,6 +35,8 @@ namespace Adastra
 
         private BackgroundWorker AsyncWorkerSaveModel;
 
+		//bool startupTest = true;
+
         /// <summary>
         /// Increases after each recording. It is different from comboBoxSelectedClass.SelectedIndex
         /// </summary>
@@ -76,6 +78,8 @@ namespace Adastra
             AsyncWorkerSaveModel.WorkerSupportsCancellation = true;
             AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
+
+			analog.Update();
         }
 
 		void comboBoxRecordTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,6 +215,8 @@ namespace Adastra
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
+			//if (startupTest) { startupTest = false; return; }
+
             vrpnDimensions = e.Channels.Length;
 
             double[] output_input = new double[e.Channels.Length + 1];

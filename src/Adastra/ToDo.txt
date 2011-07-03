@@ -1,4 +1,5 @@
-﻿
+﻿- fix save model
+- do some recording to fix delay
 
 +=====================================
 - fix classify form
