@@ -142,6 +142,12 @@ namespace Adastra
                  return openVibeLocation;
              }
 
+			 openVibeLocation = "d" + openVibeLocation.Substring(1);
+			 if (Directory.Exists(openVibeLocation))
+			 {
+				 return openVibeLocation;
+			 }
+
              return "";
         }
 

@@ -50,6 +50,7 @@ namespace Adastra
 
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
+			comboBoxRecordTime.SelectedIndexChanged += new EventHandler(comboBoxRecordTime_SelectedIndexChanged);
 
             recordTimer = new System.Timers.Timer();
             recordTimer.Enabled = true;
@@ -76,6 +77,11 @@ namespace Adastra
             AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
         }
+
+		void comboBoxRecordTime_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
+		}
 
         void AsyncWorkerCalculate_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -150,7 +156,6 @@ namespace Adastra
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
             bwAsync.ReportProgress(0);
-            recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
 
             startRecord = DateTime.Now;
             recordTimer.Start();
