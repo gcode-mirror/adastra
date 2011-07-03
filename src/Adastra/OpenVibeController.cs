@@ -117,5 +117,54 @@ namespace Adastra
 				tw.Close();
 			}
 		}
+
+        /// <summary>
+        /// If possible locates OpenVibe' installation folder
+        /// </summary>
+        /// <returns></returns>
+        public static string LocateOpenVibe()
+        {
+            string openVibeLocation="";
+
+            string programFiles = "";
+ 
+             if (8 == IntPtr.Size
+                || (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
+             {
+                 programFiles = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+             }
+
+             if (programFiles == "") programFiles=Environment.GetEnvironmentVariable("ProgramFiles");
+
+             openVibeLocation = programFiles + "\\openvibe";
+             if (Directory.Exists(openVibeLocation))
+             {
+                 return openVibeLocation;
+             }
+
+             return "";
+        }
+
+        /// <summary>
+        /// If possible locates the folder that contains OpenVibe scenarios specific for Adastra 
+        /// </summary>
+        /// <returns></returns>
+        public static string LocateScenarioFolder()
+        {
+            string scenarioFolder = Environment.CurrentDirectory + "\\..\\..\\..\\..\\scenarios";
+
+            if (Directory.Exists(scenarioFolder))
+            {
+                return scenarioFolder;
+            }
+
+            scenarioFolder = Environment.CurrentDirectory + "\\scenarios";
+
+            if (Directory.Exists(scenarioFolder))
+            {
+                return scenarioFolder;
+            }
+            return "";
+        }
     }
 }

@@ -9,12 +9,18 @@ using AForge.Neuro.Learning;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Linear Discriminant Analysis + Multi-Layer Perceptron
+    /// </summary>
     public class AdastraMachineLearningModel
     {
         LinearDiscriminantAnalysis _lda;
 
         ActivationNetwork _network;
 
+        /// <summary>
+        /// Model name used for load/save
+        /// </summary>
         public string Name
         {
             get;
@@ -23,9 +29,6 @@ namespace Adastra
 
         public AdastraMachineLearningModel()
         {
-            //_lda = lda;
-            //_network = network;
-
             ActionList = new Dictionary<string,int>();
         }
 
@@ -107,8 +110,10 @@ namespace Adastra
                 double errorTrainSet;
                 double errorPrev=1000000;
 
+                //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
+                //This way we prevent overfitting.
                 int count = 0;
-                while (true) //we do the training over the 'train' set until the error of the 'validate' set start to increase
+                while (true) 
                 {
                     count++;
                     errorTrainSet = teacher.RunEpoch(trainDataInput, trainDataOutput);
@@ -118,7 +123,7 @@ namespace Adastra
                         errorValidationSet = teacher.RunEpoch(validateDataInput, validateDataOutput);
                         if (double.IsNaN(errorValidationSet)) throw new Exception("Computation failed!");
 
-                        if (errorValidationSet > errorPrev /*|| Math.Abs(errorTrainSet - errorValidationSet)<0.0001*/)
+                        if (errorValidationSet > errorPrev) //*|| Math.Abs(errorTrainSet - errorValidationSet)<0.0001*/
                             break;
                         errorPrev = errorValidationSet;
                     }
@@ -225,6 +230,13 @@ namespace Adastra
                 #endregion
             }
 
+            /// <summary>
+            /// Each time returns the next combination of 'train' and 'validate' sets
+            /// </summary>
+            /// <param name="trainDataInput"></param>
+            /// <param name="trainDataOutput"></param>
+            /// <param name="validateDataInput"></param>
+            /// <param name="validateDataOutput"></param>
             public void GetData(out double[][] trainDataInput, out double[][] trainDataOutput, out double[][] validateDataInput, out double[][] validateDataOutput)
             {
                 if (_currentValidateIndex < _ratio)

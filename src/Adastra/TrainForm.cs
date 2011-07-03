@@ -150,7 +150,7 @@ namespace Adastra
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
             bwAsync.ReportProgress(0);
-            recordTime = 3;//Convert.ToInt32(comboBoxRecordTime.Text);
+            recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
 
             startRecord = DateTime.Now;
             recordTimer.Start();

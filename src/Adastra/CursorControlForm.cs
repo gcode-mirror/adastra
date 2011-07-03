@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Not implemented.
+    /// </summary>
     public partial class CursorControlForm : Form
     {
         public CursorControlForm()

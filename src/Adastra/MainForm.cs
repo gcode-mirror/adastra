@@ -21,11 +21,17 @@ namespace Adastra
 
         private BackgroundWorker asyncWorker;
 
+        //string AdastraScenarioFolder;
+
         public MainForm()
         {
             InitializeComponent();
-            comboBoxScenarioType.SelectedIndex = 2;
             treeView1.ExpandAll();
+
+            textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
+            textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
+
+            comboBoxScenarioType.SelectedIndex = 2;
 
             #region BackgroundWorker for OpenVibe
             asyncWorker = new BackgroundWorker();
@@ -202,18 +208,5 @@ namespace Adastra
         {
             OpenVibeController.Stop();
         }
-
-        //static string ProgramFilesx86()
-        //{
-        //    if (8 == IntPtr.Size
-        //        || (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
-        //    {
-        //        return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-        //    }
-
-        //    return Environment.GetEnvironmentVariable("ProgramFiles");
-        //}
-
-
     }
 }
