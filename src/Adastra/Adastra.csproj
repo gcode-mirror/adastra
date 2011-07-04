@@ -71,7 +71,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\AdastraMachineLearningModel.cs" />
+    <Compile Include="Algorithms\IMLearning.cs" />
+    <Compile Include="Algorithms\LdaMLP.cs" />
+    <Compile Include="Algorithms\LdaSVM.cs" />
+    <Compile Include="Algorithms\NNTrainDataIterator.cs" />
     <Compile Include="ClassifyForm.cs">
       <SubType>Form</SubType>
     </Compile>

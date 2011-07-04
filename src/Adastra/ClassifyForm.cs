@@ -12,16 +12,17 @@ using Vrpn;
 using Accord.Statistics.Analysis;
 //using Db4objects.Db4o;
 using Eloquera.Client;
+using Adastra.Algorithms;
 
 namespace Adastra
 {
     public partial class ClassifyForm : Form
     {
-        AdastraMachineLearningModel model;
+        IMLearning model;
 
         AnalogRemote analog;
 
-        List<AdastraMachineLearningModel> models;
+        List<IMLearning> models;
 
         public EventHandler handler;
 
@@ -89,7 +90,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message); return; }
             else
             {
-                foreach (AdastraMachineLearningModel m in models)
+                foreach (IMLearning m in models)
                 {
                     listBoxModels.Items.Add(m.Name);
                 }
@@ -127,7 +128,7 @@ namespace Adastra
             db.OpenDatabase(fullpath);
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-            var result = from AdastraMachineLearningModel sample in db select sample;
+            var result = from IMLearning sample in db select sample;
 
             models = result.ToList();
 

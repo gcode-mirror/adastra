@@ -14,6 +14,7 @@ using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
 using Eloquera.Client;
+using Adastra.Algorithms;
 
 namespace Adastra
 {
@@ -25,7 +26,7 @@ namespace Adastra
 
         AnalogRemote analog;
 
-        AdastraMachineLearningModel model;
+        IMLearning model;
 
         Dictionary<string, int> actions = new Dictionary<string, int>();
 
@@ -113,7 +114,7 @@ namespace Adastra
 
             if (justCreated)
             {
-                db.RegisterType(typeof(AdastraMachineLearningModel));
+                db.RegisterType(typeof(IMLearning));
                 db.RegisterType(typeof(LinearDiscriminantAnalysis));
                 db.RegisterType(typeof(ActivationNetwork));
             }
@@ -203,9 +204,12 @@ namespace Adastra
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
-            model = new AdastraMachineLearningModel();
-            model.Progress += new AdastraMachineLearningModel.ChangedEventHandler(model_Progress);
-            model.Train(vrpnIncomingSignal, vrpnDimensions);
+            if (radioBtnLdaMLP.Checked)
+            {
+                model = new LdaMLP();
+                model.Progress += new ChangedEventHandler(model_Progress);
+                model.Train(vrpnIncomingSignal, vrpnDimensions);
+            }
         }
 
         void model_Progress(int progress)
