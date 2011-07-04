@@ -10,7 +10,7 @@ using AForge.Neuro.Learning;
 namespace Adastra.Algorithms
 {
     /// <summary>
-    /// Linear Discriminant Analysis + Multi-Layer Perceptron
+    /// First Linear Discriminant Analysis (LDA) computations and then Multi-Layer Perceptron (MLP) training is applied.
     /// </summary>
     public class LdaMLP : IMLearning
     {
@@ -18,9 +18,6 @@ namespace Adastra.Algorithms
 
         ActivationNetwork _network;
 
-        /// <summary>
-        /// Model name used for load/save
-        /// </summary>
         public string Name
         {
             get;

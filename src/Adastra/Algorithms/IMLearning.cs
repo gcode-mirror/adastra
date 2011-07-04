@@ -9,6 +9,9 @@ namespace Adastra.Algorithms
 
     public interface IMLearning
     {
+        /// <summary>
+        /// Model name used for load/save
+        /// </summary>
         string Name
         {
             get;
@@ -19,9 +22,10 @@ namespace Adastra.Algorithms
 
         int Classify(double[] input);
 
+        /// <summary>
+        /// Used to store the original meaning of each class such as: "Up" -> class 1,"Down" -> class 2, etc.
+        /// </summary>
         Dictionary<string, int> ActionList { get; set; }
-
-        
 
         event ChangedEventHandler Progress;
         

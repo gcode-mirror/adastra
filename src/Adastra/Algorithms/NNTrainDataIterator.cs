@@ -6,7 +6,7 @@ using System.Text;
 namespace Adastra.Algorithms
 {
     /// <summary>
-    /// This class is used for two operations:
+    /// This class is used to:
     /// 1. Randomize feature vectors
     /// 2. Split feature vectors set in several combinations of 'train' and 'validate' data
     /// This class is used to train over the 'train' set until the error over 'validate' set is satisfactory (usually just before starting to increase)

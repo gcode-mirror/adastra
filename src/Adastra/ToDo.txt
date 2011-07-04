@@ -1,4 +1,8 @@
-﻿-add vrpn to project
+﻿-set info boxeses display messages better
+-implement multi-class SVM
+
+====================================
+-add vrpn to project
 -add 64 bit version
 -add IMLearning interface
     - LdaMLP
