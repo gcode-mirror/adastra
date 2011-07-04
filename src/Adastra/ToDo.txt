@@ -1,4 +1,10 @@
-﻿- fix save model
+﻿-add vrpn to project
+-add 64 bit version
+-add IMLearning interface
+    - LdaMLP
+    - LdaSVM
+
+- fix save model
 - do some recording to fix delay
 
 +=====================================
