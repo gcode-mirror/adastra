@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Accord.MachineLearning">
-      <HintPath>..\..\lib\Accord.MachineLearning.dll</HintPath>
-    </Reference>
     <Reference Include="AForge.Neuro">
       <HintPath>..\..\lib\AForge.Neuro.dll</HintPath>
     </Reference>
@@ -167,6 +164,10 @@
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Accord\Accord.MachineLearning\Accord.MachineLearning.csproj">
+      <Project>{7AB4BBCC-6222-423D-9FF9-BA9CB7C09199}</Project>
+      <Name>Accord.MachineLearning</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Accord\Accord.Math\Accord.Math.csproj">
       <Project>{F718E9A8-DB62-4785-8C49-4333A60D256A}</Project>
       <Name>Accord.Math</Name>

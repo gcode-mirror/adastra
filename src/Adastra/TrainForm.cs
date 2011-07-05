@@ -207,9 +207,14 @@ namespace Adastra
             if (radioBtnLdaMLP.Checked)
             {
                 model = new LdaMLP();
-                model.Progress += new ChangedEventHandler(model_Progress);
-                model.Train(vrpnIncomingSignal, vrpnDimensions);
             }
+            else if (radioBtnLdaSVM.Checked)
+            {
+                model = new LdaSVM();
+            }
+
+            model.Progress += new ChangedEventHandler(model_Progress);
+            model.Train(vrpnIncomingSignal, vrpnDimensions);
         }
 
         void model_Progress(int progress)

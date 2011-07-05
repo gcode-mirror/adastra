@@ -152,7 +152,6 @@
             // radioBtnLdaSVM
             // 
             this.radioBtnLdaSVM.AutoSize = true;
-            this.radioBtnLdaSVM.Enabled = false;
             this.radioBtnLdaSVM.Location = new System.Drawing.Point(598, 124);
             this.radioBtnLdaSVM.Name = "radioBtnLdaSVM";
             this.radioBtnLdaSVM.Size = new System.Drawing.Size(75, 17);

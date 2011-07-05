@@ -14,17 +14,13 @@ namespace Adastra.Algorithms
 	{
 		LinearDiscriminantAnalysis _lda;
 
-		public string Name
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+        MulticlassSupportVectorMachine _machine;
+
+        public string Name
+        {
+            get;
+            set;
+        }
 
 		public void Train(List<double[]> outputInput, int inputVectorDimensions)
 		{
@@ -61,7 +57,7 @@ namespace Adastra.Algorithms
 			//   problem should be easily solved by a Linear kernel.
 
 			int vector_count = projection.GetLength(0);
-			//int dimensions = projection.GetLength(1);
+			int dimensions = projection.GetLength(1);
 			int output_count = _lda.ClassCount.Count();
 
 			// convert for NN format
@@ -83,10 +79,10 @@ namespace Adastra.Algorithms
 
 			// Create a new Multi-class Support Vector Machine with one input,
 			//  using the linear kernel and for four disjoint classes.
-			var machine = new MulticlassSupportVectorMachine(1, kernel, 4);
+            _machine = new MulticlassSupportVectorMachine(dimensions, kernel, output_count);
 
 			// Create the Multi-class learning algorithm for the machine
-			var teacher = new MulticlassSupportVectorLearning(machine, input2, output);
+            var teacher = new MulticlassSupportVectorLearning(_machine, input2, output);
 
 			// Configure the learning algorithm to use SMO to train the
 			//  underlying SVMs in each of the binary class subproblems.
@@ -96,24 +92,19 @@ namespace Adastra.Algorithms
 			// Run the learning algorithm
 			double error = teacher.Run();
 
+            this.Progress(100);
 		}
 
 		public int Classify(double[] input)
 		{
-			throw new NotImplementedException();
+            return _machine.Compute(input);
 		}
 
-		public Dictionary<string, int> ActionList
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+        public Dictionary<string, int> ActionList
+        {
+            get;
+            set;
+        }
 
 		public event ChangedEventHandler Progress;
 	}

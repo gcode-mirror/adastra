@@ -63,7 +63,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message); }
             else
             {
-                listBoxResult.Items.Add("Done.");
+                listBoxResult.Items.Insert(0,"Classification process is done.");
             }
             buttonStartProcessing.Enabled = true;
             buttonStartProcessing.Text = "Process";
@@ -71,7 +71,7 @@ namespace Adastra
 
         void AsyncWorkerProcess_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            listBoxResult.Items.Add((string)e.UserState);
+            listBoxResult.Items.Insert(0,(string)e.UserState);
         }
 
         void AsyncWorkerProcess_DoWork(object sender, DoWorkEventArgs e)
@@ -151,7 +151,7 @@ namespace Adastra
             else
             {
                 buttonStartProcessing.Text = "Cancel";
-                listBoxResult.Items.Add("Classification started...");
+                listBoxResult.Items.Insert(0, "Classification started...");
 
                 AsyncWorkerProcess.RunWorkerAsync();
             }
