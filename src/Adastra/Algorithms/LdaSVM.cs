@@ -62,6 +62,7 @@ namespace Adastra.Algorithms
 
 			// convert for NN format
 			double[][] input2 = new double[vector_count][];
+            int[] output2 = new int[vector_count];
 
 			#region convert input to SVM format
 			for (int i = 0; i < input2.Length; i++)
@@ -71,6 +72,7 @@ namespace Adastra.Algorithms
 				{
 					input2[i][j] = projection[i, j];
 				}
+                output2[i] = output[i]-1;//from 1 based 0 based
 			}
 			#endregion
 
@@ -82,7 +84,7 @@ namespace Adastra.Algorithms
             _machine = new MulticlassSupportVectorMachine(dimensions, kernel, output_count);
 
 			// Create the Multi-class learning algorithm for the machine
-            var teacher = new MulticlassSupportVectorLearning(_machine, input2, output);
+            var teacher = new MulticlassSupportVectorLearning(_machine, input2, output2);
 
 			// Configure the learning algorithm to use SMO to train the
 			//  underlying SVMs in each of the binary class subproblems.
@@ -97,7 +99,7 @@ namespace Adastra.Algorithms
 
 		public int Classify(double[] input)
 		{
-            return _machine.Compute(input);
+            return _machine.Compute(input)+1; //from 0 based to 1 based classification
 		}
 
         public Dictionary<string, int> ActionList
