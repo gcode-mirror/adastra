@@ -130,7 +130,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message);}
             else
             {
-                textBoxLogger.Text += "\r\nModel saved.";
+                listBoxLogger.Items.Insert(0,"Model saved.");
             }
             buttonSaveModel.Enabled = true;
             
@@ -147,7 +147,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message); }
             else
             {
-                textBoxLogger.Text += "\r\nRecording completed.";
+                listBoxLogger.Items.Insert(0,"Recording completed.");
             }
             buttonRecordAction.Enabled = true;
         }
@@ -197,7 +197,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message);}
             else
             {
-                textBoxLogger.Text += "\r\nCalculating model has completed.";
+                listBoxLogger.Items.Insert(0,"Calculating model has completed.");
             }
             buttonCalculate.Enabled = true;
         }
@@ -248,14 +248,21 @@ namespace Adastra
             {
                 buttonRecordAction.Enabled = false;
 
-                SelectedClassNumeric++;
-
                 string ClassName = comboBoxSelectedClass.Items[comboBoxSelectedClass.SelectedIndex].ToString();
 
                 if (!actions.Keys.Contains(ClassName))
-                    actions.Add(ClassName, SelectedClassNumeric);
+                {
+                    if (actions.Count == 0) SelectedClassNumeric = 1;
+                    else SelectedClassNumeric = actions.Values.Max() + 1; //choose a new class (not yet used)
 
-                textBoxLogger.Text += "\r\nRecoding data for action \"" + comboBoxSelectedClass.Text + "\" (class " + SelectedClassNumeric + ").";
+                    actions.Add(ClassName, SelectedClassNumeric);
+                }
+                else
+                {   //user already recorded for this class
+                    SelectedClassNumeric = actions[ClassName];
+                }
+
+                listBoxLogger.Items.Insert(0, "Recoding data for action \"" + comboBoxSelectedClass.Text + "\" (class " + SelectedClassNumeric + ").");
 
                 AsyncWorkerRecord.RunWorkerAsync();
             }
@@ -271,7 +278,7 @@ namespace Adastra
             }
             else //start new process
             {
-                textBoxLogger.Text += "\r\nCreating machine learning model to be used for classification...";
+                listBoxLogger.Items.Insert(0,"Creating machine learning model to be used for classification...");
                 if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("First you need to record some data for specific action!"); return; }
 
                 buttonCalculate.Enabled = false;
@@ -290,7 +297,7 @@ namespace Adastra
             }
             else
             {
-                textBoxLogger.Text += "\r\nSaving model ...";
+                listBoxLogger.Items.Insert(0,"Saving model ...");
 
                 if (textBoxModelName.Text.Length == 0)
                 { MessageBox.Show("Please enter model name!"); return; }

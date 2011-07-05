@@ -1,4 +1,4 @@
-﻿-set info boxeses display messages better
+﻿-check if classes are enumerated right
 -implement multi-class SVM
 
 ====================================
@@ -12,6 +12,7 @@
 - do some recording to fix delay
 
 +=====================================
+- set info boxeses display messages better
 - fix classify form
      - add processing thread
  - make NN has an ouput for every class

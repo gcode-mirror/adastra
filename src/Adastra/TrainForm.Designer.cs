@@ -37,12 +37,13 @@
             this.buttonCloseForm = new System.Windows.Forms.Button();
             this.comboBoxRecordTime = new System.Windows.Forms.ComboBox();
             this.buttonSaveModel = new System.Windows.Forms.Button();
-            this.textBoxLogger = new System.Windows.Forms.TextBox();
             this.radioBtnLdaMLP = new System.Windows.Forms.RadioButton();
             this.radioBtnLdaSVM = new System.Windows.Forms.RadioButton();
             this.progressBarModelCalculation = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listBoxLogger = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -136,15 +137,6 @@
             this.buttonSaveModel.UseVisualStyleBackColor = true;
             this.buttonSaveModel.Click += new System.EventHandler(this.buttonSaveModel_Click);
             // 
-            // textBoxLogger
-            // 
-            this.textBoxLogger.Location = new System.Drawing.Point(12, 266);
-            this.textBoxLogger.Multiline = true;
-            this.textBoxLogger.Name = "textBoxLogger";
-            this.textBoxLogger.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLogger.Size = new System.Drawing.Size(688, 89);
-            this.textBoxLogger.TabIndex = 14;
-            // 
             // radioBtnLdaMLP
             // 
             this.radioBtnLdaMLP.AutoSize = true;
@@ -193,17 +185,35 @@
             this.label3.TabIndex = 19;
             this.label3.Text = "Record time (s):";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 247);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Log:";
+            // 
+            // listBoxLogger
+            // 
+            this.listBoxLogger.FormattingEnabled = true;
+            this.listBoxLogger.Location = new System.Drawing.Point(13, 263);
+            this.listBoxLogger.Name = "listBoxLogger";
+            this.listBoxLogger.Size = new System.Drawing.Size(685, 95);
+            this.listBoxLogger.TabIndex = 21;
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(712, 368);
+            this.Controls.Add(this.listBoxLogger);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBarModelCalculation);
             this.Controls.Add(this.radioBtnLdaSVM);
             this.Controls.Add(this.radioBtnLdaMLP);
-            this.Controls.Add(this.textBoxLogger);
             this.Controls.Add(this.buttonSaveModel);
             this.Controls.Add(this.comboBoxRecordTime);
             this.Controls.Add(this.buttonCloseForm);
@@ -231,12 +241,13 @@
         private System.Windows.Forms.Button buttonCloseForm;
         private System.Windows.Forms.ComboBox comboBoxRecordTime;
         private System.Windows.Forms.Button buttonSaveModel;
-        private System.Windows.Forms.TextBox textBoxLogger;
         private System.Windows.Forms.RadioButton radioBtnLdaMLP;
         private System.Windows.Forms.RadioButton radioBtnLdaSVM;
         private System.Windows.Forms.ProgressBar progressBarModelCalculation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listBoxLogger;
 
     }
 }
