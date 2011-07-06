@@ -36,6 +36,8 @@ namespace Adastra
 
         private BackgroundWorker AsyncWorkerSaveModel;
 
+        private int LastRecodredFeatureVectorsCount;
+
 		//bool startupTest = true;
 
         /// <summary>
@@ -147,7 +149,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message); }
             else
             {
-                listBoxLogger.Items.Insert(0,"Recording completed.");
+                listBoxLogger.Items.Insert(0, "Recording completed. " + LastRecodredFeatureVectorsCount.ToString()+" additional vectors acquired.");
             }
             buttonRecordAction.Enabled = true;
         }
@@ -160,6 +162,7 @@ namespace Adastra
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
+            LastRecodredFeatureVectorsCount = 0;
             bwAsync.ReportProgress(0);
 
             startRecord = DateTime.Now;
@@ -236,6 +239,8 @@ namespace Adastra
             {
                 output_input[i] = e.Channels[i-1];
             }
+
+            LastRecodredFeatureVectorsCount++;
 
             vrpnIncomingSignal.Add(output_input);
         }
