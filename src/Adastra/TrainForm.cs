@@ -119,6 +119,9 @@ namespace Adastra
                 db.RegisterType(typeof(IMLearning));
                 db.RegisterType(typeof(LinearDiscriminantAnalysis));
                 db.RegisterType(typeof(ActivationNetwork));
+				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
+				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
+				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
             }
 
             db.Store(model);
@@ -200,7 +203,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message);}
             else
             {
-                listBoxLogger.Items.Insert(0,"Calculating model has completed.");
+                listBoxLogger.Items.Insert(0,"Calculating model is done.");
             }
             buttonCalculate.Enabled = true;
         }
