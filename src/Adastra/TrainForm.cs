@@ -97,36 +97,7 @@ namespace Adastra
 
         void AsyncWorkerSaveModel_DoWork(object sender, DoWorkEventArgs e)
         {
-            const string dbName = "AdastraDB";
-
-            string fullpath = Environment.CurrentDirectory + "\\" + dbName;
-
-            //var db = new DB("server=(local);options=none;");
-            var db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
-
-            bool justCreated = false;
-            if (!File.Exists(fullpath + ".eq"))
-            {
-                db.CreateDatabase(fullpath);
-                justCreated = true;
-            }
-
-            db.OpenDatabase(fullpath);
-            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
-
-            if (justCreated)
-            {
-                db.RegisterType(typeof(IMLearning));
-                db.RegisterType(typeof(LinearDiscriminantAnalysis));
-                db.RegisterType(typeof(ActivationNetwork));
-				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
-				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
-				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
-            }
-
-            db.Store(model);
-
-            db.Close();
+            ModelStorage.SaveModel(model);
         }
 
         void AsyncWorkerSaveModel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -310,7 +281,7 @@ namespace Adastra
             }
             else
             {
-                listBoxLogger.Items.Insert(0,"Saving model ...");
+                listBoxLogger.Items.Insert(0,"Saving model ... please wait!");
 
                 if (textBoxModelName.Text.Length == 0)
                 { MessageBox.Show("Please enter model name!"); return; }

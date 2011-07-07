@@ -119,20 +119,7 @@ namespace Adastra
 
         private void LoadModels()
         {
-            const string dbName = "AdastraDB";
-
-            string fullpath = Environment.CurrentDirectory + "\\" + dbName;
-
-            var db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
-
-            db.OpenDatabase(fullpath);
-            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
-
-            var result = from IMLearning sample in db select sample;
-
-            models = result.ToList();
-
-            db.Close();
+            models = ModelStorage.LoadModels();
         }
 
         /// <summary>
@@ -150,6 +137,7 @@ namespace Adastra
             }
             else
             {
+                if (model == null) { MessageBox.Show("No model selected!"); return; }
                 buttonStartProcessing.Text = "Cancel";
                 listBoxResult.Items.Insert(0, "Classification started...");
 
