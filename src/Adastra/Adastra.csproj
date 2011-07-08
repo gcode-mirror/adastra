@@ -147,6 +147,7 @@
     <EmbeddedResource Include="TrainForm.resx">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Eloquera.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
