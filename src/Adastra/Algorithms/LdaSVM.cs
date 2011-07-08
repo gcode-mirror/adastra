@@ -99,7 +99,29 @@ namespace Adastra.Algorithms
 
 		public int Classify(double[] input)
 		{
-            return _machine.Compute(input)+1; //from 0 based to 1 based classification
+            double[,] sample = new double[1, input.Length];
+
+            #region convert to LDA format
+            for (int i = 0; i < input.Length; i++)
+            {
+                sample[0, i] = input[i];
+            }
+            #endregion
+
+            double[,] projectedSample = _lda.Transform(sample);
+
+            #region convert to SVM format
+
+            double[] projectedSample2 = new double[projectedSample.GetLength(1)];
+
+            for (int i = 0; i < projectedSample.GetLength(1); i++)
+            {
+                projectedSample2[i] = projectedSample[0, i];
+            }
+
+            #endregion
+
+            return _machine.Compute(projectedSample2) + 1; //from 0 based to 1 based classification
 		}
 
         public Dictionary<string, int> ActionList
