@@ -171,10 +171,14 @@ namespace Adastra
         void AsyncWorkerCalculate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message);}
+            {
+                MessageBox.Show("Error:" + e.Error.Message);
+                listBoxLogger.Items.Insert(0, "Calculating model has been aborted!");
+            }
+
             else
             {
-                listBoxLogger.Items.Insert(0,"Calculating model is done.");
+                listBoxLogger.Items.Insert(0, "Calculating model is done.");
             }
             buttonCalculate.Enabled = true;
         }
@@ -190,7 +194,7 @@ namespace Adastra
                 model = new LdaSVM();
             }
 
-            model.Progress += new ChangedEventHandler(model_Progress);
+            model.Progress += new IMLearning.ChangedEventHandler(model_Progress);
             model.Train(vrpnIncomingSignal, vrpnDimensions);
         }
 

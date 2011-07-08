@@ -18,18 +18,18 @@ namespace Adastra.Algorithms
 
         ActivationNetwork _network;
 
-        public string Name
-        {
-            get;
-            set;
-        }
+        //public string Name
+        //{
+        //    get;
+        //    set;
+        //}
 
         public LdaMLP()
         {
             ActionList = new Dictionary<string, int>();
         }
 
-        public void Train(List<double[]> outputInput, int inputVectorDimensions)
+        public override void Train(List<double[]> outputInput, int inputVectorDimensions)
         {
             double[,] inputs = new double[outputInput.Count, inputVectorDimensions];
             int[] output = new int[outputInput.Count];
@@ -133,7 +133,7 @@ namespace Adastra.Algorithms
             this.Progress(100);
         }
 
-        public int Classify(double[] input)
+        public override int Classify(double[] input)
         {
             double[,] sample = new double[1, input.Length];
 
@@ -170,9 +170,9 @@ namespace Adastra.Algorithms
             return pos + 1;
         }
 
-        public Dictionary<string, int> ActionList { get; set; }
+        //public Dictionary<string, int> ActionList { get; set; }
 
-        public event ChangedEventHandler Progress;
+        public override event ChangedEventHandler Progress;
 
     }
 }

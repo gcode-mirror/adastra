@@ -103,7 +103,7 @@ namespace Adastra
 
         void AsyncWorkerLoadModels_DoWork(object sender, DoWorkEventArgs e)
         {
-            LoadModels();
+            models = ModelStorage.LoadModels();
         }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
@@ -115,11 +115,6 @@ namespace Adastra
                 if (model.ActionList[key] == action)
                     AsyncWorkerProcess.ReportProgress(action, key);
             }
-        }
-
-        private void LoadModels()
-        {
-            models = ModelStorage.LoadModels();
         }
 
         /// <summary>

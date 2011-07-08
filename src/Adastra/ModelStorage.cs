@@ -55,20 +55,21 @@ namespace Adastra
 
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-            //var query = from IMLearning sample in db select sample;
-            var mlp = from LdaMLP sample in db select sample;
-            var mlplist = mlp.ToList();
+            var query = from IMLearning sample in db select sample;
+            //var mlp = from LdaMLP sample in db select sample;
+            //var mlplist = mlp.ToList();
 
-            var svm = from LdaSVM sample in db select sample;
-            var svmlist = svm.ToList(); 
+            //var svm = from LdaSVM sample in db select sample;
+            //var svmlist = svm.ToList(); 
 
-            db.Close();
+            //db.Close();
 
-            List<IMLearning> result = new List<IMLearning>();
+            //List<IMLearning> result = new List<IMLearning>();
 
-            result.AddRange(mlplist);
-            result.AddRange(svmlist);
+            //result.AddRange(mlplist);
+            //result.AddRange(svmlist);
 
+            var result = query.ToList();
             return result;
         }
     }
