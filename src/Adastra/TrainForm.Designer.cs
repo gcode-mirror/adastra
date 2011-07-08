@@ -198,14 +198,14 @@
             this.listBoxLogger.FormattingEnabled = true;
             this.listBoxLogger.Location = new System.Drawing.Point(13, 263);
             this.listBoxLogger.Name = "listBoxLogger";
-            this.listBoxLogger.Size = new System.Drawing.Size(685, 95);
+            this.listBoxLogger.Size = new System.Drawing.Size(685, 160);
             this.listBoxLogger.TabIndex = 21;
             // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 368);
+            this.ClientSize = new System.Drawing.Size(712, 431);
             this.Controls.Add(this.listBoxLogger);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);

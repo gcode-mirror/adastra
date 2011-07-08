@@ -178,7 +178,7 @@ namespace Adastra
 
             else
             {
-                listBoxLogger.Items.Insert(0, "Calculating model is done.");
+                listBoxLogger.Items.Insert(0, "Calculating model has completed successfully.");
             }
             buttonCalculate.Enabled = true;
         }
