@@ -1,0 +1,4 @@
+Adastra 2.0 Released 11.07.2011 (dd/mm/yyyy)
+============================================
+
+There is one known issue: every application scenario requires a restart of Adastra.  

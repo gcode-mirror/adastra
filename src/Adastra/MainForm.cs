@@ -208,5 +208,11 @@ namespace Adastra
         {
             OpenVibeController.Stop();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm f = new AboutForm();
+            f.Show();
+        }
     }
 }
