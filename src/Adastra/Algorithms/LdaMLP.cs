@@ -170,8 +170,6 @@ namespace Adastra.Algorithms
             return pos + 1;
         }
 
-        //public Dictionary<string, int> ActionList { get; set; }
-
         public override event ChangedEventHandler Progress;
 
     }

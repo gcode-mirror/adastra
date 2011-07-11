@@ -124,12 +124,6 @@ namespace Adastra.Algorithms
             return _machine.Compute(projectedSample2) + 1; //from 0 based to 1 based classification
 		}
 
-        //public Dictionary<string, int> ActionList
-        //{
-        //    get;
-        //    set;
-        //}
-
 		public override event ChangedEventHandler Progress;
 	}
 }

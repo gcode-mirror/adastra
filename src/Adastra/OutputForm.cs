@@ -144,7 +144,6 @@ namespace Adastra
 
                 c.Location = new Point(chart1.Location.X, chart1.Location.Y + (chart1.Height * (i - 1)) + (i - 1) * 10);
 
-
                 System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
                 System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 
@@ -191,27 +190,22 @@ namespace Adastra
                 AsyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
             }
 
-            for (int i = 0; i < q.Length; i++)
+            if (!AsyncWorker.CancellationPending)
             {
-                if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
-
-                q[i].Enqueue(e.Channels[i]);
-
-                if (q[i].Count > 22)
+                for (int i = 0; i < q.Length; i++)
                 {
-                    AsyncWorker.ReportProgress(i, q[i]);
+                    if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
 
-                    q[i].Dequeue();
+                    q[i].Enqueue(e.Channels[i]);
+
+                    if (q[i].Count > 22)
+                    {
+                        AsyncWorker.ReportProgress(i, q[i]);
+
+                        q[i].Dequeue();
+                    }
                 }
             }
-
-            //if (MouseMovementEnabled && Math.Abs(v) > 2)
-            //{
-            //    if (v > 0) //left
-            //        Cursor.Position = new System.Drawing.Point(Cursor.Position.X-Convert.ToInt32(v*100), Cursor.Position.Y);
-            //    //right
-            //    else Cursor.Position = new System.Drawing.Point(Cursor.Position.X - Convert.ToInt32(v * 100), Cursor.Position.Y);
-            //}
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -227,10 +221,7 @@ namespace Adastra
 
         public void Stop()
         {
-            if (!AsyncWorker.CancellationPending)
-            {
-                AsyncWorker.CancelAsync();
-            }
+            AsyncWorker.CancelAsync();
         }
     }
 }
