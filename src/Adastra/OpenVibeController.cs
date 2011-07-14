@@ -29,13 +29,13 @@ namespace Adastra
 			FixParametersBug(executable);
 
             string parameters="";
-            if (FastPlay) parameters+= " --play-fast " + Scenario;
-            else parameters += " --play " + Scenario;
+            if (FastPlay) parameters+= " --play-fast " + GetDosPathName(Scenario);
+            else parameters += " --play " + GetDosPathName(Scenario);
 
             if (NoGUI) parameters += " --no-gui ";
-            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(executable, parameters);
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), parameters);
             
-            psi.WorkingDirectory = OpenVibeDesignerWorkingFolder;
+            psi.WorkingDirectory = GetDosPathName(OpenVibeDesignerWorkingFolder);
             psi.RedirectStandardOutput = false;
 
             //if (NoGUI)
