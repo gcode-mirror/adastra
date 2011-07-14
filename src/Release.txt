@@ -1,3 +1,8 @@
+Adastra 2.0.1 Released 14.07.2011 (dd/mm/yyyy)
+============================================
+
+Fixed problem with long Windows names and OpenVibe. 
+
 Adastra 2.0 Released 11.07.2011 (dd/mm/yyyy)
 ============================================
 
