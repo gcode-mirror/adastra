@@ -60,6 +60,9 @@ namespace Adastra
         [DllImport("user32")]
         private static extern int SetForegroundWindow(IntPtr hwnd);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
+
 
         public static void Stop()
         {
@@ -171,6 +174,18 @@ namespace Adastra
                 return scenarioFolder;
             }
             return "";
+        }
+
+        public static string GetDosPathName(string longName)
+        {
+            uint bufferSize = 256;
+
+            // don´t allocate stringbuilder here but outside of the function for fast access
+            StringBuilder shortNameBuffer = new StringBuilder((int)bufferSize);
+
+            uint result = GetShortPathName(longName, shortNameBuffer, bufferSize);
+
+            return shortNameBuffer.ToString();
         }
     }
 }
