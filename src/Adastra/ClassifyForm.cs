@@ -90,13 +90,15 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message); return; }
             else
             {
-                foreach (IMLearning m in models)
-                {
-                    listBoxModels.Items.Add(m.Name);
-                }
-
                 if (models != null && models.Count > 0)
+                {
                     toolStripStatusLabel1.Text = "Models loaded: " + models.Count;
+
+                    foreach (IMLearning m in models)
+                    {
+                        listBoxModels.Items.Add(m.Name);
+                    }
+                }
                 else toolStripStatusLabel1.Text = "No models loaded.";
             }
         }

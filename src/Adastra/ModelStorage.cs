@@ -51,25 +51,18 @@ namespace Adastra
 
         public static List<IMLearning> LoadModels()
         {
-            db.OpenDatabase(fullpath);
+            List<IMLearning> result=new List<IMLearning>();
 
-            db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
+            if (File.Exists(fullpath + ".eq"))
+            {
+                db.OpenDatabase(fullpath);
 
-            var query = from IMLearning sample in db select sample;
-            //var mlp = from LdaMLP sample in db select sample;
-            //var mlplist = mlp.ToList();
+                db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-            //var svm = from LdaSVM sample in db select sample;
-            //var svmlist = svm.ToList(); 
+                var query = from IMLearning sample in db select sample;
 
-            //db.Close();
-
-            //List<IMLearning> result = new List<IMLearning>();
-
-            //result.AddRange(mlplist);
-            //result.AddRange(svmlist);
-
-            var result = query.ToList();
+                result = query.ToList();
+            }
             return result;
         }
     }
