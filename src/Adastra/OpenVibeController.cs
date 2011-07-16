@@ -199,5 +199,13 @@ namespace Adastra
 
             return shortNameBuffer.ToString();
         }
+
+        public static bool IsRunning
+        {
+            get
+            {
+                return started;
+            }
+        }
     }
 }

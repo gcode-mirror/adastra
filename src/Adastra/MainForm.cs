@@ -217,7 +217,14 @@ namespace Adastra
 
         private void buttonEditScenario_Click(object sender, EventArgs e)
         {
-            //OpenVibeController.
+            if (OpenVibeController.IsRunning)
+            {
+                if (MessageBox.Show("Only one instance of OpenVibe can run at the same time. Do you wish to continue?", "Confirm edit", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
             OpenVibeController.Scenario = this.textBoxScenario.Text;
             OpenVibeController.NoGUI = false;
