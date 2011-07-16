@@ -16,7 +16,11 @@ namespace Adastra
 
         private static bool started=false;
 
-        public static void Start()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="run">true for execute scenario, false to edit scenario with OpenVibe</param>
+        public static void Start(bool run)
         {
             if (!OpenVibeDesignerWorkingFolder.EndsWith("\\")) OpenVibeDesignerWorkingFolder += "\\";
 
@@ -28,9 +32,17 @@ namespace Adastra
 
 			FixParametersBug(executable);
 
-            string parameters="";
-            if (FastPlay) parameters+= " --play-fast " + GetDosPathName(Scenario);
-            else parameters += " --play " + GetDosPathName(Scenario);
+            string parameters = " --no-session-management "; //neither restore last used scenarios nor saves them at exit
+
+            if (run)
+            {
+                if (FastPlay) parameters += " --play-fast " + GetDosPathName(Scenario);
+                else parameters += " --play " + GetDosPathName(Scenario);
+            }
+            else //else edit
+            {
+                parameters += " --open " + GetDosPathName(Scenario);
+            }
 
             if (NoGUI) parameters += " --no-gui ";
             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), parameters);

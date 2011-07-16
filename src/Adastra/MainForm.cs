@@ -90,7 +90,7 @@ namespace Adastra
             OpenVibeController.Scenario = this.textBoxScenario.Text;
             OpenVibeController.FastPlay = false;
             OpenVibeController.NoGUI = true;
-            OpenVibeController.Start();
+            OpenVibeController.Start(true);
 
             System.Threading.Thread.Sleep(4 * 1000);
 
@@ -213,6 +213,16 @@ namespace Adastra
         {
             AboutForm f = new AboutForm();
             f.Show();
+        }
+
+        private void buttonEditScenario_Click(object sender, EventArgs e)
+        {
+            //OpenVibeController.
+            OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
+            OpenVibeController.Scenario = this.textBoxScenario.Text;
+            OpenVibeController.NoGUI = false;
+            OpenVibeController.Start(false);
+
         }
     }
 }

@@ -72,13 +72,14 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.comboBoxScenarioType = new System.Windows.Forms.ComboBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.buttonEditScenario = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(302, 110);
+            this.buttonStart.Location = new System.Drawing.Point(288, 125);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -102,7 +103,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(798, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(720, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -170,21 +171,21 @@
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
-            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(337, 186);
+            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(337, 183);
             this.buttonSelectOpenVibeWorkingFolder.Name = "buttonSelectOpenVibeWorkingFolder";
             this.buttonSelectOpenVibeWorkingFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectOpenVibeWorkingFolder.TabIndex = 6;
-            this.buttonSelectOpenVibeWorkingFolder.Text = "Open";
+            this.buttonSelectOpenVibeWorkingFolder.Text = "Browse";
             this.buttonSelectOpenVibeWorkingFolder.UseVisualStyleBackColor = true;
             this.buttonSelectOpenVibeWorkingFolder.Click += new System.EventHandler(this.buttonSelectOpenVibeWorkingFolder_Click);
             // 
             // buttonSelectScenario
             // 
-            this.buttonSelectScenario.Location = new System.Drawing.Point(711, 72);
+            this.buttonSelectScenario.Location = new System.Drawing.Point(540, 100);
             this.buttonSelectScenario.Name = "buttonSelectScenario";
             this.buttonSelectScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectScenario.TabIndex = 7;
-            this.buttonSelectScenario.Text = "Open";
+            this.buttonSelectScenario.Text = "Browse";
             this.buttonSelectScenario.UseVisualStyleBackColor = true;
             this.buttonSelectScenario.Click += new System.EventHandler(this.buttonSelectScenario_Click);
             // 
@@ -209,7 +210,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(645, 169);
+            this.buttonExit.Location = new System.Drawing.Point(564, 177);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(141, 40);
             this.buttonExit.TabIndex = 12;
@@ -270,11 +271,22 @@
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;
             // 
+            // buttonEditScenario
+            // 
+            this.buttonEditScenario.Location = new System.Drawing.Point(630, 100);
+            this.buttonEditScenario.Name = "buttonEditScenario";
+            this.buttonEditScenario.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditScenario.TabIndex = 15;
+            this.buttonEditScenario.Text = "Edit";
+            this.buttonEditScenario.UseVisualStyleBackColor = true;
+            this.buttonEditScenario.Click += new System.EventHandler(this.buttonEditScenario_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 232);
+            this.ClientSize = new System.Drawing.Size(720, 232);
+            this.Controls.Add(this.buttonEditScenario);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.comboBoxScenarioType);
             this.Controls.Add(this.buttonExit);
@@ -317,6 +329,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxScenarioType;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Button buttonEditScenario;
     }
 }
 
