@@ -80,6 +80,8 @@
     <Compile Include="Algorithms\IMLearning.cs" />
     <Compile Include="Algorithms\LdaMLP.cs" />
     <Compile Include="Algorithms\LdaSVM.cs" />
+    <Compile Include="Algorithms\Matrix.cs" />
+    <Compile Include="Algorithms\NNMFMatrix.cs" />
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
     <Compile Include="ClassifyForm.cs">
       <SubType>Form</SubType>

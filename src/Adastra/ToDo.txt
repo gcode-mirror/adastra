@@ -1,7 +1,9 @@
-﻿-check if classes are enumerated right
--implement multi-class SVM
+﻿
 
 ====================================
+-check if classes are enumerated right
+-implement multi-class SVM
+
 -add vrpn to project
 -add 64 bit version
 -add IMLearning interface
