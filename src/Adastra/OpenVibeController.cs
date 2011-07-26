@@ -16,10 +16,21 @@ namespace Adastra
 
         private static bool started=false;
 
+        #region unmanaged code hooks
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32")]
+        private static extern int SetForegroundWindow(IntPtr hwnd);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
+        #endregion
+
         /// <summary>
-        /// 
+        /// Starts OpenVibes's executable
         /// </summary>
-        /// <param name="run">true for execute scenario, false to edit scenario with OpenVibe</param>
+        /// <param name="run">'true' to execute scenario, 'false' to edit scenario with OpenVibe</param>
         public static void Start(bool run)
         {
             if (!OpenVibeDesignerWorkingFolder.EndsWith("\\")) OpenVibeDesignerWorkingFolder += "\\";
@@ -66,16 +77,6 @@ namespace Adastra
             System.Diagnostics.Process.Start(psi);    
         }
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32")]
-        private static extern int SetForegroundWindow(IntPtr hwnd);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
-
-
         public static void Stop()
         {
             if (started)
@@ -102,7 +103,16 @@ namespace Adastra
             }
         }
 
-		private static void FixParametersBug(string file)
+        public static bool IsRunning
+        {
+            get
+            {
+                return started;
+            }
+        }
+
+        #region helper methods
+        private static void FixParametersBug(string file)
 		{
 			string text = File.ReadAllText(file);
 
@@ -134,7 +144,7 @@ namespace Adastra
 		}
 
         /// <summary>
-        /// If possible locates OpenVibe' installation folder
+        /// If possible locates OpenVibe's installation folder
         /// </summary>
         /// <returns></returns>
         public static string LocateOpenVibe()
@@ -199,13 +209,6 @@ namespace Adastra
 
             return shortNameBuffer.ToString();
         }
-
-        public static bool IsRunning
-        {
-            get
-            {
-                return started;
-            }
-        }
+        #endregion
     }
 }
