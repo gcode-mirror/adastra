@@ -119,7 +119,6 @@
             // 
             this.comboBoxRecordTime.FormattingEnabled = true;
             this.comboBoxRecordTime.Items.AddRange(new object[] {
-            "3",
             "5",
             "10"});
             this.comboBoxRecordTime.Location = new System.Drawing.Point(97, 59);
