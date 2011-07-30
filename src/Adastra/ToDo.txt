@@ -1,4 +1,7 @@
-﻿
+﻿- acquistion 
+    - add scneario fo real time data acqusition ".real"
+    - add automatic start of OpenVibe acquisition server
+    - wpf eeg visualizer 
 
 ====================================
 -check if classes are enumerated right
