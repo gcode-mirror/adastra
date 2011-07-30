@@ -1,8 +1,8 @@
-﻿- VRPN signal calibration
-- acquistion 
+﻿1. - VRPN signal calibration min = 5s
+2. - acquistion 
     - add scneario fo real time data acqusition ".real"
     - add automatic start of OpenVibe acquisition server
-- wpf eeg visualizer for scenario 1 
+3. wpf eeg visualizer for scenario 1 
 
 ====================================
 -check if classes are enumerated right
