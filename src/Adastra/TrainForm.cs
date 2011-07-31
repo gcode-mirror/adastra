@@ -26,7 +26,7 @@ namespace Adastra
 
         AnalogRemote analog;
 
-        IMLearning model;
+        AMLearning model;
 
         Dictionary<string, int> actions = new Dictionary<string, int>();
 
@@ -194,7 +194,7 @@ namespace Adastra
                 model = new LdaSVM();
             }
 
-            model.Progress += new IMLearning.ChangedEventHandler(model_Progress);
+            model.Progress += new AMLearning.ChangedEventHandler(model_Progress);
             model.Train(vrpnIncomingSignal, vrpnDimensions);
         }
 

@@ -12,7 +12,7 @@ namespace Adastra.Algorithms
     /// <summary>
     /// First Linear Discriminant Analysis (LDA) computations and then Multi-Layer Perceptron (MLP) training is applied.
     /// </summary>
-    public class LdaMLP : IMLearning
+    public class LdaMLP : AMLearning
     {
         LinearDiscriminantAnalysis _lda;
 

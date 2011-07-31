@@ -10,7 +10,7 @@ using Accord.Statistics.Kernels;
 
 namespace Adastra.Algorithms
 {
-	public class LdaSVM : IMLearning
+	public class LdaSVM : AMLearning
 	{
 		LinearDiscriminantAnalysis _lda;
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Adastra.Algorithms
 {
-    public abstract class IMLearning
+    public abstract class AMLearning
     {
         /// <summary>
         /// Model name used for load/save

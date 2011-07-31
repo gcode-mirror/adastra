@@ -18,11 +18,11 @@ namespace Adastra
 {
     public partial class ClassifyForm : Form
     {
-        IMLearning model;
+        AMLearning model;
 
         AnalogRemote analog;
 
-        List<IMLearning> models;
+        List<AMLearning> models;
 
         public EventHandler handler;
 
@@ -94,7 +94,7 @@ namespace Adastra
                 {
                     toolStripStatusLabel1.Text = "Models loaded: " + models.Count;
 
-                    foreach (IMLearning m in models)
+                    foreach (AMLearning m in models)
                     {
                         listBoxModels.Items.Add(m.Name);
                     }
