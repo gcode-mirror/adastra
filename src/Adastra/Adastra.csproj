@@ -71,88 +71,91 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Algorithms\LdaMLP.cs" />
     <Compile Include="Algorithms\LdaSVM.cs" />
     <Compile Include="Algorithms\Matrix.cs" />
     <Compile Include="Algorithms\NNMFMatrix.cs" />
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
-    <Compile Include="ClassifyForm.cs">
+    <Compile Include="Definitions\AMLearning.cs" />
+    <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClassifyForm.Designer.cs">
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ClassifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClassifyForm.Designer.cs">
       <DependentUpon>ClassifyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CursorControlForm.cs">
+    <Compile Include="Forms\CursorControlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CursorControlForm.Designer.cs">
+    <Compile Include="Forms\CursorControlForm.Designer.cs">
       <DependentUpon>CursorControlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Definitions\AMLearning.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageRecordedData.cs">
+    <Compile Include="Forms\ManageRecordedData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManageRecordedData.Designer.cs">
+    <Compile Include="Forms\ManageRecordedData.Designer.cs">
       <DependentUpon>ManageRecordedData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools\ModelStorage.cs" />
-    <Compile Include="OpenVibeClassification.cs">
+    <Compile Include="Forms\OpenVibeClassification.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OpenVibeClassification.Designer.cs">
+    <Compile Include="Forms\OpenVibeClassification.Designer.cs">
       <DependentUpon>OpenVibeClassification.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tools\OpenVibeController.cs" />
-    <Compile Include="OutputForm.cs">
+    <Compile Include="Forms\OutputForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OutputForm.Designer.cs">
+    <Compile Include="Forms\OutputForm.Designer.cs">
       <DependentUpon>OutputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainForm.cs">
+    <Compile Include="Forms\TrainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TrainForm.Designer.cs">
+    <Compile Include="Forms\TrainForm.Designer.cs">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutForm.resx">
+    <Compile Include="Tools\ModelStorage.cs" />
+    <Compile Include="Tools\OpenVibeController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ClassifyForm.resx">
+    <EmbeddedResource Include="Forms\ClassifyForm.resx">
       <DependentUpon>ClassifyForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CursorControlForm.resx">
+    <EmbeddedResource Include="Forms\CursorControlForm.resx">
       <DependentUpon>CursorControlForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageRecordedData.resx">
+    <EmbeddedResource Include="Forms\ManageRecordedData.resx">
       <DependentUpon>ManageRecordedData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OpenVibeClassification.resx">
+    <EmbeddedResource Include="Forms\OpenVibeClassification.resx">
       <DependentUpon>OpenVibeClassification.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OutputForm.resx">
+    <EmbeddedResource Include="Forms\OutputForm.resx">
       <DependentUpon>OutputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TrainForm.resx">
+      <DependentUpon>TrainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -164,9 +167,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TrainForm.resx">
-      <DependentUpon>TrainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Eloquera.config">
       <SubType>Designer</SubType>
