@@ -6,9 +6,10 @@ using System.Text;
 namespace Adastra.Algorithms
 {
     /// <summary>
-    /// This class is used to:
+    /// This class is used with Neural Networks to:
     /// 1. Randomize feature vectors
-    /// 2. Split feature vectors set in several combinations of 'train' and 'validate' data
+    /// 2. Split feature vectors into sets of several combinations of 'train' and 'validate' data
+    /// 
     /// This class is used to train over the 'train' set until the error over 'validate' set is satisfactory (usually just before starting to increase)
     /// </summary>
     public class NNTrainDataIterator
@@ -57,13 +58,13 @@ namespace Adastra.Algorithms
         }
 
         /// <summary>
-        /// Each time returns the next combination of 'train' and 'validate' sets
+        /// Returns the next combination of 'train' and 'validate' sets
         /// </summary>
         /// <param name="trainDataInput"></param>
         /// <param name="trainDataOutput"></param>
         /// <param name="validateDataInput"></param>
         /// <param name="validateDataOutput"></param>
-        public void GetData(out double[][] trainDataInput, out double[][] trainDataOutput, out double[][] validateDataInput, out double[][] validateDataOutput)
+        public void NextData(out double[][] trainDataInput, out double[][] trainDataOutput, out double[][] validateDataInput, out double[][] validateDataOutput)
         {
             if (_currentValidateIndex < _ratio)
             {

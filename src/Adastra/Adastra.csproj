@@ -77,6 +77,7 @@
     <Compile Include="Algorithms\NNMFMatrix.cs" />
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
     <Compile Include="Definitions\AMLearning.cs" />
+    <Compile Include="Definitions\EEGRecord.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +126,7 @@
     <Compile Include="Forms\TrainForm.Designer.cs">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\EEGRecordStorage.cs" />
     <Compile Include="Tools\ModelStorage.cs" />
     <Compile Include="Tools\OpenVibeController.cs" />
     <Compile Include="Program.cs" />

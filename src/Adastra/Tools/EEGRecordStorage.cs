@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Adastra.Tools
+namespace Adastra
 {
-    class EEGRecordStorage
+    public static class EEGRecordStorage
     {
+
     }
 }

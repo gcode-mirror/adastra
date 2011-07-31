@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Adastra.Definitions
+namespace Adastra
 {
-    class EEGRecord
+    public class EEGRecord
     {
+        public List<double[]> vrpnIncomingSignal;
+
+        public Dictionary<string, int> actions;
     }
 }

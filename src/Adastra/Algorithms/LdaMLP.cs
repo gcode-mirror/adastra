@@ -101,7 +101,7 @@ namespace Adastra.Algorithms
                 double[][] validateDataInput;
                 double[][] validateDataOutput;
 
-                iter.GetData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);
+                iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);
 
                 double errorValidationSet;
                 double errorTrainSet;
