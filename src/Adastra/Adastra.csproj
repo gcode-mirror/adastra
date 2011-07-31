@@ -77,7 +77,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Algorithms\IMLearning.cs" />
     <Compile Include="Algorithms\LdaMLP.cs" />
     <Compile Include="Algorithms\LdaSVM.cs" />
     <Compile Include="Algorithms\Matrix.cs" />
@@ -95,20 +94,27 @@
     <Compile Include="CursorControlForm.Designer.cs">
       <DependentUpon>CursorControlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Definitions\AMLearning.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelStorage.cs" />
+    <Compile Include="ManageRecordedData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageRecordedData.Designer.cs">
+      <DependentUpon>ManageRecordedData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ModelStorage.cs" />
     <Compile Include="OpenVibeClassification.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="OpenVibeClassification.Designer.cs">
       <DependentUpon>OpenVibeClassification.cs</DependentUpon>
     </Compile>
-    <Compile Include="OpenVibeController.cs" />
+    <Compile Include="Tools\OpenVibeController.cs" />
     <Compile Include="OutputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageRecordedData.resx">
+      <DependentUpon>ManageRecordedData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenVibeClassification.resx">
       <DependentUpon>OpenVibeClassification.cs</DependentUpon>
@@ -190,6 +199,7 @@
       <Name>Accord.Statistics</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -73,8 +73,8 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.buttonEditScenario = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -82,7 +82,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(278, 236);
+            this.buttonStart.Location = new System.Drawing.Point(282, 217);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -158,7 +158,7 @@
             // 
             // textBoxOpenVibeWorkingFolder
             // 
-            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(148, 102);
+            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(148, 73);
             this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
             this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(179, 20);
             this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
@@ -174,7 +174,7 @@
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
-            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(343, 102);
+            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(343, 73);
             this.buttonSelectOpenVibeWorkingFolder.Name = "buttonSelectOpenVibeWorkingFolder";
             this.buttonSelectOpenVibeWorkingFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectOpenVibeWorkingFolder.TabIndex = 6;
@@ -195,7 +195,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 102);
+            this.label2.Location = new System.Drawing.Point(6, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 9;
@@ -281,7 +281,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxScenario);
             this.groupBox1.Controls.Add(this.buttonEditScenario);
@@ -291,35 +290,37 @@
             this.groupBox1.Controls.Add(this.textBoxOpenVibeWorkingFolder);
             this.groupBox1.Location = new System.Drawing.Point(18, 81);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(690, 136);
+            this.groupBox1.Size = new System.Drawing.Size(690, 116);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OpenVibe settings";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(84, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "label3";
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(148, 63);
+            this.checkBox1.Location = new System.Drawing.Point(313, 291);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(178, 17);
             this.checkBox1.TabIndex = 17;
             this.checkBox1.Text = "Start OpenVibe acquision server";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(56, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Scenario path:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 327);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.comboBoxScenarioType);
