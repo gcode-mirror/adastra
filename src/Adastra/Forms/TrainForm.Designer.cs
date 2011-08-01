@@ -45,6 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.listBoxLogger = new System.Windows.Forms.ListBox();
             this.buttonManageRecordings = new System.Windows.Forms.Button();
+            this.buttonClearRecord = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonRecordAction
@@ -87,7 +88,7 @@
             // 
             this.progressBarRecord.Location = new System.Drawing.Point(284, 57);
             this.progressBarRecord.Name = "progressBarRecord";
-            this.progressBarRecord.Size = new System.Drawing.Size(270, 21);
+            this.progressBarRecord.Size = new System.Drawing.Size(186, 21);
             this.progressBarRecord.TabIndex = 4;
             // 
             // textBoxModelName
@@ -211,11 +212,22 @@
             this.buttonManageRecordings.UseVisualStyleBackColor = true;
             this.buttonManageRecordings.Click += new System.EventHandler(this.buttonManageRecordings_Click);
             // 
+            // buttonClearRecord
+            // 
+            this.buttonClearRecord.Location = new System.Drawing.Point(476, 57);
+            this.buttonClearRecord.Name = "buttonClearRecord";
+            this.buttonClearRecord.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearRecord.TabIndex = 23;
+            this.buttonClearRecord.Text = "Clear";
+            this.buttonClearRecord.UseVisualStyleBackColor = true;
+            this.buttonClearRecord.Click += new System.EventHandler(this.buttonClearRecord_Click);
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(712, 431);
+            this.Controls.Add(this.buttonClearRecord);
             this.Controls.Add(this.buttonManageRecordings);
             this.Controls.Add(this.listBoxLogger);
             this.Controls.Add(this.label4);
@@ -259,6 +271,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBoxLogger;
         private System.Windows.Forms.Button buttonManageRecordings;
+        private System.Windows.Forms.Button buttonClearRecord;
 
     }
 }

@@ -321,6 +321,11 @@ namespace Adastra
             currentRecord = selectedRecord;
         }
 
+        private void buttonClearRecord_Click(object sender, EventArgs e)
+        {
+            currentRecord = new EEGRecord();
+        }
+
         
     }
 }
