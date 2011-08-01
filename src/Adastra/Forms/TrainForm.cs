@@ -20,7 +20,7 @@ namespace Adastra
 {
     public partial class TrainForm : Form
     {
-        List<double[]> vrpnIncomingSignal = new List<double[]>();
+        //List<double[]> vrpnIncomingSignal = new List<double[]>();
 
         int vrpnDimensions=-1;
 
@@ -28,7 +28,9 @@ namespace Adastra
 
         AMLearning model;
 
-        Dictionary<string, int> actions = new Dictionary<string, int>();
+        //Dictionary<string, int> actions = new Dictionary<string, int>();
+
+        EEGRecord currentRecord = new EEGRecord();
 
         private BackgroundWorker AsyncWorkerCalculate;
 
@@ -195,7 +197,7 @@ namespace Adastra
             }
 
             model.Progress += new AMLearning.ChangedEventHandler(model_Progress);
-            model.Train(vrpnIncomingSignal, vrpnDimensions);
+            model.Train(currentRecord.vrpnIncomingSignal, vrpnDimensions);
         }
 
         void model_Progress(int progress)
@@ -220,7 +222,7 @@ namespace Adastra
 
             LastRecodredFeatureVectorsCount++;
 
-            vrpnIncomingSignal.Add(output_input);
+            currentRecord.vrpnIncomingSignal.Add(output_input);
         }
 
 
@@ -238,16 +240,16 @@ namespace Adastra
 
                 string ClassName = comboBoxSelectedClass.Items[comboBoxSelectedClass.SelectedIndex].ToString();
 
-                if (!actions.Keys.Contains(ClassName))
+                if (!currentRecord.actions.Keys.Contains(ClassName))
                 {
-                    if (actions.Count == 0) SelectedClassNumeric = 1;
-                    else SelectedClassNumeric = actions.Values.Max() + 1; //choose a new class (not yet used)
+                    if (currentRecord.actions.Count == 0) SelectedClassNumeric = 1;
+                    else SelectedClassNumeric = currentRecord.actions.Values.Max() + 1; //choose a new class (not yet used)
 
-                    actions.Add(ClassName, SelectedClassNumeric);
+                    currentRecord.actions.Add(ClassName, SelectedClassNumeric);
                 }
                 else
                 {   //user already recorded for this class
-                    SelectedClassNumeric = actions[ClassName];
+                    SelectedClassNumeric = currentRecord.actions[ClassName];
                 }
 
                 listBoxLogger.Items.Insert(0, "Recoding data for action \"" + comboBoxSelectedClass.Text + "\" (class " + SelectedClassNumeric + ").");
@@ -267,7 +269,7 @@ namespace Adastra
             else //start new process
             {
                 listBoxLogger.Items.Insert(0,"Creating machine learning model to be used for classification...");
-                if (vrpnIncomingSignal.Count == 0) { MessageBox.Show("First you need to record some data for specific action!"); return; }
+                if (currentRecord.vrpnIncomingSignal.Count == 0) { MessageBox.Show("First you need to record some data for specific action!"); return; }
 
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";
@@ -296,7 +298,7 @@ namespace Adastra
                 buttonSaveModel.Enabled = false;
 
                 model.Name = textBoxModelName.Text;
-                model.ActionList = actions;
+                model.ActionList = currentRecord.actions;
 
                 AsyncWorkerSaveModel.RunWorkerAsync();
             }
@@ -306,5 +308,19 @@ namespace Adastra
         {
             this.Close();
         }
+
+        private void buttonManageRecordings_Click(object sender, EventArgs e)
+        {
+            ManageRecordedData rd = new ManageRecordedData(currentRecord);
+            rd.ReocordSelected += new ManageRecordedData.ChangedEventHandler(rd_ReocordSelected);
+            rd.Show();
+        }
+
+        void rd_ReocordSelected(EEGRecord selectedRecord)
+        {
+            currentRecord = selectedRecord;
+        }
+
+        
     }
 }

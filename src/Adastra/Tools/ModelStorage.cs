@@ -15,12 +15,22 @@ namespace Adastra
 {
     public static class ModelStorage
     {
-        const string dbName = "AdastraDB";
+        static string fullpath
+        {
+            get
+            {
+                return Database.fullpath;
+            }
+        }
 
-        static string fullpath = Environment.CurrentDirectory + "\\" + dbName;
+        static DB db
+        {
+            get
+            {
+                return Database.db;
+            }
+        }
 
-        //var db = new DB("server=(local);options=none;");
-        static DB db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
 
         public static void SaveModel(AMLearning model)
         {
@@ -42,6 +52,7 @@ namespace Adastra
                 db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
                 db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
                 db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
+                db.RegisterType(typeof(EEGRecord));
             }
 
             db.Store(model);
