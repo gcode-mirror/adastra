@@ -319,11 +319,13 @@ namespace Adastra
         void rd_ReocordSelected(EEGRecord selectedRecord)
         {
             currentRecord = selectedRecord;
+			listBoxLogger.Items.Insert(0, "Pre-recorded data '"+"' has been loaded. You can record additional data or start 'Computing'.");
         }
 
         private void buttonClearRecord_Click(object sender, EventArgs e)
         {
             currentRecord = new EEGRecord();
+			listBoxLogger.Items.Insert(0, "Recorded data cleared. Now you can record or load data.");
         }
 
         
