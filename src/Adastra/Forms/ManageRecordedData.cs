@@ -32,9 +32,9 @@ namespace Adastra
             AsyncWorkerSaveEEGRecord.DoWork += new DoWorkEventHandler(AsyncWorkerSaveEEGRecord_DoWork);
             AsyncWorkerSaveEEGRecord.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveEEGRecord_RunWorkerCompleted);
 
-            saveRecord = record;
+            saveRecord = new EEGRecord(record);
             
-            listBox1.DisplayMember = "Name";
+            //listBox1.DisplayMember = "Name";
             toolStripStatusLabel1.Text = "Loading EGG records ... please wait";
 
             buttonLoad.Enabled = false;
@@ -52,10 +52,11 @@ namespace Adastra
                 return;
             }
 
+            buttonLoad.Enabled = true; //we have at least one record to load
+
             records.Add(saveRecord);
-            listBox1.DataSource = null;
-            listBox1.DataSource = records;
-            listBox1.DisplayMember = "Name";
+
+            Bind();
 
             toolStripStatusLabel1.Text = "EEG record '" + saveRecord.Name +"' saved.";
         }
@@ -84,7 +85,7 @@ namespace Adastra
             if (records.Count > 0)
             {
                 buttonLoad.Enabled = true;
-                listBox1.DataSource = records;
+                Bind();
             }
             toolStripStatusLabel1.Text = listBox1.Items.Count + " EEG records loaded.";
         }
@@ -113,15 +114,27 @@ namespace Adastra
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem!=null)
+            if (listBox1.SelectedIndex != 0 && listBox1.Items[listBox1.SelectedIndex] == records[listBox1.SelectedIndex].Name)
             {
-                ReocordSelected((EEGRecord)listBox1.SelectedItem);
+                ReocordSelected(records[listBox1.SelectedIndex]);
                 System.Threading.Thread.Sleep(500);
                 this.Close();
             }
             else
             {
                 MessageBox.Show("No record selected!");
+            }
+        }
+
+        void Bind()
+        {
+            listBox1.Items.Clear();
+            if (records!=null)
+            {
+                foreach (EEGRecord rec in records)
+                {
+                    listBox1.Items.Add(rec.Name);
+                }
             }
         }
     }
