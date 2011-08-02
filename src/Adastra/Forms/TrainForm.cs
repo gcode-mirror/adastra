@@ -319,7 +319,7 @@ namespace Adastra
         void rd_ReocordSelected(EEGRecord selectedRecord)
         {
             currentRecord = selectedRecord;
-			listBoxLogger.Items.Insert(0, "Pre-recorded data '"+"' has been loaded. You can record additional data or start 'Computing'.");
+			listBoxLogger.Items.Insert(0, "Pre-recorded data '"+selectedRecord.Name+"' has been loaded. You can record additional data or start 'Computing'.");
         }
 
         private void buttonClearRecord_Click(object sender, EventArgs e)

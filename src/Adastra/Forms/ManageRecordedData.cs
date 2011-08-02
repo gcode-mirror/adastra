@@ -18,6 +18,8 @@ namespace Adastra
         private BackgroundWorker AsyncWorkerLoadEEGRecords;
         private BackgroundWorker AsyncWorkerSaveEEGRecord;
 
+        List<EEGRecord> records;
+
         public ManageRecordedData(EEGRecord record)
         {
             InitializeComponent();
@@ -33,12 +35,16 @@ namespace Adastra
             saveRecord = record;
             
             listBox1.DisplayMember = "Name";
+            toolStripStatusLabel1.Text = "Loading EGG records ... please wait";
 
+            buttonLoad.Enabled = false;
+          
             AsyncWorkerLoadEEGRecords.RunWorkerAsync();
         }
 
         void AsyncWorkerSaveEEGRecord_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            buttonSave.Enabled = true;
             if (e.Error != null)
             {
                 MessageBox.Show("Error:" + e.Error.Message);
@@ -46,14 +52,24 @@ namespace Adastra
                 return;
             }
 
+            records.Add(saveRecord);
+            listBox1.DataSource = null;
+            listBox1.DataSource = records;
+            listBox1.DisplayMember = "Name";
+
             toolStripStatusLabel1.Text = "EEG record '" + saveRecord.Name +"' saved.";
         }
 
         void AsyncWorkerSaveEEGRecord_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (saveRecord.vrpnIncomingSignal.Count == 0)
+            {
+                MessageBox.Show("Save operation aborted. Record seems empty!");
+                return;
+            }
+
             saveRecord.Name = textBoxName.Text;
             EEGRecordStorage.SaveRecord(saveRecord);
-            listBox1.Items.Add(saveRecord);
         }
 
         void AsyncWorkerLoadEEGRecords_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -64,22 +80,27 @@ namespace Adastra
                 toolStripStatusLabel1.Text = "Loading EEG records has failed.";
                 return;
             }
-            
+
+            if (records.Count > 0)
+            {
+                buttonLoad.Enabled = true;
+                listBox1.DataSource = records;
+            }
             toolStripStatusLabel1.Text = listBox1.Items.Count + " EEG records loaded.";
         }
 
         void AsyncWorkerLoadEEGRecords_DoWork(object sender, DoWorkEventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.DataSource = EEGRecordStorage.LoadModels();
+            records = EEGRecordStorage.LoadModels();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (textBoxName.Text!="")
+            if (textBoxName.Text != "")
             {
+                buttonSave.Enabled = false;
                 AsyncWorkerSaveEEGRecord.RunWorkerAsync();
-             }
+            }
             else
             {
                 MessageBox.Show("Please enter record name!");
