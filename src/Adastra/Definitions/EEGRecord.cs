@@ -9,18 +9,18 @@ namespace Adastra
     {
         public EEGRecord(EEGRecord rec)
         {
-            //vrpnIncomingSignal = new List<double[]>();
+            vrpnIncomingSignal = new List<double[]>();
 
-            //actions = new Dictionary<string, int>();
+            actions = new Dictionary<string, int>(rec.actions);
 
-            //foreach (double[] d in rec.vrpnIncomingSignal)
-            //{
-            //    double[] p=new double[d.Length];
-            //    foreach (double dd in d)
-            //    {
-            //        p
-            //    }
-            //}
+            for (int i = 0; i < rec.vrpnIncomingSignal.Count; i++)
+            {
+                double[] newItem = new double[rec.vrpnIncomingSignal[i].Length];
+                rec.vrpnIncomingSignal[i].CopyTo(newItem, rec.vrpnIncomingSignal[i].Length);
+                vrpnIncomingSignal.Add(newItem);
+            }
+
+            Name = rec.Name;
         }
 
         public EEGRecord()

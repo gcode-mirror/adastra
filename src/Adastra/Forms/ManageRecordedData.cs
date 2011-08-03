@@ -14,7 +14,7 @@ namespace Adastra
     /// </summary>
     public partial class ManageRecordedData : Form
     {
-        EEGRecord saveRecord;
+        EEGRecord providedRecord;
         private BackgroundWorker AsyncWorkerLoadEEGRecords;
         private BackgroundWorker AsyncWorkerSaveEEGRecord;
 
@@ -32,7 +32,7 @@ namespace Adastra
             AsyncWorkerSaveEEGRecord.DoWork += new DoWorkEventHandler(AsyncWorkerSaveEEGRecord_DoWork);
             AsyncWorkerSaveEEGRecord.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveEEGRecord_RunWorkerCompleted);
 
-            saveRecord = new EEGRecord(record);
+            providedRecord = record;
             
             //listBox1.DisplayMember = "Name";
             toolStripStatusLabel1.Text = "Loading EGG records ... please wait";
@@ -48,28 +48,31 @@ namespace Adastra
             if (e.Error != null)
             {
                 MessageBox.Show("Error:" + e.Error.Message);
-                toolStripStatusLabel1.Text = "Saving '" + saveRecord.Name + "' has failed!";
+                toolStripStatusLabel1.Text = "Saving '" + providedRecord.Name + "' has failed!";
                 return;
             }
 
             buttonLoad.Enabled = true; //we have at least one record to load
 
-            records.Add(saveRecord);
+            records.Add(providedRecord);
 
             Bind();
 
-            toolStripStatusLabel1.Text = "EEG record '" + saveRecord.Name +"' saved.";
+            toolStripStatusLabel1.Text = "EEG record '" + providedRecord.Name +"' saved.";
         }
 
         void AsyncWorkerSaveEEGRecord_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (saveRecord.vrpnIncomingSignal.Count == 0)
+            if (providedRecord.vrpnIncomingSignal.Count == 0)
             {
                 MessageBox.Show("Save operation aborted. Record seems empty!");
                 return;
             }
 
+            EEGRecord saveRecord = new EEGRecord(providedRecord);
+
             saveRecord.Name = textBoxName.Text;
+
             EEGRecordStorage.SaveRecord(saveRecord);
         }
 
