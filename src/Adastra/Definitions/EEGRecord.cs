@@ -5,19 +5,22 @@ using System.Text;
 
 namespace Adastra
 {
+	/// <summary>
+	/// Currently used to hold feature vectors and outputs
+	/// </summary>
     public class EEGRecord
     {
         public EEGRecord(EEGRecord rec)
         {
-            vrpnIncomingSignal = new List<double[]>();
+            InputOutputSignal = new List<double[]>();
 
             actions = new Dictionary<string, int>(rec.actions);
 
-            for (int i = 0; i < rec.vrpnIncomingSignal.Count; i++)
+            for (int i = 0; i < rec.InputOutputSignal.Count; i++)
             {
-                double[] newItem = new double[rec.vrpnIncomingSignal[i].Length];
-                rec.vrpnIncomingSignal[i].CopyTo(newItem, 0);
-                vrpnIncomingSignal.Add(newItem);
+                double[] newItem = new double[rec.InputOutputSignal[i].Length];
+                rec.InputOutputSignal[i].CopyTo(newItem, 0);
+                InputOutputSignal.Add(newItem);
             }
 
             Name = rec.Name;
@@ -25,7 +28,7 @@ namespace Adastra
 
         public EEGRecord()
         {
-            vrpnIncomingSignal = new List<double[]>();
+            InputOutputSignal = new List<double[]>();
 
             actions = new Dictionary<string, int>();
         }
@@ -36,7 +39,10 @@ namespace Adastra
             set;
         }
 
-        public List<double[]> vrpnIncomingSignal;
+		/// <summary>
+		/// Contains both income data and output data
+		/// </summary>
+        public List<double[]> InputOutputSignal;
 
         public Dictionary<string, int> actions;
     }

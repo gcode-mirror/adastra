@@ -22,7 +22,7 @@ namespace Adastra
     {
         //List<double[]> vrpnIncomingSignal = new List<double[]>();
 
-        int vrpnDimensions=-1;
+        //int vrpnDimensions=-1;
 
         AnalogRemote analog;
 
@@ -197,7 +197,7 @@ namespace Adastra
             }
 
             model.Progress += new AMLearning.ChangedEventHandler(model_Progress);
-            model.Train(currentRecord.vrpnIncomingSignal, vrpnDimensions);
+			model.Train(currentRecord.InputOutputSignal, currentRecord.InputOutputSignal[0].Length-1);
         }
 
         void model_Progress(int progress)
@@ -209,7 +209,7 @@ namespace Adastra
         {
 			//if (startupTest) { startupTest = false; return; }
 
-            vrpnDimensions = e.Channels.Length;
+            //vrpnDimensions = e.Channels.Length;
 
             double[] output_input = new double[e.Channels.Length + 1];
 
@@ -222,7 +222,7 @@ namespace Adastra
 
             LastRecodredFeatureVectorsCount++;
 
-            currentRecord.vrpnIncomingSignal.Add(output_input);
+            currentRecord.InputOutputSignal.Add(output_input);
         }
 
 
@@ -269,7 +269,7 @@ namespace Adastra
             else //start new process
             {
                 listBoxLogger.Items.Insert(0,"Creating machine learning model to be used for classification...");
-                if (currentRecord.vrpnIncomingSignal.Count == 0) { MessageBox.Show("First you need to record some data for specific action!"); return; }
+                if (currentRecord.InputOutputSignal.Count == 0) { MessageBox.Show("First you need to record/load some data for specific action!"); return; }
 
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";
