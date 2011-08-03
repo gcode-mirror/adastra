@@ -40,6 +40,8 @@ namespace Adastra
             buttonLoad.Enabled = false;
           
             AsyncWorkerLoadEEGRecords.RunWorkerAsync();
+
+			listBox1.Items.Add("Loading...");
         }
 
         void AsyncWorkerSaveEEGRecord_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -53,8 +55,6 @@ namespace Adastra
             }
 
             buttonLoad.Enabled = true; //we have at least one record to load
-
-            records.Add(providedRecord);
 
             Bind();
 
@@ -74,6 +74,8 @@ namespace Adastra
             saveRecord.Name = textBoxName.Text;
 
             EEGRecordStorage.SaveRecord(saveRecord);
+
+			records.Add(saveRecord);
         }
 
         void AsyncWorkerLoadEEGRecords_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

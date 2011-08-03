@@ -16,7 +16,7 @@ namespace Adastra
             for (int i = 0; i < rec.vrpnIncomingSignal.Count; i++)
             {
                 double[] newItem = new double[rec.vrpnIncomingSignal[i].Length];
-                rec.vrpnIncomingSignal[i].CopyTo(newItem, rec.vrpnIncomingSignal[i].Length);
+                rec.vrpnIncomingSignal[i].CopyTo(newItem, 0);
                 vrpnIncomingSignal.Add(newItem);
             }
 
