@@ -1,10 +1,11 @@
-﻿1. - VRPN signal calibration min = 5s
-2. - acquistion 
+﻿
+1. - acquistion 
     - add scneario fo real time data acqusition ".real"
     - add automatic start of OpenVibe acquisition server
-3. wpf eeg visualizer for scenario 1 
+2. wpf eeg visualizer for scenario 1 
 
 ====================================
+-now recorded data is manageable
 -check if classes are enumerated right
 -implement multi-class SVM
 
