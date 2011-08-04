@@ -1,6 +1,7 @@
 ﻿
 1. - acquistion 
     - add scneario fo real time data acqusition ".real"
+           - radio button "recorded"/"real time"
     - add automatic start of OpenVibe acquisition server
 2. wpf eeg visualizer for scenario 1 
 
