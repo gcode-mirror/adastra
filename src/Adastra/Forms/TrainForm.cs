@@ -108,7 +108,7 @@ namespace Adastra
             { MessageBox.Show("Error:" + e.Error.Message);}
             else
             {
-                listBoxLogger.Items.Insert(0,"Model saved.");
+                listBoxLogger.Items.Insert(0, "Model '" + textBoxModelName.Text + "' saved.");
             }
             buttonSaveModel.Enabled = true;
             
