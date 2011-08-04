@@ -88,6 +88,8 @@ namespace Adastra
 
             OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
             OpenVibeController.Scenario = this.textBoxScenario.Text;
+            if (rButtonRealtime.Checked)
+                OpenVibeController.Scenario= OpenVibeController.Scenario.Substring(0,OpenVibeController.Scenario.Length-4)+"-realtime.xml";
             OpenVibeController.FastPlay = false;
             OpenVibeController.NoGUI = true;
             OpenVibeController.Start(true);
@@ -230,6 +232,18 @@ namespace Adastra
             OpenVibeController.NoGUI = false;
             OpenVibeController.Start(false);
 
+        }
+
+        private void rButtonRealtime_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rButtonRealtime.Checked)
+                label4.Visible = true;
+        }
+
+        private void rButtonRecordedSignal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rButtonRecordedSignal.Checked)
+                label4.Visible = false;
         }
     }
 }

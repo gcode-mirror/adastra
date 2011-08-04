@@ -119,7 +119,7 @@ namespace Adastra
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != 0 && listBox1.Items[listBox1.SelectedIndex] == records[listBox1.SelectedIndex].Name)
+            if (listBox1.SelectedIndex != 0 && (string)listBox1.Items[listBox1.SelectedIndex] == records[listBox1.SelectedIndex].Name)
             {
                 ReocordSelected(records[listBox1.SelectedIndex]);
                 System.Threading.Thread.Sleep(500);

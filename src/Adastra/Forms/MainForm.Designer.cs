@@ -29,31 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
-            treeNode11});
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode10,
-            treeNode12});
+            System.Windows.Forms.TreeNode treeNode66 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode66,
+            treeNode67});
+            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode71 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode69,
+            treeNode70});
+            System.Windows.Forms.TreeNode treeNode72 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode72,
+            treeNode73});
+            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode71,
+            treeNode74});
+            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode76});
+            System.Windows.Forms.TreeNode treeNode78 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode68,
+            treeNode75,
+            treeNode77});
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -73,8 +73,10 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.buttonEditScenario = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.rButtonRecordedSignal = new System.Windows.Forms.RadioButton();
+            this.rButtonRealtime = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -195,7 +197,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 73);
+            this.label2.Location = new System.Drawing.Point(16, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 9;
@@ -204,9 +206,9 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(559, 280);
+            this.buttonExit.Location = new System.Drawing.Point(594, 250);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(141, 40);
+            this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
@@ -227,44 +229,44 @@
             "(6). Display: results of using models for detection of neurodegenerative diseases" +
                 "",
             "(7). Annotate EEG signal "});
-            this.comboBoxScenarioType.Location = new System.Drawing.Point(105, 41);
+            this.comboBoxScenarioType.Location = new System.Drawing.Point(96, 41);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
-            this.comboBoxScenarioType.Size = new System.Drawing.Size(600, 21);
+            this.comboBoxScenarioType.Size = new System.Drawing.Size(609, 21);
             this.comboBoxScenarioType.TabIndex = 13;
             this.comboBoxScenarioType.SelectedIndexChanged += new System.EventHandler(this.comboBoxScenarioType_SelectedIndexChanged);
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(12, 291);
+            this.treeView1.Location = new System.Drawing.Point(0, 257);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node2";
-            treeNode1.Text = "EEG signal";
-            treeNode2.Name = "Node6";
-            treeNode2.Text = "Claffication output from OpenVibe";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Display";
-            treeNode4.Name = "Node7";
-            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode5.Name = "Node8";
-            treeNode5.Text = "Using Adastra\'s feature aggregator";
-            treeNode6.Name = "Node4";
-            treeNode6.Text = "Train";
-            treeNode7.Name = "Node11";
-            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode8.Name = "Node12";
-            treeNode8.Text = "Using Adastra\'s feature aggregator";
-            treeNode9.Name = "Node5";
-            treeNode9.Text = "Classify";
-            treeNode10.Name = "Node3";
-            treeNode10.Text = "Classification";
-            treeNode11.Name = "Node10";
-            treeNode11.Text = "Mouse cursor";
-            treeNode12.Name = "Node9";
-            treeNode12.Text = "Device control";
-            treeNode13.Name = "Node0";
-            treeNode13.Text = "Scenario";
+            treeNode66.Name = "Node2";
+            treeNode66.Text = "EEG signal";
+            treeNode67.Name = "Node6";
+            treeNode67.Text = "Claffication output from OpenVibe";
+            treeNode68.Name = "Node1";
+            treeNode68.Text = "Display";
+            treeNode69.Name = "Node7";
+            treeNode69.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode70.Name = "Node8";
+            treeNode70.Text = "Using Adastra\'s feature aggregator";
+            treeNode71.Name = "Node4";
+            treeNode71.Text = "Train";
+            treeNode72.Name = "Node11";
+            treeNode72.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode73.Name = "Node12";
+            treeNode73.Text = "Using Adastra\'s feature aggregator";
+            treeNode74.Name = "Node5";
+            treeNode74.Text = "Classify";
+            treeNode75.Name = "Node3";
+            treeNode75.Text = "Classification";
+            treeNode76.Name = "Node10";
+            treeNode76.Text = "Mouse cursor";
+            treeNode77.Name = "Node9";
+            treeNode77.Text = "Device control";
+            treeNode78.Name = "Node0";
+            treeNode78.Text = "Scenario";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13});
+            treeNode78});
             this.treeView1.Size = new System.Drawing.Size(295, 242);
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;
@@ -281,6 +283,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.rButtonRealtime);
+            this.groupBox1.Controls.Add(this.rButtonRecordedSignal);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxScenario);
             this.groupBox1.Controls.Add(this.buttonEditScenario);
@@ -295,32 +300,54 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OpenVibe settings";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(313, 291);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(178, 17);
-            this.checkBox1.TabIndex = 17;
-            this.checkBox1.Text = "Start OpenVibe acquision server";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Visible = false;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(56, 22);
+            this.label3.Location = new System.Drawing.Point(66, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 16;
             this.label3.Text = "Scenario path:";
             // 
+            // rButtonRecordedSignal
+            // 
+            this.rButtonRecordedSignal.AutoSize = true;
+            this.rButtonRecordedSignal.Checked = true;
+            this.rButtonRecordedSignal.Location = new System.Drawing.Point(148, 50);
+            this.rButtonRecordedSignal.Name = "rButtonRecordedSignal";
+            this.rButtonRecordedSignal.Size = new System.Drawing.Size(86, 17);
+            this.rButtonRecordedSignal.TabIndex = 17;
+            this.rButtonRecordedSignal.TabStop = true;
+            this.rButtonRecordedSignal.Text = "Pre-recorded";
+            this.rButtonRecordedSignal.UseVisualStyleBackColor = true;
+            this.rButtonRecordedSignal.CheckedChanged += new System.EventHandler(this.rButtonRecordedSignal_CheckedChanged);
+            // 
+            // rButtonRealtime
+            // 
+            this.rButtonRealtime.AutoSize = true;
+            this.rButtonRealtime.Location = new System.Drawing.Point(240, 50);
+            this.rButtonRealtime.Name = "rButtonRealtime";
+            this.rButtonRealtime.Size = new System.Drawing.Size(69, 17);
+            this.rButtonRealtime.TabIndex = 18;
+            this.rButtonRealtime.Text = "Real-time";
+            this.rButtonRealtime.UseVisualStyleBackColor = true;
+            this.rButtonRealtime.CheckedChanged += new System.EventHandler(this.rButtonRealtime_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(315, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(243, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "You need to start OpenVibe Acquisition server first";
+            this.label4.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 327);
-            this.Controls.Add(this.checkBox1);
+            this.ClientSize = new System.Drawing.Size(720, 295);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.comboBoxScenarioType);
@@ -361,8 +388,10 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button buttonEditScenario;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton rButtonRealtime;
+        private System.Windows.Forms.RadioButton rButtonRecordedSignal;
+        private System.Windows.Forms.Label label4;
     }
 }
 
