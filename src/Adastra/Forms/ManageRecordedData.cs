@@ -92,7 +92,7 @@ namespace Adastra
                 buttonLoad.Enabled = true;
                 Bind();
             }
-            toolStripStatusLabel1.Text = listBox1.Items.Count + " EEG records loaded.";
+            toolStripStatusLabel1.Text = records.Count + " EEG records loaded.";
         }
 
         void AsyncWorkerLoadEEGRecords_DoWork(object sender, DoWorkEventArgs e)
