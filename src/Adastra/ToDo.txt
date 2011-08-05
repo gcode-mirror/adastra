@@ -1,4 +1,5 @@
-﻿
+﻿- add time elapsed for computation
+
 1. - acquistion 
     - add scneario fo real time data acqusition ".real"
            - radio button "recorded"/"real time"
