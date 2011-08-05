@@ -168,26 +168,24 @@ namespace Adastra
 
         void AsyncWorkerCalculate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            TimeSpan elapsed = DateTime.Now - startCalculateModel;
+            //var seconds=(elapsed.TotalMilliseconds / 1000);
+            //string elapsedTime = ((seconds / 3600)>1) ? "hours: "+(seconds / 3600).ToString():"";
+            //elapsedTime+= ((seconds / 60 )>1) ? " minutes: "+(seconds / 60).ToString():"";
+            //elapsedTime+=  " seconds:" + seconds.ToString();
+            string elapsedTime = elapsed.Hours + " hour(s), " + elapsed.Minutes + " minute(s), " + elapsed.Seconds + " second(s), " + elapsed.Milliseconds + " millisecond(s).";
+
             if (e.Error != null)
             {
                 MessageBox.Show("Error:" + e.Error.Message);
-                listBoxLogger.Items.Insert(0, "Calculating model has been aborted!");
+                listBoxLogger.Items.Insert(0, "Calculating model has been aborted! Time elapsed: " + elapsedTime);
             }
-
             else
             {
-                TimeSpan elapsed = DateTime.Now-startCalculateModel;
-                //var seconds=(elapsed.TotalMilliseconds / 1000);
-                //string elapsedTime = ((seconds / 3600)>1) ? "hours: "+(seconds / 3600).ToString():"";
-                //elapsedTime+= ((seconds / 60 )>1) ? " minutes: "+(seconds / 60).ToString():"";
-                //elapsedTime+=  " seconds:" + seconds.ToString();
-                string elapsedTime = elapsed.Hours + "hours, " + elapsed.Minutes+ "minutes, " + elapsed.Seconds + " seconds, " + elapsed.Milliseconds + " milliseconds.";
-
                 listBoxLogger.Items.Insert(0, "Calculating model has completed successfully. Time elapsed: " + elapsedTime);
             }
             buttonCalculate.Enabled = true;
         }
-
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
