@@ -20,15 +20,10 @@ namespace Adastra
 {
     public partial class TrainForm : Form
     {
-        //List<double[]> vrpnIncomingSignal = new List<double[]>();
-
-        //int vrpnDimensions=-1;
-
+        #region declarations 
         AnalogRemote analog;
 
         AMLearning model;
-
-        //Dictionary<string, int> actions = new Dictionary<string, int>();
 
         EEGRecord currentRecord = new EEGRecord();
 
@@ -40,7 +35,8 @@ namespace Adastra
 
         private int LastRecodredFeatureVectorsCount;
 
-		//bool startupTest = true;
+        DateTime startCalculateModel;
+        #endregion
 
         /// <summary>
         /// Increases after each recording. It is different from comboBoxSelectedClass.SelectedIndex
@@ -180,10 +176,18 @@ namespace Adastra
 
             else
             {
-                listBoxLogger.Items.Insert(0, "Calculating model has completed successfully.");
+                TimeSpan elapsed = DateTime.Now-startCalculateModel;
+                //var seconds=(elapsed.TotalMilliseconds / 1000);
+                //string elapsedTime = ((seconds / 3600)>1) ? "hours: "+(seconds / 3600).ToString():"";
+                //elapsedTime+= ((seconds / 60 )>1) ? " minutes: "+(seconds / 60).ToString():"";
+                //elapsedTime+=  " seconds:" + seconds.ToString();
+                string elapsedTime = elapsed.Hours + "hours, " + elapsed.Minutes+ "minutes, " + elapsed.Seconds + " seconds, " + elapsed.Milliseconds + " milliseconds.";
+
+                listBoxLogger.Items.Insert(0, "Calculating model has completed successfully. Time elapsed: " + elapsedTime);
             }
             buttonCalculate.Enabled = true;
         }
+
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -273,6 +277,7 @@ namespace Adastra
 
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";
+                startCalculateModel = DateTime.Now;
                 AsyncWorkerCalculate.RunWorkerAsync();
             }
         }
