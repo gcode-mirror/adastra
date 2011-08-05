@@ -35,7 +35,7 @@ namespace Adastra
             providedRecord = record;
             
             //listBox1.DisplayMember = "Name";
-            toolStripStatusLabel1.Text = "Loading EGG records ... please wait";
+            toolStripStatusLabel1.Text = "Loading EEG records ... please wait";
 
             buttonLoad.Enabled = false;
           
@@ -50,7 +50,7 @@ namespace Adastra
             if (e.Error != null)
             {
                 MessageBox.Show("Error:" + e.Error.Message);
-                toolStripStatusLabel1.Text = "Saving '" + providedRecord.Name + "' has failed!";
+				toolStripStatusLabel1.Text = "Saving '" + textBoxName.Text + "' has failed!";
                 return;
             }
 
@@ -58,7 +58,7 @@ namespace Adastra
 
             Bind();
 
-            toolStripStatusLabel1.Text = "EEG record '" + providedRecord.Name +"' saved.";
+			toolStripStatusLabel1.Text = "EEG record '" + textBoxName.Text + "' saved.";
         }
 
         void AsyncWorkerSaveEEGRecord_DoWork(object sender, DoWorkEventArgs e)
@@ -87,6 +87,7 @@ namespace Adastra
                 return;
             }
 
+			listBox1.Items.Clear();
             if (records.Count > 0)
             {
                 buttonLoad.Enabled = true;
@@ -119,7 +120,7 @@ namespace Adastra
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != 0 && (string)listBox1.Items[listBox1.SelectedIndex] == records[listBox1.SelectedIndex].Name)
+            if (listBox1.SelectedIndex != -1 && (string)listBox1.Items[listBox1.SelectedIndex] == records[listBox1.SelectedIndex].Name)
             {
                 ReocordSelected(records[listBox1.SelectedIndex]);
                 System.Threading.Thread.Sleep(500);
