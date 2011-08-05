@@ -80,7 +80,7 @@ namespace Adastra
             AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
 
-			analog.Update();
+			//analog.Update();
         }
 
 		void comboBoxRecordTime_SelectedIndexChanged(object sender, EventArgs e)
