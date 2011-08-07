@@ -14,7 +14,11 @@ namespace Adastra
     /// </summary>
     public partial class ManageRecordedData : Form
     {
+        /// <summary>
+        /// Last recorded data that was provided by the Train form
+        /// </summary>
         EEGRecord providedRecord;
+
         private BackgroundWorker AsyncWorkerLoadEEGRecords;
         private BackgroundWorker AsyncWorkerSaveEEGRecord;
 
@@ -69,7 +73,7 @@ namespace Adastra
                 return;
             }
 
-            EEGRecord saveRecord = new EEGRecord(providedRecord);
+            EEGRecord saveRecord = new EEGRecord(providedRecord);//create a copy
 
             saveRecord.Name = textBoxName.Text;
 

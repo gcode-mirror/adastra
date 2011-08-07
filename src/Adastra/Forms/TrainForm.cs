@@ -321,7 +321,7 @@ namespace Adastra
 
         void rd_ReocordSelected(EEGRecord selectedRecord)
         {
-            currentRecord = selectedRecord;
+            currentRecord = new EEGRecord(selectedRecord);//create a copy
 			listBoxLogger.Items.Insert(0, "Pre-recorded data '"+selectedRecord.Name+"' has been loaded. You can record additional data or start 'Computing'.");
         }
 
