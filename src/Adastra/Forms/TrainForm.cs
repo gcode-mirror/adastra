@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 
-using Vrpn;
 using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
@@ -21,7 +20,7 @@ namespace Adastra
     public partial class TrainForm : Form
     {
         #region declarations 
-        AnalogRemote analog;
+        OpenVibeFeatureGenerator ovfg;
 
         AMLearning model;
 
@@ -47,9 +46,8 @@ namespace Adastra
         {
             InitializeComponent();
             
-            analog = new AnalogRemote("openvibe-vrpn@localhost");
-            analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
-            analog.MuteWarnings = true;
+            ovfg = new OpenVibeFeatureGenerator();
+            ovfg.Values += new ChangedEventHandler(ovfg_Values);
 
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
@@ -79,8 +77,22 @@ namespace Adastra
             AsyncWorkerSaveModel.WorkerSupportsCancellation = true;
             AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
+        }
 
-			//analog.Update();
+        void ovfg_Values(double[] featureVectors)
+        {
+            double[] output_input = new double[featureVectors.Length + 1];
+
+            output_input[0] = SelectedClassNumeric;
+
+            for (int i = 1; i < featureVectors.Length + 1; i++)
+            {
+                output_input[i] = featureVectors[i - 1];
+            }
+
+            LastRecodredFeatureVectorsCount++;
+
+            currentRecord.InputOutputSignal.Add(output_input);
         }
 
 		void comboBoxRecordTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,7 +154,7 @@ namespace Adastra
 
             while (!bwAsync.CancellationPending)
             {
-                analog.Update();
+                ovfg.Update();
             }
 
             if (bwAsync.CancellationPending) e.Cancel = true;
@@ -207,27 +219,6 @@ namespace Adastra
             AsyncWorkerCalculate.ReportProgress(progress); 
         }
 
-        void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
-        {
-			//if (startupTest) { startupTest = false; return; }
-
-            //vrpnDimensions = e.Channels.Length;
-
-            double[] output_input = new double[e.Channels.Length + 1];
-
-            output_input[0] = SelectedClassNumeric;
-            
-            for (int i = 1; i < e.Channels.Length+1; i++)
-            {
-                output_input[i] = e.Channels[i-1];
-            }
-
-            LastRecodredFeatureVectorsCount++;
-
-            currentRecord.InputOutputSignal.Add(output_input);
-        }
-
-
         private void buttonRecordAction_Click(object sender, EventArgs e)
         {
             if (AsyncWorkerRecord.IsBusy)
@@ -262,13 +253,13 @@ namespace Adastra
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            if (AsyncWorkerCalculate.IsBusy)
-            {
-                buttonCalculate.Enabled = false;
+            //if (AsyncWorkerCalculate.IsBusy)
+            //{
+            //    buttonCalculate.Enabled = false;
 
-                AsyncWorkerCalculate.CancelAsync();
-            }
-            else //start new process
+            //    AsyncWorkerCalculate.CancelAsync();
+            //}
+            //else //start new process
             {
                 listBoxLogger.Items.Insert(0,"Creating machine learning model to be used for classification...");
                 if (currentRecord.InputOutputSignal.Count == 0) { MessageBox.Show("First you need to record/load some data for specific action!"); return; }
