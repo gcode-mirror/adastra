@@ -1,10 +1,9 @@
-﻿- add time elapsed for computation
+﻿1. Add "IFeatureGenerator"
+        - EmotivFeatureGenerator
+        - OpenVibeFeatureGenerator
 
-1. - acquistion 
-    - add scneario fo real time data acqusition ".real"
-           - radio button "recorded"/"real time"
-    - add automatic start of OpenVibe acquisition server
-2. wpf eeg visualizer for scenario 1 
+2. add automatic start of OpenVibe acquisition server
+3. wpf eeg visualizer for scenario 1 
 
 ====================================
 -now recorded data is manageable
@@ -27,6 +26,13 @@
  - make NN has an ouput for every class
 - fix NaN bug
 - separate 1:4 validate\train sets
+
+
+
+ - acquistion -done
+    - add scneario fo real time data acqusition ".real"
+           - radio button "recorded"/"real time"
+- add time elapsed for computation -done
 - randomize input vectors 
 change enumeration - done
 fix parameter problem - done
