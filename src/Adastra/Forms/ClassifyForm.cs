@@ -8,10 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 
-using Vrpn;
 using Accord.Statistics.Analysis;
-//using Db4objects.Db4o;
-using Eloquera.Client;
 using Adastra.Algorithms;
 
 namespace Adastra
@@ -20,7 +17,7 @@ namespace Adastra
     {
         AMLearning model;
 
-        AnalogRemote analog;
+        IFeatureGenerator fg;
 
         List<AMLearning> models;
 
@@ -30,13 +27,12 @@ namespace Adastra
 
         BackgroundWorker AsyncWorkerProcess;
 
-        public ClassifyForm()
+        public ClassifyForm(IFeatureGenerator fg)
         {
             InitializeComponent();
 
-            analog = new AnalogRemote("openvibe-vrpn@localhost");
-            analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
-            analog.MuteWarnings = true;
+            this.fg = fg;
+            fg.Values += new ChangedEventHandler(fg_Values);
 
             listBoxModels.SelectedIndex = -1;
 
@@ -55,6 +51,17 @@ namespace Adastra
             AsyncWorkerProcess.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerProcess_ProgressChanged);
             AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
             AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
+        }
+
+        void fg_Values(double[] featureVectors)
+        {
+            int action = model.Classify(featureVectors);
+
+            foreach (var key in model.ActionList.Keys)
+            {
+                if (model.ActionList[key] == action)
+                    AsyncWorkerProcess.ReportProgress(action, key);
+            }
         }
 
         void AsyncWorkerProcess_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -78,7 +85,7 @@ namespace Adastra
         {
             while (!AsyncWorkerProcess.CancellationPending)
             {
-                analog.Update();
+                fg.Update();
             }
 
             if (AsyncWorkerProcess.CancellationPending) e.Cancel = true;
@@ -106,17 +113,6 @@ namespace Adastra
         void AsyncWorkerLoadModels_DoWork(object sender, DoWorkEventArgs e)
         {
             models = ModelStorage.LoadModels();
-        }
-
-        void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
-        {
-            int action=model.Classify(e.Channels);
-
-            foreach (var key in model.ActionList.Keys)
-            {
-                if (model.ActionList[key] == action)
-                    AsyncWorkerProcess.ReportProgress(action, key);
-            }
         }
 
         /// <summary>

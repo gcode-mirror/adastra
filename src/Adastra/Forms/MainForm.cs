@@ -75,8 +75,8 @@ namespace Adastra
             {
                 case 0: of = new OutputForm();of.Show(); of.Start(); break;
                 case 1: ovc = new OpenVibeClassification();ovc.Show(); ovc.Start(); break;
-                case 2: tf = new TrainForm(); tf.Show(); break;
-                case 3: cf = new ClassifyForm(); cf.Show(); break;
+                case 2: tf = new TrainForm(new OpenVibeFeatureGenerator()); tf.Show(); break;
+                case 3: cf = new ClassifyForm(new OpenVibeFeatureGenerator()); cf.Show(); break;
             }
             
             

@@ -7,7 +7,7 @@ namespace Adastra
 {
     public delegate void ChangedEventHandler(double[] featureVectors);
 
-    interface IFeatureGenerator
+    public interface IFeatureGenerator
     {
         void Update();
 

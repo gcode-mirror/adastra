@@ -20,7 +20,7 @@ namespace Adastra
     public partial class TrainForm : Form
     {
         #region declarations 
-        OpenVibeFeatureGenerator ovfg;
+        IFeatureGenerator fg;
 
         AMLearning model;
 
@@ -42,12 +42,12 @@ namespace Adastra
         /// </summary>
         int SelectedClassNumeric = 0;
 
-        public TrainForm()
+        public TrainForm(IFeatureGenerator fg)
         {
             InitializeComponent();
-            
-            ovfg = new OpenVibeFeatureGenerator();
-            ovfg.Values += new ChangedEventHandler(ovfg_Values);
+
+            this.fg = fg;
+            fg.Values += new ChangedEventHandler(ovfg_Values);
 
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
@@ -154,7 +154,7 @@ namespace Adastra
 
             while (!bwAsync.CancellationPending)
             {
-                ovfg.Update();
+                fg.Update();
             }
 
             if (bwAsync.CancellationPending) e.Cancel = true;
