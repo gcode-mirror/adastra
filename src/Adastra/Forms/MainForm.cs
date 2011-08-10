@@ -14,11 +14,14 @@ namespace Adastra
 {
     public partial class MainForm : Form
     {
+        #region Forms
         OutputForm of;
         TrainForm tf;
         ClassifyForm cf;
         OpenVibeClassification ovc;
+        #endregion
 
+        private IFeatureGenerator featureGenerator;
         private BackgroundWorker asyncWorker;
 
         //string AdastraScenarioFolder;
@@ -57,6 +60,10 @@ namespace Adastra
             {
                 //this.TopMost = true;
                 buttonStart.Text = "Cancel";
+
+                if (comboBoxScenarioType.SelectedIndex == 2 || comboBoxScenarioType.SelectedIndex == 3)
+                    featureGenerator = new OpenVibeFeatureGenerator();
+
                 asyncWorker.RunWorkerAsync();
             }
         }
@@ -71,46 +78,53 @@ namespace Adastra
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            switch (comboBoxScenarioType.SelectedIndex)
+            if (e.UserState.ToString() == "ActivateForm")
             {
-                case 0: of = new OutputForm();of.Show(); of.Start(); break;
-                case 1: ovc = new OpenVibeClassification();ovc.Show(); ovc.Start(); break;
-                case 2: tf = new TrainForm(new OpenVibeFeatureGenerator()); tf.Show(); break;
-                case 3: cf = new ClassifyForm(new OpenVibeFeatureGenerator()); cf.Show(); break;
+                switch (comboBoxScenarioType.SelectedIndex)
+                {
+                    case 0: of = new OutputForm(); of.Show(); of.Start(); break;
+                    case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); break;
+                    case 2: tf = new TrainForm(featureGenerator); tf.Show(); break;
+                    case 3: cf = new ClassifyForm(featureGenerator); cf.Show(); break;
+                }
             }
-            
-            
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
-            OpenVibeController.Scenario = this.textBoxScenario.Text;
-            if (rButtonRealtime.Checked)
-                OpenVibeController.Scenario= OpenVibeController.Scenario.Substring(0,OpenVibeController.Scenario.Length-4)+"-realtime.xml";
-            OpenVibeController.FastPlay = false;
-            OpenVibeController.NoGUI = true;
-            OpenVibeController.Start(true);
+            if (featureGenerator is OpenVibeFeatureGenerator || comboBoxScenarioType.SelectedIndex == 0)
+            {
+                OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
+                OpenVibeController.Scenario = this.textBoxScenario.Text;
+                if (rButtonRealtime.Checked)
+                    OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
+                OpenVibeController.FastPlay = false;
+                OpenVibeController.NoGUI = true;
+                OpenVibeController.Start(true);
+            }
 
             System.Threading.Thread.Sleep(4 * 1000);
+            bwAsync.ReportProgress(-1, "ActivateForm");
 
-            bwAsync.ReportProgress(-1, "Loaded");
-            
-            while (!bwAsync.CancellationPending) ;
+            //if (featureGenerator is OpenVibeFeatureGenerator)
+            //{
+            //    while (!bwAsync.CancellationPending) ;
 
-            if (bwAsync.CancellationPending)
-            {
-                switch (comboBoxScenarioType.SelectedIndex)
-                {
-                    case 0: of.Stop(); of.Close(); of = null; break;
-                    case 2: tf.Close(); tf = null; break;
-                }
-                
-                OpenVibeController.Stop();
-                e.Cancel = true;
-            }
+            //    if (bwAsync.CancellationPending) //TODO: needs refinement
+            //    {
+            //        switch (comboBoxScenarioType.SelectedIndex)
+            //        {
+            //            case 0: of.Stop(); of.Close(); of = null; break;
+            //            case 2: tf.Close(); tf = null; break;
+            //        }
+
+            //        OpenVibeController.Stop();
+            //        e.Cancel = true;
+            //    }
+
+            //}
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

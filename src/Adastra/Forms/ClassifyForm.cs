@@ -42,7 +42,7 @@ namespace Adastra
             AsyncWorkerLoadModels.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerLoadModels_RunWorkerCompleted);
             AsyncWorkerLoadModels.DoWork += new DoWorkEventHandler(AsyncWorkerLoadModels_DoWork);
 
-            toolStripStatusLabel1.Text = "Loading models. Please wait. It make take several minutes to load.";
+            toolStripStatusLabel1.Text = "Loading models. Please wait...";
             AsyncWorkerLoadModels.RunWorkerAsync();
 
             AsyncWorkerProcess = new BackgroundWorker();
