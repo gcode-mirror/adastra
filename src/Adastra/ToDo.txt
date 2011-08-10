@@ -1,7 +1,10 @@
 ﻿- EmotivFeatureGenerator
        - read data 
-	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of conscept
+	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of concept
+
 - Ajust OpenVibe scenarios for better signal processing
+
+- closing application when exiting secondary form
 
 - null reference exception when closing scenario 2
 ===============================================================
