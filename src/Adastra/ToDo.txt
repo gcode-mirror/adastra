@@ -1,11 +1,12 @@
-﻿1. Add "IFeatureGenerator"
-        - EmotivFeatureGenerator
-        - OpenVibeFeatureGenerator
+﻿- EmotivFeatureGenerator
+       - read data 
+	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of conscept
+- Ajust OpenVibe scenarios for better signal processing
 
-2. add automatic start of OpenVibe acquisition server
-3. wpf eeg visualizer for scenario 1 
+===============================================================
+- add automatic start of OpenVibe acquisition server
+- wpf eeg visualizer for scenario 1 
 
-====================================
 -now recorded data is manageable
 -check if classes are enumerated right
 -implement multi-class SVM
@@ -19,15 +20,12 @@
 - fix save model
 - do some recording to fix delay
 
-+=====================================
 - set info boxeses display messages better
 - fix classify form
      - add processing thread
  - make NN has an ouput for every class
 - fix NaN bug
 - separate 1:4 validate\train sets
-
-
 
  - acquistion -done
     - add scneario fo real time data acqusition ".real"
