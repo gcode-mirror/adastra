@@ -94,7 +94,7 @@ namespace Adastra
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            if (featureGenerator is OpenVibeFeatureGenerator || comboBoxScenarioType.SelectedIndex == 0)
+            if (featureGenerator is OpenVibeFeatureGenerator || comboBoxScenarioType.SelectedIndex == 1 || comboBoxScenarioType.SelectedIndex == 0)
             {
                 OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
                 OpenVibeController.Scenario = this.textBoxScenario.Text;

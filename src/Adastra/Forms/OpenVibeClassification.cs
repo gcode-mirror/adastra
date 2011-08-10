@@ -20,7 +20,7 @@ namespace Adastra
     /// </summary>
     public partial class OpenVibeClassification : Form
     {
-        static AnalogRemote analog;
+        AnalogRemote analog;
 
         Queue result = Queue.Synchronized(new Queue());
 
@@ -82,8 +82,11 @@ namespace Adastra
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            chartClassification.Series[0].Points.DataBindY(result.ToArray());
-            chartClassification.Update();
+            if (chartClassification.Series != null)
+            {
+                chartClassification.Series[0].Points.DataBindY(result.ToArray());
+                chartClassification.Update();
+            }
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -106,8 +109,6 @@ namespace Adastra
         {
             if (AsyncWorker.IsBusy)
                 AsyncWorker.CancelAsync();
-
-            OpenVibeController.Stop();
 
             this.Close();
         }

@@ -3,6 +3,7 @@
 	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of conscept
 - Ajust OpenVibe scenarios for better signal processing
 
+- null reference exception when closing scenario 2
 ===============================================================
 - add automatic start of OpenVibe acquisition server
 - wpf eeg visualizer for scenario 1 
