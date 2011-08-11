@@ -1,12 +1,13 @@
-﻿- EmotivFeatureGenerator
+﻿- Improve EmotivFeatureGenerator
        - read data 
 	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of concept
 
 - Ajust OpenVibe scenarios for better signal processing
 
-- closing application when exiting secondary form
+- Add closing application when exiting secondary form
 
-- null reference exception when closing scenario 2
+- Fix null reference exception when closing scenario 2
+
 ===============================================================
 - add automatic start of OpenVibe acquisition server
 - wpf eeg visualizer for scenario 1 
