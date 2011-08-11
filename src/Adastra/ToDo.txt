@@ -1,7 +1,9 @@
-﻿- Improve EmotivFeatureGenerator
+﻿Improvements:
+- Improve EmotivFeatureGenerator
        - read data 
 	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of concept
 
+Maintenance:
 - Ajust OpenVibe scenarios for better signal processing
 
 - Add closing application when exiting secondary form
