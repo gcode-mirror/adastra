@@ -106,7 +106,7 @@ namespace Accord.MachineLearning.VectorMachines
         {
             if (classes <= 1)
             {
-                throw new ArgumentException("The machine must have at least two classes.", "classes");
+                throw new ArgumentException("SVM: The machine must have at least two classes.", "classes");
             }
 
             // Create the kernel machines
