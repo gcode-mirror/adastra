@@ -15,5 +15,10 @@ namespace Adastra
         {
             InitializeComponent();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MainForm.OpenLinkInBrowser("http://bg.linkedin.com/in/antonandreev");
+        }
     }
 }
