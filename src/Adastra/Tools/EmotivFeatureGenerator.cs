@@ -7,17 +7,27 @@ namespace Adastra
 {
     public class EmotivFeatureGenerator : IFeatureGenerator
     {
+        EmotivRawDataReader er;
+
         public void Update()
         {
             //Read RAW data
-            EmotivRawDataReader er = new EmotivRawDataReader();
-            er.Start();
 
+            if (er == null)
+            {
+                er = new EmotivRawDataReader();
+                er.Values += new ChangedEventHandler(er_Values);
+            }
+            
+            er.Update();
+        }
+
+        void er_Values(double[] rawData)
+        {        
             //Filter signal
 
-
             //Generate feature vectors
-            double[] featureVectors = new double[13];
+            double[] featureVectors = rawData;
 
             //send feature vectors
             Values(featureVectors);
