@@ -19,6 +19,8 @@ namespace Adastra
     /// </summary>
     public partial class OutputForm : Form
     {
+        private BackgroundWorker p_asyncWorker;
+
         Queue[] q = null;
 
         List<Chart> charts = new List<Chart>();
@@ -48,30 +50,18 @@ namespace Adastra
 
             chart1.Series[0].Color = Color.Red;
             #endregion
+
+            p_asyncWorker = new BackgroundWorker();
+            p_asyncWorker.WorkerReportsProgress = true;
+            p_asyncWorker.WorkerSupportsCancellation = true;
+            p_asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
+            p_asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
+            p_asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
         }
 
         public void Start()
         {
-            AsyncWorker.RunWorkerAsync();
-        }
-
-        public BackgroundWorker asyncWorker;
-        private BackgroundWorker AsyncWorker
-        {
-            get
-            {
-                if (asyncWorker == null)
-                {
-                    asyncWorker = new BackgroundWorker();
-                    asyncWorker.WorkerReportsProgress = true;
-                    asyncWorker.WorkerSupportsCancellation = true;
-                    asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
-                    asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
-                    asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
-                }
-
-                return asyncWorker;
-            }
+            p_asyncWorker.RunWorkerAsync();
         }
 
         void asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -185,12 +175,12 @@ namespace Adastra
                 q = new Queue[e.Channels.Length];
             }
 
-            if (AsyncWorker.IsBusy && charts.Count == 0)
+            if (p_asyncWorker.IsBusy && charts.Count == 0)
             {
-                AsyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
+                p_asyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
             }
 
-            if (!AsyncWorker.CancellationPending)
+            if (!p_asyncWorker.CancellationPending)
             {
                 for (int i = 0; i < q.Length; i++)
                 {
@@ -200,7 +190,7 @@ namespace Adastra
 
                     if (q[i].Count > 22)
                     {
-                        AsyncWorker.ReportProgress(i, q[i]);
+                        p_asyncWorker.ReportProgress(i, q[i]);
 
                         q[i].Dequeue();
                     }
@@ -221,7 +211,7 @@ namespace Adastra
 
         public void Stop()
         {
-            AsyncWorker.CancelAsync();
+            p_asyncWorker.CancelAsync();
         }
     }
 }

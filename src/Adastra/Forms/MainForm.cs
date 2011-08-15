@@ -64,16 +64,10 @@ namespace Adastra
             }
             else //start new process
             {
-
-              
-
                 //this.TopMost = true;
                 buttonStart.Text = "Cancel";
 
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
-
-                //if (SelectedScenario == 2 || SelectedScenario == 3)
-                //    featureGenerator = new OpenVibeFeatureGenerator();
 
                 if (rbuttonEmotiv.Checked) featureGenerator = new EmotivFeatureGenerator();
                 else if (rbuttonOpenVibe.Checked)featureGenerator = new OpenVibeFeatureGenerator();
@@ -86,6 +80,13 @@ namespace Adastra
         {
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
+
+            //of=null;
+            //tf=null;
+            //cf=null;
+            //ovc=null;
+
+            //currentForm = null;
         }
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -117,17 +118,14 @@ namespace Adastra
 
             if (rbuttonOpenVibe.Checked)
             {
-                //if (featureGenerator is OpenVibeFeatureGenerator || SelectedScenario == 1 || SelectedScenario == 0)
-                //{
-                    OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
-                    OpenVibeController.Scenario = this.textBoxScenario.Text;
-                    if (rButtonRealtime.Checked)
-                        OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
-                    OpenVibeController.FastPlay = false;
-                    OpenVibeController.NoGUI = true;
-                    OpenVibeController.Start(true);
-                    System.Threading.Thread.Sleep(4 * 1000);
-                //}
+                OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
+                OpenVibeController.Scenario = this.textBoxScenario.Text;
+                if (rButtonRealtime.Checked)
+                    OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
+                OpenVibeController.FastPlay = false;
+                OpenVibeController.NoGUI = true;
+                OpenVibeController.Start(true);
+                System.Threading.Thread.Sleep(4 * 1000);
             }
             
             bwAsync.ReportProgress(-1, "ActivateForm");
