@@ -73,18 +73,24 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.buttonEditScenario = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.rButtonRealtime = new System.Windows.Forms.RadioButton();
             this.rButtonRecordedSignal = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(282, 217);
+            this.buttonStart.Location = new System.Drawing.Point(276, 285);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -160,23 +166,23 @@
             // 
             // textBoxOpenVibeWorkingFolder
             // 
-            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(148, 73);
+            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(276, 72);
             this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
-            this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(179, 20);
+            this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(242, 20);
             this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
             this.textBoxOpenVibeWorkingFolder.Text = "D:\\e\\openvibe_src\\dist";
             // 
             // textBoxScenario
             // 
-            this.textBoxScenario.Location = new System.Drawing.Point(148, 19);
+            this.textBoxScenario.Location = new System.Drawing.Point(226, 20);
             this.textBoxScenario.Name = "textBoxScenario";
-            this.textBoxScenario.Size = new System.Drawing.Size(372, 20);
+            this.textBoxScenario.Size = new System.Drawing.Size(292, 20);
             this.textBoxScenario.TabIndex = 5;
             this.textBoxScenario.Text = "C:\\Users\\toncho\\Desktop\\Adastra\\scenarios\\signal-processing-VRPN-export.xml";
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
-            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(343, 73);
+            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(524, 72);
             this.buttonSelectOpenVibeWorkingFolder.Name = "buttonSelectOpenVibeWorkingFolder";
             this.buttonSelectOpenVibeWorkingFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectOpenVibeWorkingFolder.TabIndex = 6;
@@ -186,7 +192,7 @@
             // 
             // buttonSelectScenario
             // 
-            this.buttonSelectScenario.Location = new System.Drawing.Point(526, 19);
+            this.buttonSelectScenario.Location = new System.Drawing.Point(524, 17);
             this.buttonSelectScenario.Name = "buttonSelectScenario";
             this.buttonSelectScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectScenario.TabIndex = 7;
@@ -197,7 +203,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 73);
+            this.label2.Location = new System.Drawing.Point(144, 75);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 9;
@@ -206,7 +212,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(594, 250);
+            this.buttonExit.Location = new System.Drawing.Point(591, 317);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -233,7 +239,7 @@
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(0, 257);
+            this.treeView1.Location = new System.Drawing.Point(0, 325);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "Node2";
             treeNode1.Text = "EEG signal";
@@ -269,7 +275,7 @@
             // 
             // buttonEditScenario
             // 
-            this.buttonEditScenario.Location = new System.Drawing.Point(607, 19);
+            this.buttonEditScenario.Location = new System.Drawing.Point(605, 17);
             this.buttonEditScenario.Name = "buttonEditScenario";
             this.buttonEditScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonEditScenario.TabIndex = 15;
@@ -279,6 +285,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.rbuttonOpenVibe);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.rButtonRealtime);
             this.groupBox1.Controls.Add(this.rButtonRecordedSignal);
@@ -289,12 +297,26 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.buttonSelectOpenVibeWorkingFolder);
             this.groupBox1.Controls.Add(this.textBoxOpenVibeWorkingFolder);
-            this.groupBox1.Location = new System.Drawing.Point(18, 81);
+            this.groupBox1.Location = new System.Drawing.Point(18, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(690, 116);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OpenVibe settings";
+            // 
+            // rbuttonOpenVibe
+            // 
+            this.rbuttonOpenVibe.AutoSize = true;
+            this.rbuttonOpenVibe.Checked = true;
+            this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbuttonOpenVibe.Location = new System.Drawing.Point(19, 21);
+            this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
+            this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
+            this.rbuttonOpenVibe.TabIndex = 20;
+            this.rbuttonOpenVibe.TabStop = true;
+            this.rbuttonOpenVibe.Text = "use OpenVibe";
+            this.rbuttonOpenVibe.UseVisualStyleBackColor = true;
+            this.rbuttonOpenVibe.CheckedChanged += new System.EventHandler(this.rbuttonOpenVibe_CheckedChanged);
             // 
             // label4
             // 
@@ -320,12 +342,10 @@
             // rButtonRecordedSignal
             // 
             this.rButtonRecordedSignal.AutoSize = true;
-            this.rButtonRecordedSignal.Checked = true;
             this.rButtonRecordedSignal.Location = new System.Drawing.Point(148, 50);
             this.rButtonRecordedSignal.Name = "rButtonRecordedSignal";
             this.rButtonRecordedSignal.Size = new System.Drawing.Size(86, 17);
             this.rButtonRecordedSignal.TabIndex = 17;
-            this.rButtonRecordedSignal.TabStop = true;
             this.rButtonRecordedSignal.Text = "Pre-recorded";
             this.rButtonRecordedSignal.UseVisualStyleBackColor = true;
             this.rButtonRecordedSignal.CheckedChanged += new System.EventHandler(this.rButtonRecordedSignal_CheckedChanged);
@@ -333,17 +353,60 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(66, 22);
+            this.label3.Location = new System.Drawing.Point(144, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 16;
             this.label3.Text = "Scenario path:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.rbuttonEmotiv);
+            this.groupBox2.Location = new System.Drawing.Point(18, 202);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(690, 67);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Emotiv EPOCH";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(133, 19);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(549, 41);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "Basic support for Emotiv is implemented.";
+            // 
+            // rbuttonEmotiv
+            // 
+            this.rbuttonEmotiv.AutoSize = true;
+            this.rbuttonEmotiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbuttonEmotiv.Location = new System.Drawing.Point(19, 30);
+            this.rbuttonEmotiv.Name = "rbuttonEmotiv";
+            this.rbuttonEmotiv.Size = new System.Drawing.Size(87, 17);
+            this.rbuttonEmotiv.TabIndex = 0;
+            this.rbuttonEmotiv.TabStop = true;
+            this.rbuttonEmotiv.Text = "use Emotiv";
+            this.rbuttonEmotiv.UseVisualStyleBackColor = true;
+            this.rbuttonEmotiv.CheckedChanged += new System.EventHandler(this.rbuttonEmotiv_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(26, 50);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "(recommended)";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 295);
+            this.ClientSize = new System.Drawing.Size(720, 358);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.comboBoxScenarioType);
@@ -358,6 +421,8 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,6 +453,11 @@
         private System.Windows.Forms.RadioButton rButtonRealtime;
         private System.Windows.Forms.RadioButton rButtonRecordedSignal;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton rbuttonOpenVibe;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rbuttonEmotiv;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label5;
     }
 }
 

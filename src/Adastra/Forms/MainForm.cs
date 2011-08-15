@@ -26,8 +26,6 @@ namespace Adastra
 
         private int SelectedScenario;
 
-        bool DataSourceIsEmotiv = true;
-
         //string AdastraScenarioFolder;
 
         public MainForm()
@@ -67,11 +65,12 @@ namespace Adastra
 
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
-                if (SelectedScenario == 2 || SelectedScenario == 3)
-                    featureGenerator = new OpenVibeFeatureGenerator();
+                //if (SelectedScenario == 2 || SelectedScenario == 3)
+                //    featureGenerator = new OpenVibeFeatureGenerator();
 
-                //TEST
-                if (DataSourceIsEmotiv) featureGenerator = new EmotivFeatureGenerator();
+                if (rbuttonEmotiv.Checked) featureGenerator = new EmotivFeatureGenerator();
+                else if (rbuttonOpenVibe.Checked)featureGenerator = new OpenVibeFeatureGenerator();
+
 
                 asyncWorker.RunWorkerAsync();
             }
@@ -103,10 +102,10 @@ namespace Adastra
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            if (!DataSourceIsEmotiv)
+            if (rbuttonOpenVibe.Checked)
             {
-                if (featureGenerator is OpenVibeFeatureGenerator || SelectedScenario == 1 || SelectedScenario == 0)
-                {
+                //if (featureGenerator is OpenVibeFeatureGenerator || SelectedScenario == 1 || SelectedScenario == 0)
+                //{
                     OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
                     OpenVibeController.Scenario = this.textBoxScenario.Text;
                     if (rButtonRealtime.Checked)
@@ -115,7 +114,7 @@ namespace Adastra
                     OpenVibeController.NoGUI = true;
                     OpenVibeController.Start(true);
                     System.Threading.Thread.Sleep(4 * 1000);
-                }
+                //}
             }
             
             bwAsync.ReportProgress(-1, "ActivateForm");
@@ -270,6 +269,18 @@ namespace Adastra
         {
             if (rButtonRecordedSignal.Checked)
                 label4.Visible = false;
+        }
+
+        private void rbuttonOpenVibe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbuttonOpenVibe.Checked)
+                rbuttonEmotiv.Checked = false;
+        }
+
+        private void rbuttonEmotiv_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbuttonEmotiv.Checked)
+                rbuttonOpenVibe.Checked = false;
         }
     }
 }

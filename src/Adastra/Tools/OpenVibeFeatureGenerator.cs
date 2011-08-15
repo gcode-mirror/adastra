@@ -30,7 +30,8 @@ namespace Adastra
 
         private void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            Values(e.Channels);
+            if (Values!=null)
+               Values(e.Channels);
         }
     }
 }

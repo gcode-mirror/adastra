@@ -18,19 +18,20 @@ namespace Adastra
                 er = new EmotivRawDataReader();
                 er.Values += new ChangedEventHandler(er_Values);
             }
-            
+
             er.Update();
         }
 
         void er_Values(double[] rawData)
-        {        
+        {
             //Filter signal
 
             //Generate feature vectors
             double[] featureVectors = rawData;
 
             //send feature vectors
-            Values(featureVectors);
+            if (Values != null)
+                Values(featureVectors);
         }
 
         public event ChangedEventHandler Values;
