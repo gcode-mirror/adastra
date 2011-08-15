@@ -73,6 +73,7 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.buttonEditScenario = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.rButtonRealtime = new System.Windows.Forms.RadioButton();
@@ -81,7 +82,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
-            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -224,13 +224,6 @@
             // 
             this.comboBoxScenarioType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxScenarioType.FormattingEnabled = true;
-            this.comboBoxScenarioType.Items.AddRange(new object[] {
-            "1. Display: chart multi-channel EEG signal streamed by OpenVibe",
-            "2. Display: LDA/SVM classification output from OpenVibe",
-            "3. Train:  using OpenVibe\'s feature aggegator + Adastra\'s LDA/MLP/SVM trainer (re" +
-                "lated scenario 4)",
-            "4. Display: EEG classification using OpenVibe\'s feature aggegator + Adastra\'s LDA" +
-                "/MLP/SVM classifier (related scenario 3)"});
             this.comboBoxScenarioType.Location = new System.Drawing.Point(96, 41);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
             this.comboBoxScenarioType.Size = new System.Drawing.Size(609, 21);
@@ -304,16 +297,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OpenVibe settings";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(26, 50);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "(recommended)";
+            // 
             // rbuttonOpenVibe
             // 
             this.rbuttonOpenVibe.AutoSize = true;
-            this.rbuttonOpenVibe.Checked = true;
             this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbuttonOpenVibe.Location = new System.Drawing.Point(19, 21);
             this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
             this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
             this.rbuttonOpenVibe.TabIndex = 20;
-            this.rbuttonOpenVibe.TabStop = true;
             this.rbuttonOpenVibe.Text = "use OpenVibe";
             this.rbuttonOpenVibe.UseVisualStyleBackColor = true;
             this.rbuttonOpenVibe.CheckedChanged += new System.EventHandler(this.rbuttonOpenVibe_CheckedChanged);
@@ -391,15 +391,6 @@
             this.rbuttonEmotiv.Text = "use Emotiv";
             this.rbuttonEmotiv.UseVisualStyleBackColor = true;
             this.rbuttonEmotiv.CheckedChanged += new System.EventHandler(this.rbuttonEmotiv_CheckedChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 50);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "(recommended)";
             // 
             // MainForm
             // 

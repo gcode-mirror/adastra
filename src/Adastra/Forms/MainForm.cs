@@ -36,7 +36,7 @@ namespace Adastra
             textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
             textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
 
-            comboBoxScenarioType.SelectedIndex = 2;
+            rbuttonOpenVibe.Checked = true;
 
             #region BackgroundWorker for OpenVibe
             asyncWorker = new BackgroundWorker();
@@ -275,12 +275,30 @@ namespace Adastra
         {
             if (rbuttonOpenVibe.Checked)
                 rbuttonEmotiv.Checked = false;
+
+            comboBoxScenarioType.Items.Clear();
+
+            comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal streamed by OpenVibe");
+            comboBoxScenarioType.Items.Add("2. Display: LDA/SVM classification output from OpenVibe");
+            comboBoxScenarioType.Items.Add("3. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 4)");
+            comboBoxScenarioType.Items.Add("4. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 3)");
+
+            comboBoxScenarioType.SelectedIndex = 2;
         }
 
         private void rbuttonEmotiv_CheckedChanged(object sender, EventArgs e)
         {
             if (rbuttonEmotiv.Checked)
                 rbuttonOpenVibe.Checked = false;
+
+            comboBoxScenarioType.Items.Clear();
+
+            comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
+
+            comboBoxScenarioType.Items.Add("3. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 4)");
+            comboBoxScenarioType.Items.Add("4. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 3)");
+            
+            comboBoxScenarioType.SelectedIndex = 1;
         }
     }
 }
