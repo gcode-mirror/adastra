@@ -82,7 +82,7 @@ namespace Adastra
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (chartClassification.Series != null)
+            if (!AsyncWorker.CancellationPending)
             {
                 chartClassification.Series[0].Points.DataBindY(result.ToArray());
                 chartClassification.Update();

@@ -22,9 +22,11 @@ namespace Adastra
         #endregion
 
         private IFeatureGenerator featureGenerator;
-        private BackgroundWorker asyncWorker;
+        private BackgroundWorker asyncWorker=null;
 
         private int SelectedScenario;
+
+        Form currentForm;
 
         //string AdastraScenarioFolder;
 
@@ -50,7 +52,9 @@ namespace Adastra
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            if (asyncWorker.IsBusy)
+
+
+            if (asyncWorker!=null && asyncWorker.IsBusy)
             {
                 //this.TopMost = false;
 
@@ -60,6 +64,9 @@ namespace Adastra
             }
             else //start new process
             {
+
+              
+
                 //this.TopMost = true;
                 buttonStart.Text = "Cancel";
 
@@ -71,7 +78,6 @@ namespace Adastra
                 if (rbuttonEmotiv.Checked) featureGenerator = new EmotivFeatureGenerator();
                 else if (rbuttonOpenVibe.Checked)featureGenerator = new OpenVibeFeatureGenerator();
 
-
                 asyncWorker.RunWorkerAsync();
             }
         }
@@ -80,8 +86,6 @@ namespace Adastra
         {
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
-
-            asyncWorker = null;
         }
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -90,12 +94,21 @@ namespace Adastra
             {
                 switch (comboBoxScenarioType.SelectedIndex)
                 {
-                    case 0: of = new OutputForm(); of.Show(); of.Start(); break;
-                    case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); break;
-                    case 2: tf = new TrainForm(featureGenerator); tf.Show(); break;
-                    case 3: cf = new ClassifyForm(featureGenerator); cf.Show(); break;
+                    case 0: of = new OutputForm(); of.Show(); of.Start(); currentForm = of;  break;
+                    case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); currentForm = ovc; break;
+                    case 2: tf = new TrainForm(featureGenerator); tf.Show(); currentForm=tf; break;
+                    case 3: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                 }
+                currentForm.FormClosed += new FormClosedEventHandler(currentForm_FormClosed);
             }
+        }
+
+        void currentForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (OpenVibeController.IsRunning)
+                OpenVibeController.Stop();
+
+            asyncWorker.CancelAsync();
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -119,23 +132,8 @@ namespace Adastra
             
             bwAsync.ReportProgress(-1, "ActivateForm");
 
-            //if (featureGenerator is OpenVibeFeatureGenerator)
-            //{
-            //    while (!bwAsync.CancellationPending) ;
-
-            //    if (bwAsync.CancellationPending) //TODO: needs refinement
-            //    {
-            //        switch (comboBoxScenarioType.SelectedIndex)
-            //        {
-            //            case 0: of.Stop(); of.Close(); of = null; break;
-            //            case 2: tf.Close(); tf = null; break;
-            //        }
-
-            //        OpenVibeController.Stop();
-            //        e.Cancel = true;
-            //    }
-
-            //}
+            while (!asyncWorker.CancellationPending);
+     
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
