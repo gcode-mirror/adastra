@@ -116,7 +116,7 @@ namespace Adastra
             {
                 //System.Threading.Thread.Sleep(200);
                 analog.Update();
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(400);
             }
 
             if (bwAsync.CancellationPending)
@@ -182,20 +182,20 @@ namespace Adastra
                 p_asyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
             }
 
-            if (!p_asyncWorker.CancellationPending)
+
+            for (int i = 0; i < q.Length; i++)
             {
-                for (int i = 0; i < q.Length; i++)
+                if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
+
+                q[i].Enqueue(e.Channels[i]);
+
+                if (q[i].Count > 22)
                 {
-                    if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
+                    if (p_asyncWorker == null || p_asyncWorker.CancellationPending) return;
 
-                    q[i].Enqueue(e.Channels[i]);
+                    p_asyncWorker.ReportProgress(i, q[i]);
 
-                    if (q[i].Count > 22)
-                    {
-                        p_asyncWorker.ReportProgress(i, q[i]);
-
-                        q[i].Dequeue();
-                    }
+                    q[i].Dequeue();
                 }
             }
         }
