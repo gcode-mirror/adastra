@@ -116,7 +116,7 @@ namespace Adastra
             {
                 //System.Threading.Thread.Sleep(200);
                 analog.Update();
-                //System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(200);
             }
 
             if (bwAsync.CancellationPending)
@@ -175,6 +175,8 @@ namespace Adastra
                 q = new Queue[e.Channels.Length];
             }
 
+            if (p_asyncWorker == null) return;
+
             if (p_asyncWorker.IsBusy && charts.Count == 0)
             {
                 p_asyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
@@ -207,6 +209,11 @@ namespace Adastra
         private void OutputForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Stop();
+            
+            p_asyncWorker = null;
+
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
         }
 
         public void Stop()
