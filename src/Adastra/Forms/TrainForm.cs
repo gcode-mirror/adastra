@@ -92,7 +92,7 @@ namespace Adastra
 
             LastRecodredFeatureVectorsCount++;
 
-            currentRecord.InputOutputSignal.Add(output_input);
+            currentRecord.FeatureVectorsInputOutput.Add(output_input);
         }
 
 		void comboBoxRecordTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,7 +211,7 @@ namespace Adastra
             }
 
             model.Progress += new AMLearning.ChangedEventHandler(model_Progress);
-			model.Train(currentRecord.InputOutputSignal, currentRecord.InputOutputSignal[0].Length-1);
+			model.Train(currentRecord.FeatureVectorsInputOutput, currentRecord.FeatureVectorsInputOutput[0].Length-1);
         }
 
         void model_Progress(int progress)
@@ -262,7 +262,7 @@ namespace Adastra
             //else //start new process
             {
                 listBoxLogger.Items.Insert(0,"Creating machine learning model to be used for classification...");
-                if (currentRecord.InputOutputSignal.Count == 0) { MessageBox.Show("First you need to record/load some data for specific action!"); return; }
+                if (currentRecord.FeatureVectorsInputOutput.Count == 0) { MessageBox.Show("First you need to record/load some data for specific action!"); return; }
 
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";
@@ -313,7 +313,7 @@ namespace Adastra
         void rd_ReocordSelected(EEGRecord selectedRecord)
         {
             currentRecord = new EEGRecord(selectedRecord);//create a copy
-			listBoxLogger.Items.Insert(0, "Pre-recorded data '"+selectedRecord.Name+"' has been loaded. You can record additional data or start 'Computing'.");
+            listBoxLogger.Items.Insert(0, "Pre-recorded data '" + selectedRecord.Name + "' has been loaded containing: "+currentRecord.FeatureVectorsInputOutput.Count+" feature vectors. You can now record additional data or start 'Computing'.");
         }
 
         private void buttonClearRecord_Click(object sender, EventArgs e)

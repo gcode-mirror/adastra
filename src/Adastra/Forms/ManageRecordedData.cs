@@ -67,7 +67,7 @@ namespace Adastra
 
         void AsyncWorkerSaveEEGRecord_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (providedRecord.InputOutputSignal.Count == 0)
+            if (providedRecord.FeatureVectorsInputOutput.Count == 0)
             {
                 MessageBox.Show("Save operation aborted. Record seems empty!");
                 return;

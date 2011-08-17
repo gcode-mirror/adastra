@@ -12,15 +12,15 @@ namespace Adastra
     {
         public EEGRecord(EEGRecord rec)
         {
-            InputOutputSignal = new List<double[]>();
+            FeatureVectorsInputOutput = new List<double[]>();
 
             actions = new Dictionary<string, int>(rec.actions);
 
-            for (int i = 0; i < rec.InputOutputSignal.Count; i++)
+            for (int i = 0; i < rec.FeatureVectorsInputOutput.Count; i++)
             {
-                double[] newItem = new double[rec.InputOutputSignal[i].Length];
-                rec.InputOutputSignal[i].CopyTo(newItem, 0);
-                InputOutputSignal.Add(newItem);
+                double[] newItem = new double[rec.FeatureVectorsInputOutput[i].Length];
+                rec.FeatureVectorsInputOutput[i].CopyTo(newItem, 0);
+                FeatureVectorsInputOutput.Add(newItem);
             }
 
             Name = rec.Name;
@@ -28,7 +28,7 @@ namespace Adastra
 
         public EEGRecord()
         {
-            InputOutputSignal = new List<double[]>();
+            FeatureVectorsInputOutput = new List<double[]>();
 
             actions = new Dictionary<string, int>();
         }
@@ -40,9 +40,9 @@ namespace Adastra
         }
 
 		/// <summary>
-		/// Contains both income data and output data
+		/// Contains both income feature vectors and output
 		/// </summary>
-        public List<double[]> InputOutputSignal;
+        public List<double[]> FeatureVectorsInputOutput;
 
         public Dictionary<string, int> actions;
     }
