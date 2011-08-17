@@ -1,20 +1,18 @@
-﻿Improvements:
+﻿Maintenance:
 
+- Ajust OpenVibe scenarios for better signal processing
+
+- investigate whether data is loaded correctly from EEGRecordsManagement form - computation is too fast
+
+===============================================================
 - Improve EmotivFeatureGenerator
        - read data 
 	   - generate some simple dummy feature vectors based on the raw Emotiv data just for proof of concept
-
-Maintenance:
-
-- Ajust OpenVibe scenarios for better signal processing
 
 - Add closing application when exiting secondary form
 
 - Fix null reference exception when closing scenario 2
 
-- investigate whether data is loaded correctly from EEGRecordsManagement form
-
-===============================================================
 - add automatic start of OpenVibe acquisition server
 - wpf eeg visualizer for scenario 1 
 
