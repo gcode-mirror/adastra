@@ -214,10 +214,10 @@ namespace Adastra
             string scenario = "";
             switch (comboBoxScenarioType.SelectedIndex)
             {
-                case 0: scenario = "signal-processing-VRPN-export.xml"; break;
-                case 1: scenario = "motor-imagery-bci-4-replay-VRPN-export.xml"; break;
-                case 2: scenario = "feature-aggregator-VRPN-export.xml"; break;//train
-                case 3: scenario = "feature-aggregator-VRPN-export.xml"; break;//classify
+                case 0: scenario = "signal-processing-vrpn.xml"; break;
+                case 1: scenario = "openvibe-classifier-output-vrpn.xml"; break;
+                case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
+                case 3: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");

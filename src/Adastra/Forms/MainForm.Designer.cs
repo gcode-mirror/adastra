@@ -29,31 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("EEG signal");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
-            treeNode40,
-            treeNode41});
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
-            treeNode43,
-            treeNode44});
-            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
-            treeNode46,
-            treeNode47});
-            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode45,
-            treeNode48});
-            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Mouse cursor");
-            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
-            treeNode50});
-            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
-            treeNode42,
-            treeNode49,
-            treeNode51});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode10,
+            treeNode12});
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -73,12 +73,12 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.buttonEditScenario = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.rButtonRealtime = new System.Windows.Forms.RadioButton();
             this.rButtonRecordedSignal = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
@@ -234,41 +234,41 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(0, 325);
             this.treeView1.Name = "treeView1";
-            treeNode40.Name = "Node2";
-            treeNode40.Text = "EEG signal";
-            treeNode41.Name = "Node6";
-            treeNode41.Text = "Claffication output from OpenVibe";
-            treeNode42.Name = "Node1";
-            treeNode42.Text = "Display";
-            treeNode43.Name = "Node7";
-            treeNode43.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode44.Name = "Node8";
-            treeNode44.Text = "Using Adastra\'s feature aggregator";
-            treeNode45.Name = "Node4";
-            treeNode45.Text = "Train";
-            treeNode46.Name = "Node11";
-            treeNode46.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode47.Name = "Node12";
-            treeNode47.Text = "Using Adastra\'s feature aggregator";
-            treeNode48.Name = "Node5";
-            treeNode48.Text = "Classify";
-            treeNode49.Name = "Node3";
-            treeNode49.Text = "Classification";
-            treeNode50.Name = "Node10";
-            treeNode50.Text = "Mouse cursor";
-            treeNode51.Name = "Node9";
-            treeNode51.Text = "Device control";
-            treeNode52.Name = "Node0";
-            treeNode52.Text = "Scenario";
+            treeNode1.Name = "Node2";
+            treeNode1.Text = "EEG signal";
+            treeNode2.Name = "Node6";
+            treeNode2.Text = "Claffication output from OpenVibe";
+            treeNode3.Name = "Node1";
+            treeNode3.Text = "Display";
+            treeNode4.Name = "Node7";
+            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode5.Name = "Node8";
+            treeNode5.Text = "Using Adastra\'s feature aggregator";
+            treeNode6.Name = "Node4";
+            treeNode6.Text = "Train";
+            treeNode7.Name = "Node11";
+            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode8.Name = "Node12";
+            treeNode8.Text = "Using Adastra\'s feature aggregator";
+            treeNode9.Name = "Node5";
+            treeNode9.Text = "Classify";
+            treeNode10.Name = "Node3";
+            treeNode10.Text = "Classification";
+            treeNode11.Name = "Node10";
+            treeNode11.Text = "Mouse cursor";
+            treeNode12.Name = "Node9";
+            treeNode12.Text = "Device control";
+            treeNode13.Name = "Node0";
+            treeNode13.Text = "Scenario";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode52});
+            treeNode13});
             this.treeView1.Size = new System.Drawing.Size(295, 242);
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;
             // 
             // buttonEditScenario
             // 
-            this.buttonEditScenario.Location = new System.Drawing.Point(605, 17);
+            this.buttonEditScenario.Location = new System.Drawing.Point(491, 25);
             this.buttonEditScenario.Name = "buttonEditScenario";
             this.buttonEditScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonEditScenario.TabIndex = 15;
@@ -294,27 +294,6 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OpenVibe settings";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 123);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "(recommended)";
-            // 
-            // rbuttonOpenVibe
-            // 
-            this.rbuttonOpenVibe.AutoSize = true;
-            this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 103);
-            this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
-            this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
-            this.rbuttonOpenVibe.TabIndex = 20;
-            this.rbuttonOpenVibe.Text = "use OpenVibe";
-            this.rbuttonOpenVibe.UseVisualStyleBackColor = true;
-            this.rbuttonOpenVibe.CheckedChanged += new System.EventHandler(this.rbuttonOpenVibe_CheckedChanged);
             // 
             // label4
             // 
@@ -358,6 +337,27 @@
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 16;
             this.label3.Text = "Scenario path:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(25, 123);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "(recommended)";
+            // 
+            // rbuttonOpenVibe
+            // 
+            this.rbuttonOpenVibe.AutoSize = true;
+            this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 103);
+            this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
+            this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
+            this.rbuttonOpenVibe.TabIndex = 20;
+            this.rbuttonOpenVibe.Text = "use OpenVibe";
+            this.rbuttonOpenVibe.UseVisualStyleBackColor = true;
+            this.rbuttonOpenVibe.CheckedChanged += new System.EventHandler(this.rbuttonOpenVibe_CheckedChanged);
             // 
             // groupBox2
             // 
