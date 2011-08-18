@@ -214,7 +214,7 @@ namespace Adastra
             string scenario = "";
             switch (comboBoxScenarioType.SelectedIndex)
             {
-                case 0: scenario = "signal-processing-vrpn.xml"; break;
+                case 0: scenario = "signal-charting-vrpn.xml"; break;
                 case 1: scenario = "openvibe-classifier-output-vrpn.xml"; break;
                 case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
                 case 3: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
