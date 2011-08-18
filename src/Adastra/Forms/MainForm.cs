@@ -52,8 +52,6 @@ namespace Adastra
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-
-
             if (asyncWorker!=null && asyncWorker.IsBusy)
             {
                 //this.TopMost = false;
@@ -78,6 +76,11 @@ namespace Adastra
 
         void asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+			if (e.Error != null)
+			{
+				MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace);
+			}
+
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
 

@@ -201,13 +201,18 @@ namespace Adastra
         public static string GetDosPathName(string longName)
         {
             uint bufferSize = 256;
+			//uint bufferSize = 512;
 
             // don´t allocate stringbuilder here but outside of the function for fast access
             StringBuilder shortNameBuffer = new StringBuilder((int)bufferSize);
 
             uint result = GetShortPathName(longName, shortNameBuffer, bufferSize);
 
+			//if (!string.IsNullOrEmpty(longName) && (shortNameBuffer != null && shortNameBuffer.ToString() != ""))
+			//    throw new Exception("Problem with DOS name conversion!");
+
             return shortNameBuffer.ToString();
+			//return longName;
         }
         #endregion
     }
