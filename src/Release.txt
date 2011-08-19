@@ -1,3 +1,11 @@
+Adastra 2.1 Released 0.00.2011 (dd/mm/yyyy)
+============================================
+
+- Added basic support for native use of Emotiv EPOCH.
+- Added the ability to save your training data
+- Added the ability to fast edit your OpenVibe scenarios
+- Fixed an irritating bug preventing Adastra from starting several application scenarios in a sequence (prevously Adastra restart was required each time)
+
 Adastra 2.0.1 Released 14.07.2011 (dd/mm/yyyy)
 ============================================
 
