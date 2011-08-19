@@ -42,6 +42,10 @@ namespace Adastra
         /// </summary>
         int SelectedClassNumeric = 0;
 
+        int recordTime;
+        DateTime startRecord;
+        System.Timers.Timer recordTimer;
+
         public TrainForm(IFeatureGenerator fg)
         {
             InitializeComponent();
@@ -137,10 +141,6 @@ namespace Adastra
             }
             buttonRecordAction.Enabled = true;
         }
-
-        static int recordTime;
-        static DateTime startRecord;
-        static System.Timers.Timer recordTimer;
 
         void AsyncWorkerRecord_DoWork(object sender, DoWorkEventArgs e)
         {

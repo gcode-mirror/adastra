@@ -62,8 +62,8 @@ namespace Adastra
             }
             else //start new process
             {
-                //this.TopMost = true;
-                buttonStart.Text = "Cancel";
+                buttonStart.Enabled = false;
+                //buttonStart.Text = "Cancel";
 
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
@@ -84,12 +84,12 @@ namespace Adastra
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
 
-            //of=null;
-            //tf=null;
-            //cf=null;
-            //ovc=null;
+            of = null;
+            tf = null;
+            cf = null;
+            ovc = null;
 
-            //currentForm = null;
+            currentForm = null;
         }
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -99,9 +99,9 @@ namespace Adastra
                 switch (comboBoxScenarioType.SelectedIndex)
                 {
                     case 0: of = new OutputForm(); of.Show(); of.Start(); currentForm = of;  break;
-                    case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); currentForm = ovc; break;
-                    case 2: tf = new TrainForm(featureGenerator); tf.Show(); currentForm=tf; break;
-                    case 3: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
+                    //case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); currentForm = ovc; break;
+                    case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm=tf; break;
+                    case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                 }
                 currentForm.FormClosed += new FormClosedEventHandler(currentForm_FormClosed);
             }
@@ -218,9 +218,9 @@ namespace Adastra
             switch (comboBoxScenarioType.SelectedIndex)
             {
                 case 0: scenario = "signal-charting-vrpn.xml"; break;
-                case 1: scenario = "openvibe-classifier-output-vrpn.xml"; break;
-                case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
-                case 3: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
+                //case 1: scenario = "openvibe-classifier-output-vrpn.xml"; break;
+                case 1: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
+                case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
@@ -278,11 +278,11 @@ namespace Adastra
             comboBoxScenarioType.Items.Clear();
 
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal streamed by OpenVibe");
-            comboBoxScenarioType.Items.Add("2. Display: LDA/SVM classification output from OpenVibe");
-            comboBoxScenarioType.Items.Add("3. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 4)");
-            comboBoxScenarioType.Items.Add("4. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 3)");
+            //comboBoxScenarioType.Items.Add("2. Display: LDA/SVM classification output from OpenVibe");
+            comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
-            comboBoxScenarioType.SelectedIndex = 2;
+            comboBoxScenarioType.SelectedIndex = 1;
         }
 
         private void rbuttonEmotiv_CheckedChanged(object sender, EventArgs e)
@@ -294,8 +294,8 @@ namespace Adastra
 
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
 
-            comboBoxScenarioType.Items.Add("3. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 4)");
-            comboBoxScenarioType.Items.Add("4. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 3)");
+            comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             
             comboBoxScenarioType.SelectedIndex = 1;
         }
