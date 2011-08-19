@@ -299,5 +299,10 @@ namespace Adastra
             
             comboBoxScenarioType.SelectedIndex = 1;
         }
+
+        private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenLinkInBrowser("http://code.google.com/p/adastra/wiki/UsageTutorial");
+        }
     }
 }
