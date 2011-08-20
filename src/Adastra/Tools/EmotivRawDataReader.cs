@@ -9,7 +9,7 @@ using Emotiv;
 
 namespace Adastra
 {
-    public class EmotivRawDataReader
+    public class EmotivRawDataReader :IRawDataReader
     {
         EmoEngine engine; // Access to the EDK is viaa the EmoEngine 
         int userID = -1; // userID is used to uniquely identify a user's headset

@@ -80,6 +80,7 @@
     <Compile Include="Definitions\Database.cs" />
     <Compile Include="Definitions\EEGRecord.cs" />
     <Compile Include="Definitions\IFeatureGenerator.cs" />
+    <Compile Include="Definitions\IRawDataReader.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +137,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\OpenVibeFeatureGenerator.cs" />
+    <Compile Include="Tools\OpenVibeRawDataReader.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>

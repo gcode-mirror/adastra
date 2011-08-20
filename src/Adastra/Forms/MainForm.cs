@@ -22,6 +22,7 @@ namespace Adastra
         #endregion
 
         private IFeatureGenerator featureGenerator;
+        private IRawDataReader dataReader;
         private BackgroundWorker asyncWorker=null;
 
         private int SelectedScenario;
@@ -67,8 +68,16 @@ namespace Adastra
 
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
-                if (rbuttonEmotiv.Checked) featureGenerator = new EmotivFeatureGenerator();
-                else if (rbuttonOpenVibe.Checked)featureGenerator = new OpenVibeFeatureGenerator();
+                if (rbuttonEmotiv.Checked) 
+                { 
+                    featureGenerator = new EmotivFeatureGenerator();
+                    dataReader = new EmotivRawDataReader();
+                }
+                else if (rbuttonOpenVibe.Checked)
+                {
+                    featureGenerator = new OpenVibeFeatureGenerator();
+                    dataReader = new OpenVibeRawDataReader();
+                }
 
                 asyncWorker.RunWorkerAsync();
             }
@@ -84,11 +93,11 @@ namespace Adastra
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
 
+            //might be a problem these nulls
             of = null;
             tf = null;
             cf = null;
             ovc = null;
-
             currentForm = null;
         }
 
@@ -98,7 +107,7 @@ namespace Adastra
             {
                 switch (comboBoxScenarioType.SelectedIndex)
                 {
-                    case 0: of = new OutputForm(); of.Show(); of.Start(); currentForm = of;  break;
+                    case 0: of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;  break;
                     //case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); currentForm = ovc; break;
                     case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm=tf; break;
                     case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;

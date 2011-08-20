@@ -27,7 +27,7 @@ namespace Adastra
 
         bool ScallingDisabled = true;
 
-        public OutputForm()
+        public OutputForm(IRawDataReader dataReader)
         {
             InitializeComponent();
 
