@@ -65,9 +65,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="VrpnNet, Version=1.1.1.29021, Culture=neutral, PublicKeyToken=d88711d9dd279d9f, processorArchitecture=x86">
+    <Reference Include="VrpnNet, Version=1.1.1.22900, Culture=neutral, PublicKeyToken=d88711d9dd279d9f, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\VrpnNet.dll</HintPath>
+      <HintPath>..\..\lib\VrpnNetOriginal\VrpnNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
