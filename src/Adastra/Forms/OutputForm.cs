@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Vrpn;
 using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
@@ -27,9 +26,13 @@ namespace Adastra
 
         bool ScallingDisabled = true;
 
-        public OutputForm(IRawDataReader dataReader)
+        IRawDataReader dataReader;
+
+        public OutputForm(IRawDataReader p_dataReader)
         {
             InitializeComponent();
+
+            dataReader = p_dataReader;
 
             #region Set First chart
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -57,6 +60,39 @@ namespace Adastra
             p_asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
             p_asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
             p_asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
+
+            dataReader.Values += new RawDataChangedEventHandler(dataReader_Values);
+        }
+
+        void dataReader_Values(double[] values)
+        {
+            if (q == null)
+            {
+                q = new Queue[values.Length];
+            }
+
+            if (p_asyncWorker == null) return;
+
+            if (p_asyncWorker.IsBusy && charts.Count == 0)
+            {
+                p_asyncWorker.ReportProgress(values.Length, "LoadCharts");
+            }
+
+            for (int i = 0; i < q.Length; i++)
+            {
+                if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
+
+                q[i].Enqueue(values[i]);
+
+                if (q[i].Count > 22)
+                {
+                    if (p_asyncWorker == null || p_asyncWorker.CancellationPending) return;
+
+                    p_asyncWorker.ReportProgress(i, q[i]);
+
+                    q[i].Dequeue();
+                }
+            }
         }
 
         public void Start()
@@ -68,9 +104,8 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show(e.Error.Message + " " +e.Error.StackTrace);
+                MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace);
             }
-            //else MessageBox.Show("Complete");
         }
 
         void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -83,7 +118,7 @@ namespace Adastra
             {
                 int i = e.ProgressPercentage;
 
-                var array=((Queue)e.UserState).ToArray();
+                var array = ((Queue)e.UserState).ToArray();
 
                 if (!bwAsync.CancellationPending)
                 {
@@ -107,15 +142,10 @@ namespace Adastra
         {
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            AnalogRemote analog;
-            analog = new AnalogRemote("openvibe-vrpn@localhost");
-            analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
-            analog.MuteWarnings = true;
-
             while (!bwAsync.CancellationPending)
             {
                 //System.Threading.Thread.Sleep(200);
-                analog.Update();
+                dataReader.Update();
                 System.Threading.Thread.Sleep(400);
             }
 
@@ -168,38 +198,6 @@ namespace Adastra
             }
         }
 
-        void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
-        {
-            if (q == null)
-            {
-                q = new Queue[e.Channels.Length];
-            }
-
-            if (p_asyncWorker == null) return;
-
-            if (p_asyncWorker.IsBusy && charts.Count == 0)
-            {
-                p_asyncWorker.ReportProgress(e.Channels.Length, "LoadCharts");
-            }
-
-
-            for (int i = 0; i < q.Length; i++)
-            {
-                if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
-
-                q[i].Enqueue(e.Channels[i]);
-
-                if (q[i].Count > 22)
-                {
-                    if (p_asyncWorker == null || p_asyncWorker.CancellationPending) return;
-
-                    p_asyncWorker.ReportProgress(i, q[i]);
-
-                    q[i].Dequeue();
-                }
-            }
-        }
-
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Stop();
@@ -209,7 +207,7 @@ namespace Adastra
         private void OutputForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Stop();
-            
+
             p_asyncWorker = null;
 
             //GC.Collect();
