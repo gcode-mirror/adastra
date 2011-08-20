@@ -5,8 +5,12 @@ using System.Text;
 
 namespace Adastra
 {
-    public class IRawDataReader
-    {
+    public delegate void RawDataChangedEventHandler(double[] values);
 
+    public interface IRawDataReader
+    {
+        event RawDataChangedEventHandler Values;
+
+        void Update();
     }
 }

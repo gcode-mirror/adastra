@@ -7,5 +7,11 @@ namespace Adastra
 {
     public class OpenVibeRawDataReader : IRawDataReader
     {
+        public void Update()
+        {
+
+        }
+
+        public event RawDataChangedEventHandler Values;
     }
 }

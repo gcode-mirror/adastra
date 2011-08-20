@@ -15,7 +15,8 @@ namespace Adastra
         int userID = -1; // userID is used to uniquely identify a user's headset
         //string filename = "outfile.csv"; // output filename
 
-        public event ChangedEventHandler Values;
+        //public event ChangedEventHandler Values;
+        public event RawDataChangedEventHandler Values;
 
         public EmotivRawDataReader()
         {
@@ -30,7 +31,7 @@ namespace Adastra
             //WriteHeader();
         }
 
-        void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
+        private void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
         {
             Console.WriteLine("User Added Event has occured");
 

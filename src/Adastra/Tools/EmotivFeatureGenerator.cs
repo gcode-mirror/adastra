@@ -16,7 +16,7 @@ namespace Adastra
             if (er == null)
             {
                 er = new EmotivRawDataReader();
-                er.Values += new ChangedEventHandler(er_Values);
+                er.Values += new RawDataChangedEventHandler(er_Values);
             }
 
             er.Update();

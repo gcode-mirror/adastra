@@ -18,7 +18,7 @@ namespace Adastra
         OutputForm of;
         TrainForm tf;
         ClassifyForm cf;
-        OpenVibeClassification ovc;
+        //OpenVibeClassification ovc;
         #endregion
 
         private IFeatureGenerator featureGenerator;
@@ -97,7 +97,7 @@ namespace Adastra
             of = null;
             tf = null;
             cf = null;
-            ovc = null;
+            //ovc = null;
             currentForm = null;
         }
 
