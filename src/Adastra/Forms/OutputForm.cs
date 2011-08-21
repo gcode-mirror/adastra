@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Collections.Concurrent;
 
 namespace Adastra
 {
@@ -20,17 +21,24 @@ namespace Adastra
     {
         private BackgroundWorker p_asyncWorker;
 
-        Queue[] q = null;
+        ConcurrentQueue<double[]> q = null;
 
         List<Chart> charts = new List<Chart>();
 
-        bool ScallingDisabled = true;
+        bool ScallingDisabled = false;
+
+        const int buffer_length=80;
 
         IRawDataReader dataReader;
 
         public OutputForm(IRawDataReader p_dataReader)
         {
             InitializeComponent();
+
+            if (p_dataReader is EmotivRawDataReader)
+            {
+                ScallingDisabled = false;
+            }
 
             dataReader = p_dataReader;
 
@@ -66,9 +74,10 @@ namespace Adastra
 
         void dataReader_Values(double[] values)
         {
+            #region init
             if (q == null)
             {
-                q = new Queue[values.Length];
+                q = new ConcurrentQueue<double[]>();
             }
 
             if (p_asyncWorker == null) return;
@@ -78,21 +87,23 @@ namespace Adastra
                 p_asyncWorker.ReportProgress(values.Length, "LoadCharts");
             }
 
-            for (int i = 0; i < q.Length; i++)
-            {
-                if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
+            #endregion
+            //for (int i = 0; i < q.Length; i++)
+            //{
+                //if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
 
-                q[i].Enqueue(values[i]);
+                q.Enqueue(values);
 
-                if (q[i].Count > 22)
+                if (q.Count > buffer_length)
                 {
                     if (p_asyncWorker == null || p_asyncWorker.CancellationPending) return;
 
-                    p_asyncWorker.ReportProgress(i, q[i]);
-
-                    q[i].Dequeue();
+                    p_asyncWorker.ReportProgress(0,null);
+                    double[] result;
+                    //while(q.TryDequeue(out result));
+                    q.TryDequeue(out result);
                 }
-            }
+            //}
         }
 
         public void Start()
@@ -116,26 +127,42 @@ namespace Adastra
                 GenerateCharts(e.ProgressPercentage);
             else
             {
-                int i = e.ProgressPercentage;
+                //int i = e.ProgressPercentage;
 
-                var array = ((Queue)e.UserState).ToArray();
+                //double[] values = (double[])e.UserState;
 
                 if (!bwAsync.CancellationPending)
                 {
-                    if (i == 0)
-                    {
-                        chart1.Series[0].Points.DataBindY(array);
+                    //if (i == 0)
+                   // {
+                    chart1.Series[0].Points.Add(GetDataForChart(0));
 
-                        chart1.Update();
-                    }
-                    else
-                        if (i <= charts.Count)
+
+                    chart1.Update();
+                    //}
+                    //else
+                    for(int i=0;i<charts.Count;i++)
+                        //if (i <= charts.Count)
                         {
-                            charts[i - 1].Series[0].Points.DataBindY(array);
-                            charts[i - 1].Update();
+                            charts[i].Series[0].Points.DataBindY(GetDataForChart(i));
+                            charts[i].Update();
                         }
                 }
             }
+        }
+
+        double[] GetDataForChart(int chart)
+        {
+            double[] a = new double[q.Count];
+
+            int i=0;
+            foreach (double[] d in q)
+            {
+                a[i] = d[chart];
+                i++;
+            }
+
+            return a;
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -146,7 +173,7 @@ namespace Adastra
             {
                 //System.Threading.Thread.Sleep(200);
                 dataReader.Update();
-                System.Threading.Thread.Sleep(400);
+                System.Threading.Thread.Sleep(600);
             }
 
             if (bwAsync.CancellationPending)
@@ -183,7 +210,10 @@ namespace Adastra
 
                 c.Series[0].Color = Color.Green;
                 c.Series[0].ChartType = chart1.Series[0].ChartType;
+
                 c.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled;
+                c.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled = chart1.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled;
+
                 c.ChartAreas[0].AxisY.Maximum = chart1.ChartAreas[0].AxisY.Maximum;
                 c.ChartAreas[0].AxisY.Minimum = chart1.ChartAreas[0].AxisY.Minimum;
 
@@ -191,6 +221,12 @@ namespace Adastra
                 c.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = chart1.ChartAreas[0].AxisX.MajorGrid.LineDashStyle;
 
                 c.ChartAreas[0].AxisX.IntervalType = chart1.ChartAreas[0].AxisX.IntervalType;
+
+                //chart1.ChartAreas[0].AxisY.Maximum = 0.3;
+                //chart1.ChartAreas[0].AxisY.Minimum = -0.3;
+
+                //chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
+                //chart1.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled = false;
 
                 this.Controls.Add(c);
                 c.Show();
