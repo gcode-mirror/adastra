@@ -30,9 +30,11 @@ namespace Adastra
         /// <summary>
         /// The min number of values that will be charted
         /// </summary>
-        const int minBufferQueueLength=80;
+        const int minBufferQueueLength=160;
 
         IRawDataReader dataReader;
+
+        bool chartsLoaded=false;
 
         public OutputForm(IRawDataReader p_dataReader)
         {
@@ -85,9 +87,9 @@ namespace Adastra
 
             if (p_asyncWorker == null) return;
 
-            if (p_asyncWorker.IsBusy && charts.Count == 0)
+            if (p_asyncWorker.IsBusy && !chartsLoaded)
             {
-                //1 chart ready, n-1 to go
+                chartsLoaded = true;
                 p_asyncWorker.ReportProgress(values.Length - 1, "LoadCharts");
             }
 
@@ -124,19 +126,20 @@ namespace Adastra
             BackgroundWorker bwAsync = sender as BackgroundWorker;
 
             if (e.UserState is string && (string)e.UserState == "LoadCharts")
+            {
+                charts.Add(chart1);
                 GenerateCharts(e.ProgressPercentage);
+            }
             else
             {
                 if (!bwAsync.CancellationPending)
                 {
-                    chart1.Series[0].Points.DataBindY(GetDataForChart(0));
-                    chart1.Update();
-
                     for (int i = 0; i < charts.Count; i++)
                     {
-                        charts[i].Series[0].Points.DataBindY(GetDataForChart(i + 1));
+                        charts[i].Series[0].Points.DataBindY(GetDataForChart(i));
                         charts[i].Update();
                     }
+                    //System.Threading.Thread.Sleep(200);
                 }
             }
         }
@@ -144,9 +147,9 @@ namespace Adastra
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="chart"></param>
+        /// <param name="chartIndex"></param>
         /// <returns>values that will be used for the supplied channel</returns>
-        double[] GetDataForChart(int chart)
+        double[] GetDataForChart(int chartIndex)
         {
             double[] chartValues = new double[bufferQueue.Count];
 
@@ -155,7 +158,7 @@ namespace Adastra
             {
                 if (i < chartValues.Length)
                 {
-                    chartValues[i] = d[chart];
+                    chartValues[i] = d[chartIndex];
                     i++;
                 }
             }
@@ -171,7 +174,7 @@ namespace Adastra
             {
                 //System.Threading.Thread.Sleep(200);
                 dataReader.Update();
-                System.Threading.Thread.Sleep(600);
+                //System.Threading.Thread.Sleep(400);
             }
 
             if (bwAsync.CancellationPending)
@@ -182,7 +185,11 @@ namespace Adastra
         {
             for (int i = 2; i <= n+1; i++)
             {
-                System.Windows.Forms.DataVisualization.Charting.Chart c = new System.Windows.Forms.DataVisualization.Charting.Chart();
+                Chart c = new Chart();
+                this.Controls.Add(c);
+                c.Show();
+                charts.Add(c);
+
                 c.Name = "chart" + i.ToString();
                 c.Height = chart1.Height;
                 c.Width = chart1.Width;
@@ -225,10 +232,6 @@ namespace Adastra
 
                 //chart1.ChartAreas[0].AxisY.ScaleBreakStyle.Enabled = false;
                 //chart1.ChartAreas[0].AxisX.ScaleBreakStyle.Enabled = false;
-
-                this.Controls.Add(c);
-                c.Show();
-                charts.Add(c);
             }
         }
 
