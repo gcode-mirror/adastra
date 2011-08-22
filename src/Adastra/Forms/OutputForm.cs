@@ -136,7 +136,7 @@ namespace Adastra
                 {
                     for (int i = 0; i < charts.Count; i++)
                     {
-                        charts[i].Series[0].Points.DataBindY(GetDataForChart(i));
+                        charts[i].Series[0].Points.DataBindY(GetDataForChart(i, bufferQueue.Count));
                     }
                     for (int i = 0; i < charts.Count; i++)
                     {
@@ -152,9 +152,9 @@ namespace Adastra
         /// </summary>
         /// <param name="chartIndex"></param>
         /// <returns>values that will be used for the supplied channel</returns>
-        double[] GetDataForChart(int chartIndex)
+        double[] GetDataForChart(int chartIndex,int bufferQueueCount)
         {
-            double[] chartValues = new double[bufferQueue.Count];
+            double[] chartValues = new double[bufferQueueCount];
 
             int i=0;
             foreach (double[] d in bufferQueue)
