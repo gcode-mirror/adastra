@@ -137,6 +137,9 @@ namespace Adastra
                     for (int i = 0; i < charts.Count; i++)
                     {
                         charts[i].Series[0].Points.DataBindY(GetDataForChart(i));
+                    }
+                    for (int i = 0; i < charts.Count; i++)
+                    {
                         charts[i].Update();
                     }
                     //System.Threading.Thread.Sleep(200);
