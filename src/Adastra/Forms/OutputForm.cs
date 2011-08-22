@@ -237,6 +237,8 @@ namespace Adastra
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
+            buttonClose.Enabled = false;
+                
             Stop();
             this.Close();
         }
