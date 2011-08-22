@@ -30,7 +30,7 @@ namespace Adastra
         /// <summary>
         /// The min number of values that will be charted
         /// </summary>
-        const int minBufferQueueLength=160;
+        const int minBufferQueueLength=220;
 
         IRawDataReader dataReader;
 
@@ -162,6 +162,8 @@ namespace Adastra
                 if (i < chartValues.Length)
                 {
                     chartValues[i] = d[chartIndex];
+                    if (dataReader is EmotivRawDataReader)
+                        chartValues[i] -= 4100;
                     i++;
                 }
             }
@@ -177,7 +179,7 @@ namespace Adastra
             {
                 //System.Threading.Thread.Sleep(200);
                 dataReader.Update();
-                //System.Threading.Thread.Sleep(400);
+                System.Threading.Thread.Sleep(600);
             }
 
             if (bwAsync.CancellationPending)
