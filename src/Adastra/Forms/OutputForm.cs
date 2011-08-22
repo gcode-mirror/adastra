@@ -21,13 +21,16 @@ namespace Adastra
     {
         private BackgroundWorker p_asyncWorker;
 
-        ConcurrentQueue<double[]> q = null;
+        ConcurrentQueue<double[]> bufferQueue = null;
 
         List<Chart> charts = new List<Chart>();
 
         bool ScallingDisabled = false;
 
-        const int buffer_length=80;
+        /// <summary>
+        /// The min number of values that will be charted
+        /// </summary>
+        const int minBufferQueueLength=80;
 
         IRawDataReader dataReader;
 
@@ -75,9 +78,9 @@ namespace Adastra
         void dataReader_Values(double[] values)
         {
             #region init
-            if (q == null)
+            if (bufferQueue == null)
             {
-                q = new ConcurrentQueue<double[]>();
+                bufferQueue = new ConcurrentQueue<double[]>();
             }
 
             if (p_asyncWorker == null) return;
@@ -85,26 +88,22 @@ namespace Adastra
             if (p_asyncWorker.IsBusy && charts.Count == 0)
             {
                 //1 chart ready, n-1 to go
-                p_asyncWorker.ReportProgress(values.Length-1, "LoadCharts");
+                p_asyncWorker.ReportProgress(values.Length - 1, "LoadCharts");
             }
 
             #endregion
-            //for (int i = 0; i < q.Length; i++)
-            //{
-                //if (q[i] == null) q[i] = Queue.Synchronized(new Queue());
 
-                q.Enqueue(values);
+            bufferQueue.Enqueue(values);
 
-                if (q.Count > buffer_length)
-                {
-                    if (p_asyncWorker == null || p_asyncWorker.CancellationPending) return;
+            if (bufferQueue.Count > minBufferQueueLength)
+            {
+                if (p_asyncWorker == null || p_asyncWorker.CancellationPending) return;
 
-                    p_asyncWorker.ReportProgress(0,null);
-                    double[] result;
-                    //while(q.TryDequeue(out result));
-                    q.TryDequeue(out result);
-                }
-            //}
+                p_asyncWorker.ReportProgress(0, null);
+                double[] result;
+                //while(q.TryDequeue(out result));
+                bufferQueue.TryDequeue(out result);
+            }
         }
 
         public void Start()
@@ -128,45 +127,40 @@ namespace Adastra
                 GenerateCharts(e.ProgressPercentage);
             else
             {
-                //int i = e.ProgressPercentage;
-
-                //double[] values = (double[])e.UserState;
-
                 if (!bwAsync.CancellationPending)
                 {
-                    //if (i == 0)
-                   // {
                     chart1.Series[0].Points.DataBindY(GetDataForChart(0));
-
-
                     chart1.Update();
-                    //}
-                    //else
-                    for(int i=0;i<charts.Count;i++)
-                        //if (i <= charts.Count)
-                        {
-                            charts[i].Series[0].Points.DataBindY(GetDataForChart(i+1));
-                            charts[i].Update();
-                        }
+
+                    for (int i = 0; i < charts.Count; i++)
+                    {
+                        charts[i].Series[0].Points.DataBindY(GetDataForChart(i + 1));
+                        charts[i].Update();
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chart"></param>
+        /// <returns>values that will be used for the supplied channel</returns>
         double[] GetDataForChart(int chart)
         {
-            double[] a = new double[q.Count];
+            double[] chartValues = new double[bufferQueue.Count];
 
             int i=0;
-            foreach (double[] d in q)
+            foreach (double[] d in bufferQueue)
             {
-                if (i < a.Length)
+                if (i < chartValues.Length)
                 {
-                    a[i] = d[chart];
+                    chartValues[i] = d[chart];
                     i++;
                 }
             }
 
-            return a;
+            return chartValues;
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
