@@ -84,7 +84,8 @@ namespace Adastra
 
             if (p_asyncWorker.IsBusy && charts.Count == 0)
             {
-                p_asyncWorker.ReportProgress(values.Length, "LoadCharts");
+                //1 chart ready, n-1 to go
+                p_asyncWorker.ReportProgress(values.Length-1, "LoadCharts");
             }
 
             #endregion
@@ -135,7 +136,7 @@ namespace Adastra
                 {
                     //if (i == 0)
                    // {
-                    chart1.Series[0].Points.Add(GetDataForChart(0));
+                    chart1.Series[0].Points.DataBindY(GetDataForChart(0));
 
 
                     chart1.Update();
@@ -144,7 +145,7 @@ namespace Adastra
                     for(int i=0;i<charts.Count;i++)
                         //if (i <= charts.Count)
                         {
-                            charts[i].Series[0].Points.DataBindY(GetDataForChart(i));
+                            charts[i].Series[0].Points.DataBindY(GetDataForChart(i+1));
                             charts[i].Update();
                         }
                 }
@@ -158,8 +159,11 @@ namespace Adastra
             int i=0;
             foreach (double[] d in q)
             {
-                a[i] = d[chart];
-                i++;
+                if (i < a.Length)
+                {
+                    a[i] = d[chart];
+                    i++;
+                }
             }
 
             return a;
@@ -182,7 +186,7 @@ namespace Adastra
 
         void GenerateCharts(int n)
         {
-            for (int i = 2; i <= n; i++)
+            for (int i = 2; i <= n+1; i++)
             {
                 System.Windows.Forms.DataVisualization.Charting.Chart c = new System.Windows.Forms.DataVisualization.Charting.Chart();
                 c.Name = "chart" + i.ToString();
