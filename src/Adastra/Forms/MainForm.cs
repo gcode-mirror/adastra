@@ -21,6 +21,8 @@ namespace Adastra
         //OpenVibeClassification ovc;
         #endregion
 
+        WPF.OutputWindow ow;
+
         private IFeatureGenerator featureGenerator;
         private IRawDataReader dataReader;
         private BackgroundWorker asyncWorker=null;
@@ -107,12 +109,13 @@ namespace Adastra
             {
                 switch (comboBoxScenarioType.SelectedIndex)
                 {
-                    case 0: of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;  break;
-                    //case 1: ovc = new OpenVibeClassification(); ovc.Show(); ovc.Start(); currentForm = ovc; break;
-                    case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm=tf; break;
+                    //case 0: of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;  break;
+                    case 0: ow = new WPF.OutputWindow(); ow.Show(); break;
+                    case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
                     case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                 }
-                currentForm.FormClosed += new FormClosedEventHandler(currentForm_FormClosed);
+                if (currentForm != null)
+                    currentForm.FormClosed += new FormClosedEventHandler(currentForm_FormClosed);
             }
         }
 
