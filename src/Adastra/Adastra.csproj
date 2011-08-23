@@ -204,7 +204,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Repressilator.txt" />
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
