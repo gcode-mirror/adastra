@@ -110,7 +110,7 @@ namespace Adastra
                 switch (comboBoxScenarioType.SelectedIndex)
                 {
                     //case 0: of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;  break;
-                    case 0: ow = new WPF.OutputWindow(); ow.Show(); break;
+                    case 0: ow = new WPF.OutputWindow(dataReader); ow.Show(); break;
                     case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
                     case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                 }
