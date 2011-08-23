@@ -11,8 +11,7 @@ using System.ComponentModel;
 using Adastra;
 
 namespace WPF
-{
-    
+{  
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
@@ -44,8 +43,6 @@ namespace WPF
             p_asyncWorker.DoWork += new DoWorkEventHandler(p_asyncWorker_DoWork);
             p_asyncWorker.ProgressChanged += new ProgressChangedEventHandler(p_asyncWorker_ProgressChanged);
             p_asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(p_asyncWorker_RunWorkerCompleted);
-
-            p_asyncWorker.RunWorkerAsync();
         }
 
         void p_asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -60,9 +57,12 @@ namespace WPF
         {
             Point[] points = (Point[])e.UserState;
 
+            if (source1.Collection.Count > 50)
+                source1.Collection.RemoveAt(0);
+
             source1.AppendAsync(Dispatcher, points[0]);
-            source2.AppendAsync(Dispatcher, points[1]);
-            source3.AppendAsync(Dispatcher, points[0]);
+            //source2.AppendAsync(Dispatcher, points[1]);
+            //source3.AppendAsync(Dispatcher, points[2]);
 
             Thread.Sleep(10);
         }
@@ -73,7 +73,7 @@ namespace WPF
             {
                 //System.Threading.Thread.Sleep(200);
                 dataReader.Update();
-                System.Threading.Thread.Sleep(20);
+                //System.Threading.Thread.Sleep(400);
             }
         }
 
@@ -83,21 +83,6 @@ namespace WPF
         {
             Interlocked.Increment(ref x);
           
-            //CultureInfo culture = CultureInfo.InvariantCulture;
-            //Assembly executingAssembly = Assembly.GetExecutingAssembly();
-            // load spim-generated data from embedded resource file
-            //const string spimDataName = "Adastra.Repressilator.txt";
-            //using (Stream spimStream = executingAssembly.GetManifestResourceStream(spimDataName))
-            //{
-            //    using (StreamReader r = new StreamReader(spimStream))
-            //    {
-            //        string line = r.ReadLine();
-            //        while (!r.EndOfStream)
-            //        {
-                        //line = r.ReadLine();
-                        //string[] svalues = line.Split(',');
-
-            //double x = Double.Parse(svalues[0], culture);
             double y1 = values[0];
             double y2 = values[1];
             double y3 = values[2];
@@ -111,17 +96,10 @@ namespace WPF
             points[0] = p1;
             points[1] = p2;
             points[2] = p3;
-            //source1.AppendAsync(Dispatcher, p1);
-            //source2.AppendAsync(Dispatcher, p2);
-            //source3.AppendAsync(Dispatcher, p3);
 
-            //Thread.Sleep(10); 
+            Thread.Sleep(50); 
 
             p_asyncWorker.ReportProgress(-1,points);
-            // Long-long time for computations...
-            //        }
-            //    }
-            //}
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -146,10 +124,8 @@ namespace WPF
             plotter.AddLineGraph(source2, 2, "Data row 2");
             plotter.AddLineGraph(source3, 2, "Data row 3");
 
-            // Start computation process in second thread
-            //Thread simThread = new Thread(new ThreadStart(ReadData));
-            //simThread.IsBackground = true;
-            //simThread.Start();
+            //System.Threading.Thread.Sleep(2000);//if this line is removed a stack overflow exception occurs
+            p_asyncWorker.RunWorkerAsync();
         }
     }
 }
