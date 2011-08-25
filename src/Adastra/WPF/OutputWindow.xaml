@@ -5,6 +5,11 @@
     Title="DynamicDataDisplay Simulation Sample" Height="426" Width="1262" Loaded="Window_Loaded"
     Icon="{x:Static d3:D3IconHelper.DynamicDataDisplayIcon}">
     <Grid>
-        <d3:ChartPlotter Name="plotter"/>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <d3:ChartPlotter Grid.Row="0" Name="plotter"/>
+        <Button Name="buttonClose" Margin="1,1,1,1" Click="buttonClose_Click" Grid.Row="1">Close</Button>
     </Grid>
 </Window>

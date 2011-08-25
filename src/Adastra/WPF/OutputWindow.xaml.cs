@@ -53,7 +53,11 @@ namespace WPF
             p_asyncWorker.DoWork += new DoWorkEventHandler(p_asyncWorker_DoWork);
             p_asyncWorker.ProgressChanged += new ProgressChangedEventHandler(p_asyncWorker_ProgressChanged);
             p_asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(p_asyncWorker_RunWorkerCompleted);
+
+            this.Closing += new CancelEventHandler(OutputWindow_Closing);
         }
+
+        
 
         void p_asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -82,7 +86,7 @@ namespace WPF
                 }
             }
 
-            if (success)
+            if (success && !p_asyncWorker.CancellationPending)
             {
                 x++;
 
@@ -173,5 +177,25 @@ namespace WPF
 
             p_asyncWorker.RunWorkerAsync();
         }
+
+        private void buttonClose_Click(object sender, RoutedEventArgs e)
+        {
+            buttonClose.IsEnabled = false;
+
+            Stop();
+            this.Close();
+        }
+
+        void OutputWindow_Closing(object sender, CancelEventArgs e)
+        {
+            Stop();
+        }
+
+        public void Stop()
+        {
+            p_asyncWorker.CancelAsync();
+        }
+
+
     }
 }
