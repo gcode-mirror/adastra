@@ -7,6 +7,7 @@ using System.Windows;
 using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.ComponentModel;
+using System.Collections.Concurrent;
 
 using Adastra;
 
@@ -24,9 +25,13 @@ namespace WPF
         ObservableDataSource<Point> source2 = null;
         ObservableDataSource<Point> source3 = null;
 
+        ConcurrentQueue<double[]> bufferQueue = new ConcurrentQueue<double[]>();
+
         IRawDataReader dataReader;
 
         private BackgroundWorker p_asyncWorker;
+
+        static long x = 0;
 
         public OutputWindow(IRawDataReader p_dataReader)
         {
@@ -55,16 +60,40 @@ namespace WPF
 
         void p_asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Point[] points = (Point[])e.UserState;
+            double[] values;
+            bool success = bufferQueue.TryDequeue(out values);
 
-            if (source1.Collection.Count > 50)
-                source1.Collection.RemoveAt(0);
+            if (success)
+            {
+                x++;
 
-            source1.AppendAsync(Dispatcher, points[0]);
-            //source2.AppendAsync(Dispatcher, points[1]);
-            //source3.AppendAsync(Dispatcher, points[2]);
+                int i = 0;
+                Point[] points = new Point[values.Length];
 
-            Thread.Sleep(10);
+                foreach (double d in values)
+                {
+                    double t = d + (i + 1) * 1; //to seperate different channels
+                    points[i] = new Point(x, t);
+                    i++;
+                }
+
+                int maxpoints = 100;
+
+                if (source1.Collection.Count > maxpoints)
+                    source1.Collection.RemoveAt(0);
+
+                if (source2.Collection.Count > maxpoints)
+                    source2.Collection.RemoveAt(0);
+
+                if (source3.Collection.Count > maxpoints)
+                    source3.Collection.RemoveAt(0);
+
+                source1.AppendAsync(Dispatcher, points[0]);
+                source2.AppendAsync(Dispatcher, points[1]);
+                source3.AppendAsync(Dispatcher, points[2]);
+
+                Thread.Sleep(10);
+            }
         }
 
         void p_asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -73,33 +102,15 @@ namespace WPF
             {
                 //System.Threading.Thread.Sleep(200);
                 dataReader.Update();
-                //System.Threading.Thread.Sleep(400);
+                System.Threading.Thread.Sleep(50);
+                p_asyncWorker.ReportProgress(-1, null);
+                System.Threading.Thread.Sleep(50);
             }
         }
 
-        long x = 0;
-
         void dataReader_Values(double[] values)
         {
-            Interlocked.Increment(ref x);
-          
-            double y1 = values[0];
-            double y2 = values[1];
-            double y3 = values[2];
-
-            Point p1 = new Point(x, y1);
-            Point p2 = new Point(x, y2);
-            Point p3 = new Point(x, y3);
-
-            Point[] points=new Point[values.Length];
-
-            points[0] = p1;
-            points[1] = p2;
-            points[2] = p3;
-
-            Thread.Sleep(50); 
-
-            p_asyncWorker.ReportProgress(-1,points);
+            bufferQueue.Enqueue(values);        
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -120,11 +131,10 @@ namespace WPF
             source3.SetXYMapping(p => p);
 
             // Add all three graphs. Colors are not specified and chosen random
-            plotter.AddLineGraph(source1, 2, "Data row 1");
-            plotter.AddLineGraph(source2, 2, "Data row 2");
-            plotter.AddLineGraph(source3, 2, "Data row 3");
+            plotter.AddLineGraph(source1, 1, "Data row 1");
+            plotter.AddLineGraph(source2, 1, "Data row 2");
+            plotter.AddLineGraph(source3, 1, "Data row 3");
 
-            //System.Threading.Thread.Sleep(2000);//if this line is removed a stack overflow exception occurs
             p_asyncWorker.RunWorkerAsync();
         }
     }
