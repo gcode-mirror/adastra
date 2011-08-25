@@ -29,31 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
-            treeNode11});
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode10,
-            treeNode12});
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode27,
+            treeNode28});
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode30,
+            treeNode31});
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode33,
+            treeNode34});
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode32,
+            treeNode35});
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode37});
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode29,
+            treeNode36,
+            treeNode38});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,6 +61,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.homepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openVibesHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,16 +84,19 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
-            this.tutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rbuttonWPFcharting = new System.Windows.Forms.RadioButton();
+            this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
+            this.groupBoxCharting = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBoxCharting.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(271, 295);
+            this.buttonStart.Location = new System.Drawing.Point(271, 303);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -103,7 +107,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 44);
+            this.label1.Location = new System.Drawing.Point(15, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 1;
@@ -145,6 +149,13 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // tutorialToolStripMenuItem
+            // 
+            this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.tutorialToolStripMenuItem.Text = "Tutorial";
+            this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -215,7 +226,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(591, 317);
+            this.buttonExit.Location = new System.Drawing.Point(591, 325);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -227,7 +238,7 @@
             // 
             this.comboBoxScenarioType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxScenarioType.FormattingEnabled = true;
-            this.comboBoxScenarioType.Location = new System.Drawing.Point(96, 41);
+            this.comboBoxScenarioType.Location = new System.Drawing.Point(96, 36);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
             this.comboBoxScenarioType.Size = new System.Drawing.Size(609, 21);
             this.comboBoxScenarioType.TabIndex = 13;
@@ -235,36 +246,36 @@
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(0, 325);
+            this.treeView1.Location = new System.Drawing.Point(0, 333);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node2";
-            treeNode1.Text = "EEG signal";
-            treeNode2.Name = "Node6";
-            treeNode2.Text = "Claffication output from OpenVibe";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Display";
-            treeNode4.Name = "Node7";
-            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode5.Name = "Node8";
-            treeNode5.Text = "Using Adastra\'s feature aggregator";
-            treeNode6.Name = "Node4";
-            treeNode6.Text = "Train";
-            treeNode7.Name = "Node11";
-            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode8.Name = "Node12";
-            treeNode8.Text = "Using Adastra\'s feature aggregator";
-            treeNode9.Name = "Node5";
-            treeNode9.Text = "Classify";
-            treeNode10.Name = "Node3";
-            treeNode10.Text = "Classification";
-            treeNode11.Name = "Node10";
-            treeNode11.Text = "Mouse cursor";
-            treeNode12.Name = "Node9";
-            treeNode12.Text = "Device control";
-            treeNode13.Name = "Node0";
-            treeNode13.Text = "Scenario";
+            treeNode27.Name = "Node2";
+            treeNode27.Text = "EEG signal";
+            treeNode28.Name = "Node6";
+            treeNode28.Text = "Claffication output from OpenVibe";
+            treeNode29.Name = "Node1";
+            treeNode29.Text = "Display";
+            treeNode30.Name = "Node7";
+            treeNode30.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode31.Name = "Node8";
+            treeNode31.Text = "Using Adastra\'s feature aggregator";
+            treeNode32.Name = "Node4";
+            treeNode32.Text = "Train";
+            treeNode33.Name = "Node11";
+            treeNode33.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode34.Name = "Node12";
+            treeNode34.Text = "Using Adastra\'s feature aggregator";
+            treeNode35.Name = "Node5";
+            treeNode35.Text = "Classify";
+            treeNode36.Name = "Node3";
+            treeNode36.Text = "Classification";
+            treeNode37.Name = "Node10";
+            treeNode37.Text = "Mouse cursor";
+            treeNode38.Name = "Node9";
+            treeNode38.Text = "Device control";
+            treeNode39.Name = "Node0";
+            treeNode39.Text = "Scenario";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13});
+            treeNode39});
             this.treeView1.Size = new System.Drawing.Size(295, 242);
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;
@@ -291,7 +302,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.buttonSelectOpenVibeWorkingFolder);
             this.groupBox1.Controls.Add(this.textBoxOpenVibeWorkingFolder);
-            this.groupBox1.Location = new System.Drawing.Point(128, 80);
+            this.groupBox1.Location = new System.Drawing.Point(128, 88);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(580, 116);
             this.groupBox1.TabIndex = 16;
@@ -344,7 +355,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 123);
+            this.label5.Location = new System.Drawing.Point(25, 131);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 21;
@@ -354,7 +365,7 @@
             // 
             this.rbuttonOpenVibe.AutoSize = true;
             this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 103);
+            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 111);
             this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
             this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
             this.rbuttonOpenVibe.TabIndex = 20;
@@ -365,7 +376,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Location = new System.Drawing.Point(128, 202);
+            this.groupBox2.Location = new System.Drawing.Point(128, 210);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(580, 72);
             this.groupBox2.TabIndex = 17;
@@ -385,27 +396,52 @@
             // 
             this.rbuttonEmotiv.AutoSize = true;
             this.rbuttonEmotiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonEmotiv.Location = new System.Drawing.Point(18, 234);
+            this.rbuttonEmotiv.Location = new System.Drawing.Point(18, 242);
             this.rbuttonEmotiv.Name = "rbuttonEmotiv";
             this.rbuttonEmotiv.Size = new System.Drawing.Size(87, 17);
             this.rbuttonEmotiv.TabIndex = 0;
-            this.rbuttonEmotiv.TabStop = true;
             this.rbuttonEmotiv.Text = "use Emotiv";
             this.rbuttonEmotiv.UseVisualStyleBackColor = true;
             this.rbuttonEmotiv.CheckedChanged += new System.EventHandler(this.rbuttonEmotiv_CheckedChanged);
             // 
-            // tutorialToolStripMenuItem
+            // rbuttonWPFcharting
             // 
-            this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.tutorialToolStripMenuItem.Text = "Tutorial";
-            this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
+            this.rbuttonWPFcharting.AutoSize = true;
+            this.rbuttonWPFcharting.Checked = true;
+            this.rbuttonWPFcharting.Location = new System.Drawing.Point(15, 11);
+            this.rbuttonWPFcharting.Name = "rbuttonWPFcharting";
+            this.rbuttonWPFcharting.Size = new System.Drawing.Size(49, 17);
+            this.rbuttonWPFcharting.TabIndex = 22;
+            this.rbuttonWPFcharting.TabStop = true;
+            this.rbuttonWPFcharting.Text = "WPF";
+            this.rbuttonWPFcharting.UseVisualStyleBackColor = true;
+            // 
+            // rbuttonWindowsFormsCharting
+            // 
+            this.rbuttonWindowsFormsCharting.AutoSize = true;
+            this.rbuttonWindowsFormsCharting.Location = new System.Drawing.Point(70, 11);
+            this.rbuttonWindowsFormsCharting.Name = "rbuttonWindowsFormsCharting";
+            this.rbuttonWindowsFormsCharting.Size = new System.Drawing.Size(100, 17);
+            this.rbuttonWindowsFormsCharting.TabIndex = 23;
+            this.rbuttonWindowsFormsCharting.Text = "Windows Forms";
+            this.rbuttonWindowsFormsCharting.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxCharting
+            // 
+            this.groupBoxCharting.Controls.Add(this.rbuttonWPFcharting);
+            this.groupBoxCharting.Controls.Add(this.rbuttonWindowsFormsCharting);
+            this.groupBoxCharting.Location = new System.Drawing.Point(532, 58);
+            this.groupBoxCharting.Name = "groupBoxCharting";
+            this.groupBoxCharting.Size = new System.Drawing.Size(176, 34);
+            this.groupBoxCharting.TabIndex = 24;
+            this.groupBoxCharting.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 358);
+            this.ClientSize = new System.Drawing.Size(720, 371);
+            this.Controls.Add(this.groupBoxCharting);
             this.Controls.Add(this.rbuttonOpenVibe);
             this.Controls.Add(this.rbuttonEmotiv);
             this.Controls.Add(this.label5);
@@ -418,7 +454,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "MainForm";
-            this.Text = "Adastra";
+            this.Text = "Adastra - brain computer interface application";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -426,6 +462,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBoxCharting.ResumeLayout(false);
+            this.groupBoxCharting.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -462,6 +500,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem tutorialToolStripMenuItem;
+        private System.Windows.Forms.RadioButton rbuttonWPFcharting;
+        private System.Windows.Forms.RadioButton rbuttonWindowsFormsCharting;
+        private System.Windows.Forms.GroupBox groupBoxCharting;
     }
 }
 

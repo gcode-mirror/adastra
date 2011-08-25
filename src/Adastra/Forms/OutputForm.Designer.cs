@@ -71,7 +71,7 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.chart1);
             this.Name = "OutputForm";
-            this.Text = "OutputForm";
+            this.Text = "EEG data visualization";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OutputForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);

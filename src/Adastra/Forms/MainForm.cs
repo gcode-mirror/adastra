@@ -112,8 +112,16 @@ namespace Adastra
             {
                 switch (comboBoxScenarioType.SelectedIndex)
                 {
-                    //case 0: of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;  break;
-                    case 0: ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow; break;
+                    case 0:
+                        if (rbuttonWPFcharting.Checked)
+                        {
+                            ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow;
+                        }
+                        else if (rbuttonWindowsFormsCharting.Checked)
+                        {
+                            of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;
+                        }
+                        break;
                     case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
                     case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                 }
@@ -241,9 +249,12 @@ namespace Adastra
         private void comboBoxScenarioType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string scenario = "";
+            groupBoxCharting.Visible = false;
             switch (comboBoxScenarioType.SelectedIndex)
             {
-                case 0: scenario = "signal-charting-vrpn.xml"; break;
+                case 0: scenario = "signal-charting-vrpn.xml";
+                    groupBoxCharting.Visible = true;
+                    break;
                 //case 1: scenario = "openvibe-classifier-output-vrpn.xml"; break;
                 case 1: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
                 case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
@@ -252,7 +263,7 @@ namespace Adastra
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
             if (lastSlash != -1)
             {
-                textBoxScenario.Text = textBoxScenario.Text.Substring(0, lastSlash+1)+scenario;
+                textBoxScenario.Text = textBoxScenario.Text.Substring(0, lastSlash + 1) + scenario;
             }
         }
 
