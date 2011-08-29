@@ -18,16 +18,6 @@ namespace WPF
     /// </summary>
     public partial class OutputWindow : Window
     {
-        // Three observable data sources. Observable data source contains
-        // inside ObservableCollection. Modification of collection instantly modify
-        // visual representation of graph. 
-
-        //ObservableDataSource<Point> source1 = null;
-        //ObservableDataSource<Point> source2 = null;
-        //ObservableDataSource<Point> source3 = null;
-
-        //const int channels = 11;
-
         ObservableDataSource<Point>[] sources = null;
 
         ConcurrentQueue<double[]> bufferQueue = new ConcurrentQueue<double[]>();
@@ -90,6 +80,11 @@ namespace WPF
             {
                 x++;
 
+                if (dataReader is EmotivRawDataReader)
+                {
+                    ((new BasicSignalProcessor()).DoWork(values)).CopyTo(values, 0);
+                }
+
                 points = new Point[values.Length];
 
                 i = 0;
@@ -97,31 +92,13 @@ namespace WPF
                 {
                     double t = d + (i + 1) * 1; //to seperate different channels
                     points[i] = new Point(x, t);
-                    //    i++;
-                    //}
-
-                    //i = 0;
-                    //foreach (ObservableDataSource<Point> s in sources)
-                    //{
+                    
                     if (sources[i].Collection.Count > maxpoints)
                         sources[i].Collection.RemoveAt(0);
 
                     sources[i].AppendAsync(Dispatcher, points[i]);
                     i++;
                 }
-
-                //if (source1.Collection.Count > maxpoints)
-                //    source1.Collection.RemoveAt(0);
-
-                //if (source2.Collection.Count > maxpoints)
-                //    source2.Collection.RemoveAt(0);
-
-                //if (source3.Collection.Count > maxpoints)
-                //    source3.Collection.RemoveAt(0);
-
-                //source1.AppendAsync(Dispatcher, points[0]);
-                //source2.AppendAsync(Dispatcher, points[1]);
-                //source3.AppendAsync(Dispatcher, points[2]);
 
                 Thread.Sleep(10);
             }
@@ -146,35 +123,6 @@ namespace WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Create first source
-            //source1 = new ObservableDataSource<Point>();
-            //// Set identity mapping of point in collection to point on plot
-            //source1.SetXYMapping(p => p);
-
-            //// Create second source
-            //source2 = new ObservableDataSource<Point>();
-            //// Set identity mapping of point in collection to point on plot
-            //source2.SetXYMapping(p => p);
-
-            //// Create third source
-            //source3 = new ObservableDataSource<Point>();
-            //// Set identity mapping of point in collection to point on plot
-            //source3.SetXYMapping(p => p);
-
-            //// Add all three graphs. Colors are not specified and chosen random
-            //plotter.AddLineGraph(source1, 1, "Data row 1");
-            //plotter.AddLineGraph(source2, 1, "Data row 2");
-            //plotter.AddLineGraph(source3, 1, "Data row 3");
-
-            //for (int i = 0; i < channels; i++)
-            //{
-            //    sources[i] = new ObservableDataSource<Point>();
-            //    sources[i].SetXYMapping(p => p);
-            //    plotter.AddLineGraph(sources[i], 1, "Data row " + i.ToString());
-            //}
-
-            //int i = 0;
-
             p_asyncWorker.RunWorkerAsync();
         }
 

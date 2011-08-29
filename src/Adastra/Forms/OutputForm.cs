@@ -159,11 +159,15 @@ namespace Adastra
             int i=0;
             foreach (double[] d in bufferQueue)
             {
+                if (dataReader is EmotivRawDataReader)
+                {
+                    ((new BasicSignalProcessor()).DoWork(d)).CopyTo(d, 0);
+                }
                 if (i < chartValues.Length)
                 {
                     chartValues[i] = d[chartIndex];
-                    if (dataReader is EmotivRawDataReader)
-                        chartValues[i] -= 4100;
+                    //if (dataReader is EmotivRawDataReader)
+                    //    chartValues[i] -= 4100;
                     i++;
                 }
             }

@@ -55,7 +55,7 @@
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(662, 697);
+            this.buttonClose.Location = new System.Drawing.Point(662, 689);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(96, 41);
             this.buttonClose.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 750);
+            this.ClientSize = new System.Drawing.Size(770, 742);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.chart1);
             this.Name = "OutputForm";

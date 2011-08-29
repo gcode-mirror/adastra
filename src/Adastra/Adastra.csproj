@@ -78,6 +78,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\BasicSignalProcessor.cs" />
     <Compile Include="Algorithms\LdaMLP.cs" />
     <Compile Include="Algorithms\LdaSVM.cs" />
     <Compile Include="Algorithms\Matrix.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Definitions\AMLearning.cs" />
     <Compile Include="Definitions\Database.cs" />
     <Compile Include="Definitions\EEGRecord.cs" />
+    <Compile Include="Definitions\IDigitalSignalProcessor.cs" />
     <Compile Include="Definitions\IFeatureGenerator.cs" />
     <Compile Include="Definitions\IRawDataReader.cs" />
     <Compile Include="Forms\AboutForm.cs">
