@@ -4,12 +4,13 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-using Microsoft.Research.DynamicDataDisplay;
-using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.ComponentModel;
 using System.Collections.Concurrent;
 
 using Adastra;
+using System.Windows.Controls;
+using Microsoft.Research.DynamicDataDisplay;
+using Microsoft.Research.DynamicDataDisplay.DataSources;
 
 namespace WPF
 {  
@@ -27,6 +28,10 @@ namespace WPF
         private BackgroundWorker p_asyncWorker;
 
         static long x = 0;
+
+        //ChartPlotter[] plotters;
+
+        int maxpoints = 140;
 
         public OutputWindow(IRawDataReader p_dataReader)
         {
@@ -47,8 +52,6 @@ namespace WPF
             this.Closing += new CancelEventHandler(OutputWindow_Closing);
         }
 
-        
-
         void p_asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -61,7 +64,7 @@ namespace WPF
         {
             double[] values=null;
             bool success = bufferQueue.TryDequeue(out values);
-            int maxpoints = 140;
+         
             int i = 0;
             Point[] points;
 
@@ -81,7 +84,7 @@ namespace WPF
                 i = 0;
                 foreach (double d in values)
                 {
-                    double t = d + (i + 1) * 1; //to seperate different channels
+                    double t = d + (i + 1) * 1; //seperate different channels
                     points[i] = new Point(x, t);
                     
                     if (sources[i].Collection.Count > maxpoints)
@@ -99,7 +102,6 @@ namespace WPF
         {
             while (!p_asyncWorker.CancellationPending)
             {
-                //System.Threading.Thread.Sleep(200);
                 dataReader.Update();
                 System.Threading.Thread.Sleep(50);
                 p_asyncWorker.ReportProgress(-1, null);
@@ -145,6 +147,31 @@ namespace WPF
                 sources[i].SetXYMapping(p => p);
                 plotter.AddLineGraph(sources[i], 1, "Channel " + i.ToString());
             }
+
+            //int i = 0;
+            //sources = new ObservableDataSource<Point>[n];
+            //plotters = new ChartPlotter[n];
+
+            //for (i = 0; i < n; i++)
+            //{
+            //    sources[i] = new ObservableDataSource<Point>();
+
+            //    sources[i].SetXYMapping(p => p);
+
+            //    plotters[i] = new ChartPlotter();
+
+            //    plotters[i].AddLineGraph(sources[i], 1, "Channel " + i.ToString());
+
+
+
+            //    plotters[i].AxisGrid.Visibility = System.Windows.Visibility.Hidden;
+
+
+            //    gCharts.RowDefinitions.Add(new RowDefinition() {Height = new GridLength(60, GridUnitType.Pixel) });
+
+            //    gCharts.Children.Add(plotters[i]); // Add to the grid
+            //    Grid.SetRow(plotters[i], i); // Specify row for previous grid addition
+            //}
         }
 
 
