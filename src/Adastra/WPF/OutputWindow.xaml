@@ -4,7 +4,7 @@
     xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
     Title="EEG data visualization" Height="426" Width="1262" Loaded="Window_Loaded"
     Icon="{x:Static d3:D3IconHelper.DynamicDataDisplayIcon}">
-    <Grid>
+    <Grid Name="gCharts">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>

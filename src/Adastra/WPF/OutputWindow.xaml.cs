@@ -65,16 +65,7 @@ namespace WPF
             int i = 0;
             Point[] points;
 
-            if (sources == null && values!=null)
-            {
-                sources = new ObservableDataSource<Point>[values.Length];
-                for (i = 0; i < values.Length; i++)
-                {
-                    sources[i] = new ObservableDataSource<Point>();
-                    sources[i].SetXYMapping(p => p);
-                    plotter.AddLineGraph(sources[i], 1, "Channel " + i.ToString());
-                }
-            }
+            if (sources == null && values!=null)  BuildCharts(values.Length);
 
             if (success && !p_asyncWorker.CancellationPending)
             {
@@ -142,6 +133,18 @@ namespace WPF
         public void Stop()
         {
             p_asyncWorker.CancelAsync();
+        }
+
+        void BuildCharts(int n)
+        {
+            int i = 0;
+            sources = new ObservableDataSource<Point>[n];
+            for (i = 0; i < n; i++)
+            {
+                sources[i] = new ObservableDataSource<Point>();
+                sources[i].SetXYMapping(p => p);
+                plotter.AddLineGraph(sources[i], 1, "Channel " + i.ToString());
+            }
         }
 
 
