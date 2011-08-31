@@ -37,6 +37,9 @@
     <Reference Include="AForge.Neuro">
       <HintPath>..\..\lib\AForge.Neuro.dll</HintPath>
     </Reference>
+    <Reference Include="BasicDSP">
+      <HintPath>..\..\lib\BasicDSP.dll</HintPath>
+    </Reference>
     <Reference Include="DynamicDataDisplay">
       <HintPath>..\..\lib\DynamicDataDisplay.dll</HintPath>
     </Reference>
