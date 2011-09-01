@@ -117,7 +117,10 @@ namespace Adastra
         void AsyncWorkerSaveModel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message);}
+            {
+                MessageBox.Show("Error:" + e.Error.Message);
+                listBoxLogger.Items.Insert(0, "Error saving model!");
+            }
             else
             {
                 listBoxLogger.Items.Insert(0, "Model '" + textBoxModelName.Text + "' saved.");
@@ -134,10 +137,13 @@ namespace Adastra
         void AsyncWorkerRecord_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message); }
+            {
+                MessageBox.Show("Error:" + e.Error.Message);
+                listBoxLogger.Items.Insert(0, "Error recording data!");
+            }
             else
             {
-                listBoxLogger.Items.Insert(0, "Recording completed. " + LastRecodredFeatureVectorsCount.ToString()+" additional vectors acquired.");
+                listBoxLogger.Items.Insert(0, "Recording completed. " + LastRecodredFeatureVectorsCount.ToString() + " additional vectors acquired.");
             }
             buttonRecordAction.Enabled = true;
         }
