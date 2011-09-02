@@ -7,6 +7,9 @@ using BasicDSP;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Applies ButterworthBandPass(min=29, max=40 , order 4) and signal averaging filters
+    /// </summary>
     class BasicSignalProcessor : IDigitalSignalProcessor
     {
         public double[] DoWork(double[] data)
