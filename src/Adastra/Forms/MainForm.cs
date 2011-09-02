@@ -76,7 +76,8 @@ namespace Adastra
                 if (rbuttonEmotiv.Checked) 
                 { 
                     featureGenerator = new EmotivFeatureGenerator();
-                    dataReader = new EmotivRawDataReader();
+                    dataReader = new FileSystemDataReader(@"C:\Users\toncho\Desktop\Adastra\data\mitko-small.csv");
+                    //dataReader = new EmotivRawDataReader();
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {

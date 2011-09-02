@@ -74,7 +74,7 @@ namespace WPF
             {
                 x++;
 
-                if (dataReader is EmotivRawDataReader)
+                if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)//this list can be changed
                 {
                     ((new BasicSignalProcessor()).DoWork(values)).CopyTo(values, 0);
                 }
@@ -145,7 +145,7 @@ namespace WPF
             {
                 sources[i] = new ObservableDataSource<Point>();
                 sources[i].SetXYMapping(p => p);
-                plotter.AddLineGraph(sources[i], 1, "Channel " + i.ToString());
+                plotter.AddLineGraph(sources[i], 1, "Channel " + (i+1).ToString());
             }
 
             //int i = 0;

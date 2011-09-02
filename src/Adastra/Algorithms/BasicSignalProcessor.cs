@@ -12,36 +12,33 @@ namespace Adastra
     /// </summary>
     class BasicSignalProcessor : IDigitalSignalProcessor
     {
-        const int windowLength = 5;
+        const int windowLength = 3;// 1 = disabled 
         List<double> windowNumbers = new List<double>();
 
         public double[] DoWork(double[] data)
         {
-          
-
             for (int i = 0; i < data.Length; i++)
             {
-                #region ButterworthBandPass
+                #region 1. ButterworthBandPass
                 LTISystemChain chain = Filter.ButterworthBandPass(0.29, 0.40, 4);
                 data[i] = chain[data[i]];
                 #endregion
 
                 #region 2. Averaging
-                if (windowNumbers.Count < windowLength) //fill window
-                    windowNumbers.Add(data[i]);
-                else
-                {
-                    windowNumbers.Add(data[i]);
-                    double sum=0;
-                    foreach (double d in windowNumbers)
-                    {
-                        sum += d;
-                    }
-                    data[i] = sum / windowNumbers.Count;
+                //if (windowNumbers.Count < windowLength) //fill window
+                //    windowNumbers.Add(data[i]);
+                //else
+                //{
+                //    windowNumbers.Add(data[i]);
+                //    double sum=0;
+                //    foreach (double d in windowNumbers)
+                //    {
+                //        sum += d;
+                //    }
+                //    data[i] = sum / windowNumbers.Count;
 
-                    windowNumbers.RemoveAt(0);
-                }
-
+                //    windowNumbers.RemoveAt(0);
+                //}
                 #endregion
             }
 
