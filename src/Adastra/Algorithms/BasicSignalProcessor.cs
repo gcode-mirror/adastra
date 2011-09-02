@@ -11,16 +11,21 @@ namespace Adastra
     {
         public double[] DoWork(double[] data)
         {
-			//Signal s = new Signal();
+            //1. ButterworthBandPass
 
-			//for (int i=0;i<data.Length;i++)
-			//{
-			//    s.Add(3);
-			//}
+            //Signal s = new Signal();
 
-			//LTISystemChain chain = Filter.ButterworthBandPass(29, 40, 4);
+            //for (int i=0;i<data.Length;i++)
+            //{
+            //    s.Add(3);
+            //}
 
-			//chain.Filter(ref s);
+            //LTISystemChain chain = Filter.ButterworthBandPass(29, 40, 4);
+
+            //chain.Filter(ref s);
+
+
+            //2. Averaging
 
             return data;
         }
