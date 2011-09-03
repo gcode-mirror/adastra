@@ -55,6 +55,8 @@ namespace Adastra
             asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
             asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
             #endregion
+
+            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -77,8 +79,10 @@ namespace Adastra
                 if (rbuttonEmotiv.Checked) 
                 { 
                     featureGenerator = new EmotivFeatureGenerator();
-                    dataReader = new FileSystemDataReader(Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv");
-                    //dataReader = new EmotivRawDataReader();
+                    
+                    if (rbuttonEmotivSignal.Checked)
+                        dataReader = new EmotivRawDataReader();
+                    else dataReader = new FileSystemDataReader(textBoxEmotivFile.Text);
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {

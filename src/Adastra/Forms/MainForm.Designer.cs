@@ -29,31 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
-            treeNode11});
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode10,
-            treeNode12});
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode40,
+            treeNode41});
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode43,
+            treeNode44});
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode46,
+            treeNode47});
+            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode45,
+            treeNode48});
+            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode50});
+            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode42,
+            treeNode49,
+            treeNode51});
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -81,14 +81,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxEmotivFile = new System.Windows.Forms.TextBox();
+            this.rbuttonEmotivFile = new System.Windows.Forms.RadioButton();
+            this.rbuttonEmotivSignal = new System.Windows.Forms.RadioButton();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
             this.rbuttonWPFcharting = new System.Windows.Forms.RadioButton();
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonBrowseEmotivFile = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,7 +99,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(271, 303);
+            this.buttonStart.Location = new System.Drawing.Point(273, 344);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -122,7 +123,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(720, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(702, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -182,7 +183,7 @@
             // 
             // textBoxOpenVibeWorkingFolder
             // 
-            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(162, 79);
+            this.textBoxOpenVibeWorkingFolder.Location = new System.Drawing.Point(144, 79);
             this.textBoxOpenVibeWorkingFolder.Name = "textBoxOpenVibeWorkingFolder";
             this.textBoxOpenVibeWorkingFolder.Size = new System.Drawing.Size(242, 20);
             this.textBoxOpenVibeWorkingFolder.TabIndex = 4;
@@ -190,7 +191,7 @@
             // 
             // textBoxScenario
             // 
-            this.textBoxScenario.Location = new System.Drawing.Point(112, 27);
+            this.textBoxScenario.Location = new System.Drawing.Point(94, 27);
             this.textBoxScenario.Name = "textBoxScenario";
             this.textBoxScenario.Size = new System.Drawing.Size(292, 20);
             this.textBoxScenario.TabIndex = 5;
@@ -198,7 +199,7 @@
             // 
             // buttonSelectOpenVibeWorkingFolder
             // 
-            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(410, 79);
+            this.buttonSelectOpenVibeWorkingFolder.Location = new System.Drawing.Point(392, 79);
             this.buttonSelectOpenVibeWorkingFolder.Name = "buttonSelectOpenVibeWorkingFolder";
             this.buttonSelectOpenVibeWorkingFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectOpenVibeWorkingFolder.TabIndex = 6;
@@ -208,7 +209,7 @@
             // 
             // buttonSelectScenario
             // 
-            this.buttonSelectScenario.Location = new System.Drawing.Point(410, 24);
+            this.buttonSelectScenario.Location = new System.Drawing.Point(392, 24);
             this.buttonSelectScenario.Name = "buttonSelectScenario";
             this.buttonSelectScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonSelectScenario.TabIndex = 7;
@@ -219,7 +220,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 82);
+            this.label2.Location = new System.Drawing.Point(12, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 9;
@@ -228,7 +229,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(591, 325);
+            this.buttonExit.Location = new System.Drawing.Point(576, 368);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -242,7 +243,7 @@
             this.comboBoxScenarioType.FormattingEnabled = true;
             this.comboBoxScenarioType.Location = new System.Drawing.Point(96, 36);
             this.comboBoxScenarioType.Name = "comboBoxScenarioType";
-            this.comboBoxScenarioType.Size = new System.Drawing.Size(609, 21);
+            this.comboBoxScenarioType.Size = new System.Drawing.Size(597, 21);
             this.comboBoxScenarioType.TabIndex = 13;
             this.comboBoxScenarioType.SelectedIndexChanged += new System.EventHandler(this.comboBoxScenarioType_SelectedIndexChanged);
             // 
@@ -250,41 +251,41 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(0, 333);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node2";
-            treeNode1.Text = "EEG signal";
-            treeNode2.Name = "Node6";
-            treeNode2.Text = "Claffication output from OpenVibe";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Display";
-            treeNode4.Name = "Node7";
-            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode5.Name = "Node8";
-            treeNode5.Text = "Using Adastra\'s feature aggregator";
-            treeNode6.Name = "Node4";
-            treeNode6.Text = "Train";
-            treeNode7.Name = "Node11";
-            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode8.Name = "Node12";
-            treeNode8.Text = "Using Adastra\'s feature aggregator";
-            treeNode9.Name = "Node5";
-            treeNode9.Text = "Classify";
-            treeNode10.Name = "Node3";
-            treeNode10.Text = "Classification";
-            treeNode11.Name = "Node10";
-            treeNode11.Text = "Mouse cursor";
-            treeNode12.Name = "Node9";
-            treeNode12.Text = "Device control";
-            treeNode13.Name = "Node0";
-            treeNode13.Text = "Scenario";
+            treeNode40.Name = "Node2";
+            treeNode40.Text = "EEG signal";
+            treeNode41.Name = "Node6";
+            treeNode41.Text = "Claffication output from OpenVibe";
+            treeNode42.Name = "Node1";
+            treeNode42.Text = "Display";
+            treeNode43.Name = "Node7";
+            treeNode43.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode44.Name = "Node8";
+            treeNode44.Text = "Using Adastra\'s feature aggregator";
+            treeNode45.Name = "Node4";
+            treeNode45.Text = "Train";
+            treeNode46.Name = "Node11";
+            treeNode46.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode47.Name = "Node12";
+            treeNode47.Text = "Using Adastra\'s feature aggregator";
+            treeNode48.Name = "Node5";
+            treeNode48.Text = "Classify";
+            treeNode49.Name = "Node3";
+            treeNode49.Text = "Classification";
+            treeNode50.Name = "Node10";
+            treeNode50.Text = "Mouse cursor";
+            treeNode51.Name = "Node9";
+            treeNode51.Text = "Device control";
+            treeNode52.Name = "Node0";
+            treeNode52.Text = "Scenario";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13});
+            treeNode52});
             this.treeView1.Size = new System.Drawing.Size(295, 242);
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;
             // 
             // buttonEditScenario
             // 
-            this.buttonEditScenario.Location = new System.Drawing.Point(491, 24);
+            this.buttonEditScenario.Location = new System.Drawing.Point(473, 24);
             this.buttonEditScenario.Name = "buttonEditScenario";
             this.buttonEditScenario.Size = new System.Drawing.Size(75, 23);
             this.buttonEditScenario.TabIndex = 15;
@@ -306,7 +307,7 @@
             this.groupBox1.Controls.Add(this.textBoxOpenVibeWorkingFolder);
             this.groupBox1.Location = new System.Drawing.Point(128, 88);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(580, 116);
+            this.groupBox1.Size = new System.Drawing.Size(566, 116);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OpenVibe settings";
@@ -314,7 +315,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(201, 59);
+            this.label4.Location = new System.Drawing.Point(183, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(243, 13);
             this.label4.TabIndex = 19;
@@ -324,7 +325,7 @@
             // rButtonRealtime
             // 
             this.rButtonRealtime.AutoSize = true;
-            this.rButtonRealtime.Location = new System.Drawing.Point(126, 57);
+            this.rButtonRealtime.Location = new System.Drawing.Point(108, 57);
             this.rButtonRealtime.Name = "rButtonRealtime";
             this.rButtonRealtime.Size = new System.Drawing.Size(69, 17);
             this.rButtonRealtime.TabIndex = 18;
@@ -336,7 +337,7 @@
             // 
             this.rButtonRecordedSignal.AutoSize = true;
             this.rButtonRecordedSignal.Checked = true;
-            this.rButtonRecordedSignal.Location = new System.Drawing.Point(34, 57);
+            this.rButtonRecordedSignal.Location = new System.Drawing.Point(16, 57);
             this.rButtonRecordedSignal.Name = "rButtonRecordedSignal";
             this.rButtonRecordedSignal.Size = new System.Drawing.Size(86, 17);
             this.rButtonRecordedSignal.TabIndex = 17;
@@ -348,7 +349,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 27);
+            this.label3.Location = new System.Drawing.Point(12, 27);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 16;
@@ -377,16 +378,58 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.radioButton2);
-            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.buttonBrowseEmotivFile);
+            this.groupBox2.Controls.Add(this.textBoxEmotivFile);
+            this.groupBox2.Controls.Add(this.rbuttonEmotivFile);
+            this.groupBox2.Controls.Add(this.rbuttonEmotivSignal);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Location = new System.Drawing.Point(128, 210);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(580, 87);
+            this.groupBox2.Size = new System.Drawing.Size(566, 103);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Emotiv EPOCH settings";
+            // 
+            // textBoxEmotivFile
+            // 
+            this.textBoxEmotivFile.Location = new System.Drawing.Point(167, 49);
+            this.textBoxEmotivFile.Name = "textBoxEmotivFile";
+            this.textBoxEmotivFile.Size = new System.Drawing.Size(300, 20);
+            this.textBoxEmotivFile.TabIndex = 3;
+            // 
+            // rbuttonEmotivFile
+            // 
+            this.rbuttonEmotivFile.AutoSize = true;
+            this.rbuttonEmotivFile.Checked = true;
+            this.rbuttonEmotivFile.Location = new System.Drawing.Point(15, 49);
+            this.rbuttonEmotivFile.Name = "rbuttonEmotivFile";
+            this.rbuttonEmotivFile.Size = new System.Drawing.Size(148, 17);
+            this.rbuttonEmotivFile.TabIndex = 2;
+            this.rbuttonEmotivFile.TabStop = true;
+            this.rbuttonEmotivFile.Text = "From disk in Emotiv format";
+            this.rbuttonEmotivFile.UseVisualStyleBackColor = true;
+            // 
+            // rbuttonEmotivSignal
+            // 
+            this.rbuttonEmotivSignal.AutoSize = true;
+            this.rbuttonEmotivSignal.Location = new System.Drawing.Point(15, 19);
+            this.rbuttonEmotivSignal.Name = "rbuttonEmotivSignal";
+            this.rbuttonEmotivSignal.Size = new System.Drawing.Size(157, 17);
+            this.rbuttonEmotivSignal.TabIndex = 1;
+            this.rbuttonEmotivSignal.Text = "Real-time signal from Emotiv";
+            this.rbuttonEmotivSignal.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(16, 75);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(194, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Apply basic digital signal processing";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // rbuttonEmotiv
             // 
@@ -426,56 +469,26 @@
             // 
             this.groupBoxCharting.Controls.Add(this.rbuttonWPFcharting);
             this.groupBoxCharting.Controls.Add(this.rbuttonWindowsFormsCharting);
-            this.groupBoxCharting.Location = new System.Drawing.Point(532, 58);
+            this.groupBoxCharting.Location = new System.Drawing.Point(517, 58);
             this.groupBoxCharting.Name = "groupBoxCharting";
             this.groupBoxCharting.Size = new System.Drawing.Size(176, 34);
             this.groupBoxCharting.TabIndex = 24;
             this.groupBoxCharting.TabStop = false;
             // 
-            // checkBox1
+            // buttonBrowseEmotivFile
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 20);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(152, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "enable basic signal filtering";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(177, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(152, 17);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "real-time signal from Emotiv";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(177, 49);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(145, 17);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "from disk in Emotiv format";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(328, 49);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(216, 20);
-            this.textBox1.TabIndex = 3;
+            this.buttonBrowseEmotivFile.Location = new System.Drawing.Point(473, 47);
+            this.buttonBrowseEmotivFile.Name = "buttonBrowseEmotivFile";
+            this.buttonBrowseEmotivFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowseEmotivFile.TabIndex = 4;
+            this.buttonBrowseEmotivFile.Text = "Browse";
+            this.buttonBrowseEmotivFile.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 371);
+            this.ClientSize = new System.Drawing.Size(702, 413);
             this.Controls.Add(this.groupBoxCharting);
             this.Controls.Add(this.rbuttonOpenVibe);
             this.Controls.Add(this.rbuttonEmotiv);
@@ -537,10 +550,11 @@
         private System.Windows.Forms.RadioButton rbuttonWPFcharting;
         private System.Windows.Forms.RadioButton rbuttonWindowsFormsCharting;
         private System.Windows.Forms.GroupBox groupBoxCharting;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.TextBox textBoxEmotivFile;
+        private System.Windows.Forms.RadioButton rbuttonEmotivFile;
+        private System.Windows.Forms.RadioButton rbuttonEmotivSignal;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button buttonBrowseEmotivFile;
     }
 }
 
