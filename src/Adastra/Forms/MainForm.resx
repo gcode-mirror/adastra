@@ -120,7 +120,4 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Basic support for Emotiv is implemented. Signal is being feeded directly to the machine learning algorithms. Currently no digital signal processing is applied. You need to supply edk.dll and edk_utils.dll before using this option.</value>
-  </data>
 </root>
