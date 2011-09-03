@@ -40,7 +40,7 @@ namespace Adastra
         {
             InitializeComponent();
 
-            if (p_dataReader is EmotivRawDataReader)
+            if (p_dataReader is EmotivRawDataReader || p_dataReader is FileSystemDataReader)
             {
                 ScallingDisabled = false;
             }
@@ -159,7 +159,7 @@ namespace Adastra
             int i=0;
             foreach (double[] d in bufferQueue)
             {
-                if (dataReader is EmotivRawDataReader)
+                if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)
                 {
                     ((new BasicSignalProcessor()).DoWork(d)).CopyTo(d, 0);
                 }

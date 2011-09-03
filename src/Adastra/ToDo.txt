@@ -1,4 +1,7 @@
-﻿
+﻿- add emotiv basic signal processing option
+- enable signal processing for both visualization and machine learning
+
+
 - Ajust OpenVibe scenarios for better signal processing
 
 ===============================================================
