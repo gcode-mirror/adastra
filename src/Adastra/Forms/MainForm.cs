@@ -319,6 +319,8 @@ namespace Adastra
 
         private void rbuttonOpenVibe_CheckedChanged(object sender, EventArgs e)
         {
+            int lastSelectedIndex = comboBoxScenarioType.SelectedIndex;
+
             if (rbuttonOpenVibe.Checked)
                 rbuttonEmotiv.Checked = false;
 
@@ -329,13 +331,15 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
-            comboBoxScenarioType.SelectedIndex = 0;
+            comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
 
             groupBoxCharting.Visible = true;
         }
 
         private void rbuttonEmotiv_CheckedChanged(object sender, EventArgs e)
         {
+            int lastSelectedIndex = comboBoxScenarioType.SelectedIndex;
+
             if (rbuttonEmotiv.Checked)
                 rbuttonOpenVibe.Checked = false;
 
@@ -345,8 +349,8 @@ namespace Adastra
 
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            
-            comboBoxScenarioType.SelectedIndex = 0;
+
+            comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
             groupBoxCharting.Visible = false;
         }
 

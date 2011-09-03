@@ -33,7 +33,6 @@ namespace Adastra
             file.ReadLine();//skip one line
         }
 
-
         public event RawDataChangedEventHandler Values;
 
         public void Update()
