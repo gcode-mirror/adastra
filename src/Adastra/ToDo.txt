@@ -2,8 +2,10 @@
 - enable signal processing for both visualization and machine learning
      - data reader (Signal Processor)
 	 - feature generator (Signal Processor)
+- find a way to adjust space between channels 
 
-- fix windows forms with emotiv and signal filtering
+===============================================================
+- fix windows forms with emotiv and signal filtering (disabled)
 ===============================================================
 
 - Ajust OpenVibe scenarios for better signal processing

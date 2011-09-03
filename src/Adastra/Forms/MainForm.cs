@@ -45,6 +45,7 @@ namespace Adastra
             textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
 
             rbuttonOpenVibe.Checked = true;
+            comboBoxScenarioType.SelectedIndex = 0;
 
             #region BackgroundWorker for OpenVibe
             asyncWorker = new BackgroundWorker();
@@ -251,10 +252,14 @@ namespace Adastra
         {
             string scenario = "";
             groupBoxCharting.Visible = false;
+
             switch (comboBoxScenarioType.SelectedIndex)
             {
                 case 0: scenario = "signal-charting-vrpn.xml";
-                    groupBoxCharting.Visible = true;
+
+                    if (rbuttonOpenVibe.Checked)
+                        groupBoxCharting.Visible = true;
+                    else groupBoxCharting.Visible = false;
                     break;
                 //case 1: scenario = "openvibe-classifier-output-vrpn.xml"; break;
                 case 1: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
@@ -320,7 +325,9 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
-            comboBoxScenarioType.SelectedIndex = 1;
+            comboBoxScenarioType.SelectedIndex = 0;
+
+            groupBoxCharting.Visible = true;
         }
 
         private void rbuttonEmotiv_CheckedChanged(object sender, EventArgs e)
@@ -335,7 +342,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             
-            comboBoxScenarioType.SelectedIndex = 1;
+            comboBoxScenarioType.SelectedIndex = 0;
+            groupBoxCharting.Visible = false;
         }
 
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
