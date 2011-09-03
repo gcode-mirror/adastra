@@ -1,6 +1,10 @@
-﻿- add emotiv basic signal processing option
+﻿- add emotiv basic signal processing option in UI
 - enable signal processing for both visualization and machine learning
+     - data reader (Signal Processor)
+	 - feature generator (Signal Processor)
 
+- fix windows forms with emotiv and signal filtering
+===============================================================
 
 - Ajust OpenVibe scenarios for better signal processing
 
