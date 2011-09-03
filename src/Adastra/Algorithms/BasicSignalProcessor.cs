@@ -15,7 +15,7 @@ namespace Adastra
         const int windowLength = 3;// 1 = disabled 
         List<double> windowNumbers = new List<double>();
 
-        public double[] DoWork(double[] data)
+        public void DoWork(ref double[] data)
         {
             for (int i = 0; i < data.Length; i++)
             {
@@ -42,7 +42,7 @@ namespace Adastra
                 #endregion
             }
 
-            return data;
+            //return data;
         }
     }
 }

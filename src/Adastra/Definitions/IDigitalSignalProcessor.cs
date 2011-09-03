@@ -7,6 +7,6 @@ namespace Adastra
 {
     public interface IDigitalSignalProcessor
     {
-        double[] DoWork(double[] data);
+        void DoWork(ref double[] data);
     }
 }

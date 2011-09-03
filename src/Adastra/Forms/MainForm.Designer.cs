@@ -29,31 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("EEG signal");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
-            treeNode40,
-            treeNode41});
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
-            treeNode43,
-            treeNode44});
-            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
-            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
-            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
-            treeNode46,
-            treeNode47});
-            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode45,
-            treeNode48});
-            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Mouse cursor");
-            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
-            treeNode50});
-            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
-            treeNode42,
-            treeNode49,
-            treeNode51});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("EEG signal");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Claffication output from OpenVibe");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Train", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Using OpenVibe\'s feature aggegator");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Using Adastra\'s feature aggregator");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Classify", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mouse cursor");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Device control", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Scenario", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode10,
+            treeNode12});
             this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -81,15 +81,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonBrowseEmotivFile = new System.Windows.Forms.Button();
             this.textBoxEmotivFile = new System.Windows.Forms.TextBox();
             this.rbuttonEmotivFile = new System.Windows.Forms.RadioButton();
             this.rbuttonEmotivSignal = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableBasicDSP = new System.Windows.Forms.CheckBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
             this.rbuttonWPFcharting = new System.Windows.Forms.RadioButton();
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
-            this.buttonBrowseEmotivFile = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -251,34 +251,34 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(0, 333);
             this.treeView1.Name = "treeView1";
-            treeNode40.Name = "Node2";
-            treeNode40.Text = "EEG signal";
-            treeNode41.Name = "Node6";
-            treeNode41.Text = "Claffication output from OpenVibe";
-            treeNode42.Name = "Node1";
-            treeNode42.Text = "Display";
-            treeNode43.Name = "Node7";
-            treeNode43.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode44.Name = "Node8";
-            treeNode44.Text = "Using Adastra\'s feature aggregator";
-            treeNode45.Name = "Node4";
-            treeNode45.Text = "Train";
-            treeNode46.Name = "Node11";
-            treeNode46.Text = "Using OpenVibe\'s feature aggegator";
-            treeNode47.Name = "Node12";
-            treeNode47.Text = "Using Adastra\'s feature aggregator";
-            treeNode48.Name = "Node5";
-            treeNode48.Text = "Classify";
-            treeNode49.Name = "Node3";
-            treeNode49.Text = "Classification";
-            treeNode50.Name = "Node10";
-            treeNode50.Text = "Mouse cursor";
-            treeNode51.Name = "Node9";
-            treeNode51.Text = "Device control";
-            treeNode52.Name = "Node0";
-            treeNode52.Text = "Scenario";
+            treeNode1.Name = "Node2";
+            treeNode1.Text = "EEG signal";
+            treeNode2.Name = "Node6";
+            treeNode2.Text = "Claffication output from OpenVibe";
+            treeNode3.Name = "Node1";
+            treeNode3.Text = "Display";
+            treeNode4.Name = "Node7";
+            treeNode4.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode5.Name = "Node8";
+            treeNode5.Text = "Using Adastra\'s feature aggregator";
+            treeNode6.Name = "Node4";
+            treeNode6.Text = "Train";
+            treeNode7.Name = "Node11";
+            treeNode7.Text = "Using OpenVibe\'s feature aggegator";
+            treeNode8.Name = "Node12";
+            treeNode8.Text = "Using Adastra\'s feature aggregator";
+            treeNode9.Name = "Node5";
+            treeNode9.Text = "Classify";
+            treeNode10.Name = "Node3";
+            treeNode10.Text = "Classification";
+            treeNode11.Name = "Node10";
+            treeNode11.Text = "Mouse cursor";
+            treeNode12.Name = "Node9";
+            treeNode12.Text = "Device control";
+            treeNode13.Name = "Node0";
+            treeNode13.Text = "Scenario";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode52});
+            treeNode13});
             this.treeView1.Size = new System.Drawing.Size(295, 242);
             this.treeView1.TabIndex = 14;
             this.treeView1.Visible = false;
@@ -382,13 +382,23 @@
             this.groupBox2.Controls.Add(this.textBoxEmotivFile);
             this.groupBox2.Controls.Add(this.rbuttonEmotivFile);
             this.groupBox2.Controls.Add(this.rbuttonEmotivSignal);
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.checkBoxEnableBasicDSP);
             this.groupBox2.Location = new System.Drawing.Point(128, 210);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(566, 103);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Emotiv EPOCH settings";
+            // 
+            // buttonBrowseEmotivFile
+            // 
+            this.buttonBrowseEmotivFile.Location = new System.Drawing.Point(473, 47);
+            this.buttonBrowseEmotivFile.Name = "buttonBrowseEmotivFile";
+            this.buttonBrowseEmotivFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowseEmotivFile.TabIndex = 4;
+            this.buttonBrowseEmotivFile.Text = "Browse";
+            this.buttonBrowseEmotivFile.UseVisualStyleBackColor = true;
+            this.buttonBrowseEmotivFile.Click += new System.EventHandler(this.buttonBrowseEmotivFile_Click);
             // 
             // textBoxEmotivFile
             // 
@@ -419,17 +429,17 @@
             this.rbuttonEmotivSignal.Text = "Real-time signal from Emotiv";
             this.rbuttonEmotivSignal.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxEnableBasicDSP
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(16, 75);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(194, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Apply basic digital signal processing";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxEnableBasicDSP.AutoSize = true;
+            this.checkBoxEnableBasicDSP.Checked = true;
+            this.checkBoxEnableBasicDSP.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEnableBasicDSP.Location = new System.Drawing.Point(16, 75);
+            this.checkBoxEnableBasicDSP.Name = "checkBoxEnableBasicDSP";
+            this.checkBoxEnableBasicDSP.Size = new System.Drawing.Size(194, 17);
+            this.checkBoxEnableBasicDSP.TabIndex = 0;
+            this.checkBoxEnableBasicDSP.Text = "Apply basic digital signal processing";
+            this.checkBoxEnableBasicDSP.UseVisualStyleBackColor = true;
             // 
             // rbuttonEmotiv
             // 
@@ -474,15 +484,6 @@
             this.groupBoxCharting.Size = new System.Drawing.Size(176, 34);
             this.groupBoxCharting.TabIndex = 24;
             this.groupBoxCharting.TabStop = false;
-            // 
-            // buttonBrowseEmotivFile
-            // 
-            this.buttonBrowseEmotivFile.Location = new System.Drawing.Point(473, 47);
-            this.buttonBrowseEmotivFile.Name = "buttonBrowseEmotivFile";
-            this.buttonBrowseEmotivFile.Size = new System.Drawing.Size(75, 23);
-            this.buttonBrowseEmotivFile.TabIndex = 4;
-            this.buttonBrowseEmotivFile.Text = "Browse";
-            this.buttonBrowseEmotivFile.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -553,7 +554,7 @@
         private System.Windows.Forms.TextBox textBoxEmotivFile;
         private System.Windows.Forms.RadioButton rbuttonEmotivFile;
         private System.Windows.Forms.RadioButton rbuttonEmotivSignal;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxEnableBasicDSP;
         private System.Windows.Forms.Button buttonBrowseEmotivFile;
     }
 }

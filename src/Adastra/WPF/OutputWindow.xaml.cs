@@ -74,10 +74,10 @@ namespace WPF
             {
                 x++;
 
-                if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)//this list can be changed
-                {
-                    ((new BasicSignalProcessor()).DoWork(values)).CopyTo(values, 0);
-                }
+                //if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)//this list can be changed
+                //{
+                //    (new BasicSignalProcessor()).DoWork(ref values);
+                //}
 
                 points = new Point[values.Length];
 

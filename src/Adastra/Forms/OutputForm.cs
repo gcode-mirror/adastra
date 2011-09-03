@@ -156,18 +156,20 @@ namespace Adastra
         {
             double[] chartValues = new double[bufferQueueCount];
 
-            int i=0;
-            foreach (double[] d in bufferQueue)
+            //int i=0;
+            //foreach (double[] d in bufferQueue)
+            for (int i=0;i<bufferQueue.Count;i++)
             {
-                if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)
-                {
-                    ((new BasicSignalProcessor()).DoWork(d)).CopyTo(d, 0);
-                }
+                double[] v = bufferQueue.ToArray()[i];
+                //if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)
+                //{
+                //    (new BasicSignalProcessor()).DoWork(ref v);
+                //}
+
                 if (i < chartValues.Length)
                 {
-                    chartValues[i] = d[chartIndex];
-                    //if (dataReader is EmotivRawDataReader)
-                    //    chartValues[i] -= 4100;
+                    chartValues[i] = v[chartIndex];
+
                     i++;
                 }
             }

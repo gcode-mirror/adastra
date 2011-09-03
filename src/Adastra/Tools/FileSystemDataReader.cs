@@ -11,6 +11,18 @@ namespace Adastra
         string _filename;
         int counter = 0;
         System.IO.StreamReader file;
+        IDigitalSignalProcessor processor=null;
+
+        public FileSystemDataReader(string filename, IDigitalSignalProcessor processor)
+        {
+            _filename = filename;
+
+            file = new System.IO.StreamReader(filename);
+
+            file.ReadLine();//skip one line
+
+            this.processor = processor;
+        }
 
         public FileSystemDataReader(string filename)
         {
@@ -26,11 +38,13 @@ namespace Adastra
 
         public void Update()
         {
-            double[] result=new double[14];
+            if (file == null) return;
+
+            double[] result = new double[14];
 
             string line = file.ReadLine();
 
-            if (counter < 5000)
+            if (line != null)
             {
                 string[] columns = line.Split(',');
 
@@ -38,9 +52,17 @@ namespace Adastra
                     result[i] = double.Parse(columns[i + 2]);
 
                 counter++;
-            }
 
-            Values(result);
+                if (processor != null)
+                    processor.DoWork(ref result);
+
+                Values(result);
+            }
+            else
+            {
+                file.Close();
+                file = null;
+            }
         }
     }
 }

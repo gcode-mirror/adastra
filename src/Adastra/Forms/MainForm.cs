@@ -77,12 +77,12 @@ namespace Adastra
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
                 if (rbuttonEmotiv.Checked) 
-                { 
-                    featureGenerator = new EmotivFeatureGenerator();
-                    
+                {
+                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new EmotivFeatureGenerator(new BasicSignalProcessor()) : new EmotivFeatureGenerator();
+
                     if (rbuttonEmotivSignal.Checked)
-                        dataReader = new EmotivRawDataReader();
-                    else dataReader = new FileSystemDataReader(textBoxEmotivFile.Text);
+                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(new BasicSignalProcessor()) : new EmotivRawDataReader();
+                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new FileSystemDataReader(textBoxEmotivFile.Text, new BasicSignalProcessor()) : new FileSystemDataReader(textBoxEmotivFile.Text);
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {
@@ -353,6 +353,23 @@ namespace Adastra
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenLinkInBrowser("http://code.google.com/p/adastra/wiki/UsageTutorial");
+        }
+
+        private void buttonBrowseEmotivFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fo = new OpenFileDialog();
+            DialogResult result = fo.ShowDialog(); 
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    textBoxEmotivFile.Text = fo.FileName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error:" + ex.Message);
+                }
+            }   
         }
     }
 }

@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +43,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(134, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Adastra 2.1";
+            this.label1.Text = "Adastra 2.2";
             // 
             // groupBox1
             // 
@@ -56,15 +56,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Developed by:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Anton Andreev";
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -75,6 +66,15 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "http://bg.linkedin.com/in/antonandreev";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Anton Andreev";
             // 
             // AboutForm
             // 
