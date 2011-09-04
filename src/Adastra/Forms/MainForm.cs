@@ -375,5 +375,15 @@ namespace Adastra
                 }
             }   
         }
+
+		private void rbuttonEmotivFile_CheckedChanged(object sender, EventArgs e)
+		{
+			label6.Visible = false;
+		}
+
+		private void rbuttonEmotivSignal_CheckedChanged(object sender, EventArgs e)
+		{
+			label6.Visible = true;
+		}
     }
 }

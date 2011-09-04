@@ -1,3 +1,10 @@
+Adastra 2.2 Released .2011 (dd/mm/yyyy)
+============================================
+
+- Added WPF EGG signal charting for both OpenVibe and Emotiv
+- "Forms" charting disabled for Emotiv
+- added basic digital signal processing with ButterworthPassBand filter (min=29, max=40 , order 4)
+
 Adastra 2.1 Released 23.08.2011 (dd/mm/yyyy)
 ============================================
 
