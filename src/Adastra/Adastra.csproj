@@ -141,10 +141,10 @@
     <Compile Include="Forms\TrainForm.Designer.cs">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\EmotivFileSystemDataReader.cs" />
     <Compile Include="Tools\EEGRecordStorage.cs" />
     <Compile Include="Tools\EmotivFeatureGenerator.cs" />
     <Compile Include="Tools\EmotivRawDataReader.cs" />
-    <Compile Include="Tools\FileSystemDataReader.cs" />
     <Compile Include="Tools\ModelStorage.cs" />
     <Compile Include="Tools\OpenVibeController.cs" />
     <Compile Include="Program.cs" />

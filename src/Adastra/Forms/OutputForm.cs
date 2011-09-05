@@ -40,7 +40,7 @@ namespace Adastra
         {
             InitializeComponent();
 
-            if (p_dataReader is EmotivRawDataReader || p_dataReader is FileSystemDataReader)
+            if (p_dataReader is EmotivRawDataReader || p_dataReader is EmotivFileSystemDataReader)
             {
                 ScallingDisabled = false;
             }
