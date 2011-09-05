@@ -87,5 +87,12 @@ namespace Adastra
                 Values(result);
             }
         }
+
+		public double AdjustChannel(int number, double value)
+		{
+			//double[] channelAdjustments = { 1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 12.5, 14.5, 15.5, 17.5 };
+
+			return (value + number); /// 4;
+		}
     }
 }

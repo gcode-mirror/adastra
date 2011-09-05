@@ -29,9 +29,7 @@ namespace WPF
 
         static long x = 0;
 
-        //ChartPlotter[] plotters;
-
-        int maxpoints = 140;
+        int maxpoints = 220;
 
         public OutputWindow(IRawDataReader p_dataReader)
         {
@@ -74,17 +72,13 @@ namespace WPF
             {
                 x++;
 
-                //if (dataReader is EmotivRawDataReader || dataReader is FileSystemDataReader)//this list can be changed
-                //{
-                //    (new BasicSignalProcessor()).DoWork(ref values);
-                //}
-
                 points = new Point[values.Length];
 
                 i = 0;
                 foreach (double d in values)
                 {
-                    double t = d + (i + 1) * 1; //seperate different channels
+					double t = dataReader.AdjustChannel(i, d); //seperate different channels
+
                     points[i] = new Point(x, t);
                     
                     if (sources[i].Collection.Count > maxpoints)
@@ -145,33 +139,8 @@ namespace WPF
             {
                 sources[i] = new ObservableDataSource<Point>();
                 sources[i].SetXYMapping(p => p);
-                plotter.AddLineGraph(sources[i], 1, "Channel " + (i+1).ToString());
+                plotter.AddLineGraph(sources[i], 1, (i+1).ToString());
             }
-
-            //int i = 0;
-            //sources = new ObservableDataSource<Point>[n];
-            //plotters = new ChartPlotter[n];
-
-            //for (i = 0; i < n; i++)
-            //{
-            //    sources[i] = new ObservableDataSource<Point>();
-
-            //    sources[i].SetXYMapping(p => p);
-
-            //    plotters[i] = new ChartPlotter();
-
-            //    plotters[i].AddLineGraph(sources[i], 1, "Channel " + i.ToString());
-
-
-
-            //    plotters[i].AxisGrid.Visibility = System.Windows.Visibility.Hidden;
-
-
-            //    gCharts.RowDefinitions.Add(new RowDefinition() {Height = new GridLength(60, GridUnitType.Pixel) });
-
-            //    gCharts.Children.Add(plotters[i]); // Add to the grid
-            //    Grid.SetRow(plotters[i], i); // Specify row for previous grid addition
-            //}
         }
 
 

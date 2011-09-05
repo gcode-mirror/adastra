@@ -30,5 +30,10 @@ namespace Adastra
         }
 
         public event RawDataChangedEventHandler Values;
+
+		public double AdjustChannel(int number,double value)
+		{
+			return value + number;
+		}
     }
 }
