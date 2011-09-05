@@ -29,7 +29,7 @@ namespace WPF
 
         static long x = 0;
 
-        int maxpoints = 220;
+        int maxpoints = 180;
 
         public OutputWindow(IRawDataReader p_dataReader)
         {
@@ -133,9 +133,8 @@ namespace WPF
 
         void BuildCharts(int n)
         {
-            int i = 0;
             sources = new ObservableDataSource<Point>[n];
-            for (i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 sources[i] = new ObservableDataSource<Point>();
                 sources[i].SetXYMapping(p => p);
