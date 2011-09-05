@@ -27,7 +27,7 @@ namespace WPF
 
         private BackgroundWorker p_asyncWorker;
 
-        static long x = 0;
+        static long x = 0; //x axis for evey chart
 
         int maxpoints = 180;
 
@@ -61,8 +61,7 @@ namespace WPF
         void p_asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             double[] values=null;
-            bool success = bufferQueue.TryDequeue(out values);
-         
+            bool success = bufferQueue.TryDequeue(out values);         
             int i = 0;
             Point[] points;
 
@@ -77,9 +76,7 @@ namespace WPF
                 i = 0;
                 foreach (double d in values)
                 {
-					double t = dataReader.AdjustChannel(i, d); //seperate different channels
-
-                    points[i] = new Point(x, t);
+                    points[i] = new Point(x, dataReader.AdjustChannel(i, d)); //separate different channels
                     
                     if (sources[i].Collection.Count > maxpoints)
                         sources[i].Collection.RemoveAt(0);

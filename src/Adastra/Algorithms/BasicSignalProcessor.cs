@@ -41,8 +41,6 @@ namespace Adastra
                 //}
                 //#endregion
             }
-
-            //return data;
         }
     }
 }

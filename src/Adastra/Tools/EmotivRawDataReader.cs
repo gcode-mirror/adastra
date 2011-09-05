@@ -13,7 +13,7 @@ namespace Adastra
     {
         EmoEngine engine; // Access to the EDK is via the EmoEngine 
         int userID = -1; // userID is used to uniquely identify a user's headset
-        IDigitalSignalProcessor processor=null;
+        IDigitalSignalProcessor dsp=null;
 
         //public event ChangedEventHandler Values;
         public event RawDataChangedEventHandler Values;
@@ -23,10 +23,10 @@ namespace Adastra
             Init();
         }
 
-        public EmotivRawDataReader(IDigitalSignalProcessor processor)
+        public EmotivRawDataReader(IDigitalSignalProcessor dsp)
         {
             Init();
-            this.processor = processor;
+            this.dsp = dsp;
         }
 
         private void Init()
@@ -81,8 +81,8 @@ namespace Adastra
                 double[] result = new double[14];
                 for (int j = 3; j <= 14; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][i];
 
-                if (processor != null)
-                    processor.DoWork(ref result);
+                if (dsp != null)
+                    dsp.DoWork(ref result);
 
                 Values(result);
             }
@@ -92,7 +92,7 @@ namespace Adastra
 		{
 			//double[] channelAdjustments = { 1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 12.5, 14.5, 15.5, 17.5 };
 
-			return (value + number); /// 4;
+			return (value + number);
 		}
     }
 }

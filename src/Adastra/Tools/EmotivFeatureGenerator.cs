@@ -8,15 +8,15 @@ namespace Adastra
     public class EmotivFeatureGenerator : IFeatureGenerator
     {
         EmotivRawDataReader er;
-        IDigitalSignalProcessor processor;
+        IDigitalSignalProcessor dsp=null;
 
         public EmotivFeatureGenerator()
         {
         }
 
-        public EmotivFeatureGenerator(IDigitalSignalProcessor processor)
+        public EmotivFeatureGenerator(IDigitalSignalProcessor dsp)
         {
-            this.processor = processor;
+            this.dsp = dsp;
         }
 
         public void Update()
@@ -35,8 +35,8 @@ namespace Adastra
         void er_Values(double[] rawData)
         {
             //Filter signal
-            if (processor != null)
-                processor.DoWork(ref rawData);
+            if (dsp != null)
+                dsp.DoWork(ref rawData);
 
             //Generate feature vectors
             double[] featureVectors = rawData;

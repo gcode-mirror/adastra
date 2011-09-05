@@ -11,30 +11,31 @@ namespace Adastra
 	/// </summary>
 	public class EmotivFileSystemDataReader : IRawDataReader
 	{
-		string _filename;
+		string filename;
 		int counter = 0;
 		System.IO.StreamReader file;
-		IDigitalSignalProcessor processor = null;
+		IDigitalSignalProcessor dsp = null;
 
-		public EmotivFileSystemDataReader(string filename, IDigitalSignalProcessor processor)
+		public EmotivFileSystemDataReader(string filename, IDigitalSignalProcessor dsp)
 		{
-			_filename = filename;
+            Init(filename);
 
-			file = new System.IO.StreamReader(filename);
-
-			file.ReadLine();//skip one line
-
-			this.processor = processor;
+			this.dsp = dsp;
 		}
 
-		public EmotivFileSystemDataReader(string filename)
+        public EmotivFileSystemDataReader(string filename)
 		{
-			_filename = filename;
-
-			file = new System.IO.StreamReader(filename);
-
-			file.ReadLine();//skip one line
+            Init(filename);
 		}
+
+        private void Init(string filename)
+        {
+            this.filename = filename;
+
+            file = new System.IO.StreamReader(filename);
+
+            file.ReadLine();//skip one line
+        }
 
 		public event RawDataChangedEventHandler Values;
 
@@ -55,8 +56,8 @@ namespace Adastra
 
 				counter++;
 
-				if (processor != null)
-					processor.DoWork(ref result);
+				if (dsp != null)
+					dsp.DoWork(ref result);
 
 				Values(result);
 			}
@@ -72,7 +73,7 @@ namespace Adastra
 			//double[] channelAdjustments = { 1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 12.5, 13.5, 15.5, 17.5 };
 			//double[] channelAdjustments = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27 };
 
-			return (value + number); /// 4;
+			return (value + number);
 		}
 	}
 }
