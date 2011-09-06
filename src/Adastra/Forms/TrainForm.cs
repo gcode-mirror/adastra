@@ -209,8 +209,6 @@ namespace Adastra
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
-            throw new Exception("cfsdfsdfsd");
-
             if (radioBtnLdaMLP.Checked)
             {
                 model = new LdaMLP();

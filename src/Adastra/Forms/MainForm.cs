@@ -10,6 +10,8 @@ using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
 
+using NLog;
+
 namespace Adastra
 {
     public partial class MainForm : Form
@@ -29,6 +31,7 @@ namespace Adastra
         private IFeatureGenerator featureGenerator;
         private IRawDataReader dataReader;
         private BackgroundWorker asyncWorker=null;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private int SelectedScenario;
 
@@ -98,6 +101,7 @@ namespace Adastra
         {
 			if (e.Error != null)
 			{
+                logger.Error(e.Error);
 				MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace);
 			}
 
