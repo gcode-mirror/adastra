@@ -7,29 +7,25 @@ namespace Adastra
 {
     public class EmotivFeatureGenerator : IFeatureGenerator
     {
-        EmotivRawDataReader er;
         IDigitalSignalProcessor dsp=null;
+        IRawDataReader reader;
 
-        public EmotivFeatureGenerator()
+        public EmotivFeatureGenerator(IRawDataReader reader)
         {
+            this.reader = reader;
+            reader.Values += new RawDataChangedEventHandler(er_Values);
         }
 
-        public EmotivFeatureGenerator(IDigitalSignalProcessor dsp)
+        public EmotivFeatureGenerator(IRawDataReader reader, IDigitalSignalProcessor dsp)
         {
             this.dsp = dsp;
+            this.reader = reader;
+            reader.Values += new RawDataChangedEventHandler(er_Values);
         }
 
         public void Update()
         {
-            //Read RAW data
-
-            if (er == null)
-            {
-                er = new EmotivRawDataReader();
-                er.Values += new RawDataChangedEventHandler(er_Values);
-            }
-
-            er.Update();
+            reader.Update();
         }
 
         void er_Values(double[] rawData)

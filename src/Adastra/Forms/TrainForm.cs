@@ -14,6 +14,7 @@ using AForge.Neuro;
 using AForge.Neuro.Learning;
 using Eloquera.Client;
 using Adastra.Algorithms;
+using NLog;
 
 namespace Adastra
 {
@@ -35,6 +36,8 @@ namespace Adastra
         private int LastRecodredFeatureVectorsCount;
 
         DateTime startCalculateModel;
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         /// <summary>
@@ -118,7 +121,8 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message);
+                MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
                 listBoxLogger.Items.Insert(0, "Error saving model!");
             }
             else
@@ -138,7 +142,8 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message);
+                MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
                 listBoxLogger.Items.Insert(0, "Error recording data!");
             }
             else
@@ -191,7 +196,8 @@ namespace Adastra
 
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message);
+                MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
                 listBoxLogger.Items.Insert(0, "Calculating model has been aborted! Time elapsed: " + elapsedTime);
             }
             else
@@ -203,6 +209,8 @@ namespace Adastra
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
+            throw new Exception("cfsdfsdfsd");
+
             if (radioBtnLdaMLP.Checked)
             {
                 model = new LdaMLP();

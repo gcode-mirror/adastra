@@ -78,11 +78,11 @@ namespace Adastra
 
                 if (rbuttonEmotiv.Checked) 
                 {
-                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new EmotivFeatureGenerator(new BasicSignalProcessor()) : new EmotivFeatureGenerator();
-
                     if (rbuttonEmotivSignal.Checked)
                         dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(new BasicSignalProcessor()) : new EmotivRawDataReader();
                     else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, new BasicSignalProcessor()) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+
+                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new EmotivFeatureGenerator(dataReader, new BasicSignalProcessor()) : new EmotivFeatureGenerator(dataReader);
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {
