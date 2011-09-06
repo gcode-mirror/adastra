@@ -55,3 +55,12 @@ fix parameter problem - done
 Background thread for Train Form  
  - record -done
  - Process -done
+
+
+Release:
+remove pdb in bin
+put scenarios and data in bin
+put readme and release in bin
+
+delete bin and obj and build in src
+delete todo
