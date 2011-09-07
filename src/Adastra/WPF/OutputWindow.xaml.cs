@@ -11,6 +11,7 @@ using Adastra;
 using System.Windows.Controls;
 using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
+using NLog;
 
 namespace WPF
 {  
@@ -19,6 +20,7 @@ namespace WPF
     /// </summary>
     public partial class OutputWindow : Window
     {
+        #region declarations
         ObservableDataSource<Point>[] sources = null;
 
         ConcurrentQueue<double[]> bufferQueue = new ConcurrentQueue<double[]>();
@@ -30,6 +32,9 @@ namespace WPF
         static long x = 0; //x axis for evey chart
 
         int maxpoints = 180;
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
 
         public OutputWindow(IRawDataReader p_dataReader)
         {
@@ -55,6 +60,7 @@ namespace WPF
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
             }
         }
 

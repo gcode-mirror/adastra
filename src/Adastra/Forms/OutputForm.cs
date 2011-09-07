@@ -11,6 +11,7 @@ using System.Runtime;
 using System.Collections;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Collections.Concurrent;
+using NLog;
 
 namespace Adastra
 {
@@ -19,6 +20,7 @@ namespace Adastra
     /// </summary>
     public partial class OutputForm : Form
     {
+        #region declarations
         private BackgroundWorker p_asyncWorker;
 
         ConcurrentQueue<double[]> bufferQueue = null;
@@ -35,6 +37,9 @@ namespace Adastra
         IRawDataReader dataReader;
 
         bool chartsLoaded=false;
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
 
         public OutputForm(IRawDataReader p_dataReader)
         {
@@ -118,6 +123,7 @@ namespace Adastra
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
             }
         }
 

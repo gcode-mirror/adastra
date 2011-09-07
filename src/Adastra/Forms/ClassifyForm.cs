@@ -10,6 +10,7 @@ using System.Threading;
 
 using Accord.Statistics.Analysis;
 using Adastra.Algorithms;
+using NLog;
 
 namespace Adastra
 {
@@ -26,6 +27,8 @@ namespace Adastra
         private BackgroundWorker AsyncWorkerLoadModels;
 
         BackgroundWorker AsyncWorkerProcess;
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public ClassifyForm(IFeatureGenerator fg)
         {
@@ -67,10 +70,13 @@ namespace Adastra
         void AsyncWorkerProcess_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message); }
+            {
+                MessageBox.Show("Error:" + e.Error.Message);
+                logger.Error(e.Error);
+            }
             else
             {
-                listBoxResult.Items.Insert(0,"Classification process is done.");
+                listBoxResult.Items.Insert(0, "Classification process is done.");
             }
             buttonStartProcessing.Enabled = true;
             buttonStartProcessing.Text = "Process";
@@ -94,7 +100,11 @@ namespace Adastra
         void AsyncWorkerLoadModels_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { MessageBox.Show("Error:" + e.Error.Message); return; }
+            {
+                MessageBox.Show("Error:" + e.Error.Message);
+                logger.Error(e.Error);
+                return;
+            }
             else
             {
                 if (models != null && models.Count > 0)
