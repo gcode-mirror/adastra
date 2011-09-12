@@ -20,5 +20,7 @@ namespace Adastra
 		/// <param name="value"></param>
 		/// <returns></returns>
 		double AdjustChannel(int number,double value);
+
+        string ChannelName(int number);
     }
 }

@@ -88,6 +88,13 @@ namespace Adastra
             }
         }
 
+
+        public string ChannelName(int number)
+        {
+            string[] names = { "AF3", "F7", "F3", "FC5", "T7", "P7", "O1", "O2", "P8", "T8", "FC6", "F4", "F8", "AF4" };
+            return names[number];
+        }
+
 		public double AdjustChannel(int number, double value)
 		{
 			//double[] channelAdjustments = { 1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 12.5, 14.5, 15.5, 17.5 };

@@ -141,7 +141,7 @@ namespace WPF
             {
                 sources[i] = new ObservableDataSource<Point>();
                 sources[i].SetXYMapping(p => p);
-                plotter.AddLineGraph(sources[i], 1, (i+1).ToString());
+                plotter.AddLineGraph(sources[i], 1, dataReader.ChannelName(i));
             }
         }
 

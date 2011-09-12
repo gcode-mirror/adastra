@@ -35,5 +35,10 @@ namespace Adastra
 		{
 			return value + number;
 		}
+
+        public string ChannelName(int number)
+        {
+            return (number+1).ToString();
+        }
     }
 }
