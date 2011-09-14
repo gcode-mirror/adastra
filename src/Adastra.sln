@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adastra", "Adastra\Adastra.csproj", "{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Math", "Accord\Accord.Math\Accord.Math.csproj", "{F718E9A8-DB62-4785-8C49-4333A60D256A}"
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.MachineLearning", "Accord\Accord.MachineLearning\Accord.MachineLearning.csproj", "{7AB4BBCC-6222-423D-9FF9-BA9CB7C09199}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetEmotivSDK", "Emotiv\DotNetEmotivSDK\DotNetEmotivSDK.csproj", "{D3337309-9682-425E-8EDC-2ECFACF79565}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AdastraInstaller", "AdastraInstaller\AdastraInstaller.vdproj", "{D3215577-5A47-426C-B5BE-5DA69046EC96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,12 @@ Global
 		{D3337309-9682-425E-8EDC-2ECFACF79565}.Release|Mixed Platforms.Build.0 = Release|x86
 		{D3337309-9682-425E-8EDC-2ECFACF79565}.Release|x86.ActiveCfg = Release|x86
 		{D3337309-9682-425E-8EDC-2ECFACF79565}.Release|x86.Build.0 = Release|x86
+		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Debug|Any CPU.ActiveCfg = Debug
+		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Debug|x86.ActiveCfg = Debug
+		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Release|Any CPU.ActiveCfg = Release
+		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Release|Mixed Platforms.ActiveCfg = Release
+		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

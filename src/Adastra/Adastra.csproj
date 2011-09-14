@@ -34,7 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>adastra.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Neuro">
@@ -217,7 +218,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="adastra.ico" />
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
