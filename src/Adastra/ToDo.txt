@@ -1,4 +1,5 @@
-﻿- create installer to enable WPF support
+﻿- create windows installer to enable WPF support
+- add icon
 
 ===============================================================
 - add emotiv basic signal processing option in UI
