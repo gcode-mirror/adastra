@@ -1,4 +1,7 @@
-﻿- add emotiv basic signal processing option in UI
+﻿- create installer to enable WPF support
+
+===============================================================
+- add emotiv basic signal processing option in UI
 - enable signal processing for both visualization and machine learning
      - data reader (Signal Processor)
 	 - feature generator (Signal Processor)
