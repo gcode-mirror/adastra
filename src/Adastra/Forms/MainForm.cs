@@ -80,21 +80,33 @@ namespace Adastra
 
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
-                if (rbuttonEmotiv.Checked) 
+                try
                 {
-                    if (rbuttonEmotivSignal.Checked)
-                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(new BasicSignalProcessor()) : new EmotivRawDataReader();
-                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, new BasicSignalProcessor()) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+                    if (rbuttonEmotiv.Checked)
+                    {
+                        if (rbuttonEmotivSignal.Checked)
+                            dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(new BasicSignalProcessor()) : new EmotivRawDataReader();
+                        else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, new BasicSignalProcessor()) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
-                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new EmotivFeatureGenerator(dataReader, new BasicSignalProcessor()) : new EmotivFeatureGenerator(dataReader);
+                        featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new EmotivFeatureGenerator(dataReader, new BasicSignalProcessor()) : new EmotivFeatureGenerator(dataReader);
+                    }
+                    else if (rbuttonOpenVibe.Checked)
+                    {
+                        featureGenerator = new OpenVibeFeatureGenerator();
+                        dataReader = new OpenVibeRawDataReader();
+                    }
+
+                    asyncWorker.RunWorkerAsync();
                 }
-                else if (rbuttonOpenVibe.Checked)
+                catch (Exception ex)
                 {
-                    featureGenerator = new OpenVibeFeatureGenerator();
-                    dataReader = new OpenVibeRawDataReader();
-                }
+                    logger.Error(ex);
+                    if (ex.Message.IndexOf("edk.dll")>=0)
+                        MessageBox.Show(ex.Message + "\r\n You need edk.dll and edk_utils.dll from the Emotiv Reseach SDK placed in Adastra's installation folder.");
+                    else MessageBox.Show(ex.Message);
 
-                asyncWorker.RunWorkerAsync();
+                    buttonStart.Enabled = true;
+                }
             }
         }
 
