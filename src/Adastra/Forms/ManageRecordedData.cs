@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using NLog;
+
 namespace Adastra
 {
     /// <summary>
@@ -24,6 +26,8 @@ namespace Adastra
 
         List<EEGRecord> records;
 
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public ManageRecordedData(EEGRecord record)
         {
             InitializeComponent();
@@ -39,7 +43,7 @@ namespace Adastra
             providedRecord = record;
             
             //listBox1.DisplayMember = "Name";
-            toolStripStatusLabel1.Text = "Loading EEG records ... please wait";
+            toolStripStatusLabel1.Text = "Loading EEG records... please wait";
 
             buttonLoad.Enabled = false;
           
@@ -53,7 +57,8 @@ namespace Adastra
             buttonSave.Enabled = true;
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message);
+                MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
 				toolStripStatusLabel1.Text = "Saving '" + textBoxName.Text + "' has failed!";
                 return;
             }
@@ -73,6 +78,8 @@ namespace Adastra
                 return;
             }
 
+            toolStripStatusLabel1.Text = "Saving... please wait";
+
             EEGRecord saveRecord = new EEGRecord(providedRecord);//create a copy
 
             saveRecord.Name = textBoxName.Text;
@@ -85,8 +92,9 @@ namespace Adastra
         void AsyncWorkerLoadEEGRecords_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-            { 
-                MessageBox.Show("Error:" + e.Error.Message);
+            {
+                MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
+                logger.Error(e.Error);
                 toolStripStatusLabel1.Text = "Loading EEG records has failed.";
                 return;
             }

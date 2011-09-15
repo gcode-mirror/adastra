@@ -59,8 +59,8 @@ namespace Adastra
             asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
             #endregion
 
-            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
-            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
+            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
+            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
