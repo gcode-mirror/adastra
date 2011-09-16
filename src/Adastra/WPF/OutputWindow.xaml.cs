@@ -84,8 +84,8 @@ namespace WPF
                     if (sources[i].Collection.Count > maxpoints)
                         sources[i].Collection.RemoveAt(0);
 
-                    if (points[i].Y!=0)
-                        sources[i].AppendAsync(Dispatcher, points[i]);
+                    //if (points[i].Y!=0)
+                    sources[i].AppendAsync(Dispatcher, points[i]);
                     i++;
                 }
 
