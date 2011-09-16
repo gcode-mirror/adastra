@@ -79,7 +79,7 @@ namespace Adastra
             for (int i = 0; i < _bufferSize; i++)
             {
                 double[] result = new double[14];
-                for (int j = 3; j <= 14; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][i];
+                for (int j = 3; j <= 16; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][i];
 
                 if (dsp != null)
                     dsp.DoWork(ref result);
@@ -99,7 +99,9 @@ namespace Adastra
 		{
 			//double[] channelAdjustments = { 1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 12.5, 14.5, 15.5, 17.5 };
 
-            return value;
+            if (this.dsp != null)
+                return value + 0.05;
+            else return value;
 		}
     }
 }

@@ -15,9 +15,6 @@ using NLog;
 
 namespace WPF
 {  
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class OutputWindow : Window
     {
         #region declarations
@@ -87,7 +84,8 @@ namespace WPF
                     if (sources[i].Collection.Count > maxpoints)
                         sources[i].Collection.RemoveAt(0);
 
-                    sources[i].AppendAsync(Dispatcher, points[i]);
+                    if (points[i].Y!=0)
+                        sources[i].AppendAsync(Dispatcher, points[i]);
                     i++;
                 }
 
