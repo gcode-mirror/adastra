@@ -5,18 +5,21 @@ using System.Text;
 
 namespace Adastra
 {
-    public class EmotivFeatureGenerator : IFeatureGenerator
+    /// <summary>
+    /// Generated feature vectors are raw data itself
+    /// </summary>
+    public class SimpleFeatureGenerator : IFeatureGenerator
     {
         IDigitalSignalProcessor dsp=null;
         IRawDataReader reader;
 
-        public EmotivFeatureGenerator(IRawDataReader reader)
+        public SimpleFeatureGenerator(IRawDataReader reader)
         {
             this.reader = reader;
             reader.Values += new RawDataChangedEventHandler(er_Values);
         }
 
-        public EmotivFeatureGenerator(IRawDataReader reader, IDigitalSignalProcessor dsp)
+        public SimpleFeatureGenerator(IRawDataReader reader, IDigitalSignalProcessor dsp)
         {
             this.dsp = dsp;
             this.reader = reader;
