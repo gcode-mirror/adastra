@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using MathNet.Numerics.Transformations;
+
 namespace Adastra
 {
     /// <summary>
@@ -12,8 +14,11 @@ namespace Adastra
     {
         public void DoWork(ref double[] data)
         {
-            //Call Aforge or Math.net FFT implementation
-            throw new NotImplementedException();
+            //double[] freqReal, freqImag;
+            //RealFourierTransformation rft = new RealFourierTransformation(); // default convention
+            //rft.TransformForward(data, out freqReal, out freqImag);
+
+            //data = freqReal;
         }
     }
 }
