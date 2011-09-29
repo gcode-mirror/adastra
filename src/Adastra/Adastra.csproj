@@ -89,7 +89,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\BasicSignalProcessor.cs" />
+    <Compile Include="Algorithms\DSP\BasicSignalProcessor.cs" />
+    <Compile Include="Algorithms\DSP\EMDProcessor.cs" />
+    <Compile Include="Algorithms\DSP\FFTSignalProcessor.cs" />
     <Compile Include="Algorithms\LdaMLP.cs" />
     <Compile Include="Algorithms\LdaSVM.cs" />
     <Compile Include="Algorithms\Matrix.cs" />
