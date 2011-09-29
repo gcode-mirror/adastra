@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Adastra.Algorithms
+namespace Adastra
 {
     public class FFTSignalProcessor : IDigitalSignalProcessor
     {

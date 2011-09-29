@@ -42,7 +42,6 @@ namespace Adastra
         public MainForm()
         {
             InitializeComponent();
-            treeView1.ExpandAll();
 
             textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
             textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
@@ -59,8 +58,9 @@ namespace Adastra
             asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
             #endregion
 
-            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
-            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
+            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
+            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
+            comboBoxDSP.SelectedIndex = 0;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -84,11 +84,19 @@ namespace Adastra
                 {
                     if (rbuttonEmotiv.Checked)
                     {
-                        if (rbuttonEmotivSignal.Checked)
-                            dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(new BasicSignalProcessor()) : new EmotivRawDataReader();
-                        else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, new BasicSignalProcessor()) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+                        IDigitalSignalProcessor dsp=null;
+                        switch (comboBoxDSP.SelectedIndex)
+                        {
+                            case 0: dsp = new BasicSignalProcessor(); break;
+                            case 1: dsp = new FFTSignalProcessor(); break;
+                            case 2: dsp = new EMDProcessor(); break;
+                        }
 
-                        featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, new BasicSignalProcessor()) : new SimpleFeatureGenerator(dataReader);
+                        if (rbuttonEmotivSignal.Checked)
+                            dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
+                        else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+
+                        featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
                     }
                     else if (rbuttonOpenVibe.Checked)
                     {
