@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Fast Fourier Transform
+    /// </summary>
     public class FFTSignalProcessor : IDigitalSignalProcessor
     {
         public void DoWork(ref double[] data)

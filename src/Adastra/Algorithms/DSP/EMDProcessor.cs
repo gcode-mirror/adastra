@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Empirical Mode Decomposition
+    /// </summary>
     public class EMDProcessor : IDigitalSignalProcessor
     {
 

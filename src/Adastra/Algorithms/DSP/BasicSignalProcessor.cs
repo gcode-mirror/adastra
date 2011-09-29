@@ -24,7 +24,7 @@ namespace Adastra
                 data[i] = chain[data[i]];
                 #endregion
 
-                //#region 2. Averaging
+                #region 2. Averaging
                 if (windowNumbers.Count < windowLength) //fill window
                     windowNumbers.Add(data[i]);
                 else
@@ -39,7 +39,7 @@ namespace Adastra
 
                     windowNumbers.RemoveAt(0);
                 }
-                //#endregion
+                #endregion
             }
         }
     }
