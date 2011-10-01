@@ -12,8 +12,10 @@ namespace Adastra
     /// </summary>
     public class FFTSignalProcessor : IDigitalSignalProcessor
     {
-        const int power = 6;
-        int windowsize = (int) Math.Pow(2, power);
+        const int power = 5;
+        static int windowsize = (int) Math.Pow(2, power);
+        double[] window=new double[windowsize];
+        int windowLength=0;
 
         //window for each channel
 
@@ -23,17 +25,39 @@ namespace Adastra
             //channelCount window count 
         }
 
+        /// <summary>
+        /// Currently only first channel
+        /// </summary>
+        /// <param name="data"></param>
         public void DoWork(ref double[] data)
         {
-            //1. fill data to each window by shifting to the right one column (this adds and removes value)
-            //2. call each rft 
-            //3. Fill First value for return
-            
-            //double[] freqReal, freqImag;
-            //RealFourierTransformation rft = new RealFourierTransformation(); // default convention
-            //rft.TransformForward(data, out freqReal, out freqImag);
+            throw new NotImplementedException();
 
-            //data = freqReal;
+            //1. wait until window buffer is full
+            if (windowLength < windowsize)
+            {
+                window[windowLength] = data[0];
+                windowLength++;
+            }
+            else //window buffer full 
+            {
+                //2. perform fft
+                double[] freqReal, freqImag;
+                RealFourierTransformation rft = new RealFourierTransformation(); // default convention
+                rft.TransformForward(window, out freqReal, out freqImag);
+
+                //3. move left 
+                for (int i = window.Length - 2; i >= 0; i--)
+                    window[i + 1] = window[i];
+
+                //4. set new value to be used next time
+                window[0] = data[0];
+
+                //5. Fill first value for return
+                data[0] = freqReal[0];
+
+
+            }
         }
     }
 }
