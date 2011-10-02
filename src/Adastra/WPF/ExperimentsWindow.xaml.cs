@@ -24,7 +24,9 @@ namespace WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            //load eeg record - features vectors data
+            //set which experiments to perform
+            //start experiments
         }
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
