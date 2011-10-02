@@ -26,6 +26,7 @@ namespace Adastra
         #region Windows 
         System.Windows.Window currentWindow;
         WPF.OutputWindow ow;
+        WPF.ExperimentsWindow ew;
         #endregion
 
         private IFeatureGenerator featureGenerator;
@@ -155,6 +156,7 @@ namespace Adastra
                         break;
                     case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
                     case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
+                    case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                 }
 
                 if (currentForm != null)
@@ -355,6 +357,7 @@ namespace Adastra
             //comboBoxScenarioType.Items.Add("2. Display: LDA/SVM classification output from OpenVibe");
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+            comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
 
@@ -374,6 +377,7 @@ namespace Adastra
 
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+            comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
             groupBoxCharting.Visible = false;

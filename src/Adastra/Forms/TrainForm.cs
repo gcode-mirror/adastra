@@ -54,7 +54,7 @@ namespace Adastra
             InitializeComponent();
 
             this.fg = fg;
-            fg.Values += new ChangedEventHandler(ovfg_Values);
+            fg.Values += new ChangedFeaturesEventHandler(ovfg_Values);
 
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
@@ -218,7 +218,7 @@ namespace Adastra
                 model = new LdaSVM();
             }
 
-            model.Progress += new AMLearning.ChangedEventHandler(model_Progress);
+            model.Progress += new ChangedValuesEventHandler(model_Progress);
 			model.Train(currentRecord.FeatureVectorsInputOutput, currentRecord.FeatureVectorsInputOutput[0].Length-1);
         }
 

@@ -103,6 +103,7 @@
     <Compile Include="Definitions\AMLearning.cs" />
     <Compile Include="Definitions\Database.cs" />
     <Compile Include="Definitions\EEGRecord.cs" />
+    <Compile Include="Definitions\Experiment.cs" />
     <Compile Include="Definitions\IDigitalSignalProcessor.cs" />
     <Compile Include="Definitions\IFeatureGenerator.cs" />
     <Compile Include="Definitions\IRawDataReader.cs" />
@@ -165,6 +166,9 @@
     <Compile Include="Tools\OpenVibeFeatureGenerator.cs" />
     <Compile Include="Tools\OpenVibeRawDataReader.cs" />
     <Compile Include="Tools\SimpleFeatureGenerator.cs" />
+    <Compile Include="WPF\ExperimentsWindow.xaml.cs">
+      <DependentUpon>ExperimentsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPF\OutputWindow.xaml.cs">
       <DependentUpon>OutputWindow.xaml</DependentUpon>
     </Compile>
@@ -245,6 +249,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="WPF\ExperimentsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WPF\OutputWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

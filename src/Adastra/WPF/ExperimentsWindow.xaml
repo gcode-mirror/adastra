@@ -1,0 +1,13 @@
+﻿<Window x:Class="WPF.ExperimentsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Experimentator" Height="580" Width="600" Loaded="Window_Loaded"
+    >
+    <Grid Name="gCharts">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Name="buttonClose" Margin="1,1,1,1" Click="buttonClose_Click" Grid.Row="1">Close</Button>
+    </Grid>
+</Window>

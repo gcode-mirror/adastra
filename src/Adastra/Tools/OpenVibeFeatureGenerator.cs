@@ -26,7 +26,7 @@ namespace Adastra
             analog.Update();
         }
 
-        public event ChangedEventHandler Values;
+        public event ChangedFeaturesEventHandler Values;
 
         private void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Adastra.Algorithms
+namespace Adastra
 {
+    public delegate void ChangedValuesEventHandler(int progress);
+
     public abstract class AMLearning
     {
         /// <summary>
@@ -25,9 +27,9 @@ namespace Adastra.Algorithms
         /// </summary>
         public Dictionary<string, int> ActionList { get; set; }
 
-        public delegate void ChangedEventHandler(int progress);
+        
 
-        public virtual event ChangedEventHandler Progress;
+        public virtual event ChangedValuesEventHandler Progress;
 
     }
 }

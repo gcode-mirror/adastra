@@ -47,7 +47,7 @@ namespace Adastra
                 Values(featureVectors);
         }
 
-        public event ChangedEventHandler Values;
+        public event ChangedFeaturesEventHandler Values;
 
     }
 }

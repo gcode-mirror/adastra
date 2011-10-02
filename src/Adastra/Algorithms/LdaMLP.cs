@@ -170,7 +170,7 @@ namespace Adastra.Algorithms
             return pos + 1;
         }
 
-        public override event ChangedEventHandler Progress;
+        public override event ChangedValuesEventHandler Progress;
 
     }
 }

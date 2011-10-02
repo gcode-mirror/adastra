@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Adastra
 {
-    public delegate void ChangedEventHandler(double[] featureVectors);
+    public delegate void ChangedFeaturesEventHandler(double[] featureVectors);
 
     public interface IFeatureGenerator
     {
         void Update();
 
-        event ChangedEventHandler Values;
+        event ChangedFeaturesEventHandler Values;
     }
 }
