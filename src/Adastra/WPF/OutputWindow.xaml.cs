@@ -37,6 +37,11 @@ namespace WPF
         {
             InitializeComponent();
 
+            #region hide grid and numbering 
+            this.plotter.BottomPanel.Visibility = System.Windows.Visibility.Collapsed;
+            this.plotter.LeftPanel.Visibility = System.Windows.Visibility.Collapsed;
+            #endregion
+
             dataReader = p_dataReader;
 
             dataReader.Values += new RawDataChangedEventHandler(dataReader_Values);
