@@ -55,6 +55,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBoxDSP = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonBrowseEmotivFile = new System.Windows.Forms.Button();
             this.textBoxEmotivFile = new System.Windows.Forms.TextBox();
@@ -65,7 +66,7 @@
             this.rbuttonWPFcharting = new System.Windows.Forms.RadioButton();
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
-            this.comboBoxDSP = new System.Windows.Forms.ComboBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -75,7 +76,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(285, 333);
+            this.buttonStart.Location = new System.Drawing.Point(272, 386);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -205,7 +206,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(579, 348);
+            this.buttonExit.Location = new System.Drawing.Point(580, 409);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -332,6 +333,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Emotiv EPOCH settings";
             // 
+            // comboBoxDSP
+            // 
+            this.comboBoxDSP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDSP.FormattingEnabled = true;
+            this.comboBoxDSP.Items.AddRange(new object[] {
+            "Basic (ButterworthBandPass + Averaging)",
+            "Fast Fourier Transform",
+            "Empirical Mode Decomposition"});
+            this.comboBoxDSP.Location = new System.Drawing.Point(108, 73);
+            this.comboBoxDSP.Name = "comboBoxDSP";
+            this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
+            this.comboBoxDSP.TabIndex = 6;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -439,24 +453,23 @@
             this.groupBoxCharting.TabIndex = 24;
             this.groupBoxCharting.TabStop = false;
             // 
-            // comboBoxDSP
+            // radioButton1
             // 
-            this.comboBoxDSP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDSP.FormattingEnabled = true;
-            this.comboBoxDSP.Items.AddRange(new object[] {
-            "Basic (ButterworthBandPass + Averaging)",
-            "Fast Fourier Transform",
-            "Empirical Mode Decomposition"});
-            this.comboBoxDSP.Location = new System.Drawing.Point(108, 73);
-            this.comboBoxDSP.Name = "comboBoxDSP";
-            this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxDSP.TabIndex = 6;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(18, 333);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(95, 17);
+            this.radioButton1.TabIndex = 25;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Experimentator";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 387);
+            this.ClientSize = new System.Drawing.Size(702, 454);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.groupBoxCharting);
             this.Controls.Add(this.rbuttonOpenVibe);
             this.Controls.Add(this.rbuttonEmotiv);
@@ -523,6 +536,7 @@
         private System.Windows.Forms.Button buttonBrowseEmotivFile;
 		private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxDSP;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 
