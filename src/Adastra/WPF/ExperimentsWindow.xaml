@@ -11,9 +11,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Data" Margin="3,2,3,2">
+        <GroupBox Grid.Row="0" Grid.ColumnSpan="3" Header="Data" Margin="3,2,3,2">
             <StackPanel Orientation="Horizontal">
                 <Button Margin="2,2,2,2">Load EEG data</Button>
                 <TextBlock Margin="2,2,2,2">Feature Vectors1</TextBlock>
@@ -21,7 +27,7 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Header="Computing models over 'training' and 'validating' datasets for methods:" Margin="3,2,3,2">
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets for methods:" Margin="3,2,3,2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
@@ -37,9 +43,9 @@
             </Grid>
         </GroupBox>
 
-        <Button Grid.Row="2" Name="buttonStart" Margin="3,2,3,2">Start</Button>
+        <Button Grid.Row="2" Grid.ColumnSpan="3" Name="buttonStart" Margin="3,2,3,2">Start</Button>
 
-        <GroupBox Grid.Row="3" Header="Calculating error over 'testing' dataset:" Margin="3,2,3,2">
+        <GroupBox Grid.Row="3" Grid.ColumnSpan="3" Header="Calculating error over 'testing' dataset:" Margin="3,2,3,2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
@@ -55,8 +61,13 @@
                 <TextBlock Grid.Row="1" Grid.Column="1">64%</TextBlock>
             </Grid>
         </GroupBox>
+        
+ 
+        <TextBlock Grid.Row="4" Grid.Column="0">Model name:</TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1"></TextBox>
+        <Button Grid.Row="4" Name="buttonSaveBestModel" Grid.Column="2" Margin="3,2,3,2" HorizontalAlignment="Right">Save Best Model</Button>
 
-        <Button Grid.Row="4" Name="buttonSaveBestModel" Margin="3,2,3,2">Save Best Model</Button>
-        <Button Grid.Row="5" Name="buttonClose" Margin="3,2,3,2" Click="buttonClose_Click">Close</Button>
+        <Button Grid.Row="5" Grid.Column="2" Name="buttonClose" Margin="3,2,3,2" Click="buttonClose_Click">Close</Button>
+        <StatusBar Grid.Row="6" Grid.ColumnSpan="3">Model saved.</StatusBar>
     </Grid>
 </Window>
