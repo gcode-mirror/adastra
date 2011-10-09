@@ -13,7 +13,7 @@ namespace Adastra
 
         public static string fullpath = Environment.CurrentDirectory + "\\" + dbName;
 
-        public static DB db = new DB("server=(local);options=none;");
+        public static DB getDB = new DB("server=(local);options=none;");
         //public static DB db = new DB("server=(local);password=;options=inmemory,persist;");//in-memory save on exit
     }
 }

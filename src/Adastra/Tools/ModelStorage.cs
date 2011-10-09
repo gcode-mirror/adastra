@@ -27,7 +27,7 @@ namespace Adastra
         {
             get
             {
-                return Database.db;
+                return Database.getDB;
             }
         }
 
@@ -73,6 +73,8 @@ namespace Adastra
                 var query = from AMLearning sample in db select sample;
 
                 result = query.ToList();
+
+                db.Close();
             }
             return result;
         }

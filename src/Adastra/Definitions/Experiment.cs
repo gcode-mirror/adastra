@@ -9,12 +9,12 @@ namespace Adastra
 
     public class Experiment
     {
-        IFeatureGenerator _fg; 
+        EEGRecord _er; 
         AMLearning _ml;
 
-        Experiment(IFeatureGenerator fg, AMLearning ml)
+        public Experiment(EEGRecord er, AMLearning ml)
         {
-            _fg = fg;
+            _er = er;
             _ml = ml;
 
             _ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
@@ -28,19 +28,22 @@ namespace Adastra
             Progress(progress);
         }
 
-        public void Start()
+        public AMLearning Start()
         {
             //read ALL feature vectors
  
             //seperate data for train, evaluate and train
+            _ml.Train(_er.FeatureVectorsInputOutput, _er.FeatureVectorsInputOutput[0].Length - 1);
 
             //supply to ml for train using train and evaluate
 
             //use test to produce results 
-            int result=67;
+            int result=100;
 
             if (Completed != null)
                 Completed(result);
+
+            return _ml;
         }
 
         public virtual event ChangedValuesEventHandler Progress;
