@@ -18,6 +18,15 @@ namespace Adastra
             set;
         }
 
+        public AMLearning()
+        {
+        }
+
+        public AMLearning(string name)
+        {
+            Name = name;
+        }
+
         public abstract void Train(List<double[]> outputInput, int inputVectorDimensions);
 
         public abstract int Classify(double[] input);

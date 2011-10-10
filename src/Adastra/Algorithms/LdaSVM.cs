@@ -16,11 +16,14 @@ namespace Adastra.Algorithms
 
         MulticlassSupportVectorMachine _machine;
 
-        //public string Name
-        //{
-        //    get;
-        //    set;
-        //}
+        public LdaSVM()
+        {        
+        }
+
+        public LdaSVM(string name)
+        {
+            this.Name = name;
+        }
 
 		public override void Train(List<double[]> outputInput, int inputVectorDimensions)
 		{

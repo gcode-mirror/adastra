@@ -18,11 +18,12 @@ namespace Adastra.Algorithms
 
         ActivationNetwork _network;
 
-        //public string Name
-        //{
-        //    get;
-        //    set;
-        //}
+
+        public LdaMLP(string name)
+        {
+            ActionList = new Dictionary<string, int>();
+            this.Name = name;
+        }
 
         public LdaMLP()
         {

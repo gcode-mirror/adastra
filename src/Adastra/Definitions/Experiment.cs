@@ -20,7 +20,7 @@ namespace Adastra
             _ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
         }
 
-        public string Name { get; set; }
+        //public string Name { get; set; }
 
         void _ml_Progress(int progress)
         {

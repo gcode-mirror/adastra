@@ -21,12 +21,13 @@ namespace WPF
     {
         private CancellationTokenSource cancellationTokenSource;
 
-        Experiment[] workflows = new Experiment[2];
+        Experiment[] workflows = new Experiment[3];
         EEGRecord currentRecord;
 
         public ExperimentsWindow()
         {
             InitializeComponent();
+            currentRecord = null;
         }      
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -43,8 +44,13 @@ namespace WPF
 
         private void buttonStart_Click(object sender, RoutedEventArgs e)
         {
-            workflows[0] = new Experiment(currentRecord, new LdaMLP());
-            workflows[1] = new Experiment(currentRecord, new LdaSVM());
+            if (currentRecord == null)
+            { MessageBox.Show("No data loaded!"); return; }
+
+
+            workflows[0] = new Experiment(currentRecord, new LdaMLP("mlp"));
+            workflows[1] = new Experiment(currentRecord, new LdaSVM("svm"));
+            workflows[2] = new Experiment(currentRecord, new LdaMLP("mlp2"));
 
             //foreach (var w in workflows)
             //{
@@ -59,63 +65,69 @@ namespace WPF
             this.cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = this.cancellationTokenSource.Token;
             var progressReporter = new ProgressReporter();
-            var task = Task.Factory.StartNew(() =>
+
+            foreach (var w in workflows)
             {
-                for (int i = 0; i != 100; ++i)
+                var task = Task.Factory.StartNew(() =>
                 {
-                    // Check for cancellation
-                    cancellationToken.ThrowIfCancellationRequested();
+                //    for (int i = 0; i != 100; ++i)
+                //    {
+                //        // Check for cancellation
+                //        cancellationToken.ThrowIfCancellationRequested();
 
-                    Thread.Sleep(30); // Do some work.
+                //        Thread.Sleep(30); // Do some work.
 
-                    // Report progress of the work.
-                    progressReporter.ReportProgress(() =>
-                    {
-                        // Note: code passed to "ReportProgress" can access UI elements freely.
-                        this.bar1.Value = i;
-                    });
-                }
+                //        // Report progress of the work.
+                //        progressReporter.ReportProgress(() =>
+                //        {
+                //            // Note: code passed to "ReportProgress" can access UI elements freely.
+                //            this.bar1.Value = i;
+                //        });
+                //    }
 
-                // After all that work, cause the error if requested.
-                if (false)
+                //    // After all that work, cause the error if requested.
+                //    if (false)
+                //    {
+                //        throw new InvalidOperationException("Oops...");
+                //    }
+
+                //    // The answer, at last!
+                //    return 42;
+                   return w.Start();
+
+                }, cancellationToken);
+
+                // ProgressReporter can be used to report successful completion,
+                //  cancelation, or failure to the UI thread.
+                progressReporter.RegisterContinuation(task, () =>
                 {
-                    throw new InvalidOperationException("Oops...");
-                }
+                    // Update UI to reflect completion.
+                    this.bar1.Value = 100;
 
-                // The answer, at last!
-                return 42;
-            }, cancellationToken);
+                    // Display results.
+                    if (task.Exception != null)
+                        MessageBox.Show("Background task error: " + task.Exception.ToString());
+                    else if (task.IsCanceled)
+                        MessageBox.Show("Background task cancelled");
+                    else
+                        MessageBox.Show("Background task result: " + task.Result.Name);
 
-            // ProgressReporter can be used to report successful completion,
-            //  cancelation, or failure to the UI thread.
-            progressReporter.RegisterContinuation(task, () =>
-            {
-                // Update UI to reflect completion.
-                this.bar1.Value = 100;
-
-                // Display results.
-                if (task.Exception != null)
-                    MessageBox.Show("Background task error: " + task.Exception.ToString());
-                else if (task.IsCanceled)
-                    MessageBox.Show("Background task cancelled");
-                else
-                    MessageBox.Show("Background task result: " + task.Result);
-
-                // Reset UI.
-                this.TaskIsComplete();
-            });
+                    // Reset UI.
+                    this.TaskIsComplete();
+                });
+            }
 
         }
 
-        void w_Progress(int progress)
-        {
-            bar1.Value = progress;
-        }
+        //void w_Progress(int progress)
+        //{
+        //    bar1.Value = progress;
+        //}
 
-        void w_Completed(int successRate)
-        {
-            bar1.Value = 100;
-        }
+        //void w_Completed(int successRate)
+        //{
+        //    bar1.Value = 100;
+        //}
 
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
         {
