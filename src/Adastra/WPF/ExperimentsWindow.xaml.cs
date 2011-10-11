@@ -66,10 +66,27 @@ namespace WPF
             var cancellationToken = this.cancellationTokenSource.Token;
             var progressReporter = new ProgressReporter();
 
-            foreach (var w in workflows)
+            //potential problem exists that the same workflows are executed
+            //workflow should be passed using copy constructor
+            foreach (var w in workflows) CreateTask(w, cancellationToken, progressReporter);
+
+            //or executed not in a loop solves the above problem
+            //CreateTask(workflows[0], cancellationToken, progressReporter);
+            //CreateTask(workflows[1], cancellationToken, progressReporter);
+            //CreateTask(workflows[2], cancellationToken, progressReporter);
+        }
+
+        /// <summary>
+        /// Different progress bars should be provided
+        /// </summary>
+        /// <param name="w"></param>
+        /// <param name="cancellationToken"></param>
+        /// <param name="progressReporter"></param>
+        void CreateTask(Experiment w, CancellationToken cancellationToken, ProgressReporter progressReporter)
+        {
+            var task = Task.Factory.StartNew(() =>
             {
-                var task = Task.Factory.StartNew(() =>
-                {
+                #region test code
                 //    for (int i = 0; i != 100; ++i)
                 //    {
                 //        // Check for cancellation
@@ -93,29 +110,29 @@ namespace WPF
 
                 //    // The answer, at last!
                 //    return 42;
-                   return w.Start();
+                #endregion
+                return w.Start();
 
-                }, cancellationToken);
+            }, cancellationToken);
 
-                // ProgressReporter can be used to report successful completion,
-                //  cancelation, or failure to the UI thread.
-                progressReporter.RegisterContinuation(task, () =>
-                {
-                    // Update UI to reflect completion.
-                    this.bar1.Value = 100;
+            // ProgressReporter can be used to report successful completion,
+            //  cancelation, or failure to the UI thread.
+            progressReporter.RegisterContinuation(task, () =>
+            {
+                // Update UI to reflect completion.
+                this.bar1.Value = 100;
 
-                    // Display results.
-                    if (task.Exception != null)
-                        MessageBox.Show("Background task error: " + task.Exception.ToString());
-                    else if (task.IsCanceled)
-                        MessageBox.Show("Background task cancelled");
-                    else
-                        MessageBox.Show("Background task result: " + task.Result.Name);
+                // Display results.
+                if (task.Exception != null)
+                    MessageBox.Show("Background task error: " + task.Exception.ToString());
+                else if (task.IsCanceled)
+                    MessageBox.Show("Background task cancelled");
+                else
+                    MessageBox.Show("Background task result: " + task.Result.Name);
 
-                    // Reset UI.
-                    this.TaskIsComplete();
-                });
-            }
+                // Reset UI.
+                this.TaskIsComplete();
+            });
 
         }
 
