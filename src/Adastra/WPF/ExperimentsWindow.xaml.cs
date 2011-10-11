@@ -32,6 +32,11 @@ namespace WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+			workflows[0] = new Experiment("LDA + Neural Network", null, new LdaMLP("mlp"));
+			workflows[1] = new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm"));
+			workflows[2] = new Experiment("LDA + Neural Network", null, new LdaMLP("mlp2"));
+
+			gvMethodsList.ItemsSource = workflows;
             //load eeg record - features vectors data
             //set which experiments to perform
             //start experiments
@@ -46,11 +51,6 @@ namespace WPF
         {
             if (currentRecord == null)
             { MessageBox.Show("No data loaded!"); return; }
-
-
-            workflows[0] = new Experiment(currentRecord, new LdaMLP("mlp"));
-            workflows[1] = new Experiment(currentRecord, new LdaSVM("svm"));
-            workflows[2] = new Experiment(currentRecord, new LdaMLP("mlp2"));
 
             //foreach (var w in workflows)
             //{
@@ -120,7 +120,7 @@ namespace WPF
             progressReporter.RegisterContinuation(task, () =>
             {
                 // Update UI to reflect completion.
-                this.bar1.Value = 100;
+                w.Progress = 100;
 
                 // Display results.
                 if (task.Exception != null)
@@ -156,12 +156,16 @@ namespace WPF
         void mrd_ReocordSelected(EEGRecord record)
         {
             currentRecord = record;
+
+			foreach (var w in workflows) w.SetRecord(currentRecord);
         }
 
         private void TaskIsComplete()
         {
             // Reset UI.
-            this.bar1.Value = 0;
+
+            //this.bar1.Value = 0;
+
             //this.startButton.Enabled = true;
             //this.errorButton.Enabled = true;
             //this.cancelButton.Enabled = false;

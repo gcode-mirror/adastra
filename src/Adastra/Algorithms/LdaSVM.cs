@@ -45,12 +45,12 @@ namespace Adastra.Algorithms
 			//output classes must be consecutive: 1,2,3 ...
 			_lda = new LinearDiscriminantAnalysis(inputs, output);
 
-			this.Progress(10);
+			if (this.Progress != null) this.Progress(10);
 
 			// Compute the analysis
 			_lda.Compute();
 
-			this.Progress(35);
+			if (this.Progress != null) this.Progress(35);
 
 			double[,] projection = _lda.Transform(inputs);
 
@@ -97,7 +97,7 @@ namespace Adastra.Algorithms
 			// Run the learning algorithm
 			double error = teacher.Run();
 
-            this.Progress(100);
+			if (this.Progress != null) this.Progress(100);
 		}
 
 		public override int Classify(double[] input)

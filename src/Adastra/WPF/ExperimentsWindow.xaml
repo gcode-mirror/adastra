@@ -28,42 +28,44 @@
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets for methods:" Margin="3,2,3,2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"></RowDefinition>
-                    <RowDefinition Height="60"></RowDefinition>
-                </Grid.RowDefinitions>
+            <ListView Grid.ColumnSpan="4"  Name="gvMethodsList">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="true">
 
-                <StackPanel Grid.Row="0">
-                  <CheckBox >OpenVibe Feature Generator + LDA + Neural Network</CheckBox>
-                  <ProgressBar Name="bar1" Height="26"></ProgressBar>
-                </StackPanel>
-                
-                <CheckBox Grid.Row="1">Emotiv Feature Generator + LDA + Support Vector Machines</CheckBox>
-            </Grid>
+                        <GridViewColumn>
+                            
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Name" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                                    
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" TextAlignment="Center" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Progress" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ProgressBar Height="24" Width="160" Value="{Binding Path=Progress}"></ProgressBar>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </GroupBox>
-
-        <ListView Grid.ColumnSpan="4" Margin="3,3,3,3" Name="gvMethodsList">
-            <ListView.View>
-                <GridView AllowsColumnReorder="true">
-
-                    <GridViewColumn>
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Name" TextAlignment="Center" Width="100"/>
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=Name}" TextAlignment="Left" Width="100"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    
-                </GridView>
-            </ListView.View>
-        </ListView>
 
         <Button Grid.Row="2" Grid.ColumnSpan="3" Name="buttonStart" Margin="3,2,3,2" Click="buttonStart_Click">Start</Button>
 

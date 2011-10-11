@@ -12,21 +12,24 @@ namespace Adastra
         EEGRecord _er; 
         AMLearning _ml;
 
-        public Experiment(EEGRecord er, AMLearning ml)
+        public Experiment(string name, EEGRecord er, AMLearning ml)
         {
+			Name = name;
             _er = er;
             _ml = ml;
 
-            _ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
+            //_ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
         }
 
-        //public string Name { get; set; }
+        public string Name { get; set; }
 
-        void _ml_Progress(int progress)
-        {
-            if (this.Progress!=null)
-            Progress(progress);
-        }
+		public int Progress;
+
+		//void _ml_Progress(int progress)
+		//{
+		//    if (this.Progress!=null)
+		//    Progress(progress);
+		//}
 
         public AMLearning Start()
         {
@@ -38,16 +41,23 @@ namespace Adastra
             //supply to ml for train using train and evaluate
 
             //use test to produce results 
-            int result=100;
+            //int result=100;
 
-            if (Completed != null)
-                Completed(result);
+			//if (Completed != null)
+			//    Completed(result);
+
+			//this.Progress = 100;
 
             return _ml;
         }
 
-        public virtual event ChangedValuesEventHandler Progress;
+		//public virtual event ChangedValuesEventHandler Progress;
 
-        public virtual event ExperimentCompletedEventHandler Completed;
+		//public virtual event ExperimentCompletedEventHandler Completed;
+
+		public void SetRecord(EEGRecord record)
+		{
+			_er = record;
+		}
     }
 }

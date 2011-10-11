@@ -50,12 +50,12 @@ namespace Adastra.Algorithms
             //output classes must be consecutive: 1,2,3 ...
             _lda = new LinearDiscriminantAnalysis(inputs, output);
 
-            this.Progress(10);
+            if (this.Progress!=null) this.Progress(10);
 
             // Compute the analysis
             _lda.Compute();
 
-            this.Progress(35);
+			if (this.Progress != null) this.Progress(35);
 
             double[,] projection = _lda.Transform(inputs);
 
@@ -127,11 +127,11 @@ namespace Adastra.Algorithms
                     }
                 }
 
-                this.Progress(35 + (iter.CurrentIterationIndex) * (65 / ratio));
+				if (this.Progress != null) this.Progress(35 + (iter.CurrentIterationIndex) * (65 / ratio));
             }
 
             //now we have a model of a NN+LDA which we can use for classification
-            this.Progress(100);
+			if (this.Progress != null) this.Progress(100);
         }
 
         public override int Classify(double[] input)
