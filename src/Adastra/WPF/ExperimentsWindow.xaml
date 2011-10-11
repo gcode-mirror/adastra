@@ -43,6 +43,28 @@
             </Grid>
         </GroupBox>
 
+        <ListView Grid.ColumnSpan="4" Margin="3,3,3,3" Name="gvMethodsList">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true">
+
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Name" TextAlignment="Center" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}" TextAlignment="Left" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
+
         <Button Grid.Row="2" Grid.ColumnSpan="3" Name="buttonStart" Margin="3,2,3,2" Click="buttonStart_Click">Start</Button>
 
         <GroupBox Grid.Row="3" Grid.ColumnSpan="3" Header="Calculating error over 'testing' dataset:" Margin="3,2,3,2">
