@@ -32,9 +32,9 @@ namespace WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-			workflows[0] = new Experiment("LDA + Neural Network", null, new LdaMLP("mlp"));
+			workflows[0] = new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp"));
 			workflows[1] = new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm"));
-			workflows[2] = new Experiment("LDA + Neural Network", null, new LdaMLP("mlp2"));
+            workflows[2] = new Experiment("LDA + Radial Basis Function Network", null, new LdaMLP("mlp2"));
 
 			gvMethodsList.ItemsSource = workflows;
             //load eeg record - features vectors data
@@ -51,6 +51,8 @@ namespace WPF
         {
             if (currentRecord == null)
             { MessageBox.Show("No data loaded!"); return; }
+
+            //second click will use already computed modles!
 
             //foreach (var w in workflows)
             //{

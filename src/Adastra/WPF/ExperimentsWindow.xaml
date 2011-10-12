@@ -36,7 +36,7 @@
                             
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Name" TextAlignment="Center"/>
+                                    <TextBlock Text="Method" TextAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                                     
@@ -49,15 +49,17 @@
 
                         <GridViewColumn>
 
-                            <GridViewColumn.HeaderTemplate>
+                          <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Progress" TextAlignment="Center"/>
+                                    <ProgressBar Height="24" Width="260" Value="{Binding Path=Progress}"></ProgressBar>
                                 </DataTemplate>
-                            </GridViewColumn.HeaderTemplate>
+                            </GridViewColumn.CellTemplate>
+                         </GridViewColumn>
 
+                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ProgressBar Height="24" Width="160" Value="{Binding Path=Progress}"></ProgressBar>
+                                    <TextBlock Text="{Binding Path=Progress}" Width="35" HorizontalAlignment="Center"></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
