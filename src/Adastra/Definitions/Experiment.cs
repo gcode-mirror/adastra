@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace Adastra
 {
     public delegate void ExperimentCompletedEventHandler(int successRate);
 
-    public class Experiment
+    public class Experiment : INotifyPropertyChanged
     {
         EEGRecord _er; 
         AMLearning _ml;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
 
         public Experiment(string name, EEGRecord er, AMLearning ml)
         {
@@ -23,7 +34,23 @@ namespace Adastra
 
         public string Name { get; set; }
 
-		public int Progress;
+        int _progress;
+        public int Progress
+        {
+            get
+            {
+                return this._progress;
+            }
+
+            set
+            {
+                if (value != this._progress)
+                {
+                    this._progress = value;
+                    NotifyPropertyChanged("Progress");
+                }
+            }
+        }
 
 		//void _ml_Progress(int progress)
 		//{

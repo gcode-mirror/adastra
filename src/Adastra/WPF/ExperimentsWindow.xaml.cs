@@ -68,7 +68,11 @@ namespace WPF
 
             //potential problem exists that the same workflows are executed
             //workflow should be passed using copy constructor
-            foreach (var w in workflows) CreateTask(w, cancellationToken, progressReporter);
+            foreach (var w in workflows)
+            {
+                w.Progress = 0;
+                CreateTask(w, cancellationToken, progressReporter);
+            }
 
             //or executed not in a loop solves the above problem
             //CreateTask(workflows[0], cancellationToken, progressReporter);
@@ -127,8 +131,8 @@ namespace WPF
                     MessageBox.Show("Background task error: " + task.Exception.ToString());
                 else if (task.IsCanceled)
                     MessageBox.Show("Background task cancelled");
-                else
-                    MessageBox.Show("Background task result: " + task.Result.Name);
+                //else
+                //    MessageBox.Show("Background task result: " + task.Result.Name);
 
                 // Reset UI.
                 this.TaskIsComplete();
