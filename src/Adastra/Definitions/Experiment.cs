@@ -29,7 +29,7 @@ namespace Adastra
             _er = er;
             _ml = ml;
 
-            //_ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
+            _ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
         }
 
         public string Name { get; set; }
@@ -52,11 +52,10 @@ namespace Adastra
             }
         }
 
-		//void _ml_Progress(int progress)
-		//{
-		//    if (this.Progress!=null)
-		//    Progress(progress);
-		//}
+        void _ml_Progress(int progress)
+        {
+            Progress = progress;
+        }
 
         public AMLearning Start()
         {
