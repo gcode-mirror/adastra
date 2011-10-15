@@ -30,6 +30,8 @@ namespace Adastra
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        ModelStorage ms;
+
         public ClassifyForm(IFeatureGenerator fg)
         {
             InitializeComponent();
@@ -54,6 +56,8 @@ namespace Adastra
             AsyncWorkerProcess.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerProcess_ProgressChanged);
             AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
             AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
+
+            ms = new ModelStorage();
         }
 
         void fg_Values(double[] featureVectors)
@@ -122,7 +126,7 @@ namespace Adastra
 
         void AsyncWorkerLoadModels_DoWork(object sender, DoWorkEventArgs e)
         {
-            models = ModelStorage.LoadModels();
+            models = ms.LoadModels();
         }
 
         /// <summary>

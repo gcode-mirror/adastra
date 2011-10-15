@@ -136,6 +136,7 @@ namespace WPF
                 //else
                 //    MessageBox.Show("Background task result: " + task.Result.Name);
 
+                statusBar.Text = "\""+w.Name+"\" has completed.";
                 // Reset UI.
                 this.TaskIsComplete();
             });
@@ -162,6 +163,10 @@ namespace WPF
         void mrd_ReocordSelected(EEGRecord record)
         {
             currentRecord = record;
+
+            labelSelectedRecord.Visibility = Visibility.Visible;
+            labelRecordName.Text = record.Name;
+            //labelRecordDescription.Text = record.
 
 			foreach (var w in workflows) w.SetRecord(currentRecord);
         }

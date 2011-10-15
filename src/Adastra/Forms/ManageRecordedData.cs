@@ -28,6 +28,8 @@ namespace Adastra
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        EEGRecordStorage rs;
+
         public ManageRecordedData(EEGRecord record)
         {
             InitializeComponent();
@@ -46,6 +48,8 @@ namespace Adastra
             toolStripStatusLabel1.Text = "Loading EEG records... please wait";
 
             buttonLoad.Enabled = false;
+
+            rs = new EEGRecordStorage();
           
             AsyncWorkerLoadEEGRecords.RunWorkerAsync();
 
@@ -84,7 +88,7 @@ namespace Adastra
 
             saveRecord.Name = textBoxName.Text;
 
-            EEGRecordStorage.SaveRecord(saveRecord);
+            rs.SaveRecord(saveRecord);
 
 			records.Add(saveRecord);
         }
@@ -110,7 +114,7 @@ namespace Adastra
 
         void AsyncWorkerLoadEEGRecords_DoWork(object sender, DoWorkEventArgs e)
         {
-            records = EEGRecordStorage.LoadModels();
+            records = rs.LoadModels();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

@@ -37,6 +37,8 @@ namespace Adastra
 
         DateTime startCalculateModel;
 
+        ModelStorage ms;
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
 
@@ -84,6 +86,8 @@ namespace Adastra
             AsyncWorkerSaveModel.WorkerSupportsCancellation = true;
             AsyncWorkerSaveModel.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerSaveModel_RunWorkerCompleted);
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
+
+            ms = new ModelStorage();
         }
 
         void ovfg_Values(double[] featureVectors)
@@ -114,7 +118,7 @@ namespace Adastra
 
         void AsyncWorkerSaveModel_DoWork(object sender, DoWorkEventArgs e)
         {
-            ModelStorage.SaveModel(model);
+            ms.SaveModel(model);
         }
 
         void AsyncWorkerSaveModel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

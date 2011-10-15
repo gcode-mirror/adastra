@@ -13,35 +13,25 @@ using Adastra.Algorithms;
 
 namespace Adastra
 {
-    public static class EEGRecordStorage
+    public class EEGRecordStorage
     {
-        static string fullpath
+        DB db;
+
+        public EEGRecordStorage()
         {
-            get
-            {
-                return Database.fullpath;
-            }
+            db = new DB(DbSettings.ConnectionString);
         }
 
-        static DB db
-        {
-            get
-            {
-                return Database.getDB;
-            }
-        }
-
-
-        public static void SaveRecord(EEGRecord record)
+        public void SaveRecord(EEGRecord record)
         {
             bool justCreated = false;
-            if (!File.Exists(fullpath + ".eq"))
+            if (!File.Exists(DbSettings.fullpath + ".eq"))
             {
-                db.CreateDatabase(fullpath);
+                db.CreateDatabase(DbSettings.fullpath);
                 justCreated = true;
             }
 
-            db.OpenDatabase(fullpath);
+            db.OpenDatabase(DbSettings.fullpath);
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
             if (justCreated)
@@ -60,13 +50,13 @@ namespace Adastra
             db.Close();
         }
 
-        public static List<EEGRecord> LoadModels()
+        public List<EEGRecord> LoadModels()
         {
             List<EEGRecord> result = new List<EEGRecord>();
 
-            if (File.Exists(fullpath + ".eq"))
+            if (File.Exists(DbSettings.fullpath + ".eq"))
             {
-                db.OpenDatabase(fullpath);
+                db.OpenDatabase(DbSettings.fullpath);
 
                 db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 

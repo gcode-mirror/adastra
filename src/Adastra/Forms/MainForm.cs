@@ -113,6 +113,7 @@ namespace Adastra
                 {
                     //window created without background thread
                     ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew;
+
                     currentWindow.Closed += delegate(object wsender, EventArgs we)
                     {
                         buttonStart.Text = "Start";
@@ -148,6 +149,8 @@ namespace Adastra
                         if (currentWindow != null)
                             currentWindow.Closed += new EventHandler(currentWindow_Closed);
                     }
+
+                System.Windows.Forms.Integration.ElementHost.EnableModelessKeyboardInterop(currentWindow);
                 #endregion
             }
             catch (Exception ex)

@@ -90,6 +90,7 @@
       <HintPath>..\..\lib\VrpnNetOriginal\VrpnNet.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\DSP\BasicSignalProcessor.cs" />

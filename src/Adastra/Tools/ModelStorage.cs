@@ -13,35 +13,25 @@ using Adastra.Algorithms;
 
 namespace Adastra
 {
-    public static class ModelStorage
+    public class ModelStorage
     {
-        static string fullpath
+        DB db;
+
+        public ModelStorage()
         {
-            get
-            {
-                return Database.fullpath;
-            }
+            db = new DB(DbSettings.ConnectionString);
         }
 
-        static DB db
-        {
-            get
-            {
-                return Database.getDB;
-            }
-        }
-
-
-        public static void SaveModel(AMLearning model)
+        public void SaveModel(AMLearning model)
         {
             bool justCreated = false;
-            if (!File.Exists(fullpath + ".eq"))
+            if (!File.Exists(DbSettings.fullpath + ".eq"))
             {
-                db.CreateDatabase(fullpath);
+                db.CreateDatabase(DbSettings.fullpath);
                 justCreated = true;
             }
 
-            db.OpenDatabase(fullpath);
+            db.OpenDatabase(DbSettings.fullpath);
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
             if (justCreated)
@@ -60,13 +50,13 @@ namespace Adastra
             db.Close();
         }
 
-        public static List<AMLearning> LoadModels()
+        public List<AMLearning> LoadModels()
         {
             List<AMLearning> result=new List<AMLearning>();
 
-            if (File.Exists(fullpath + ".eq"))
+            if (File.Exists(DbSettings.fullpath + ".eq"))
             {
-                db.OpenDatabase(fullpath);
+                db.OpenDatabase(DbSettings.fullpath);
 
                 db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
