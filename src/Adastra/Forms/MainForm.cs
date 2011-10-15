@@ -31,7 +31,7 @@ namespace Adastra
 
         private IFeatureGenerator featureGenerator;
         private IRawDataReader dataReader;
-        private BackgroundWorker asyncWorker=null;
+        private BackgroundWorker openVibeWorker=null;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private int SelectedScenario;
@@ -51,12 +51,12 @@ namespace Adastra
             comboBoxScenarioType.SelectedIndex = 0;
 
             #region BackgroundWorker for OpenVibe
-            asyncWorker = new BackgroundWorker();
-            asyncWorker.WorkerReportsProgress = true;
-            asyncWorker.WorkerSupportsCancellation = true;
-            asyncWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
-            asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
-            asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
+            openVibeWorker = new BackgroundWorker();
+            openVibeWorker.WorkerReportsProgress = true;
+            openVibeWorker.WorkerSupportsCancellation = true;
+            //openVibeWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
+            openVibeWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
+            openVibeWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
             #endregion
 
             textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
@@ -66,70 +66,100 @@ namespace Adastra
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            if (asyncWorker!=null && asyncWorker.IsBusy)
+            //if (openVibeWorker!=null && openVibeWorker.IsBusy)
+            //{
+            //    //this.TopMost = false;
+
+            //    buttonStart.Enabled = false;
+
+            //    openVibeWorker.CancelAsync();
+            //}
+            //else //start new process
+            //{
+            buttonStart.Enabled = false;
+            //buttonStart.Text = "Cancel";
+            SelectedScenario = comboBoxScenarioType.SelectedIndex;
+
+            try
             {
-                //this.TopMost = false;
+                #region 1 Configure start
+                if (rbuttonEmotiv.Checked)
+                {
+                    IDigitalSignalProcessor dsp = null;
+                    switch (comboBoxDSP.SelectedIndex)
+                    {
+                        case 0: dsp = new BasicSignalProcessor(); break;
+                        case 1: dsp = new FFTSignalProcessor(); break;
+                        case 2: dsp = new EMDProcessor(); break;
+                    }
 
-                buttonStart.Enabled = false;
+                    if (rbuttonEmotivSignal.Checked)
+                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
+                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
-                asyncWorker.CancelAsync();
+                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
+                }
+                else if (rbuttonOpenVibe.Checked)
+                {
+                    featureGenerator = new OpenVibeFeatureGenerator();
+                    dataReader = new OpenVibeRawDataReader();
+                }
+
+                #endregion
+
+                #region 2 Instantiate and run
+
+                if (rbuttonExperimentator.Checked)
+                {
+                    //window created without background thread
+                    ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew;
+                    currentWindow.Closed += delegate(object wsender, EventArgs we)
+                    {
+                        buttonStart.Text = "Start";
+                        buttonStart.Enabled = true;
+                        ew = null;
+                    };
+                }
+                else
+                    if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked)
+                    {
+                        switch (comboBoxScenarioType.SelectedIndex)
+                        {
+                            case 0:
+                                if (rbuttonWPFcharting.Checked)
+                                {
+                                    ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow;
+                                }
+                                else if (rbuttonWindowsFormsCharting.Checked)
+                                {
+                                    of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;
+                                }
+                                break;
+                            case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
+                            case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
+                            //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
+                        }
+
+                        if (rbuttonOpenVibe.Checked)
+                            openVibeWorker.RunWorkerAsync();
+
+                        if (currentForm != null)
+                            currentForm.FormClosed += new FormClosedEventHandler(currentForm_FormClosed);
+                        if (currentWindow != null)
+                            currentWindow.Closed += new EventHandler(currentWindow_Closed);
+                    }
+                #endregion
             }
-            else //start new process
+            catch (Exception ex)
             {
-                buttonStart.Enabled = false;
-                //buttonStart.Text = "Cancel";
+                logger.Error(ex);
+                if (ex.Message.IndexOf("edk.dll") >= 0)
+                    MessageBox.Show(ex.Message + "\r\n You need edk.dll and edk_utils.dll from the Emotiv Reseach SDK placed in Adastra's installation folder.");
+                else MessageBox.Show(ex.Message);
 
-                SelectedScenario = comboBoxScenarioType.SelectedIndex;
-
-				try
-				{
-					if (rbuttonEmotiv.Checked)
-					{
-						IDigitalSignalProcessor dsp = null;
-						switch (comboBoxDSP.SelectedIndex)
-						{
-							case 0: dsp = new BasicSignalProcessor(); break;
-							case 1: dsp = new FFTSignalProcessor(); break;
-							case 2: dsp = new EMDProcessor(); break;
-						}
-
-						if (rbuttonEmotivSignal.Checked)
-							dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
-						else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
-
-						featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
-					}
-					else if (rbuttonOpenVibe.Checked)
-					{
-						featureGenerator = new OpenVibeFeatureGenerator();
-						dataReader = new OpenVibeRawDataReader();
-					}
-					else if (rbuttonExperimentator.Checked)
-					{
-						//window created without background thread
-						ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew;
-						currentWindow.Closed += delegate(object wsender, EventArgs we)
-						{
-							buttonStart.Text = "Start";
-							buttonStart.Enabled = true;
-							ew = null;
-						};
-					}
-
-					if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked)
-						asyncWorker.RunWorkerAsync();
-
-				}
-				catch (Exception ex)
-				{
-					logger.Error(ex);
-					if (ex.Message.IndexOf("edk.dll") >= 0)
-						MessageBox.Show(ex.Message + "\r\n You need edk.dll and edk_utils.dll from the Emotiv Reseach SDK placed in Adastra's installation folder.");
-					else MessageBox.Show(ex.Message);
-
-					buttonStart.Enabled = true;
-				}
+                buttonStart.Enabled = true;
             }
+            // }
         }
 
         void asyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -139,60 +169,37 @@ namespace Adastra
                 logger.Error(e.Error);
 				MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace);
 			}
+        }
+
+        void Clear()
+        {
+            if (OpenVibeController.IsRunning)
+                OpenVibeController.Stop();
+
+            openVibeWorker.CancelAsync();
 
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
 
-            //might be a problem these nulls
             of = null;
             tf = null;
             cf = null;
-            //ovc = null;
+
+            ow = null;
+            ew = null;
+
             currentForm = null;
-        }
-
-        void asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.UserState.ToString() == "ActivateForm")
-            {
-                switch (comboBoxScenarioType.SelectedIndex)
-                {
-                    case 0:
-                        if (rbuttonWPFcharting.Checked)
-                        {
-                            ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow;
-                        }
-                        else if (rbuttonWindowsFormsCharting.Checked)
-                        {
-                            of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;
-                        }
-                        break;
-                    case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
-                    case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
-                    //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
-                }
-
-                if (currentForm != null)
-                    currentForm.FormClosed += new FormClosedEventHandler(currentForm_FormClosed);
-                if (currentWindow!=null)
-                    currentWindow.Closed += new EventHandler(currentWindow_Closed);
-            }
+            currentWindow = null;
         }
 
         void currentWindow_Closed(object sender, EventArgs e)
         {
-            if (OpenVibeController.IsRunning)
-                OpenVibeController.Stop();
-
-            asyncWorker.CancelAsync();
+            Clear();
         }
 
         void currentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (OpenVibeController.IsRunning)
-                OpenVibeController.Stop();
-
-            asyncWorker.CancelAsync();
+            Clear();
         }
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -210,11 +217,6 @@ namespace Adastra
                 OpenVibeController.Start(true);
                 System.Threading.Thread.Sleep(4 * 1000);
             }
-            
-            bwAsync.ReportProgress(-1, "ActivateForm");
-
-            while (!asyncWorker.CancellationPending);
-     
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -342,7 +344,6 @@ namespace Adastra
             OpenVibeController.Scenario = this.textBoxScenario.Text;
             OpenVibeController.NoGUI = false;
             OpenVibeController.Start(false);
-
         }
 
         private void rButtonRealtime_CheckedChanged(object sender, EventArgs e)
