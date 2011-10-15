@@ -81,41 +81,54 @@ namespace Adastra
 
                 SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
-                try
-                {
-                    if (rbuttonEmotiv.Checked)
-                    {
-                        IDigitalSignalProcessor dsp=null;
-                        switch (comboBoxDSP.SelectedIndex)
-                        {
-                            case 0: dsp = new BasicSignalProcessor(); break;
-                            case 1: dsp = new FFTSignalProcessor(); break;
-                            case 2: dsp = new EMDProcessor(); break;
-                        }
+				try
+				{
+					if (rbuttonEmotiv.Checked)
+					{
+						IDigitalSignalProcessor dsp = null;
+						switch (comboBoxDSP.SelectedIndex)
+						{
+							case 0: dsp = new BasicSignalProcessor(); break;
+							case 1: dsp = new FFTSignalProcessor(); break;
+							case 2: dsp = new EMDProcessor(); break;
+						}
 
-                        if (rbuttonEmotivSignal.Checked)
-                            dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
-                        else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+						if (rbuttonEmotivSignal.Checked)
+							dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
+						else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
-                        featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
-                    }
-                    else if (rbuttonOpenVibe.Checked)
-                    {
-                        featureGenerator = new OpenVibeFeatureGenerator();
-                        dataReader = new OpenVibeRawDataReader();
-                    }
+						featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
+					}
+					else if (rbuttonOpenVibe.Checked)
+					{
+						featureGenerator = new OpenVibeFeatureGenerator();
+						dataReader = new OpenVibeRawDataReader();
+					}
+					else if (rbuttonExperimentator.Checked)
+					{
+						//window created without background thread
+						ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew;
+						currentWindow.Closed += delegate(object wsender, EventArgs we)
+						{
+							buttonStart.Text = "Start";
+							buttonStart.Enabled = true;
+							ew = null;
+						};
+					}
 
-                    asyncWorker.RunWorkerAsync();
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex);
-                    if (ex.Message.IndexOf("edk.dll")>=0)
-                        MessageBox.Show(ex.Message + "\r\n You need edk.dll and edk_utils.dll from the Emotiv Reseach SDK placed in Adastra's installation folder.");
-                    else MessageBox.Show(ex.Message);
+					if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked)
+						asyncWorker.RunWorkerAsync();
 
-                    buttonStart.Enabled = true;
-                }
+				}
+				catch (Exception ex)
+				{
+					logger.Error(ex);
+					if (ex.Message.IndexOf("edk.dll") >= 0)
+						MessageBox.Show(ex.Message + "\r\n You need edk.dll and edk_utils.dll from the Emotiv Reseach SDK placed in Adastra's installation folder.");
+					else MessageBox.Show(ex.Message);
+
+					buttonStart.Enabled = true;
+				}
             }
         }
 
@@ -156,7 +169,7 @@ namespace Adastra
                         break;
                     case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
                     case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
-                    case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
+                    //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                 }
 
                 if (currentForm != null)
@@ -357,7 +370,7 @@ namespace Adastra
             //comboBoxScenarioType.Items.Add("2. Display: LDA/SVM classification output from OpenVibe");
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            comboBoxScenarioType.Items.Add("4. Display: Experimentator");
+            //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
 
@@ -377,7 +390,7 @@ namespace Adastra
 
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            comboBoxScenarioType.Items.Add("4. Display: Experimentator");
+            //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
             groupBoxCharting.Visible = false;
