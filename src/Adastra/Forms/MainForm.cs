@@ -150,7 +150,7 @@ namespace Adastra
                             currentWindow.Closed += new EventHandler(currentWindow_Closed);
                     }
 
-                System.Windows.Forms.Integration.ElementHost.EnableModelessKeyboardInterop(currentWindow);
+                if (currentWindow!=null) System.Windows.Forms.Integration.ElementHost.EnableModelessKeyboardInterop(currentWindow);
                 #endregion
             }
             catch (Exception ex)

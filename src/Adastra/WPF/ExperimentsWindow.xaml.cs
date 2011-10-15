@@ -36,7 +36,8 @@ namespace WPF
 			workflows[1] = new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm"));
             workflows[2] = new Experiment("LDA + Radial Basis Function Network", null, new LdaMLP("mlp2"));
 
-			gvMethodsList.ItemsSource = workflows;
+            gvMethodsListTraining.ItemsSource = workflows;
+            //gvMethodsListTesting.ItemsSource = workflows;
             //load eeg record - features vectors data
             //set which experiments to perform
             //start experiments
@@ -167,6 +168,8 @@ namespace WPF
             labelSelectedRecord.Visibility = Visibility.Visible;
             labelRecordName.Text = record.Name;
             //labelRecordDescription.Text = record.
+
+            //TODO: seperation for train and testing data
 
 			foreach (var w in workflows) w.SetRecord(currentRecord);
         }
