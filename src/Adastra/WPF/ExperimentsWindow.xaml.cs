@@ -63,7 +63,6 @@ namespace WPF
             //second click will use already computed modles!
 
             this.cancellationSource = new CancellationTokenSource();
-            this.cancellationSource.Token.ThrowIfCancellationRequested();
             var progressReporter = new ProgressReporter();
 
             //potential problem exists that the same workflows are executed
@@ -82,13 +81,6 @@ namespace WPF
             //Task.Factory.ContinueWhenAll
             buttonStart.IsEnabled = false;
             buttonCancel.IsEnabled = true;
-
-			// All tasks completed then Reset UI.
-			//Task.Factory.ContinueWhenAll(taskQueue.ToArray(), completedTasks =>
-			//{
-			//    buttonCancel.IsEnabled = false;
-			//    buttonStart.IsEnabled = true;
-			//});
         }
 
         /// <summary>
@@ -127,6 +119,8 @@ namespace WPF
                 //    return 42;
                 #endregion
 
+                this.cancellationSource.Token.ThrowIfCancellationRequested();//needs to be inside the computation, not here
+
                 return w.Start();
 
             }, this.cancellationSource.Token);
@@ -156,6 +150,13 @@ namespace WPF
                 }
 
             });
+
+            Task.Factory.ContinueWhenAll(taskQueue.ToArray(),
+            result =>
+            {
+                buttonCancel.IsEnabled = false;
+                buttonStart.IsEnabled = true;
+            }, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
