@@ -8,10 +8,7 @@ using System.ComponentModel;
 using System.Collections.Concurrent;
 
 using Adastra;
-//using System.Windows.Controls;
 using Adastra.Algorithms;
-//using Microsoft.Research.DynamicDataDisplay;
-//using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.Threading.Tasks;
 using NLog;
 
@@ -19,15 +16,18 @@ namespace WPF
 {  
     public partial class ExperimentsWindow : Window
     {
-        private CancellationTokenSource cancellationTokenSource;
+        private CancellationTokenSource cancellationSource;
 
-        Experiment[] workflows = new Experiment[3];
+        Experiment[] workflows = new Experiment[4];
         EEGRecord currentRecord;
 
         public ExperimentsWindow()
         {
             InitializeComponent();
             currentRecord = null;
+
+            buttonStart.IsEnabled = true;
+            buttonCancel.IsEnabled = false;
         }      
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -35,6 +35,7 @@ namespace WPF
 			workflows[0] = new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp"));
 			workflows[1] = new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm"));
             workflows[2] = new Experiment("LDA + Radial Basis Function Network", null, new LdaMLP("mlp2"));
+            workflows[3] = new Experiment("batman", null, new LdaMLP("batman"));
 
             gvMethodsListTraining.ItemsSource = workflows;
             //gvMethodsListTesting.ItemsSource = workflows;
@@ -53,20 +54,11 @@ namespace WPF
             if (currentRecord == null)
             { MessageBox.Show("No data loaded!"); return; }
 
+            statusBar.Text = "";
             //second click will use already computed modles!
 
-            //foreach (var w in workflows)
-            //{
-            //    Task.Factory.StartNew(() => w.Start());
-            //    w.Completed += new ExperimentCompletedEventHandler(w_Completed);
-            //    w.Progress += new ChangedValuesEventHandler(w_Progress);
-            //}
-
-            //here a list of workflows is converted to a list of tasks with progressbars
-            //one test task is provided below 
-
-            this.cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = this.cancellationTokenSource.Token;
+            this.cancellationSource = new CancellationTokenSource();
+            this.cancellationSource.Token.ThrowIfCancellationRequested();
             var progressReporter = new ProgressReporter();
 
             //potential problem exists that the same workflows are executed
@@ -74,22 +66,26 @@ namespace WPF
             foreach (var w in workflows)
             {
                 w.Progress = 0;
-                CreateTask(w, cancellationToken, progressReporter);
+                CreateStartTask(w, progressReporter);
             }
 
             //or executed not in a loop solves the above problem
             //CreateTask(workflows[0], cancellationToken, progressReporter);
             //CreateTask(workflows[1], cancellationToken, progressReporter);
             //CreateTask(workflows[2], cancellationToken, progressReporter);
+
+            //Task.Factory.ContinueWhenAll
+            buttonStart.IsEnabled = false;
+            buttonCancel.IsEnabled = true;
         }
 
         /// <summary>
-        /// Different progress bars should be provided
+        /// Configures and Executes a Task
         /// </summary>
         /// <param name="w"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="progressReporter"></param>
-        void CreateTask(Experiment w, CancellationToken cancellationToken, ProgressReporter progressReporter)
+        void CreateStartTask(Experiment w, ProgressReporter progressReporter)
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -118,47 +114,50 @@ namespace WPF
                 //    // The answer, at last!
                 //    return 42;
                 #endregion
+
                 return w.Start();
 
-            }, cancellationToken);
+            }, this.cancellationSource.Token);
 
             // ProgressReporter can be used to report successful completion,
             //  cancelation, or failure to the UI thread.
             progressReporter.RegisterContinuation(task, () =>
             {
+                //http://blogs.msdn.com/b/csharpfaq/archive/2010/07/19/parallel-programming-task-cancellation.aspx
+
                 // Update UI to reflect completion.
-                w.Progress = 100;
 
                 // Display results.
                 if (task.Exception != null)
                     MessageBox.Show("Background task error: " + task.Exception.ToString());
                 else if (task.IsCanceled)
-                    MessageBox.Show("Background task cancelled");
-                //else
-                //    MessageBox.Show("Background task result: " + task.Result.Name);
+                {
+                    MessageBox.Show("\"" + w.Name + "\" has been cancelled.");
+                    statusBar.Text = "\"" + w.Name + "\" has been cancelled.";
+                }
+                else
+                {
+                    statusBar.Text = "\"" + w.Name + "\" has completed.";
+                    w.Progress = 100;
+                }
 
-                statusBar.Text = "\""+w.Name+"\" has completed.";
+
                 // Reset UI.
                 this.TaskIsComplete();
             });
 
         }
 
-        //void w_Progress(int progress)
-        //{
-        //    bar1.Value = progress;
-        //}
-
-        //void w_Completed(int successRate)
-        //{
-        //    bar1.Value = 100;
-        //}
-
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
         {
             ManageRecordedData mrd = new ManageRecordedData(null);
             mrd.Show();
             mrd.ReocordSelected += new ManageRecordedData.ChangedEventHandler(mrd_ReocordSelected);
+
+            foreach (var w in workflows)
+            {
+                w.Progress = 0;
+            }
         }
 
         void mrd_ReocordSelected(EEGRecord record)
@@ -194,11 +193,10 @@ namespace WPF
         //    this.TaskIsRunning();
         //}
 
-        //still not used
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
             // Cancel the background task.
-            this.cancellationTokenSource.Cancel();
+            this.cancellationSource.Cancel();
 
             // The UI will be updated by the cancellation handler.
         }

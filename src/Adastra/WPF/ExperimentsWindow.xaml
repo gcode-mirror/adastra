@@ -70,7 +70,9 @@
             </ListView>
         </GroupBox>
 
-        <Button Grid.Row="2" Grid.ColumnSpan="3" Name="buttonStart" Margin="3,2,3,2" Click="buttonStart_Click">Start</Button>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Name="buttonStart" Margin="3,2,3,2" Click="buttonStart_Click">Start</Button>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="3" Name="buttonCancel" Margin="3,2,3,2" Click="buttonCancel_Click">Cancel</Button>
+        
 
         <GroupBox Grid.Row="3" Grid.ColumnSpan="3" Header="Calculating error over 'testing' dataset:" Margin="3,2,3,2">
             <ListView Grid.ColumnSpan="4"  Name="gvMethodsListTesting">

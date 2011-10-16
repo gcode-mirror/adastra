@@ -47,8 +47,8 @@ namespace Adastra
             textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
             textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
 
-            rbuttonOpenVibe.Checked = true;
-            comboBoxScenarioType.SelectedIndex = 0;
+            //rbuttonOpenVibe.Checked = true;
+            if (comboBoxScenarioType.Items.Count>0) comboBoxScenarioType.SelectedIndex = 0;
 
             #region BackgroundWorker for OpenVibe
             openVibeWorker = new BackgroundWorker();

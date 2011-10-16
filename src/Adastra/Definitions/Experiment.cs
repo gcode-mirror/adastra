@@ -85,5 +85,30 @@ namespace Adastra
 		{
 			_er = record;
 		}
+
+        /// <summary>
+        /// Calculates Mean Square Error based on supplied input data and previously calculated model
+        /// </summary>
+        /// <returns>returns Mean Square Error</returns>
+        public double Test()
+        {
+            //NO! - test must be performed on test dataset not on the whole record
+            double error=0;
+
+            for (int i = 0; i < _er.FeatureVectorsInputOutput.Count; i++)
+            {
+                double[] inputs=new double[_er.FeatureVectorsInputOutput[i].Length-1]; 
+                Array.Copy(_er.FeatureVectorsInputOutput[i],1,inputs,0,inputs.Length);
+                double output = _er.FeatureVectorsInputOutput[i][0];
+
+                int actualValue = _ml.Classify(inputs);
+                double delta = output - actualValue;
+                //TODO: update progress
+                error += delta * delta;
+            }
+
+            double mse = error / _er.FeatureVectorsInputOutput.Count;
+            return mse;
+        }
     }
 }

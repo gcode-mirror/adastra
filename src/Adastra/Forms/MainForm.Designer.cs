@@ -454,6 +454,7 @@
             // rbuttonExperimentator
             // 
             this.rbuttonExperimentator.AutoSize = true;
+            this.rbuttonExperimentator.Checked = true;
             this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 333);
             this.rbuttonExperimentator.Name = "rbuttonExperimentator";
             this.rbuttonExperimentator.Size = new System.Drawing.Size(95, 17);
