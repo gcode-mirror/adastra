@@ -7,6 +7,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 using Adastra;
 using Adastra.Algorithms;
@@ -30,7 +31,6 @@ namespace WPF
             currentRecord = null;
 
             buttonStart.IsEnabled = true;
-            //buttonCancel.IsEnabled = false;
 
 			taskQueue = new Queue<Task>();
             statusBar.Text = "Ready.";
@@ -61,7 +61,7 @@ namespace WPF
             { MessageBox.Show("No data loaded!"); return; }
 
             statusBar.Text = "";
-            //second click will use already computed modles!
+            //second click will use already computed modeles!
 
             this.cancellationSource = new CancellationTokenSource();
             var progressReporter = new ProgressReporter();
@@ -79,9 +79,7 @@ namespace WPF
             //CreateTask(workflows[1], cancellationToken, progressReporter);
             //CreateTask(workflows[2], cancellationToken, progressReporter);
 
-            //Task.Factory.ContinueWhenAll
             buttonStart.IsEnabled = false;
-            //buttonCancel.IsEnabled = true;
 
             Task.Factory.ContinueWhenAll(taskQueue.ToArray(),
             result =>
@@ -140,8 +138,7 @@ namespace WPF
 
             taskQueue.Enqueue(task);
 
-            // ProgressReporter can be used to report successful completion,
-            //  cancelation, or failure to the UI thread.
+            
             progressReporter.RegisterContinuation(task, () =>
             {
                 //http://blogs.msdn.com/b/csharpfaq/archive/2010/07/19/parallel-programming-task-cancellation.aspx
@@ -161,9 +158,7 @@ namespace WPF
                     statusBar.Text = "Calculating \"" + w.Name + "\" has completed.";
                     w.Progress = 100;
                 }
-
             });
-
         }
 
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
@@ -184,12 +179,23 @@ namespace WPF
 
             labelSelectedRecord.Visibility = Visibility.Visible;
             labelRecordName.Text = record.Name;
-            //labelRecordDescription.Text = record.
-
-            //TODO: seperation for train and testing data
+			statusBar.Text = "Record loaded";
 
 			foreach (var w in workflows) w.SetRecord(currentRecord);
         }
+
+		private void buttonSaveBestModel_Click(object sender, RoutedEventArgs e)
+		{
+			if (tbModelName.Text == "")
+			{
+				MessageBox.Show("No model name supplied!");
+				return;
+			}
+		    AMLearning bestModel=workflows.OrderBy(p=>p.Error).First().GetModel();
+			bestModel.Name = tbModelName.Text;
+			ModelStorage ms = new ModelStorage();
+			ms.SaveModel(bestModel);
+		}
 
         //private void buttonCancel_Click(object sender, RoutedEventArgs e)
         //{

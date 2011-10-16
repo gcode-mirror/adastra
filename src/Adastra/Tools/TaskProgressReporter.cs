@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 namespace Adastra
 {
     /// <summary>
-    /// A class used by Tasks to report progress or completion updates back to the UI.
+	/// ProgressReporter can be used to report successful completion,
+	//  cancelation, or failure to the UI thread.
     /// </summary>
     public sealed class ProgressReporter
     {

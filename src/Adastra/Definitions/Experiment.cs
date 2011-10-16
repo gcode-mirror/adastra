@@ -82,10 +82,12 @@ namespace Adastra
             Progress = Convert.ToInt32(0.9 * progress);
         }
 
+		/// <summary>
+		/// Start computing model (training) and testing
+		/// </summary>
+		/// <returns></returns>
         public AMLearning Start()
         {
-            //seperate data for train, evaluate and train
-
             #region convert
             List<double[]> result = new List<double[]>();
 
@@ -103,10 +105,10 @@ namespace Adastra
             return _ml;
         }
 
-		//public virtual event ChangedValuesEventHandler Progress;
-
-		//public virtual event ExperimentCompletedEventHandler Completed;
-
+		/// <summary>
+		/// Supplies data for training and testing.
+		/// </summary>
+		/// <param name="record"></param>
 		public void SetRecord(EEGRecord record)
 		{
 			_er = record;
@@ -125,30 +127,26 @@ namespace Adastra
             }
             #endregion
 
-            int ratio = 5;
+			#region seperate data for training and testing
+			int ratio = 5;
             NNTrainDataIterator iter = new NNTrainDataIterator(ratio, input, output);
 
             iter.NextData(out trainDataInput, out trainDataOutput, out testDataInput, out testDataOutput);
+			#endregion
 		}
 
         /// <summary>
-        /// Calculates Mean Square Error based on supplied input data and previously calculated model
+        /// Calculates Mean Square Error based on supplied test data and previously calculated model
         /// </summary>
         /// <returns>returns Mean Square Error</returns>
         public double Test()
         {
-            //NO! - test must be performed on test dataset not on the whole record
             double error=0;
 
             for (int i = 0; i < testDataInput.Length; i++)
             {
-                //double[] inputs=new double[_er.FeatureVectorsInputOutput[i].Length-1]; 
-                //Array.Copy(_er.FeatureVectorsInputOutput[i],1,inputs,0,inputs.Length);
-                //double output = _er.FeatureVectorsInputOutput[i][0];
-
                 int actualValue = _ml.Classify(testDataInput[i]);
                 double delta = testDataOutput[i][0] - actualValue;
-                //TODO: update progress
                 error += delta * delta;
             }
 
@@ -158,5 +156,10 @@ namespace Adastra
 
             return mse;
         }
+
+		public AMLearning GetModel()
+		{
+			return _ml;
+		}
     }
 }
