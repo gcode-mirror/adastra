@@ -30,7 +30,7 @@ namespace WPF
             currentRecord = null;
 
             buttonStart.IsEnabled = true;
-            buttonCancel.IsEnabled = false;
+            //buttonCancel.IsEnabled = false;
 
 			taskQueue = new Queue<Task>();
         }      
@@ -70,7 +70,7 @@ namespace WPF
             foreach (var w in workflows)
             {
                 w.Progress = 0;
-                CreateStartTask(w, progressReporter);
+                CreateStartComputeTask(w, progressReporter);
             }
 
             //or executed not in a loop solves the above problem
@@ -80,7 +80,16 @@ namespace WPF
 
             //Task.Factory.ContinueWhenAll
             buttonStart.IsEnabled = false;
-            buttonCancel.IsEnabled = true;
+            //buttonCancel.IsEnabled = true;
+
+            Task.Factory.ContinueWhenAll(taskQueue.ToArray(),
+            result =>
+            {
+                //buttonCancel.IsEnabled = false;
+                buttonStart.IsEnabled = true;
+
+            }, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+
         }
 
         /// <summary>
@@ -89,7 +98,7 @@ namespace WPF
         /// <param name="w"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="progressReporter"></param>
-        void CreateStartTask(Experiment w, ProgressReporter progressReporter)
+        void CreateStartComputeTask(Experiment w, ProgressReporter progressReporter)
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -119,13 +128,15 @@ namespace WPF
                 //    return 42;
                 #endregion
 
-                this.cancellationSource.Token.ThrowIfCancellationRequested();//needs to be inside the computation, not here
+                //this.cancellationSource.Token.ThrowIfCancellationRequested();//needs to be inside the computation, not here
 
-                return w.Start();
+                w.Start();
 
-            }, this.cancellationSource.Token);
+                return w.Test();//Start();
 
-			taskQueue.Enqueue(task);
+            });//, this.cancellationSource.Token);
+
+            taskQueue.Enqueue(task);
 
             // ProgressReporter can be used to report successful completion,
             //  cancelation, or failure to the UI thread.
@@ -145,19 +156,26 @@ namespace WPF
                 }
                 else
                 {
-                    statusBar.Text = "\"" + w.Name + "\" has completed.";
+                    statusBar.Text = "Calculating \"" + w.Name + "\" has completed.";
                     w.Progress = 100;
                 }
 
             });
 
-            Task.Factory.ContinueWhenAll(taskQueue.ToArray(),
-            result =>
-            {
-                buttonCancel.IsEnabled = false;
-                buttonStart.IsEnabled = true;
-            }, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
+
+        ///// <summary>
+        ///// Calculates error for each previously computed model.
+        ///// </summary>
+        ///// <param name="w"></param>
+        ///// <param name="progressReporter"></param>
+        //void CreateStartTestTask(Experiment w, ProgressReporter progressReporter)
+        //{
+        //    var task = Task.Factory.StartNew(() =>
+        //    {
+        //        return w.Test();
+        //    });
+        //}
 
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
         {

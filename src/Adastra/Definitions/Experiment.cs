@@ -52,9 +52,27 @@ namespace Adastra
             }
         }
 
+        double _error;
+        public double Error
+        {
+            get
+            {
+                return this._error;
+            }
+
+            set
+            {
+                if (value != this._error)
+                {
+                    this._error = value;
+                    NotifyPropertyChanged("Error");
+                }
+            }
+        }
+
         void _ml_Progress(int progress)
         {
-            Progress = progress;
+            Progress = (9/10) * progress;
         }
 
         public AMLearning Start()
@@ -108,6 +126,9 @@ namespace Adastra
             }
 
             double mse = error / _er.FeatureVectorsInputOutput.Count;
+
+            Error = mse;
+
             return mse;
         }
     }

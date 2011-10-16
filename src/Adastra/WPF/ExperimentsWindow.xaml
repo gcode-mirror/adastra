@@ -1,15 +1,14 @@
 ﻿<Window x:Class="WPF.ExperimentsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Experimentator" Height="580" Width="600" Loaded="Window_Loaded"
+    Title="Experimentator" Height="400" Width="640" Loaded="Window_Loaded"
     >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
@@ -23,12 +22,11 @@
             <StackPanel Orientation="Horizontal">
                 <Button Name="buttonLoadData" Click="buttonLoadData_Click" Margin="2,2,2,2" Width="100">Load EEG data</Button>
                 <TextBlock Name="labelSelectedRecord" Margin="4,5,2,2" Width="90" Visibility="Hidden">Selected record:</TextBlock>
-                <TextBlock Name="labelRecordName" Margin="2,5,2,2" Width="120"></TextBlock>
-                <TextBlock Name="labelRecordDescription" Margin="2,5,2,2" Width="300"></TextBlock>
+                <TextBlock Name="labelRecordName" Margin="2,5,2,2" Width="174"></TextBlock>
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets for methods:" Margin="3,2,3,2">
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets and then testing for methods:" Margin="3,2,3,2">
             <ListView Grid.ColumnSpan="4"  Name="gvMethodsListTraining">
                 <ListView.View>
                     <GridView AllowsColumnReorder="true">
@@ -37,73 +35,40 @@
                             
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Method" TextAlignment="Center"/>
+                                    <TextBlock Text="Method" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                                     
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Name}" TextAlignment="Center" />
+                                    <TextBlock Text="{Binding Path=Name}" HorizontalAlignment="Center" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-
-                        <GridViewColumn>
-
-                          <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ProgressBar Height="24" Width="260" Value="{Binding Path=Progress}"></ProgressBar>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                         </GridViewColumn>
-
-                         <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Progress}" Width="35" HorizontalAlignment="Center"></TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </GroupBox>
-
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Name="buttonStart" Margin="3,2,3,2" Click="buttonStart_Click">Start</Button>
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="3" Name="buttonCancel" Margin="3,2,3,2" Click="buttonCancel_Click">Cancel</Button>
-        
-
-        <GroupBox Grid.Row="3" Grid.ColumnSpan="3" Header="Calculating error over 'testing' dataset:" Margin="3,2,3,2">
-            <ListView Grid.ColumnSpan="4"  Name="gvMethodsListTesting">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="true">
 
                         <GridViewColumn>
 
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Method" TextAlignment="Center"/>
+                                    <TextBlock Text="Progress" HorizontalAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Name}" TextAlignment="Center" />
+                                    <ProgressBar Height="24" Width="260" Value="{Binding Path=Progress}" ></ProgressBar>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                         </GridViewColumn>
 
-                        <GridViewColumn>
+                         <GridViewColumn>
 
-                            <GridViewColumn.CellTemplate>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <ProgressBar Height="24" Width="260" Value="{Binding Path=Progress}"></ProgressBar>
+                                    <TextBlock Text="%" HorizontalAlignment="Center"/>
                                 </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
-                        <GridViewColumn>
+                            </GridViewColumn.HeaderTemplate>
+                             
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=Progress}" Width="35" HorizontalAlignment="Center"></TextBlock>
@@ -111,18 +76,35 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
+                        <GridViewColumn>
+                            
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Error" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Error}" Width="35" HorizontalAlignment="Center"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                     </GridView>
                 </ListView.View>
             </ListView>
         </GroupBox>
 
+        <Button Grid.Row="2" Grid.ColumnSpan="3" Name="buttonStart" Margin="3,2,3,2" Click="buttonStart_Click">Start</Button>
+        <!--<Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="3" Name="buttonCancel" Margin="3,2,3,2" Click="buttonCancel_Click">Cancel</Button>-->
+        
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="4,2,2,2">Model name:</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="2,2,2,2" Height="25" VerticalAlignment="Top"></TextBox>
+        <Button Grid.Row="3" Name="buttonSaveBestModel" Grid.Column="2" Margin="2,2,2,2">Save Best Model</Button>
 
-        <TextBlock Grid.Row="4" Grid.Column="0" Margin="4,2,2,2">Model name:</TextBlock>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="2,2,2,2" Height="25" VerticalAlignment="Top"></TextBox>
-        <Button Grid.Row="4" Name="buttonSaveBestModel" Grid.Column="2" Margin="2,2,2,2">Save Best Model</Button>
-
-        <Button Grid.Row="5" Grid.Column="2" Name="buttonClose" Margin="3,2,3,2" Click="buttonClose_Click">Close</Button>
-        <StatusBar Grid.Row="6" Grid.ColumnSpan="3">
+        <Button Grid.Row="4" Grid.Column="2" Name="buttonClose" Margin="3,2,3,2" Click="buttonClose_Click">Close</Button>
+        <StatusBar Grid.Row="5" Grid.ColumnSpan="3">
             <TextBlock Name="statusBar"></TextBlock>
         </StatusBar>
     </Grid>
