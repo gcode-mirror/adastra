@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.ComponentModel;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 using Adastra;
 using Adastra.Algorithms;
@@ -21,6 +22,8 @@ namespace WPF
         Experiment[] workflows = new Experiment[4];
         EEGRecord currentRecord;
 
+		Queue<Task> taskQueue;
+
         public ExperimentsWindow()
         {
             InitializeComponent();
@@ -28,6 +31,8 @@ namespace WPF
 
             buttonStart.IsEnabled = true;
             buttonCancel.IsEnabled = false;
+
+			taskQueue = new Queue<Task>();
         }      
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -77,6 +82,13 @@ namespace WPF
             //Task.Factory.ContinueWhenAll
             buttonStart.IsEnabled = false;
             buttonCancel.IsEnabled = true;
+
+			// All tasks completed then Reset UI.
+			//Task.Factory.ContinueWhenAll(taskQueue.ToArray(), completedTasks =>
+			//{
+			//    buttonCancel.IsEnabled = false;
+			//    buttonStart.IsEnabled = true;
+			//});
         }
 
         /// <summary>
@@ -119,6 +131,8 @@ namespace WPF
 
             }, this.cancellationSource.Token);
 
+			taskQueue.Enqueue(task);
+
             // ProgressReporter can be used to report successful completion,
             //  cancelation, or failure to the UI thread.
             progressReporter.RegisterContinuation(task, () =>
@@ -141,11 +155,7 @@ namespace WPF
                     w.Progress = 100;
                 }
 
-
-                // Reset UI.
-                this.TaskIsComplete();
             });
-
         }
 
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
@@ -172,26 +182,6 @@ namespace WPF
 
 			foreach (var w in workflows) w.SetRecord(currentRecord);
         }
-
-        private void TaskIsComplete()
-        {
-            // Reset UI.
-
-            //this.bar1.Value = 0;
-
-            //this.startButton.Enabled = true;
-            //this.errorButton.Enabled = true;
-            //this.cancelButton.Enabled = false;
-        }
-
-        //partial void errorButton_Click(object sender, EventArgs e)
-        //{
-        //    // Start the background task with error.
-        //    this.StartBackgroundTask(true);
-
-        //    // Update UI to reflect background task.
-        //    this.TaskIsRunning();
-        //}
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
