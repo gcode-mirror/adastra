@@ -33,6 +33,7 @@ namespace WPF
             //buttonCancel.IsEnabled = false;
 
 			taskQueue = new Queue<Task>();
+            statusBar.Text = "Ready.";
         }      
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -87,6 +88,7 @@ namespace WPF
             {
                 //buttonCancel.IsEnabled = false;
                 buttonStart.IsEnabled = true;
+                statusBar.Text = "Done. All methods completed.";
 
             }, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 
@@ -164,19 +166,6 @@ namespace WPF
 
         }
 
-        ///// <summary>
-        ///// Calculates error for each previously computed model.
-        ///// </summary>
-        ///// <param name="w"></param>
-        ///// <param name="progressReporter"></param>
-        //void CreateStartTestTask(Experiment w, ProgressReporter progressReporter)
-        //{
-        //    var task = Task.Factory.StartNew(() =>
-        //    {
-        //        return w.Test();
-        //    });
-        //}
-
         private void buttonLoadData_Click(object sender, RoutedEventArgs e)
         {
             ManageRecordedData mrd = new ManageRecordedData(null);
@@ -202,12 +191,12 @@ namespace WPF
 			foreach (var w in workflows) w.SetRecord(currentRecord);
         }
 
-        private void buttonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            // Cancel the background task.
-            this.cancellationSource.Cancel();
+        //private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        //{
+        //    // Cancel the background task.
+        //    this.cancellationSource.Cancel();
 
-            // The UI will be updated by the cancellation handler.
-        }
+        //    // The UI will be updated by the cancellation handler.
+        //}
     }
 }

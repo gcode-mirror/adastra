@@ -26,7 +26,7 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets and then testing for methods:" Margin="3,2,3,2">
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets and then testing:" Margin="3,2,3,2">
             <ListView Grid.ColumnSpan="4"  Name="gvMethodsListTraining">
                 <ListView.View>
                     <GridView AllowsColumnReorder="true">

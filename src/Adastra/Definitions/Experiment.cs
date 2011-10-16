@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
+using Adastra.Algorithms;
+
 namespace Adastra
 {
     public delegate void ExperimentCompletedEventHandler(int successRate);
@@ -12,6 +14,11 @@ namespace Adastra
     {
         EEGRecord _er; 
         AMLearning _ml;
+
+        double[][] trainDataInput;
+        double[][] trainDataOutput;
+        double[][] testDataInput;
+        double[][] testDataOutput;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -72,25 +79,26 @@ namespace Adastra
 
         void _ml_Progress(int progress)
         {
-            Progress = (9/10) * progress;
+            Progress = Convert.ToInt32(0.9 * progress);
         }
 
         public AMLearning Start()
         {
-            //read ALL feature vectors
- 
             //seperate data for train, evaluate and train
-            _ml.Train(_er.FeatureVectorsInputOutput, _er.FeatureVectorsInputOutput[0].Length - 1);
 
-            //supply to ml for train using train and evaluate
+            #region convert
+            List<double[]> result = new List<double[]>();
 
-            //use test to produce results 
-            //int result=100;
+            for (int i = 0; i < trainDataInput.Length; i++)
+            {
+                double[] p=new double[trainDataInput[0].Length+1];
+                p[0] = trainDataOutput[i][0];
+                Array.Copy(trainDataInput[i],0,p,1,trainDataInput[0].Length);
+                result.Add(p);
+            }
+            #endregion
 
-			//if (Completed != null)
-			//    Completed(result);
-
-			//this.Progress = 100;
+            _ml.Train(result, result[0].Length - 1);
 
             return _ml;
         }
@@ -102,6 +110,25 @@ namespace Adastra
 		public void SetRecord(EEGRecord record)
 		{
 			_er = record;
+
+            #region convert
+            double[][] input = new double[record.FeatureVectorsInputOutput.Count][];
+            double[][] output = new double[record.FeatureVectorsInputOutput.Count][];
+
+            for(int i = 0; i < record.FeatureVectorsInputOutput.Count; i++)
+            {
+                input[i] = new double[_er.FeatureVectorsInputOutput[i].Length - 1];
+                Array.Copy(_er.FeatureVectorsInputOutput[i], 1, input[i], 0, input[i].Length);
+
+                output[i] = new double[1];
+                output[i][0] = _er.FeatureVectorsInputOutput[i][0];
+            }
+            #endregion
+
+            int ratio = 5;
+            NNTrainDataIterator iter = new NNTrainDataIterator(ratio, input, output);
+
+            iter.NextData(out trainDataInput, out trainDataOutput, out testDataInput, out testDataOutput);
 		}
 
         /// <summary>
@@ -113,14 +140,14 @@ namespace Adastra
             //NO! - test must be performed on test dataset not on the whole record
             double error=0;
 
-            for (int i = 0; i < _er.FeatureVectorsInputOutput.Count; i++)
+            for (int i = 0; i < testDataInput.Length; i++)
             {
-                double[] inputs=new double[_er.FeatureVectorsInputOutput[i].Length-1]; 
-                Array.Copy(_er.FeatureVectorsInputOutput[i],1,inputs,0,inputs.Length);
-                double output = _er.FeatureVectorsInputOutput[i][0];
+                //double[] inputs=new double[_er.FeatureVectorsInputOutput[i].Length-1]; 
+                //Array.Copy(_er.FeatureVectorsInputOutput[i],1,inputs,0,inputs.Length);
+                //double output = _er.FeatureVectorsInputOutput[i][0];
 
-                int actualValue = _ml.Classify(inputs);
-                double delta = output - actualValue;
+                int actualValue = _ml.Classify(testDataInput[i]);
+                double delta = testDataOutput[i][0] - actualValue;
                 //TODO: update progress
                 error += delta * delta;
             }
