@@ -10,6 +10,9 @@ using Accord.Statistics.Kernels;
 
 namespace Adastra.Algorithms
 {
+    /// <summary>
+    /// First Linear Discriminant Analysis (LDA) computations and then Support Vector Machine (SVM) (for training) is applied.
+    /// </summary>
 	public class LdaSVM : AMLearning
 	{
 		LinearDiscriminantAnalysis _lda;
