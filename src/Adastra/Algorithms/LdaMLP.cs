@@ -104,9 +104,9 @@ namespace Adastra.Algorithms
 
                 iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);
 
-                double errorValidationSet;
-                double errorTrainSet;
-                double errorPrev = 1000000;
+                double validationSetError;
+                double trainSetError;
+                double prevError = 1000000;
 
                 //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
                 //This way we prevent overfitting.
@@ -114,16 +114,16 @@ namespace Adastra.Algorithms
                 while (true)
                 {
                     count++;
-                    errorTrainSet = teacher.RunEpoch(trainDataInput, trainDataOutput);
+                    trainSetError = teacher.RunEpoch(trainDataInput, trainDataOutput);
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
-                        errorValidationSet = teacher.RunEpoch(validateDataInput, validateDataOutput);
-                        if (double.IsNaN(errorValidationSet)) throw new Exception("Computation failed!");
+                        validationSetError = teacher.RunEpoch(validateDataInput, validateDataOutput);
+                        if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
-                        if (errorValidationSet > errorPrev) //*|| Math.Abs(errorTrainSet - errorValidationSet)<0.0001*/
+                        if (validationSetError > prevError) //*|| Math.Abs(errorTrainSet - errorValidationSet)<0.0001*/
                             break;
-                        errorPrev = errorValidationSet;
+                        prevError = validationSetError;
                     }
                 }
 
