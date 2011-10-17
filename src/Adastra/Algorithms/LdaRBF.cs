@@ -11,11 +11,11 @@ using Encog.Util.Simple;
 
 namespace Adastra.Algorithms
 {
+    /// <summary>
+    /// First Linear Discriminant Analysis (LDA) computations and then Radial Basis Function (RBF) (for training) is applied.
+    /// </summary>
     public class LdaRBF : AMLearning
     {
-        /// <summary>
-        /// First Linear Discriminant Analysis (LDA) computations and then Radial Basis Function (RBF) (for training) is applied.
-        /// </summary>
         public override void Train(List<double[]> outputInput, int inputVectorDimensions)
         {
             RBFNetwork method = new RBFNetwork(2, 4, 1, RBFEnum.Gaussian);
