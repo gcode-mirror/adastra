@@ -195,6 +195,7 @@ namespace WPF
 			bestModel.Name = tbModelName.Text;
 			ModelStorage ms = new ModelStorage();
 			ms.SaveModel(bestModel);
+            statusBar.Text = "Model '"+tbModelName.Text+"' saved successfully.";
 		}
 
         //private void buttonCancel_Click(object sender, RoutedEventArgs e)
