@@ -20,7 +20,7 @@ namespace WPF
     {
         private CancellationTokenSource cancellationSource;
 
-        Experiment[] workflows = new Experiment[4];
+        List<Experiment> workflows = new List<Experiment>();
         EEGRecord currentRecord;
 
 		Queue<Task> taskQueue;
@@ -38,10 +38,10 @@ namespace WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-			workflows[0] = new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp"));
-			workflows[1] = new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm"));
-            workflows[2] = new Experiment("LDA + Radial Basis Function Network", null, new LdaMLP("mlp2"));
-            workflows[3] = new Experiment("batman", null, new LdaMLP("batman"));
+			workflows.Add(new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp")));
+			workflows.Add(new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm")));
+            //workflows[2] = new Experiment("LDA + Radial Basis Function Network", null, new LdaMLP("mlp2"));
+            //workflows[3] = new Experiment("batman", null, new LdaMLP("batman"));
 
             gvMethodsListTraining.ItemsSource = workflows;
             //gvMethodsListTesting.ItemsSource = workflows;
