@@ -120,11 +120,11 @@ namespace Adastra.Algorithms
                     else teacher.Training = dataSet;
                     
                     teacher.Iteration();
-                    trainSetError = this.ComputeError(trainDataInput, trainDataOutput);
+                    trainSetError = this.CalculateError(trainDataInput, trainDataOutput);
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
-                        validationSetError = ComputeError(validateDataInput, validateDataOutput);
+                        validationSetError = this.CalculateError(validateDataInput, validateDataOutput);
                         if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
                         if (validationSetError > prevError)
@@ -181,11 +181,11 @@ namespace Adastra.Algorithms
             #endregion
         }
 
-        public double ComputeError(double[][] input, double[][] output)
+        public override double CalculateError(double[][] input, double[][] ideal)
         {
             //TODO: fill method
             throw new Exception("Unimplemented");
-            return -1;
+           // return -1;
         }
 
         public override event ChangedValuesEventHandler Progress;

@@ -40,8 +40,7 @@ namespace WPF
         {
 			workflows.Add(new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp")));
 			workflows.Add(new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm")));
-            //workflows[2] = new Experiment("LDA + Radial Basis Function Network", null, new LdaMLP("mlp2"));
-            //workflows[3] = new Experiment("batman", null, new LdaMLP("batman"));
+            workflows.Add(new Experiment("LDA + Radial Basis Function", null, new LdaRBF("rbf")));
 
             gvMethodsListTraining.ItemsSource = workflows;
             //gvMethodsListTesting.ItemsSource = workflows;

@@ -120,8 +120,8 @@ namespace Adastra.Algorithms
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
-                        //TODO: error - it should only compute without training !!!!
-                        validationSetError = teacher.RunEpoch(validateDataInput, validateDataOutput);
+
+                        validationSetError = CalculateError(validateDataInput, validateDataOutput);
                         if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
                         if (validationSetError > prevError)
@@ -174,6 +174,25 @@ namespace Adastra.Algorithms
 
             return pos + 1;
             #endregion
+        }
+
+        public override double CalculateError(double[][] input, double[][] ideal)
+        {
+            //double error = 0;
+
+            //for (int i = 0; i < testDataInput.Length; i++)
+            //{
+            //    int actualValue = _ml.Classify(testDataInput[i]);
+            //    double delta = testDataOutput[i][0] - actualValue;
+            //    error += delta * delta;
+            //}
+
+            //double mse = error / _er.FeatureVectorsInputOutput.Count;
+
+            //Error = mse;
+            throw new Exception("Uninplemented");
+
+            //return mse;
         }
 
         public override event ChangedValuesEventHandler Progress;

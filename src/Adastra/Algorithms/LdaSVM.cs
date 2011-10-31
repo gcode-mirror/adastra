@@ -131,5 +131,10 @@ namespace Adastra.Algorithms
 		}
 
 		public override event ChangedValuesEventHandler Progress;
+
+        public override double CalculateError(double[][] input, double[][] ideal)
+        {
+            throw new Exception("Uninplemented");
+        }
 	}
 }

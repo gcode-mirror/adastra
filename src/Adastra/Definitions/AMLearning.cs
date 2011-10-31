@@ -36,7 +36,7 @@ namespace Adastra
         /// </summary>
         public Dictionary<string, int> ActionList { get; set; }
 
-        
+        public abstract double CalculateError(double[][] input, double[][] ideal);
 
         public virtual event ChangedValuesEventHandler Progress;
 
