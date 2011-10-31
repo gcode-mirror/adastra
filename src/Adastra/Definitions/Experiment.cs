@@ -127,7 +127,7 @@ namespace Adastra
             }
             #endregion
 
-			#region seperate data for training and testing
+			#region seperate data for training and testing (evaluating final computed model)
 			int ratio = 5;
             NNTrainDataIterator iter = new NNTrainDataIterator(ratio, input, output);
 

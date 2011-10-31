@@ -83,31 +83,109 @@ namespace Adastra.Algorithms
             }
             #endregion
 
-            IMLDataSet dataSet = new BasicMLDataSet(input2, output2);
-               
-            method.Compute((IMLData)dataSet);
+            //IMLDataSet dataSet = new BasicMLDataSet(input2, output2);
 
-            //TODO: train over 'train' and 'validate' sets
+            Encog.Neural.Rbf.Training.SVDTraining teacher=null;
 
-            //// train to 1%
-           
-            
-            //throw new NotImplementedException();
+            int ratio = 4;
+            NNTrainDataIterator iter = new NNTrainDataIterator(ratio, input2, output2);
+
+            //actual training
+            while (iter.HasMore) //we do the training each time spliting the data to different 'train' and 'validate' sets 
+            {
+                #region get new data
+                double[][] trainDataInput;
+                double[][] trainDataOutput;
+                double[][] validateDataInput;
+                double[][] validateDataOutput;
+
+                iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);
+
+                double validationSetError;
+                double trainSetError;
+                double prevError = 1000000;
+                #endregion
+
+                //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
+                //This way we prevent overfitting.
+                int count = 0;
+                while (true)
+                {
+                    count++;
+
+                    IMLDataSet dataSet = new BasicMLDataSet(trainDataInput, trainDataOutput);
+
+                    if (teacher==null)
+                        teacher = new Encog.Neural.Rbf.Training.SVDTraining(method, dataSet);
+                    else teacher.Training = dataSet;
+                    
+                    teacher.Iteration();
+                    trainSetError = this.ComputeError(trainDataInput, trainDataOutput);
+
+                    if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
+                    {
+                        validationSetError = ComputeError(validateDataInput, validateDataOutput);
+                        if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
+
+                        if (validationSetError > prevError)
+                            break;
+                        prevError = validationSetError;
+                    }
+                }
+
+                if (this.Progress != null) this.Progress(35 + (iter.CurrentIterationIndex) * (65 / ratio));
+            }
+
+            //now we have a model of a RBF+LDA which we can use for classification
+            if (this.Progress != null) this.Progress(100);
         }
 
         public override int Classify(double[] input)
         {
-            //TODO: add lda
+            double[,] sample = new double[1, input.Length];
 
-            // evaluate
-            //EncogUtility.Evaluate(method, dataSet);
+            #region convert to LDA format
+            for (int i = 0; i < input.Length; i++)
+            {
+                sample[0, i] = input[i];
+            }
+            #endregion
 
-            IMLData set =new Encog.ML.Data.Basic.BasicMLData(input);
+            double[,] projectedSample = _lda.Transform(sample);
+
+            #region convert to NN format
+            double[] projectedSample2 = new double[projectedSample.GetLength(1)];
+            for (int i = 0; i < projectedSample.GetLength(1); i++)
+            {
+                projectedSample2[i] = projectedSample[0, i];
+            }
+            #endregion
+
+            IMLData set = new Encog.ML.Data.Basic.BasicMLData(projectedSample2);
 
             IMLData result = method.Compute(set);
 
+            #region find winner node 
+            int pos = -1;
+            double max = -1;
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (result[i] > max)
+                {
+                    pos = i;
+                    max = result[i];
+                }
+            }
+
+            return pos + 1;
+            #endregion
+        }
+
+        public double ComputeError(double[][] input, double[][] output)
+        {
+            //TODO: fill method
+            throw new Exception("Unimplemented");
             return -1;
-            //result.Data;
         }
 
         public override event ChangedValuesEventHandler Progress;

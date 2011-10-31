@@ -97,6 +97,7 @@ namespace Adastra.Algorithms
             //actual training
             while (iter.HasMore) //we do the training each time spliting the data to different 'train' and 'validate' sets 
             {
+                #region get new data
                 double[][] trainDataInput;
                 double[][] trainDataOutput;
                 double[][] validateDataInput;
@@ -107,6 +108,7 @@ namespace Adastra.Algorithms
                 double validationSetError;
                 double trainSetError;
                 double prevError = 1000000;
+                #endregion
 
                 //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
                 //This way we prevent overfitting.
@@ -118,10 +120,11 @@ namespace Adastra.Algorithms
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
+                        //TODO: error - it should only compute without training !!!!
                         validationSetError = teacher.RunEpoch(validateDataInput, validateDataOutput);
                         if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
-                        if (validationSetError > prevError) //*|| Math.Abs(errorTrainSet - errorValidationSet)<0.0001*/
+                        if (validationSetError > prevError)
                             break;
                         prevError = validationSetError;
                     }
@@ -157,6 +160,7 @@ namespace Adastra.Algorithms
 
             double[] result = _network.Compute(projectedSample2);
 
+            #region find winner node
             int pos = -1;
             double max = -1;
             for (int i = 0; i < result.Length; i++)
@@ -169,6 +173,7 @@ namespace Adastra.Algorithms
             }
 
             return pos + 1;
+            #endregion
         }
 
         public override event ChangedValuesEventHandler Progress;
