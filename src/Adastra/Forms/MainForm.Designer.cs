@@ -462,6 +462,7 @@
             this.rbuttonExperimentator.TabStop = true;
             this.rbuttonExperimentator.Text = "Experimentator";
             this.rbuttonExperimentator.UseVisualStyleBackColor = true;
+            this.rbuttonExperimentator.CheckedChanged += new System.EventHandler(this.rbuttonExperimentator_CheckedChanged);
             // 
             // MainForm
             // 

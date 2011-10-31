@@ -47,7 +47,7 @@ namespace Adastra
             textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
             textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
 
-            //rbuttonOpenVibe.Checked = true;
+            rbuttonOpenVibe.Checked = true;
             if (comboBoxScenarioType.Items.Count>0) comboBoxScenarioType.SelectedIndex = 0;
 
             #region BackgroundWorker for OpenVibe
@@ -431,5 +431,15 @@ namespace Adastra
 		{
 			label6.Visible = true;
 		}
+
+        private void rbuttonExperimentator_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxScenarioType.Items.Clear();
+
+            comboBoxScenarioType.Items.Add("1. Evaluate meachine learning methods");
+
+            comboBoxScenarioType.SelectedIndex = 0;
+            groupBoxCharting.Visible = false;
+        }
     }
 }
