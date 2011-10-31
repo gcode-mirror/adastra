@@ -180,7 +180,8 @@ namespace WPF
             labelRecordName.Text = record.Name;
 			statusBar.Text = "Record loaded";
 
-			foreach (var w in workflows) w.SetRecord(currentRecord);
+			foreach (var w in workflows) 
+                w.SetRecord(currentRecord);
         }
 
 		private void buttonSaveBestModel_Click(object sender, RoutedEventArgs e)

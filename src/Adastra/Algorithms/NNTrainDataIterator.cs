@@ -28,8 +28,15 @@ namespace Adastra.Algorithms
         {
             _ratio = ratio;
             _currentValidateIndex = 0;
+            _input = input;
+            _output = output;
 
-            #region randomize vectors
+            for (int i = 0; i < 3; i++)
+                Randomize(_input, _output);
+        }
+
+        private void Randomize(double[][] input, double[][] output)
+        {
             int[] numbers = new int[input.GetLength(0)];
             for (int i = 0; i < input.GetLength(0); i++)
             {
@@ -54,7 +61,6 @@ namespace Adastra.Algorithms
 
                 max--;
             }
-            #endregion
         }
 
         /// <summary>

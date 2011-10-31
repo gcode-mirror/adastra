@@ -9,6 +9,7 @@ using Encog.ML.Data.Basic;
 using Encog.Neural.RBF;
 using Encog.Util.Simple;
 using Accord.Statistics.Analysis;
+using Encog.Neural.Networks.Training.Propagation.Resilient;
 
 namespace Adastra.Algorithms
 {
@@ -22,14 +23,11 @@ namespace Adastra.Algorithms
 
         public LdaRBF()
         {
-            //TODO: choose better default parameters
-            method = new RBFNetwork(2, 4, 1, RBFEnum.Gaussian);
         }
 
         public LdaRBF(string name)
         {
             this.Name = name;
-            method = new RBFNetwork(2, 4, 1, RBFEnum.Gaussian);
         }
 
         public override void Train(List<double[]> outputInput, int inputVectorDimensions)
@@ -85,7 +83,10 @@ namespace Adastra.Algorithms
 
             //IMLDataSet dataSet = new BasicMLDataSet(input2, output2);
 
-            Encog.Neural.Rbf.Training.SVDTraining teacher=null;
+            method = new RBFNetwork(dimensions, dimensions, output_count, RBFEnum.Gaussian);//inputs neurons, hidden neurons, output neurons
+
+            //Encog.Neural.Rbf.Training.SVDTraining teacher=null;
+            ResilientPropagation teacher=null;
 
             int ratio = 4;
             NNTrainDataIterator iter = new NNTrainDataIterator(ratio, input2, output2);
@@ -116,7 +117,7 @@ namespace Adastra.Algorithms
                     IMLDataSet dataSet = new BasicMLDataSet(trainDataInput, trainDataOutput);
 
                     if (teacher==null)
-                        teacher = new Encog.Neural.Rbf.Training.SVDTraining(method, dataSet);
+                        teacher = new ResilientPropagation(method, dataSet);//new Encog.Neural.Rbf.Training.SVDTraining(method, dataSet);
                     else teacher.Training = dataSet;
                     
                     teacher.Iteration();
@@ -183,9 +184,18 @@ namespace Adastra.Algorithms
 
         public override double CalculateError(double[][] input, double[][] ideal)
         {
-            //TODO: fill method
-            throw new Exception("Unimplemented");
-           // return -1;
+            double error = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                int actualValue = this.Classify(input[i]);
+                double delta = ideal[i][0] - actualValue;
+                error += delta * delta;
+            }
+
+            double mse = error / input.Length;
+
+            return mse;
         }
 
         public override event ChangedValuesEventHandler Progress;

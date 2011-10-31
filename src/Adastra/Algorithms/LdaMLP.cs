@@ -178,21 +178,18 @@ namespace Adastra.Algorithms
 
         public override double CalculateError(double[][] input, double[][] ideal)
         {
-            //double error = 0;
+            double error = 0;
 
-            //for (int i = 0; i < testDataInput.Length; i++)
-            //{
-            //    int actualValue = _ml.Classify(testDataInput[i]);
-            //    double delta = testDataOutput[i][0] - actualValue;
-            //    error += delta * delta;
-            //}
+            for (int i = 0; i < input.Length; i++)
+            {
+                int actualValue = this.Classify(input[i]);
+                double delta = ideal[i][0] - actualValue;
+                error += delta * delta;
+            }
 
-            //double mse = error / _er.FeatureVectorsInputOutput.Count;
+            double mse = error / input.Length;
 
-            //Error = mse;
-            throw new Exception("Uninplemented");
-
-            //return mse;
+            return mse;
         }
 
         public override event ChangedValuesEventHandler Progress;
