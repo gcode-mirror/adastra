@@ -110,6 +110,9 @@ namespace Adastra.Algorithms
                 //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
                 //This way we prevent overfitting.
                 int count = 0;
+
+                validationSetError = this.CalculateError(validateDataInput, validateDataOutput);
+
                 while (true)
                 {
                     count++;
@@ -125,10 +128,10 @@ namespace Adastra.Algorithms
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
-                        validationSetError = this.CalculateError(validateDataInput, validateDataOutput);
+                        
                         if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
-                        if (validationSetError > prevError)
+                        if (validationSetError > prevError || Math.Abs(validationSetError - prevError) < 0.000001)
                             break;
                         prevError = validationSetError;
                     }
