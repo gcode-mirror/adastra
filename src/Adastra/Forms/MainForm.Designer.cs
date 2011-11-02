@@ -457,10 +457,10 @@
             this.rbuttonExperimentator.Checked = true;
             this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 333);
             this.rbuttonExperimentator.Name = "rbuttonExperimentator";
-            this.rbuttonExperimentator.Size = new System.Drawing.Size(95, 17);
+            this.rbuttonExperimentator.Size = new System.Drawing.Size(77, 17);
             this.rbuttonExperimentator.TabIndex = 25;
             this.rbuttonExperimentator.TabStop = true;
-            this.rbuttonExperimentator.Text = "Experimentator";
+            this.rbuttonExperimentator.Text = "Optimizator";
             this.rbuttonExperimentator.UseVisualStyleBackColor = true;
             this.rbuttonExperimentator.CheckedChanged += new System.EventHandler(this.rbuttonExperimentator_CheckedChanged);
             // 

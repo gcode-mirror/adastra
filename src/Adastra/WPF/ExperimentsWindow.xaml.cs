@@ -70,7 +70,8 @@ namespace WPF
             foreach (var w in workflows)
             {
                 w.Progress = 0;
-                CreateStartComputeTask(w, progressReporter);
+                if (w.Enabled)
+                   CreateStartComputeTask(w, progressReporter);
             }
 
             //or executed not in a loop solves the above problem

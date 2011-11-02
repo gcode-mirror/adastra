@@ -77,6 +77,24 @@ namespace Adastra
             }
         }
 
+        bool _enabled=true;
+        public bool Enabled
+        {
+            get
+            {
+                return this._enabled;
+            }
+
+            set
+            {
+                if (value != this._enabled)
+                {
+                    this._enabled = value;
+                    NotifyPropertyChanged("Enabled");
+                }
+            }
+        }
+
         void _ml_Progress(int progress)
         {
             Progress = Convert.ToInt32(0.9 * progress);

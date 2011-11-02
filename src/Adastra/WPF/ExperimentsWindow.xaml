@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WPF.ExperimentsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Experimentator" Height="400" Width="640" Loaded="Window_Loaded"
+    Title="Optimizator" Height="400" Width="640" Loaded="Window_Loaded"
     >
     <Grid>
         <Grid.RowDefinitions>
@@ -10,7 +10,7 @@
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
@@ -26,10 +26,25 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' and 'validating' datasets and then testing:" Margin="3,2,3,2">
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' set and then evaluating over 'testing' set:" Margin="3,2,3,2">
             <ListView Grid.ColumnSpan="4"  Name="gvMethodsListTraining">
                 <ListView.View>
                     <GridView AllowsColumnReorder="true">
+
+                        <GridViewColumn>
+
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Enabled" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Path=Enabled}" HorizontalAlignment="Center"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
                         <GridViewColumn>
                             
