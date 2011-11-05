@@ -121,7 +121,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
             this.Name = "ManageRecordedData";
-            this.Text = "ManageRecordedData";
+            this.Text = "Manage Recorded Data";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

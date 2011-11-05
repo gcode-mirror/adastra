@@ -42,17 +42,23 @@
             this.progressBarModelCalculation = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.listBoxLogger = new System.Windows.Forms.ListBox();
             this.buttonManageRecordings = new System.Windows.Forms.Button();
             this.buttonClearRecord = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.radioBtnLdaRBF = new System.Windows.Forms.RadioButton();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonRecordAction
             // 
-            this.buttonRecordAction.Location = new System.Drawing.Point(148, 57);
+            this.buttonRecordAction.Location = new System.Drawing.Point(148, 60);
             this.buttonRecordAction.Name = "buttonRecordAction";
-            this.buttonRecordAction.Size = new System.Drawing.Size(130, 23);
+            this.buttonRecordAction.Size = new System.Drawing.Size(102, 23);
             this.buttonRecordAction.TabIndex = 1;
             this.buttonRecordAction.Text = "Record action";
             this.buttonRecordAction.UseVisualStyleBackColor = true;
@@ -61,9 +67,9 @@
             // buttonCalculate
             // 
             this.buttonCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCalculate.Location = new System.Drawing.Point(12, 92);
+            this.buttonCalculate.Location = new System.Drawing.Point(97, 26);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(542, 60);
+            this.buttonCalculate.Size = new System.Drawing.Size(565, 47);
             this.buttonCalculate.TabIndex = 2;
             this.buttonCalculate.Text = "Compute";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -79,29 +85,29 @@
             "Up",
             "Down",
             "Double-Click"});
-            this.comboBoxSelectedClass.Location = new System.Drawing.Point(97, 17);
+            this.comboBoxSelectedClass.Location = new System.Drawing.Point(97, 19);
             this.comboBoxSelectedClass.Name = "comboBoxSelectedClass";
-            this.comboBoxSelectedClass.Size = new System.Drawing.Size(181, 21);
+            this.comboBoxSelectedClass.Size = new System.Drawing.Size(153, 21);
             this.comboBoxSelectedClass.TabIndex = 3;
             // 
             // progressBarRecord
             // 
-            this.progressBarRecord.Location = new System.Drawing.Point(284, 57);
+            this.progressBarRecord.Location = new System.Drawing.Point(256, 59);
             this.progressBarRecord.Name = "progressBarRecord";
-            this.progressBarRecord.Size = new System.Drawing.Size(186, 21);
+            this.progressBarRecord.Size = new System.Drawing.Size(198, 23);
             this.progressBarRecord.TabIndex = 4;
             // 
             // textBoxModelName
             // 
-            this.textBoxModelName.Location = new System.Drawing.Point(85, 213);
+            this.textBoxModelName.Location = new System.Drawing.Point(81, 136);
             this.textBoxModelName.Name = "textBoxModelName";
-            this.textBoxModelName.Size = new System.Drawing.Size(390, 20);
+            this.textBoxModelName.Size = new System.Drawing.Size(215, 20);
             this.textBoxModelName.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 216);
+            this.label2.Location = new System.Drawing.Point(10, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 8;
@@ -109,9 +115,9 @@
             // 
             // buttonCloseForm
             // 
-            this.buttonCloseForm.Location = new System.Drawing.Point(584, 211);
+            this.buttonCloseForm.Location = new System.Drawing.Point(581, 484);
             this.buttonCloseForm.Name = "buttonCloseForm";
-            this.buttonCloseForm.Size = new System.Drawing.Size(116, 42);
+            this.buttonCloseForm.Size = new System.Drawing.Size(96, 27);
             this.buttonCloseForm.TabIndex = 10;
             this.buttonCloseForm.Text = "Close";
             this.buttonCloseForm.UseVisualStyleBackColor = true;
@@ -122,17 +128,21 @@
             this.comboBoxRecordTime.FormattingEnabled = true;
             this.comboBoxRecordTime.Items.AddRange(new object[] {
             "5",
-            "10"});
-            this.comboBoxRecordTime.Location = new System.Drawing.Point(97, 59);
+            "10",
+            "15",
+            "20",
+            "25",
+            "30"});
+            this.comboBoxRecordTime.Location = new System.Drawing.Point(97, 61);
             this.comboBoxRecordTime.Name = "comboBoxRecordTime";
             this.comboBoxRecordTime.Size = new System.Drawing.Size(45, 21);
             this.comboBoxRecordTime.TabIndex = 11;
             // 
             // buttonSaveModel
             // 
-            this.buttonSaveModel.Location = new System.Drawing.Point(493, 213);
+            this.buttonSaveModel.Location = new System.Drawing.Point(313, 134);
             this.buttonSaveModel.Name = "buttonSaveModel";
-            this.buttonSaveModel.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveModel.Size = new System.Drawing.Size(80, 23);
             this.buttonSaveModel.TabIndex = 13;
             this.buttonSaveModel.Text = "Save";
             this.buttonSaveModel.UseVisualStyleBackColor = true;
@@ -142,7 +152,7 @@
             // 
             this.radioBtnLdaMLP.AutoSize = true;
             this.radioBtnLdaMLP.Checked = true;
-            this.radioBtnLdaMLP.Location = new System.Drawing.Point(598, 92);
+            this.radioBtnLdaMLP.Location = new System.Drawing.Point(13, 19);
             this.radioBtnLdaMLP.Name = "radioBtnLdaMLP";
             this.radioBtnLdaMLP.Size = new System.Drawing.Size(74, 17);
             this.radioBtnLdaMLP.TabIndex = 15;
@@ -153,7 +163,7 @@
             // radioBtnLdaSVM
             // 
             this.radioBtnLdaSVM.AutoSize = true;
-            this.radioBtnLdaSVM.Location = new System.Drawing.Point(598, 124);
+            this.radioBtnLdaSVM.Location = new System.Drawing.Point(13, 42);
             this.radioBtnLdaSVM.Name = "radioBtnLdaSVM";
             this.radioBtnLdaSVM.Size = new System.Drawing.Size(75, 17);
             this.radioBtnLdaSVM.TabIndex = 16;
@@ -162,15 +172,15 @@
             // 
             // progressBarModelCalculation
             // 
-            this.progressBarModelCalculation.Location = new System.Drawing.Point(13, 172);
+            this.progressBarModelCalculation.Location = new System.Drawing.Point(13, 95);
             this.progressBarModelCalculation.Name = "progressBarModelCalculation";
-            this.progressBarModelCalculation.Size = new System.Drawing.Size(685, 23);
+            this.progressBarModelCalculation.Size = new System.Drawing.Size(649, 23);
             this.progressBarModelCalculation.TabIndex = 17;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 20);
+            this.label1.Location = new System.Drawing.Point(51, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 18;
@@ -179,34 +189,25 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 62);
+            this.label3.Location = new System.Drawing.Point(10, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 13);
             this.label3.TabIndex = 19;
             this.label3.Text = "Record time (s):";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 247);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Log:";
-            // 
             // listBoxLogger
             // 
             this.listBoxLogger.FormattingEnabled = true;
-            this.listBoxLogger.Location = new System.Drawing.Point(13, 263);
+            this.listBoxLogger.Location = new System.Drawing.Point(6, 14);
             this.listBoxLogger.Name = "listBoxLogger";
-            this.listBoxLogger.Size = new System.Drawing.Size(685, 160);
+            this.listBoxLogger.Size = new System.Drawing.Size(656, 160);
             this.listBoxLogger.TabIndex = 21;
             // 
             // buttonManageRecordings
             // 
-            this.buttonManageRecordings.Location = new System.Drawing.Point(561, 57);
+            this.buttonManageRecordings.Location = new System.Drawing.Point(543, 59);
             this.buttonManageRecordings.Name = "buttonManageRecordings";
-            this.buttonManageRecordings.Size = new System.Drawing.Size(137, 23);
+            this.buttonManageRecordings.Size = new System.Drawing.Size(121, 23);
             this.buttonManageRecordings.TabIndex = 22;
             this.buttonManageRecordings.Text = "Manage recordings";
             this.buttonManageRecordings.UseVisualStyleBackColor = true;
@@ -214,7 +215,7 @@
             // 
             // buttonClearRecord
             // 
-            this.buttonClearRecord.Location = new System.Drawing.Point(476, 57);
+            this.buttonClearRecord.Location = new System.Drawing.Point(460, 59);
             this.buttonClearRecord.Name = "buttonClearRecord";
             this.buttonClearRecord.Size = new System.Drawing.Size(75, 23);
             this.buttonClearRecord.TabIndex = 23;
@@ -222,33 +223,77 @@
             this.buttonClearRecord.UseVisualStyleBackColor = true;
             this.buttonClearRecord.Click += new System.EventHandler(this.buttonClearRecord_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBoxSelectedClass);
+            this.groupBox1.Controls.Add(this.buttonClearRecord);
+            this.groupBox1.Controls.Add(this.buttonRecordAction);
+            this.groupBox1.Controls.Add(this.buttonManageRecordings);
+            this.groupBox1.Controls.Add(this.progressBarRecord);
+            this.groupBox1.Controls.Add(this.comboBoxRecordTime);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Location = new System.Drawing.Point(9, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(668, 103);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Data";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioBtnLdaRBF);
+            this.groupBox2.Controls.Add(this.buttonCalculate);
+            this.groupBox2.Controls.Add(this.radioBtnLdaMLP);
+            this.groupBox2.Controls.Add(this.radioBtnLdaSVM);
+            this.groupBox2.Controls.Add(this.progressBarModelCalculation);
+            this.groupBox2.Controls.Add(this.buttonSaveModel);
+            this.groupBox2.Controls.Add(this.textBoxModelName);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Location = new System.Drawing.Point(9, 121);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(668, 171);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Model (training)";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.listBoxLogger);
+            this.groupBox3.Location = new System.Drawing.Point(9, 298);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(668, 180);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Log";
+            // 
+            // radioBtnLdaRBF
+            // 
+            this.radioBtnLdaRBF.AutoSize = true;
+            this.radioBtnLdaRBF.Location = new System.Drawing.Point(13, 65);
+            this.radioBtnLdaRBF.Name = "radioBtnLdaRBF";
+            this.radioBtnLdaRBF.Size = new System.Drawing.Size(73, 17);
+            this.radioBtnLdaRBF.TabIndex = 18;
+            this.radioBtnLdaRBF.Text = "LDA+RBF";
+            this.radioBtnLdaRBF.UseVisualStyleBackColor = true;
+            // 
             // TrainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 431);
-            this.Controls.Add(this.buttonClearRecord);
-            this.Controls.Add(this.buttonManageRecordings);
-            this.Controls.Add(this.listBoxLogger);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.progressBarModelCalculation);
-            this.Controls.Add(this.radioBtnLdaSVM);
-            this.Controls.Add(this.radioBtnLdaMLP);
-            this.Controls.Add(this.buttonSaveModel);
-            this.Controls.Add(this.comboBoxRecordTime);
+            this.ClientSize = new System.Drawing.Size(685, 518);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCloseForm);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxModelName);
-            this.Controls.Add(this.progressBarRecord);
-            this.Controls.Add(this.comboBoxSelectedClass);
-            this.Controls.Add(this.buttonCalculate);
-            this.Controls.Add(this.buttonRecordAction);
             this.Name = "TrainForm";
             this.Text = "Train";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -268,10 +313,13 @@
         private System.Windows.Forms.ProgressBar progressBarModelCalculation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBoxLogger;
         private System.Windows.Forms.Button buttonManageRecordings;
         private System.Windows.Forms.Button buttonClearRecord;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton radioBtnLdaRBF;
 
     }
 }

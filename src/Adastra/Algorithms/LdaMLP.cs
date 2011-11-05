@@ -107,7 +107,7 @@ namespace Adastra.Algorithms
 
                 double validationSetError;
                 double trainSetError;
-                double prevError = 1000000;
+                double prevValidationError = 1000000;
                 #endregion
 
                 validationSetError = CalculateError(validateDataInput, validateDataOutput);
@@ -122,13 +122,13 @@ namespace Adastra.Algorithms
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
-
-                        //validationSetError = CalculateError(validateDataInput, validateDataOutput);
                         if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
-                        if (validationSetError > prevError || Math.Abs(validationSetError - prevError) < 0.00001)
+                        #region stop conditions
+                        if (validationSetError > prevValidationError || Math.Abs(validationSetError - prevValidationError) < 0.00001)
                             break;
-                        prevError = validationSetError;
+                        prevValidationError = trainSetError;
+                        #endregion
                     }
                 }
 

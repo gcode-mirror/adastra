@@ -48,6 +48,7 @@ namespace Adastra
             AsyncWorkerLoadModels.DoWork += new DoWorkEventHandler(AsyncWorkerLoadModels_DoWork);
 
             toolStripStatusLabel1.Text = "Loading models. Please wait...";
+            ms = new ModelStorage();
             AsyncWorkerLoadModels.RunWorkerAsync();
 
             AsyncWorkerProcess = new BackgroundWorker();
@@ -55,9 +56,7 @@ namespace Adastra
             AsyncWorkerProcess.WorkerSupportsCancellation = true;
             AsyncWorkerProcess.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerProcess_ProgressChanged);
             AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
-            AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
-
-            ms = new ModelStorage();
+            AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted); 
         }
 
         void fg_Values(double[] featureVectors)
@@ -76,6 +75,7 @@ namespace Adastra
             if (e.Error != null)
             {
                 MessageBox.Show("Error:" + e.Error.Message);
+                listBoxResult.Items.Insert(0, "Classification failed.");
                 logger.Error(e.Error);
             }
             else
@@ -105,7 +105,8 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message);
+                MessageBox.Show("Could not load available models! Database error:" + e.Error.Message);
+                toolStripStatusLabel1.Text = "No models loaded.";
                 logger.Error(e.Error);
                 return;
             }
@@ -158,11 +159,24 @@ namespace Adastra
             {
                 model = models[listBoxModels.SelectedIndex];
 
+                listBoxClasses.Items.Clear();
+
                 foreach (var item in model.ActionList)
                 {
                     listBoxClasses.Items.Add(item.Key);
                 }
             }
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            if (!AsyncWorkerLoadModels.CancellationPending)
+                AsyncWorkerLoadModels.CancelAsync();
+
+            if (!AsyncWorkerProcess.CancellationPending)
+                AsyncWorkerProcess.CancelAsync();
+            
+            this.Close();
         }
     }
 }

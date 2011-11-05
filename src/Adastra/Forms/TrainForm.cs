@@ -221,6 +221,10 @@ namespace Adastra
             {
                 model = new LdaSVM();
             }
+            else if (radioBtnLdaRBF.Checked)
+            {
+                model = new LdaRBF();
+            }
 
             model.Progress += new ChangedValuesEventHandler(model_Progress);
 			model.Train(currentRecord.FeatureVectorsInputOutput, currentRecord.FeatureVectorsInputOutput[0].Length-1);

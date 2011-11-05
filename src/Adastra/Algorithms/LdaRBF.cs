@@ -14,7 +14,7 @@ using Encog.Neural.Networks.Training.Propagation.Resilient;
 namespace Adastra.Algorithms
 {
     /// <summary>
-    /// First Linear Discriminant Analysis (LDA) computations and then Radial Basis Function (RBF) (for training) is applied.
+    /// First Linear Discriminant Analysis (LDA) computations and then Radial Basis Function (RBF) (for training) is applied with Resilient Propagation as teaching method 
     /// </summary>
     public class LdaRBF : AMLearning
     {
@@ -104,7 +104,7 @@ namespace Adastra.Algorithms
 
                 double validationSetError;
                 double trainSetError;
-                double prevError = 1000000;
+                double prevValidationError = 1000000;
                 #endregion
 
                 //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
@@ -131,9 +131,10 @@ namespace Adastra.Algorithms
                         
                         if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
 
-                        if (validationSetError > prevError || Math.Abs(validationSetError - prevError) < 0.000001)
-                            break;
-                        prevError = validationSetError;
+                        #region stop conditions
+                        if (validationSetError > prevValidationError || Math.Abs(validationSetError - prevValidationError) < 0.01) break;
+                        prevValidationError = trainSetError;
+                        #endregion
                     }
                 }
 

@@ -47,18 +47,18 @@
     <Reference Include="DynamicDataDisplay">
       <HintPath>..\..\lib\DynamicDataDisplay.dll</HintPath>
     </Reference>
-    <Reference Include="Eloquera.Client, Version=3.1.5.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+    <Reference Include="Eloquera.Client, Version=4.12.0.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Eloquera 4.12\Eloquera.Client.dll</HintPath>
+      <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Eloquera.Common, Version=3.1.5.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+    <Reference Include="Eloquera.Common, Version=4.12.0.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Eloquera 4.12\Eloquera.Common.dll</HintPath>
+      <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Eloquera.Server, Version=3.1.5.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+    <Reference Include="Eloquera.Server, Version=4.12.0.0, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\..\lib\Eloquera 4.12\Eloquera.Server.exe</HintPath>
+      <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Server.exe</HintPath>
     </Reference>
     <Reference Include="encog-core-cs, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -222,7 +222,6 @@
     </None>
     <None Include="Eloquera.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

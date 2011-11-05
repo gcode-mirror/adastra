@@ -194,6 +194,7 @@ namespace WPF
 			}
 		    AMLearning bestModel=workflows.OrderBy(p=>p.Error).First().GetModel();
 			bestModel.Name = tbModelName.Text;
+            bestModel.ActionList = currentRecord.actions;
 			ModelStorage ms = new ModelStorage();
 			ms.SaveModel(bestModel);
             statusBar.Text = "Model '"+tbModelName.Text+"' saved successfully.";
