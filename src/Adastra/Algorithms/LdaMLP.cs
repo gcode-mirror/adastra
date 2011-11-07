@@ -6,6 +6,7 @@ using System.Text;
 using Accord.Statistics.Analysis;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
+using System.Threading.Tasks;
 
 namespace Adastra.Algorithms
 {
@@ -118,7 +119,7 @@ namespace Adastra.Algorithms
                 while (true)
                 {
                     count++;
-                    trainSetError = teacher.RunEpoch(trainDataInput, trainDataOutput);
+                    RunEpoch(teacher, trainDataInput, trainDataOutput, false);//teacher.RunEpoch(trainDataInput, trainDataOutput);
 
                     if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
                     {
@@ -127,7 +128,7 @@ namespace Adastra.Algorithms
                         #region stop conditions
                         if (validationSetError > prevValidationError || Math.Abs(validationSetError - prevValidationError) < 0.00001)
                             break;
-                        prevValidationError = trainSetError;
+                        //prevValidationError = trainSetError;
                         #endregion
                     }
                 }
@@ -137,6 +138,21 @@ namespace Adastra.Algorithms
 
             //now we have a model of a NN+LDA which we can use for classification
 			if (this.Progress != null) this.Progress(100);
+        }
+
+        private void RunEpoch(BackPropagationLearning teacher, double[][] input,double[][] output,bool isParallel)
+        {
+            if (isParallel)
+            {
+                Parallel.ForEach(input, singleInput =>
+                {
+                    //teacher.Run(singleInput, );
+                });
+            }
+            else
+            {
+                teacher.RunEpoch(input, output);
+            }
         }
 
         public override int Classify(double[] input)
