@@ -144,10 +144,16 @@ namespace Adastra.Algorithms
         {
             if (isParallel)
             {
-                Parallel.ForEach(input, singleInput =>
-                {
-                    //teacher.Run(singleInput, );
-                });
+                //object[]<double[][],doubel[][]> t=new double {input, output};
+                //foreach (var v in Combine(t))
+                //{
+
+                //}
+
+                //Parallel.ForEach(v,Combine(input[], output[]), =>
+                //{
+                //    //teacher.Run(singleInput, );
+                //});
             }
             else
             {
@@ -211,6 +217,25 @@ namespace Adastra.Algorithms
         }
 
         public override event ChangedValuesEventHandler Progress;
+
+        public IEnumerable<TSource[]> Combine<TSource>(object[] sources)
+        {
+            foreach (var o in sources)
+            {
+                // Choose your own exception
+                if (!(o is IEnumerable<TSource>)) throw new Exception();
+            }
+
+            var enums =
+                sources.Select(s => ((IEnumerable<TSource>)s).GetEnumerator())
+                .ToArray();
+
+            while (enums.All(e => e.MoveNext()))
+            {
+                yield return enums.Select(e => e.Current).ToArray();
+            }
+        }
+
 
     }
 }
