@@ -144,16 +144,10 @@ namespace Adastra.Algorithms
         {
             if (isParallel)
             {
-                //object[]<double[][],doubel[][]> t=new double {input, output};
-                //foreach (var v in Combine(t))
-                //{
-
-                //}
-
-                //Parallel.ForEach(v,Combine(input[], output[]), =>
-                //{
-                //    //teacher.Run(singleInput, );
-                //});
+                Parallel.ForEach(Combine(input, output), v =>
+                {
+                    teacher.Run(v[0],v[1]);
+                });
             }
             else
             {
@@ -218,23 +212,28 @@ namespace Adastra.Algorithms
 
         public override event ChangedValuesEventHandler Progress;
 
-        public IEnumerable<TSource[]> Combine<TSource>(object[] sources)
+        public static IEnumerable<T[]> Combine<T>(params T[][] sources)
         {
-            foreach (var o in sources)
+            // (Insert error checking code here for null or empty sources parameter)
+
+            int length = sources[0].Length;
+            if (!sources.All(array => array.Length == length))
             {
-                // Choose your own exception
-                if (!(o is IEnumerable<TSource>)) throw new Exception();
+                throw new ArgumentException("Arrays must all be of the same length");
             }
 
-            var enums =
-                sources.Select(s => ((IEnumerable<TSource>)s).GetEnumerator())
-                .ToArray();
-
-            while (enums.All(e => e.MoveNext()))
+            for (int i = 0; i < length; i++)
             {
-                yield return enums.Select(e => e.Current).ToArray();
+                // Could do this bit with LINQ if you wanted
+                T[] result = new T[sources.Length];
+                for (int j = 0; j < result.Length; j++)
+                {
+                    result[j] = sources[j][i];
+                }
+                yield return result;
             }
         }
+
 
 
     }
