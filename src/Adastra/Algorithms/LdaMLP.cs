@@ -104,33 +104,26 @@ namespace Adastra.Algorithms
                 double[][] validateDataInput;
                 double[][] validateDataOutput;
 
-                iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);
-
-                double validationSetError;
-                double trainSetError;
-                double prevValidationError = 1000000;
+                iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);             
                 #endregion
 
-                validationSetError = CalculateError(validateDataInput, validateDataOutput);
+                //validationSetError = CalculateError(validateDataInput, validateDataOutput);
+                double old_val_error1 = 100002;
+                double old_val_error2 = 100001;
+                double new_val_error = 100000;
 
                 //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
                 //This way we prevent overfitting.
                 int count = 0;
-                while (true)
+                while (((old_val_error1 - new_val_error)>0.001) || ((old_val_error2 - old_val_error1)>0.001))
                 {
                     count++;
-                    RunEpoch(teacher, trainDataInput, trainDataOutput, false);//teacher.RunEpoch(trainDataInput, trainDataOutput);
+                    RunEpoch(teacher, trainDataInput, trainDataOutput, true);
 
-                    if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
-                    {
-                        if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
+                    old_val_error2 = old_val_error1;
+                    old_val_error1 = new_val_error;
 
-                        #region stop conditions
-                        if (validationSetError > prevValidationError || Math.Abs(validationSetError - prevValidationError) < 0.00001)
-                            break;
-                        //prevValidationError = trainSetError;
-                        #endregion
-                    }
+                    new_val_error = CalculateError(validateDataInput, validateDataOutput);
                 }
 
 				if (this.Progress != null) this.Progress(35 + (iter.CurrentIterationIndex) * (65 / ratio));
@@ -144,7 +137,7 @@ namespace Adastra.Algorithms
         {
             if (isParallel)
             {
-                Parallel.ForEach(Combine(input, output), v =>
+                Parallel.ForEach(Zip(input, output), v =>
                 {
                     teacher.Run(v[0],v[1]);
                 });
@@ -212,7 +205,7 @@ namespace Adastra.Algorithms
 
         public override event ChangedValuesEventHandler Progress;
 
-        public static IEnumerable<T[]> Combine<T>(params T[][] sources)
+        public static IEnumerable<T[]> Zip<T>(params T[][] sources)
         {
             // (Insert error checking code here for null or empty sources parameter)
 

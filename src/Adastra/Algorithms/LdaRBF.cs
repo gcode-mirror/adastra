@@ -100,42 +100,32 @@ namespace Adastra.Algorithms
                 double[][] validateDataInput;
                 double[][] validateDataOutput;
 
-                iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);
-
-                double validationSetError;
-                double trainSetError;
-                double prevValidationError = 1000000;
+                iter.NextData(out trainDataInput, out trainDataOutput, out validateDataInput, out validateDataOutput);             
                 #endregion
+
+                //validationSetError = CalculateError(validateDataInput, validateDataOutput);
+                double old_val_error1 = 100002;
+                double old_val_error2 = 100001;
+                double new_val_error = 100000;
 
                 //We do the training over the 'train' set until the error of the 'validate' set start to increase. 
                 //This way we prevent overfitting.
                 int count = 0;
-
-                validationSetError = this.CalculateError(validateDataInput, validateDataOutput);
-
-                while (true)
+                while (((old_val_error1 - new_val_error)>0.001) || ((old_val_error2 - old_val_error1)>0.001))
                 {
                     count++;
 
                     IMLDataSet dataSet = new BasicMLDataSet(trainDataInput, trainDataOutput);
-
-                    if (teacher==null)
+                    if (teacher == null)
                         teacher = new ResilientPropagation(method, dataSet);//new Encog.Neural.Rbf.Training.SVDTraining(method, dataSet);
                     else teacher.Training = dataSet;
-                    
+
                     teacher.Iteration();
-                    //trainSetError = this.CalculateError(trainDataInput, trainDataOutput);
 
-                    if (count % 10 == 0) //we check for 'early-stop' every nth training iteration - this will help improve performance
-                    {
-                        
-                        if (double.IsNaN(validationSetError)) throw new Exception("Computation failed!");
+                    old_val_error2 = old_val_error1;
+                    old_val_error1 = new_val_error;
 
-                        #region stop conditions
-                        if (validationSetError > prevValidationError || Math.Abs(validationSetError - prevValidationError) < 0.00001) break;
-                        //prevValidationError = trainSetError;
-                        #endregion
-                    }
+                    new_val_error = CalculateError(validateDataInput, validateDataOutput);
                 }
 
                 if (this.Progress != null) this.Progress(35 + (iter.CurrentIterationIndex) * (65 / ratio));

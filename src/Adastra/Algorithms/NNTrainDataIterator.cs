@@ -32,11 +32,14 @@ namespace Adastra.Algorithms
             _output = output;
 
             for (int i = 0; i < 10; i++)
-                Randomize(_input, _output);
+                Randomize(ref _input,ref _output);
         }
 
-        private void Randomize(double[][] input, double[][] output)
+        public static void Randomize(ref double[][] input, ref double[][] output)
         {
+            double[][] newinput = new double[input.GetLength(0)][];;
+            double[][] newoutput = new double[output.GetLength(0)][];
+
             int[] numbers = new int[input.GetLength(0)];
             for (int i = 0; i < input.GetLength(0); i++)
             {
@@ -45,15 +48,13 @@ namespace Adastra.Algorithms
 
             int max = input.GetLength(0);
             Random random = new Random();
-            _input = new double[input.GetLength(0)][];
-            _output = new double[input.GetLength(0)][];
 
             for (int i = 0; i < input.GetLength(0); i++)
             {
                 int num = random.Next(max);
 
-                _input[i] = input[numbers[num]];
-                _output[i] = output[numbers[num]];
+                newinput[i] = input[numbers[num]];
+                newoutput[i] = output[numbers[num]];
 
                 int temp = numbers[num];
                 numbers[num] = numbers[max - 1];
@@ -61,6 +62,9 @@ namespace Adastra.Algorithms
 
                 max--;
             }
+
+            input = newinput;
+            output = newoutput;
         }
 
         /// <summary>
