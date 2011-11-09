@@ -75,9 +75,9 @@ namespace WPF
             }
 
             //or executed not in a loop solves the above problem
-            //CreateTask(workflows[0], cancellationToken, progressReporter);
-            //CreateTask(workflows[1], cancellationToken, progressReporter);
-            //CreateTask(workflows[2], cancellationToken, progressReporter);
+            //CreateStartComputeTask(workflows[0], progressReporter); workflows[0].Progress = 0;
+            //CreateStartComputeTask(workflows[1], progressReporter); workflows[1].Progress = 0;
+            //CreateStartComputeTask(workflows[2], progressReporter); workflows[2].Progress = 0;
 
             buttonStart.IsEnabled = false;
 
@@ -137,7 +137,6 @@ namespace WPF
             });//, this.cancellationSource.Token);
 
             taskQueue.Enqueue(task);
-
             
             progressReporter.RegisterContinuation(task, () =>
             {
@@ -170,6 +169,7 @@ namespace WPF
             foreach (var w in workflows)
             {
                 w.Progress = 0;
+                w.Error = 0;
             }
         }
 
