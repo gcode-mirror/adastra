@@ -59,8 +59,8 @@ namespace Adastra
             openVibeWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
             #endregion
 
-            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
-            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
+            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
+            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
             comboBoxDSP.SelectedIndex = 0;
         }
 

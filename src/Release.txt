@@ -1,4 +1,11 @@
-Adastra 2.2 Released .2011 (dd/mm/yyyy)
+Adastra 2.4 Released 11.11.2011 (dd/mm/yyyy)
+============================================
+
+- added optimizator UI that allows for evaluation of several machine learning algorithms
+- added Radial Basis Function neural network and training method ResilientPropagation
+- new early stop conditions for neural networks training
+
+Adastra 2.2 Released 16.09.2011 (dd/mm/yyyy)
 ============================================
 
 - Added WPF EGG signal charting for both OpenVibe and Emotiv
