@@ -20,6 +20,8 @@ namespace Adastra
         double[][] testDataInput;
         double[][] testDataOutput;
 
+        DateTime startTime;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
@@ -100,12 +102,32 @@ namespace Adastra
             Progress = Convert.ToInt32(0.9 * progress);
         }
 
+        string _timeElapsed;
+        public string TimeElapsedSeconds
+        {
+            get
+            {
+                return this._timeElapsed;
+            }
+
+            set
+            {
+                if (value != this._timeElapsed)
+                {
+                    this._timeElapsed = value;
+                    NotifyPropertyChanged("TimeElapsedSeconds");
+                }
+            }
+        }
+
 		/// <summary>
 		/// Start computing model (training) and testing
 		/// </summary>
 		/// <returns></returns>
         public AMLearning Start()
         {
+            startTime = DateTime.Now;
+
             #region convert
             List<double[]> result = new List<double[]>();
 
@@ -172,6 +194,8 @@ namespace Adastra
 
             Error = mse;
 
+            TimeElapsedSeconds = (DateTime.Now - startTime).TotalSeconds.ToString();//"{0:hh\\:mm\\:ss\\:fffffff}", 
+ 
             return mse;
         }
 
