@@ -29,6 +29,13 @@
         <GroupBox Grid.Row="1" Grid.ColumnSpan="3" Header="Computing models over 'training' set and then evaluating over 'testing' set:" Margin="3,2,3,2">
             
             <ListView Grid.ColumnSpan="4"  Name="gvMethodsListTraining" Margin="3,5,3,3">
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
                 <ListView.View>
                     <GridView AllowsColumnReorder="true">
  
