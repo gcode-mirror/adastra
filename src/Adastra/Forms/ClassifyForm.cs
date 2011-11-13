@@ -22,13 +22,11 @@ namespace Adastra
 
         List<AMLearning> models;
 
-        public EventHandler handler;
-
-        private BackgroundWorker AsyncWorkerLoadModels;
+        BackgroundWorker AsyncWorkerLoadModels;
 
         BackgroundWorker AsyncWorkerProcess;
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        Logger logger = LogManager.GetCurrentClassLogger();
 
         ModelStorage ms;
 
@@ -56,7 +54,9 @@ namespace Adastra
             AsyncWorkerProcess.WorkerSupportsCancellation = true;
             AsyncWorkerProcess.ProgressChanged += new ProgressChangedEventHandler(AsyncWorkerProcess_ProgressChanged);
             AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
-            AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted); 
+            AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
+
+			this.FormClosing += new FormClosingEventHandler(ClassifyForm_FormClosing);
         }
 
         void fg_Values(double[] featureVectors)
@@ -65,7 +65,7 @@ namespace Adastra
 
             foreach (var key in model.ActionList.Keys)
             {
-                if (model.ActionList[key] == action)
+				if (AsyncWorkerProcess!=null && model.ActionList[key] == action)
                     AsyncWorkerProcess.ReportProgress(action, key);
             }
         }
@@ -74,7 +74,7 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message);
+                MessageBox.Show("Error:" + e.Error.Message+" "+e.Error.StackTrace);
                 listBoxResult.Items.Insert(0, "Classification failed.");
                 logger.Error(e.Error);
             }
@@ -170,13 +170,30 @@ namespace Adastra
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            if (!AsyncWorkerLoadModels.CancellationPending)
-                AsyncWorkerLoadModels.CancelAsync();
-
-            if (!AsyncWorkerProcess.CancellationPending)
-                AsyncWorkerProcess.CancelAsync();
-            
-            this.Close();
+			Clear();
+			this.Close();
         }
+
+		void ClassifyForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Clear();
+		}
+
+		void Clear()
+		{
+			if (!AsyncWorkerLoadModels.CancellationPending)
+			{
+				AsyncWorkerLoadModels.CancelAsync();	
+			}
+
+			if (!AsyncWorkerProcess.CancellationPending)
+			{
+				AsyncWorkerProcess.CancelAsync();
+			}
+
+			this.fg=null;
+			//AsyncWorkerProcess = null;
+			//AsyncWorkerLoadModels = null;
+		}
     }
 }

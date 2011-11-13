@@ -94,12 +94,14 @@ namespace Adastra
                     WindowsInput.InputSimulator.SimulateTextEntry("Y");
                     WindowsInput.InputSimulator.SimulateKeyPress(WindowsInput.VirtualKeyCode.RETURN);
 
-                    started = false;
+                    
                 }
                 else
                 {
                     throw new Exception("Window not found!");
                 }
+
+				started = false;
             }
         }
 

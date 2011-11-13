@@ -41,9 +41,9 @@
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(97, 27);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(134, 26);
+			this.label1.Size = new System.Drawing.Size(154, 26);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Adastra 2.4";
+			this.label1.Text = "Adastra 2.4.1";
 			// 
 			// groupBox1
 			// 

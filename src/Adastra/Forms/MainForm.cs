@@ -40,29 +40,34 @@ namespace Adastra
 
         //string AdastraScenarioFolder;
 
-        public MainForm()
-        {
-            InitializeComponent();
+		public MainForm()
+		{
+			InitializeComponent();
 
-            textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
-            textBoxScenario.Text = OpenVibeController.LocateScenarioFolder()+"\\";
+			textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
+			textBoxScenario.Text = OpenVibeController.LocateScenarioFolder() + "\\";
 
-            rbuttonOpenVibe.Checked = true;
-            if (comboBoxScenarioType.Items.Count>0) comboBoxScenarioType.SelectedIndex = 0;
+			rbuttonOpenVibe.Checked = true;
+			if (comboBoxScenarioType.Items.Count > 0) comboBoxScenarioType.SelectedIndex = 0;
 
-            #region BackgroundWorker for OpenVibe
-            openVibeWorker = new BackgroundWorker();
-            openVibeWorker.WorkerReportsProgress = true;
-            openVibeWorker.WorkerSupportsCancellation = true;
-            //openVibeWorker.ProgressChanged += new ProgressChangedEventHandler(asyncWorker_ProgressChanged);
-            openVibeWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
-            openVibeWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
-            #endregion
+			InitOpenVibeWorker();
 
-            //textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
-            textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
-            comboBoxDSP.SelectedIndex = 0;
-        }
+			#if (DEBUG)
+				textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
+			#else
+				textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
+			#endif
+			comboBoxDSP.SelectedIndex = 0;
+		}
+
+		void InitOpenVibeWorker()
+		{
+			openVibeWorker = new BackgroundWorker();
+			openVibeWorker.WorkerReportsProgress = true;
+			openVibeWorker.WorkerSupportsCancellation = true;
+			openVibeWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
+			openVibeWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
+		}
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
@@ -180,6 +185,7 @@ namespace Adastra
                 OpenVibeController.Stop();
 
             openVibeWorker.CancelAsync();
+			//InitOpenVibeWorker();
 
             buttonStart.Text = "Start";
             buttonStart.Enabled = true;
@@ -207,10 +213,10 @@ namespace Adastra
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker bwAsync = sender as BackgroundWorker;
+            //BackgroundWorker bwAsync = sender as BackgroundWorker;
 
-            if (rbuttonOpenVibe.Checked)
-            {
+			//if (rbuttonOpenVibe.Checked)
+			//{
                 OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
                 OpenVibeController.Scenario = this.textBoxScenario.Text;
                 if (rButtonRealtime.Checked)
@@ -218,8 +224,8 @@ namespace Adastra
                 OpenVibeController.FastPlay = false;
                 OpenVibeController.NoGUI = true;
                 OpenVibeController.Start(true);
-                System.Threading.Thread.Sleep(4 * 1000);
-            }
+                //System.Threading.Thread.Sleep(4 * 1000);
+            //}
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

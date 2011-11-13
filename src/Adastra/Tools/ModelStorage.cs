@@ -10,6 +10,12 @@ using AForge.Neuro;
 using AForge.Neuro.Learning;
 using Eloquera.Client;
 using Adastra.Algorithms;
+using Encog.MathUtil.RBF;
+using Encog.ML.Data;
+using Encog.ML.Data.Basic;
+using Encog.Neural.RBF;
+using Encog.Util.Simple;
+using Encog.Neural.Networks.Training.Propagation.Resilient;
 
 namespace Adastra
 {
@@ -34,16 +40,21 @@ namespace Adastra
             db.OpenDatabase(DbSettings.fullpath);
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-            if (justCreated)
-            {
-                db.RegisterType(typeof(AMLearning));
-                db.RegisterType(typeof(LinearDiscriminantAnalysis));
-                db.RegisterType(typeof(ActivationNetwork));
-                db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
-                db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
-                db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
-                db.RegisterType(typeof(EEGRecord));
-            }
+			if (justCreated)
+			{
+				db.RegisterType(typeof(AMLearning));
+				db.RegisterType(typeof(LinearDiscriminantAnalysis));
+				db.RegisterType(typeof(ActivationNetwork));
+				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
+				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
+				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
+				db.RegisterType(typeof(EEGRecord));
+
+				db.RegisterType(typeof(LdaMLP));
+				db.RegisterType(typeof(LdaRBF));
+				db.RegisterType(typeof(LdaSVM));
+				db.RegisterType(typeof(RBFNetwork));
+			}
 
             db.Store(model);
 

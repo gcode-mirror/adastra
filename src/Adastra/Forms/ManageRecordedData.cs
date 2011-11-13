@@ -52,6 +52,7 @@ namespace Adastra
             rs = new EEGRecordStorage();
           
             AsyncWorkerLoadEEGRecords.RunWorkerAsync();
+			if (AsyncWorkerLoadEEGRecords.IsBusy) buttonSave.Enabled = false;
 
 			listBox1.Items.Add("Loading...");
         }
@@ -95,6 +96,8 @@ namespace Adastra
 
         void AsyncWorkerLoadEEGRecords_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+			buttonSave.Enabled = true;
+
             if (e.Error != null)
             {
                 MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
