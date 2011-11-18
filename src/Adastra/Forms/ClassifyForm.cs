@@ -195,5 +195,29 @@ namespace Adastra
 			//AsyncWorkerProcess = null;
 			//AsyncWorkerLoadModels = null;
 		}
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ManageRecordedData rd = new ManageRecordedData(null);
+            rd.ReocordSelected += new ManageRecordedData.ChangedEventHandler(rd_ReocordSelected);
+            rd.Show();
+        }
+
+        void rd_ReocordSelected(EEGRecord record)
+        {
+            foreach(double[] vector in record.FeatureVectorsInputOutput)
+            {
+                double[] input = new double[vector.Length-1];
+
+                Array.Copy(vector, 1, input, 0, vector.Length - 1);
+
+                int result = model.Classify(input);
+                if (result == vector[0])
+                    listBoxResult.Items.Insert(0, "OK");
+                else
+                    listBoxResult.Items.Insert(0, "wrong");
+            }
+            
+        }
     }
 }
