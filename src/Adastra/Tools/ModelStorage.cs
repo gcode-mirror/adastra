@@ -40,22 +40,6 @@ namespace Adastra
             db.OpenDatabase(DbSettings.fullpath);
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-			if (justCreated)
-			{
-				db.RegisterType(typeof(AMLearning));
-				db.RegisterType(typeof(LinearDiscriminantAnalysis));
-				db.RegisterType(typeof(ActivationNetwork));
-				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
-				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
-				db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
-				db.RegisterType(typeof(EEGRecord));
-
-				db.RegisterType(typeof(LdaMLP));
-				db.RegisterType(typeof(LdaRBF));
-				db.RegisterType(typeof(LdaSVM));
-				db.RegisterType(typeof(RBFNetwork));
-			}
-
             db.Store(model);
 
             db.Close();
