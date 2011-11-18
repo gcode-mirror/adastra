@@ -28,59 +28,31 @@ namespace Adastra.Algorithms
             this.Name = name;
         }
 
-		public override void Train(List<double[]> outputInput, int inputVectorDimensions)
+		public override void Train(List<double[]> outputInput)
 		{
-			double[,] inputs = new double[outputInput.Count, inputVectorDimensions];
-			int[] output = new int[outputInput.Count];
+            double[,] inputs = null;
+            int[] outputs = null;
+            Converters.Convert(outputInput, ref inputs, ref outputs);
 
-			#region convert to LDA format
-			for (int i = 0; i < outputInput.Count; i++)
-			{
-				output[i] = Convert.ToInt32((outputInput[i])[0]);
+            //output classes must be consecutive: 1,2,3 ...
+            _lda = new LinearDiscriminantAnalysis(inputs, outputs);
 
-				for (int j = 1; j < inputVectorDimensions + 1; j++)
-				{
-					inputs[i, j - 1] = (outputInput[i])[j];
-				}
-			}
-			#endregion
+            if (this.Progress != null) this.Progress(10);
 
-			//output classes must be consecutive: 1,2,3 ...
-			_lda = new LinearDiscriminantAnalysis(inputs, output);
+            // Compute the analysis
+            _lda.Compute();
 
-			if (this.Progress != null) this.Progress(10);
+            if (this.Progress != null) this.Progress(35);
 
-			// Compute the analysis
-			_lda.Compute();
+            double[,] projection = _lda.Transform(inputs);
 
-			if (this.Progress != null) this.Progress(35);
+            // convert for NN format
+            double[][] input2 = null;
+            int[] output2 = null;
+            Converters.Convert(projection, outputs, ref input2, ref output2);
 
-			double[,] projection = _lda.Transform(inputs);
-
-			// Sample data
-			//   The following is simple auto association function
-			//   where each input correspond to its own class. This
-			//   problem should be easily solved by a Linear kernel.
-
-			int vector_count = projection.GetLength(0);
-			int dimensions = projection.GetLength(1);
-			int output_count = _lda.ClassCount.Count();
-
-			// convert for NN format
-			double[][] input2 = new double[vector_count][];
-            int[] output2 = new int[vector_count];
-
-			#region convert input to SVM format
-			for (int i = 0; i < input2.Length; i++)
-			{
-				input2[i] = new double[projection.GetLength(1)];
-				for (int j = 0; j < projection.GetLength(1); j++)
-				{
-					input2[i][j] = projection[i, j];
-				}
-                output2[i] = output[i]-1;//from 1 based 0 based
-			}
-			#endregion
+            int dimensions = projection.GetLength(1);
+            int output_count = outputs.Max();
 
 			// Create a new Linear kernel
 			IKernel kernel = new Linear();

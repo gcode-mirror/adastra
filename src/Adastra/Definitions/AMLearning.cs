@@ -27,7 +27,7 @@ namespace Adastra
             Name = name;
         }
 
-        public abstract void Train(List<double[]> outputInput, int inputVectorDimensions);
+        public abstract void Train(List<double[]> outputInput);
 
         public abstract int Classify(double[] input);
 

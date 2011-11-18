@@ -128,19 +128,9 @@ namespace Adastra
         {
             startTime = DateTime.Now;
 
-            #region convert
-            List<double[]> result = new List<double[]>();
+            List<double[]> result = Converters.Convert(trainDataInput, trainDataOutput);
 
-            for (int i = 0; i < trainDataInput.Length; i++)
-            {
-                double[] p=new double[trainDataInput[0].Length+1];
-                p[0] = trainDataOutput[i][0];
-                Array.Copy(trainDataInput[i],0,p,1,trainDataInput[0].Length);
-                result.Add(p);
-            }
-            #endregion
-
-            _ml.Train(result, result[0].Length - 1);
+            _ml.Train(result);
 
             return _ml;
         }

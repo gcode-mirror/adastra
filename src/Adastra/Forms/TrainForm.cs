@@ -227,7 +227,7 @@ namespace Adastra
             }
 
             model.Progress += new ChangedValuesEventHandler(model_Progress);
-			model.Train(currentRecord.FeatureVectorsInputOutput, currentRecord.FeatureVectorsInputOutput[0].Length-1);
+			model.Train(currentRecord.FeatureVectorsInputOutput);
         }
 
         void model_Progress(int progress)
