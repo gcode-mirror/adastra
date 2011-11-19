@@ -68,5 +68,25 @@ namespace Adastra
             }
             return result;
         }
+
+        public EEGRecord LoadModel(string name)
+        {
+            EEGRecord result=null;
+
+            if (File.Exists(DbSettings.fullpath + ".eq"))
+            {
+                db.OpenDatabase(DbSettings.fullpath);
+
+                db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
+
+                var query = (from EEGRecord sample in db
+                            where sample.Name==name
+                            select sample).FirstOrDefault();
+
+                db.Close();
+            }
+
+            return result;
+        }
     }
 }
