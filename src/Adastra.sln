@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adastra", "Adastra\Adastra.csproj", "{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Math", "Accord\Accord.Math\Accord.Math.csproj", "{F718E9A8-DB62-4785-8C49-4333A60D256A}"
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetEmotivSDK", "Emotiv\DotNetEmotivSDK\DotNetEmotivSDK.csproj", "{D3337309-9682-425E-8EDC-2ECFACF79565}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AdastraInstaller", "AdastraInstaller\AdastraInstaller.vdproj", "{D3215577-5A47-426C-B5BE-5DA69046EC96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{2059510D-3045-49DF-ACFB-4FCE70F7B19B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,16 @@ Global
 		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Release|Any CPU.ActiveCfg = Release
 		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Release|Mixed Platforms.ActiveCfg = Release
 		{D3215577-5A47-426C-B5BE-5DA69046EC96}.Release|x86.ActiveCfg = Release
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
