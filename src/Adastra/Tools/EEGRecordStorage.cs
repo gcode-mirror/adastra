@@ -34,17 +34,6 @@ namespace Adastra
             db.OpenDatabase(DbSettings.fullpath);
             db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-            if (justCreated)
-            {
-                db.RegisterType(typeof(AMLearning));
-                db.RegisterType(typeof(LinearDiscriminantAnalysis));
-                db.RegisterType(typeof(ActivationNetwork));
-                db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.MulticlassSupportVectorMachine));
-                db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.MulticlassSupportVectorLearning));
-                db.RegisterType(typeof(Accord.MachineLearning.VectorMachines.Learning.SequentialMinimalOptimization));
-                db.RegisterType(typeof(EEGRecord));
-            }
-
             db.Store(record);
 
             db.Close();
@@ -79,7 +68,7 @@ namespace Adastra
 
                 db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-                var query = (from EEGRecord sample in db
+                result = (from EEGRecord sample in db
                             where sample.Name==name
                             select sample).FirstOrDefault();
 

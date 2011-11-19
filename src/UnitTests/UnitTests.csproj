@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2059510D-3045-49DF-ACFB-4FCE70F7B19B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnitTests</RootNamespace>
     <AssemblyName>UnitTests</AssemblyName>
@@ -30,7 +30,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Eloquera.Client, Version=4.14.0.6, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Eloquera.Common, Version=4.14.0.6, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Eloquera.Server">
+      <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Server.exe</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
@@ -45,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MLPTest.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +67,12 @@
       <Project>{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}</Project>
       <Name>Adastra</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Eloquera.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
