@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adastra", "Adastra\Adastra.csproj", "{00D2D41C-A88A-48C8-B68A-0359A6AC6F04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Math", "Accord\Accord.Math\Accord.Math.csproj", "{F718E9A8-DB62-4785-8C49-4333A60D256A}"
@@ -16,6 +16,8 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AdastraInstaller", "AdastraInstaller\AdastraInstaller.vdproj", "{D3215577-5A47-426C-B5BE-5DA69046EC96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{2059510D-3045-49DF-ACFB-4FCE70F7B19B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuro", "AForge.Neuro\Neuro.csproj", "{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,16 @@ Global
 		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2059510D-3045-49DF-ACFB-4FCE70F7B19B}.Release|x86.ActiveCfg = Release|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

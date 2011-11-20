@@ -23,10 +23,8 @@ namespace UnitTests
 
             LdaMLP model = new LdaMLP();
 
-            for (int k = 0; k < 10; k++)
+            for (int k = 0; k < 1; k++)
             {
-                model.Train(r.FeatureVectorsInputOutput);
-                model.Train(r.FeatureVectorsInputOutput);
                 model.Train(r.FeatureVectorsInputOutput);
             }
 
@@ -41,7 +39,15 @@ namespace UnitTests
 
                 int result = model.Classify(input);
 
-                if (result == vector[0]) ok++;
+                if (result == vector[0])
+                {
+                    ok++;
+                    Console.WriteLine("Result " + result + " Expected " + vector[0] +" OK");
+                }
+                else
+                {
+                    Console.WriteLine("Result " + result + " Expected " + vector[0]);
+                }
             }
 
             Console.WriteLine(i);

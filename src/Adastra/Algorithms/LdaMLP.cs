@@ -114,6 +114,9 @@ namespace Adastra.Algorithms
             {
                 var data = input.Zip(output, (n, w) => new { singleInput = n, singleOutput = w });
 
+                //var q = from v in data.AsParallel()
+                //        select teacher.Run(v.singleInput, v.singleOutput);
+                //q.ToArray();
                 Parallel.ForEach(data, v =>
                 {
                     teacher.Run(v.singleInput, v.singleOutput);

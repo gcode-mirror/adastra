@@ -38,9 +38,6 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AForge.Neuro">
-      <HintPath>..\..\lib\AForge.Neuro.dll</HintPath>
-    </Reference>
     <Reference Include="BasicDSP">
       <HintPath>..\..\lib\BasicDSP.dll</HintPath>
     </Reference>
@@ -250,6 +247,10 @@
     <ProjectReference Include="..\Accord\Accord.Statistics\Accord.Statistics.csproj">
       <Project>{FD8101DD-C95D-42D6-AD44-AE01C25F2811}</Project>
       <Name>Accord.Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AForge.Neuro\Neuro.csproj">
+      <Project>{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}</Project>
+      <Name>Neuro</Name>
     </ProjectReference>
     <ProjectReference Include="..\Emotiv\DotNetEmotivSDK\DotNetEmotivSDK.csproj">
       <Project>{D3337309-9682-425E-8EDC-2ECFACF79565}</Project>
