@@ -17,6 +17,8 @@ namespace UnitTests
 
             double[] t = { 1,2,3};
 
+            t.ForEach(g => g+=1);
+
             t.ForEach(g => Console.WriteLine(g));
 
             //Console.WriteLine(t);

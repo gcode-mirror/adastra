@@ -6,6 +6,7 @@ using System.Text;
 using NUnit.Framework;
 using Adastra;
 using Adastra.Algorithms;
+using MoreLinq;
 
 namespace UnitTests
 {
@@ -23,6 +24,8 @@ namespace UnitTests
 
             LdaMLP model = new LdaMLP();
             Console.WriteLine("Data loaded");
+
+            //r.FeatureVectorsInputOutput.ForEach(p => p+= ((double)100));
 
             for (int k = 0; k < 1; k++)
             {
