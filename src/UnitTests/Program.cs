@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MoreLinq;
 
 namespace UnitTests
 {
@@ -17,9 +16,9 @@ namespace UnitTests
 
             double[] t = { 1,2,3};
 
-            t.ForEach(g => g+=1);
+            //t.ForEach(g => g += 1);
 
-            t.ForEach(g => Console.WriteLine(g));
+            //t.ForEach(g => Console.WriteLine(g));
 
             //Console.WriteLine(t);
         }

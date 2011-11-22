@@ -46,9 +46,6 @@
     <Reference Include="Eloquera.Server">
       <HintPath>..\..\lib\Eloquera 4.14\Eloquera.Server.exe</HintPath>
     </Reference>
-    <Reference Include="MoreLinq">
-      <HintPath>..\..\lib\MoreLinq.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
