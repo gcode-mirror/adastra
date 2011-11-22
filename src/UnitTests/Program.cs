@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MoreLinq;
 
 namespace UnitTests
 {
@@ -10,9 +11,15 @@ namespace UnitTests
         static void Main(string[] args)
         {
             //MLPTest test = new MLPTest();
-            SVMTest test = new SVMTest();
+            //SVMTest test = new SVMTest();
 
-            test.Process();
+            //test.Process();
+
+            double[] t = { 1,2,3};
+
+            t.ForEach(g => Console.WriteLine(g));
+
+            //Console.WriteLine(t);
         }
     }
 }
