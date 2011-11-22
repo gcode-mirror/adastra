@@ -10,7 +10,7 @@ using Adastra.Algorithms;
 namespace UnitTests
 {
     [TestFixture]
-    public class MLPTest
+    public class SVMTest
     {
         [Test]
         public void Process()
@@ -21,8 +21,9 @@ namespace UnitTests
 
             EEGRecord r = s.LoadModel("MLPdata");
 
-            LdaMLP model = new LdaMLP();
             Console.WriteLine("Data loaded");
+
+            LdaSVM model = new LdaSVM();
 
             for (int k = 0; k < 1; k++)
             {
@@ -43,7 +44,7 @@ namespace UnitTests
                 if (result == vector[0])
                 {
                     ok++;
-                    Console.WriteLine("Result " + result + " Expected " + vector[0] +" OK");
+                    Console.WriteLine("Result " + result + " Expected " + vector[0] + " OK");
                 }
                 else
                 {
