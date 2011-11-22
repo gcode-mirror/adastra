@@ -9,18 +9,10 @@ namespace UnitTests
     {
         static void Main(string[] args)
         {
-            //MLPTest test = new MLPTest();
+            MLPTest test = new MLPTest();
             //SVMTest test = new SVMTest();
 
-            //test.Process();
-
-            double[] t = { 1,2,3};
-
-            //t.ForEach(g => g += 1);
-
-            //t.ForEach(g => Console.WriteLine(g));
-
-            //Console.WriteLine(t);
+            test.Process();
         }
     }
 }
