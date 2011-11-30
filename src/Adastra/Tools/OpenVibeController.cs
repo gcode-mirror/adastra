@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Threading;
 
 namespace Adastra
 {
@@ -91,7 +92,7 @@ namespace Adastra
                     WindowsInput.InputSimulator.SimulateModifiedKeyStroke(WindowsInput.VirtualKeyCode.CONTROL, WindowsInput.VirtualKeyCode.CANCEL);
 
                     System.Threading.Thread.Sleep(1000);
-                    WindowsInput.InputSimulator.SimulateTextEntry("Y");
+                    WindowsInput.InputSimulator.SimulateTextEntry(GetConfirmationSymbol());
                     WindowsInput.InputSimulator.SimulateKeyPress(WindowsInput.VirtualKeyCode.RETURN);
 
                     
@@ -104,6 +105,48 @@ namespace Adastra
 				started = false;
             }
         }
+
+        #region Get Yes in any culture
+        private static string GetConfirmationSymbol()
+        {
+            string yes = "";
+            try
+            {
+                yes = LoadResource("user32.dll", 805, "Yes");
+            }
+            catch
+            {}
+            if (!string.IsNullOrEmpty(yes))
+            {
+                return yes.Substring(1, 1);
+            }
+            else return "Y";      
+        }
+
+        private static string LoadResource(string libraryName, uint Ident, string DefaultText)
+        {
+            IntPtr libraryHandle = GetModuleHandle(libraryName);
+            if (libraryHandle != IntPtr.Zero)
+            {
+                StringBuilder sb = new StringBuilder(1024);
+                int size = LoadString(libraryHandle, Ident, sb, 1024);
+                if (size > 0)
+                    return sb.ToString();
+                else
+                    return DefaultText;
+            }
+            else
+            {
+                return DefaultText;
+            }
+        }
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int LoadString(IntPtr hInstance, uint uID, StringBuilder lpBuffer, int nBufferMax);
+        #endregion
 
         public static bool IsRunning
         {
