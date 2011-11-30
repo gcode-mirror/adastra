@@ -1,3 +1,7 @@
+Adastra 2.4.2 Released 30.11.2011 (dd/mm/yyyy)
+============================================
+Some bug fixes and refinements.
+
 Adastra 2.4 Released 11.11.2011 (dd/mm/yyyy)
 ============================================
 
