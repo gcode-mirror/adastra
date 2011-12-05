@@ -44,7 +44,7 @@ namespace Adastra
 		{
 			InitializeComponent();
 
-			textBoxOpenVibeWorkingFolder.Text = OpenVibeController.LocateOpenVibe();
+			textBoxOpenVibeWorkingFolder.Text = OpenVibeController.DetectOpenVibeInstallFolder();
 			textBoxScenario.Text = OpenVibeController.LocateScenarioFolder() + "\\";
 
 			rbuttonOpenVibe.Checked = true;
