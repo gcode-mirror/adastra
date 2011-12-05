@@ -8,6 +8,9 @@ using System.Threading;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Starts and stops an OpenVibe instance. Contains some unmanaged code.
+    /// </summary>
     public class OpenVibeController
     {
         public static string OpenVibeDesignerWorkingFolder;
@@ -196,6 +199,9 @@ namespace Adastra
         {
             string openVibeLocation="";
             openVibeLocation = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\openvibe", "InstallDir", "");
+            if (!string.IsNullOrWhiteSpace(openVibeLocation)) return openVibeLocation;
+
+            openVibeLocation = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\openvibe", "InstallDir", "");
             if (!string.IsNullOrWhiteSpace(openVibeLocation)) return openVibeLocation;
 
             string programFiles = "";
