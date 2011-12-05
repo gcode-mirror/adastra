@@ -9,10 +9,14 @@ namespace UnitTests
     {
         static void Main(string[] args)
         {
-            MLPTest test = new MLPTest();
+            //MLPTest test = new MLPTest();
             //SVMTest test = new SVMTest();
 
-            test.Process();
+            //test.Process();
+
+            string script = "A=[1 2]; B=[3; 4]; C=A*B";
+            string output = Adastra.OctaveController.Execute(script);
+            Console.WriteLine(output);
         }
     }
 }
