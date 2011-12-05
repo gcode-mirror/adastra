@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 
 using Vrpn;
 
@@ -13,7 +14,8 @@ namespace Adastra
 
         public OpenVibeFeatureGenerator()
         {
-            analog = new AnalogRemote("openvibe-vrpn@localhost");
+            string server = ConfigurationManager.AppSettings["OpenVibeVRPNStreamer"];
+            analog = new AnalogRemote(server);
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
         }

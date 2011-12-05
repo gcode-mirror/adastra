@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
+using System.Configuration;
 
 using Vrpn;
 
@@ -28,7 +29,9 @@ namespace Adastra
         {
             InitializeComponent();
 
-            analog = new AnalogRemote("openvibe-vrpn@localhost");
+            //analog = new AnalogRemote("openvibe-vrpn@localhost");
+            string server = ConfigurationManager.AppSettings["OpenVibeVRPNStreamer"];
+            analog = new AnalogRemote(server);
             analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
             analog.MuteWarnings = true;
         }
