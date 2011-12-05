@@ -16,6 +16,7 @@ namespace Adastra
 
         static string folder = @"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
         static string executable = folder + "octave-3.2.4.exe";
+        static string functionpath=@"c:\";
 
         /// <summary>
         /// Example script="A=[1 2]; B=[3; 4]; C=A*B";
@@ -24,8 +25,8 @@ namespace Adastra
         /// <returns>result from Octave</returns>
         public static string Execute(string script)
         {
-           
-            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), "--eval \"" + script + "\"");
+            string param = "--eval \"" + script + "\" -p " + functionpath;
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
             psi.WorkingDirectory = GetDosPathName(folder);
 
             psi.RedirectStandardOutput = false;
@@ -50,6 +51,36 @@ namespace Adastra
 
             return ParseResult(output);
         }
+
+        //public static string Interactive(string script)
+        //{
+        //    System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), "");
+        //    psi.WorkingDirectory = GetDosPathName(folder);
+
+        //    psi.RedirectStandardOutput = false;
+
+        //    bool NoGUI = true;
+        //    if (NoGUI)
+        //    {
+        //        psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+        //        psi.RedirectStandardOutput = true;
+        //        psi.RedirectStandardInput = true;
+        //        psi.RedirectStandardError = true;
+        //    }
+        //    else
+        //        psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+
+        //    psi.UseShellExecute = false;
+
+        //    //started = true;
+        //    System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+
+        //    p.StandardInput.WriteLine("a=1");
+        //    p.StandardInput.WriteLine("b=2");
+        //    string output = p.StandardOutput.ReadToEnd();
+
+        //    return output;
+        //}
 
         private static string ParseResult(string output)
         {
