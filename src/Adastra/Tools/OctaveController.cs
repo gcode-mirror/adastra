@@ -16,7 +16,7 @@ namespace Adastra
 
         static string folder = @"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
         static string executable = folder + "octave-3.2.4.exe";
-        static string functionpath=@"c:\";
+        public static string FunctionSearchPath=@"c:\";
 
         /// <summary>
         /// Example script="A=[1 2]; B=[3; 4]; C=A*B";
@@ -25,7 +25,7 @@ namespace Adastra
         /// <returns>result from Octave</returns>
         public static string Execute(string script)
         {
-            string param = "--eval \"" + script + "\" -p " + functionpath;
+            string param = "--eval \"" + script + "\" -p " + FunctionSearchPath;
             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
             psi.WorkingDirectory = GetDosPathName(folder);
 
