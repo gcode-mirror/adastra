@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Adastra
 {
@@ -14,7 +15,8 @@ namespace Adastra
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
 
-        static string folder = @"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
+        //static string folder = @"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
+        static string folder = @"D:\Octave\3.2.4_gcc-4.4.0\bin\";
         static string executable = folder + "octave-3.2.4.exe";
         public static string FunctionSearchPath=@"c:\";
 
@@ -23,31 +25,56 @@ namespace Adastra
         /// </summary>
         /// <param name="script"></param>
         /// <returns>result from Octave</returns>
-        public static string Execute(string script)
+        public static string Execute(string script,bool eval)
         {
-            string param = "--eval \"" + script + "\" -p " + FunctionSearchPath;
-            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
-            psi.WorkingDirectory = GetDosPathName(folder);
+            //--eval is limitted to Windows Command Line Buffer, so this why temporay files are used
 
-            psi.RedirectStandardOutput = false;
+            string tempFile = Path.GetTempFileName();
+            string output = "";
 
-            bool NoGUI = true;
-            if (NoGUI)
+            using (StreamWriter outfile =
+            new StreamWriter(tempFile))
             {
-                psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                psi.RedirectStandardOutput = true;
-                psi.RedirectStandardInput = true;
-                psi.RedirectStandardError = true;
+                outfile.Write(script);
             }
-            else
-                psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 
-            psi.UseShellExecute = false;
+            try
+            {
+                
+                //string param = "--eval \"" + script + "\" -p " + FunctionSearchPath;
+                string param = tempFile + " -p " + FunctionSearchPath;
 
-            //started = true;
-            System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+                System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
+                psi.WorkingDirectory = GetDosPathName(folder);
 
-            string output = p.StandardOutput.ReadToEnd();
+                psi.RedirectStandardOutput = false;
+
+                bool NoGUI = true;
+                if (NoGUI)
+                {
+                    psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    psi.RedirectStandardOutput = true;
+                    psi.RedirectStandardInput = true;
+                    psi.RedirectStandardError = true;
+                }
+                else
+                    psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+
+                psi.UseShellExecute = false;
+
+                //started = true;
+                System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+                output = p.StandardOutput.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                  File.Delete(tempFile);
+            }
 
             return ParseResult(output);
         }
@@ -102,5 +129,6 @@ namespace Adastra
 
             return shortNameBuffer.ToString();
         }
+
     }
 }
