@@ -6,8 +6,8 @@ using System.Text;
 namespace Adastra.Algorithms
 {
     /// <summary>
-    /// Implementation of Linear Regression for classification.
-    /// You need an instance of Octave (or Matlab) to run this machine learning algorithm. 
+    /// .NET wrapper for an Octave implementation of Linear Regression (for classification).
+    /// You need an installation of Octave (or Matlab) to run this machine learning algorithm. 
     /// </summary>
     public class OctaveLinearRegression : AMLearning
     {
