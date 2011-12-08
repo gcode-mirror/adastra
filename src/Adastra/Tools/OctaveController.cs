@@ -15,8 +15,7 @@ namespace Adastra
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
 
-        //static string folder = @"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
-        static string folder = @"D:\Octave\3.2.4_gcc-4.4.0\bin\";
+		static string folder = LocateOctaveInstallDir();
         static string executable = folder + "octave-3.2.4.exe";
         public static string FunctionSearchPath=@"c:\";
 
@@ -135,6 +134,20 @@ namespace Adastra
 
             return tempFile;
         }
+
+		private static string LocateOctaveInstallDir()
+		{
+			string folder=@"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
+			if (Directory.Exists(folder)) return folder;
+            folder = @"D:\Octave\3.2.4_gcc-4.4.0\bin\";
+			if (Directory.Exists(folder)) return folder;
+		    folder = @"D:\Work_anton\octave_3.2.4_gcc-4.4.0\bin\";
+			if (Directory.Exists(folder)) return folder;
+			folder = @"c:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
+			if (Directory.Exists(folder)) return folder;
+
+			return "octave not found";
+		}
 
     }
 }
