@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Adastra.Algorithms
 {
@@ -13,9 +14,25 @@ namespace Adastra.Algorithms
     {
         //StraightLineHypothesis hypothesis;
 
+        /// <summary>
+        /// Will generate thetas to be set in the Hypotheis
+        /// </summary>
+        /// <param name="outputInput"></param>
         public override void Train(List<double[]> outputInput)
         {
-            //will generate thetas to be set in the Hypotheis
+            //1. set data
+            string Xyfile = OctaveController.SaveTempFile(outputInput.ToString());
+
+            //2. constuct script
+            string script = "X = load(\"" + Xyfile + "\");";
+
+            string result = OctaveController.Execute(script);
+
+            //3. Parse result to extact theta
+
+            //4. Clear temp files
+            if (File.Exists(Xyfile))
+                File.Delete(Xyfile);
         }
 
         public override int Classify(double[] input)

@@ -25,22 +25,14 @@ namespace Adastra
         /// </summary>
         /// <param name="script"></param>
         /// <returns>result from Octave</returns>
-        public static string Execute(string script,bool eval)
+        public static string Execute(string script)
         {
             //--eval is limitted to Windows Command Line Buffer, so this why temporay files are used
-
-            string tempFile = Path.GetTempFileName();
             string output = "";
-
-            using (StreamWriter outfile =
-            new StreamWriter(tempFile))
-            {
-                outfile.Write(script);
-            }
+            string tempFile = SaveTempFile(script);
 
             try
             {
-                
                 //string param = "--eval \"" + script + "\" -p " + FunctionSearchPath;
                 string param = tempFile + " -p " + FunctionSearchPath;
 
@@ -112,7 +104,8 @@ namespace Adastra
         private static string ParseResult(string output)
         {
             int pos = output.IndexOf("`news'.");
-            return output.Substring(pos + 7);
+
+            return (pos != -1) ? output.Substring(pos + 7) : output;
         }
 
         private static string GetDosPathName(string longName)
@@ -128,6 +121,19 @@ namespace Adastra
                 throw new Exception("GetDosPathName: Check your file paths!\r\n\r\n");
 
             return shortNameBuffer.ToString();
+        }
+
+        public static string SaveTempFile(string conent)
+        {
+            string tempFile = Path.GetTempFileName();
+
+            using (StreamWriter outfile =
+            new StreamWriter(tempFile))
+            {
+                outfile.Write(conent);
+            }
+
+            return tempFile;
         }
 
     }
