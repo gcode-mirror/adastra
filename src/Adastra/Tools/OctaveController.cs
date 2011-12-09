@@ -17,6 +17,7 @@ namespace Adastra
 
 		static string folder = LocateOctaveInstallDir();
         static string executable = folder + "octave-3.2.4.exe";
+		//\..\..\..\..\scripts\octave\LinearRegression
 		public static string FunctionSearchPath = @"D:\Work_anton\anton_work\Adastra\scripts\octave\LinearRegression";
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Adastra
         {
             //--eval is limitted to Windows Command Line Buffer, so this why temporay files are used
             string output = "";
-			script = "addpath('"+FunctionSearchPath+"');\r\n" + script;
+			script = "addpath('" + FunctionSearchPath + "');\r\n" + script;//addpath (genpath ("~/octave")); //for recursive search
             string tempFile = SaveTempFile(script);
 
             try

@@ -40,7 +40,7 @@ namespace Adastra.Algorithms
             //3. Parse result to extact theta
 			string[] values = result.Split("\n\n".ToCharArray());
 			double d;
-			values = values.Where(p => double.TryParse(p.Replace("\n","").Replace(" ",""), out d)).ToArray();
+			string[] thetas = values.Where(p => double.TryParse(p.Replace("\n","").Replace(" ",""), out d)).ToArray();
             //4. Clear temp files
             if (File.Exists(Xyfile))
                 File.Delete(Xyfile);
