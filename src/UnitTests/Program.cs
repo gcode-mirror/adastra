@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Adastra.Algorithms;
+
 namespace UnitTests
 {
     class Program
@@ -14,9 +16,13 @@ namespace UnitTests
 
             //test.Process();
 
-            string script = "A=[1 2]; B=[3; 4]; C=A*B";
-            string output = Adastra.OctaveController.Execute(script);
-            Console.WriteLine(output);
+			//string script = "A=[1 2]; B=[3; 4]; C=A*B";
+			//string output = Adastra.OctaveController.Execute(script);
+
+			OctaveLinearRegression olr = new OctaveLinearRegression();
+			olr.Train(new List<double[]>());
+            
+			//Console.WriteLine(output);
         }
     }
 }

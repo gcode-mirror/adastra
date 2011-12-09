@@ -17,7 +17,7 @@ namespace Adastra
 
 		static string folder = LocateOctaveInstallDir();
         static string executable = folder + "octave-3.2.4.exe";
-        public static string FunctionSearchPath=@"c:\";
+		public static string FunctionSearchPath = @"D:\Work_anton\anton_work\Adastra\scripts\octave\LinearRegression";
 
         /// <summary>
         /// Example script="A=[1 2]; B=[3; 4]; C=A*B";
@@ -28,12 +28,13 @@ namespace Adastra
         {
             //--eval is limitted to Windows Command Line Buffer, so this why temporay files are used
             string output = "";
+			script = "addpath('"+FunctionSearchPath+"');\r\n" + script;
             string tempFile = SaveTempFile(script);
 
             try
             {
                 //string param = "--eval \"" + script + "\" -p " + FunctionSearchPath;
-                string param = tempFile + " -p " + FunctionSearchPath;
+				string param = tempFile; //+ " -p " + FunctionSearchPath;
 
                 System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
                 psi.WorkingDirectory = GetDosPathName(folder);
