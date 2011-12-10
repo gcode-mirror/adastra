@@ -12,7 +12,13 @@ namespace Adastra.Algorithms
     /// </summary>
     public class OctaveLinearRegression : AMLearning
     {
-        //StraightLineHypothesis hypothesis;
+        StraightLineHypothesis hypothesis;
+		string name;
+
+		public OctaveLinearRegression(string name)
+		{
+			this.name = name;
+		}
 
         /// <summary>
         /// Will generate thetas to be set in the Hypotheis
@@ -21,11 +27,18 @@ namespace Adastra.Algorithms
         public override void Train(List<double[]> outputInput)
         {
             //1. set data
-            string Xyfile = OctaveController.SaveTempFile(outputInput.ToString());
+			
+			//set y from first value to be last one (more comfortable for Octave)
+			foreach (double[] raw in outputInput)
+			{
+				Array.Reverse(raw);
+			}
+
+			string Xyfile = OctaveController.SaveTempFile(outputInput);
 
             //2. constuct script
-            //string script = "X = load(\"" + Xyfile + "\");";
-			string script = "data = load('D:\\Work_anton\\anton_work\\Adastra\\data\\ex1data1.txt');\r\n"
+			string script = //"data = load('D:\\Work_anton\\anton_work\\Adastra\\data\\ex1data1.txt');\r\n"
+						  "data = load('" + Xyfile+"');\r\n"
 						  + "X = data(:, 1); y = data(:, 2);\r\n"
 						  + "m = length(y);\r\n"
 						  + "X = [ones(m, 1), data(:,1)];\r\n"
@@ -46,21 +59,53 @@ namespace Adastra.Algorithms
                 File.Delete(Xyfile);
         }
 
+		/// <summary>
+		/// Not finished
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
         public override int Classify(double[] input)
         {
-            //hypothesis.calculate
-            return -1;
+			double d=hypothesis.Compute(input);
+
+			//find the right class
+
+			return -1;
         }
 
         public override double CalculateError(double[][] input, double[][] ideal)
         {
-            
-            return -1;
+			double error = 0;
+
+			for (int i = 0; i < input.Length; i++)
+			{
+				int actualValue = this.Classify(input[i]);
+				double delta = ideal[i][0] - actualValue;
+				error += delta * delta;
+			}
+
+			double mse = error / input.Length;
+
+			return mse;
         }
     }
 
-    //public class StraightLineHypothesis : AHypothesis
-    //{
+	/// <summary>
+	/// Implement for only one variable
+	/// </summary>
+	public class StraightLineHypothesis : AHypothesis
+	{
+		double[] thetas;
 
-    //}
+		public override void SetTheta(double[] thetas)
+		{
+			this.thetas = thetas;
+		}
+
+		public override double Compute(double[] variables)
+		{
+			//only one variable
+			return thetas[0] + thetas[1] * variables[0]; //Q0 + Q1*X
+		}
+	}
 }

@@ -137,6 +137,39 @@ namespace Adastra
             return tempFile;
         }
 
+		public static string SaveTempFile(List<double[]> values)
+		{
+			string tempFile = Path.GetTempFileName();
+
+			StreamWriter outfile =new StreamWriter(tempFile);
+			try
+			{
+				foreach (var row in values)
+				{
+					for (int i = 0; i < row.Length; i++)
+					{
+						if (i == row.Length - 1) outfile.WriteLine(row[i]);
+						else outfile.Write(row[i] + " ");
+					}
+				}
+
+			}
+			catch (Exception ex)
+			{
+				int a;
+			}
+			finally
+			{
+				if (outfile != null)
+				{
+					outfile.Close();
+					outfile = null;
+				}
+			}
+
+			return tempFile;
+		}
+
 		private static string LocateOctaveInstallDir()
 		{
 			string folder=@"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";

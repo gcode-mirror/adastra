@@ -12,13 +12,13 @@ namespace Adastra
     /// </summary>
     public abstract class AHypothesis
     {
-        public abstract string GetOctaveRepresenation();
+		//public abstract string GetOctaveRepresenation();
 
         public abstract double Compute(double[] variables);
 
-        public abstract int GetThetaCount();
+		//public abstract int GetThetaCount();
 
-        public abstract int GetVariablesCount();
+		//public abstract int GetVariablesCount();
 
         /// <summary>
         /// This method sets the parameters (constants) that will be used in this model by the 'Compute' model
