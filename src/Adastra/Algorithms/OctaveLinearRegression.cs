@@ -34,9 +34,10 @@ namespace Adastra.Algorithms
 			{
 				Array.Reverse(raw);
 			}
+			if (this.Progress != null) this.Progress(5);
 
 			string Xyfile = OctaveController.SaveTempFile(outputInput);
-
+			if (this.Progress != null) this.Progress(20);
             //2. constuct script
 			string script = //"data = load('D:\\Work_anton\\anton_work\\Adastra\\data\\ex1data1.txt');\r\n"
 						  "data = load('" + Xyfile+"');\r\n"
@@ -62,6 +63,8 @@ namespace Adastra.Algorithms
             //4. Clear temp files
             if (File.Exists(Xyfile))
                 File.Delete(Xyfile);
+
+			if (this.Progress != null) this.Progress(100);
         }
 
 		/// <summary>
@@ -93,6 +96,8 @@ namespace Adastra.Algorithms
 
 			return mse;
         }
+
+		public override event ChangedValuesEventHandler Progress;
     }
 
 	/// <summary>

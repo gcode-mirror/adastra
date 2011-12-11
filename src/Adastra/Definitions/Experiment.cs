@@ -182,9 +182,8 @@ namespace Adastra
 
             double mse = error / _er.FeatureVectorsInputOutput.Count;
 
-            Error = mse;
-
-            TimeElapsedSeconds = (DateTime.Now - startTime).TotalSeconds.ToString();//"{0:hh\\:mm\\:ss\\:fffffff}", 
+            this.Error = mse;
+            this.TimeElapsedSeconds = (DateTime.Now - startTime).TotalSeconds.ToString();//"{0:hh\\:mm\\:ss\\:fffffff}", 
  
             return mse;
         }

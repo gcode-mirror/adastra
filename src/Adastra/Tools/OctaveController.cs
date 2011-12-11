@@ -40,16 +40,16 @@ namespace Adastra
                 System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
                 psi.WorkingDirectory = GetDosPathName(folder);
 
-                psi.RedirectStandardOutput = false;
+				psi.RedirectStandardOutput = true;
+				psi.RedirectStandardInput = true;
+				psi.RedirectStandardError = true;
 
                 bool NoGUI = true;
                 if (NoGUI)
                 {
 					psi.CreateNoWindow = true;
                     psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                    psi.RedirectStandardOutput = true;
-                    psi.RedirectStandardInput = true;
-                    psi.RedirectStandardError = true;
+                   
                 }
                 else
                     psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
