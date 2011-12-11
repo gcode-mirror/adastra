@@ -12,12 +12,13 @@ namespace Adastra.Algorithms
     /// </summary>
     public class OctaveLinearRegression : AMLearning
     {
-        StraightLineHypothesis hypothesis;
+        AHypothesis hypothesis;
 		string name;
 
 		public OctaveLinearRegression(string name)
 		{
 			this.name = name;
+			hypothesis = new StraightLineHypothesis();
 		}
 
         /// <summary>
@@ -52,8 +53,12 @@ namespace Adastra.Algorithms
 
             //3. Parse result to extact theta
 			string[] values = result.Split("\n\n".ToCharArray());
-			double d;
-			string[] thetas = values.Where(p => double.TryParse(p.Replace("\n","").Replace(" ",""), out d)).ToArray();
+			double d=0;
+			double[] thetas= (from s in values
+				              where double.TryParse(s.Replace("\n","").Replace(" ",""), out d)
+				              select d).ToArray();
+
+			hypothesis.SetTheta(thetas);
             //4. Clear temp files
             if (File.Exists(Xyfile))
                 File.Delete(Xyfile);

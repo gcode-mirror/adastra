@@ -64,21 +64,22 @@ namespace WPF
             //second click will use already computed modeles!
 
             this.cancellationSource = new CancellationTokenSource();
-            var progressReporter = new ProgressReporter();
+            //var progressReporter = new ProgressReporter();
 
             //potential problem exists that the same workflows are executed
             //workflow should be passed using copy constructor
-            foreach (var w in workflows)
-            {
-                w.Progress = 0;
-                if (w.Enabled)
-                   CreateStartComputeTask(w, progressReporter);
-            }
+			foreach (var w in workflows)
+			{
+				w.Progress = 0;
+				if (w.Enabled)
+					CreateStartComputeTask(w, new ProgressReporter());
+			}
 
             //or executed not in a loop solves the above problem
-            //CreateStartComputeTask(workflows[0], progressReporter); workflows[0].Progress = 0;
-            //CreateStartComputeTask(workflows[1], progressReporter); workflows[1].Progress = 0;
-            //CreateStartComputeTask(workflows[2], progressReporter); workflows[2].Progress = 0;
+			//CreateStartComputeTask(workflows[0], new ProgressReporter()); workflows[0].Progress = 0;
+			//CreateStartComputeTask(workflows[1], new ProgressReporter()); workflows[1].Progress = 0;
+			//CreateStartComputeTask(workflows[2], new ProgressReporter()); workflows[2].Progress = 0;
+			//CreateStartComputeTask(workflows[3], new ProgressReporter()); workflows[3].Progress = 0;
 
             buttonStart.IsEnabled = false;
 
@@ -142,10 +143,7 @@ namespace WPF
             progressReporter.RegisterContinuation(task, () =>
             {
                 //http://blogs.msdn.com/b/csharpfaq/archive/2010/07/19/parallel-programming-task-cancellation.aspx
-
                 // Update UI to reflect completion.
-
-                // Display results.
                 if (task.Exception != null)
                     MessageBox.Show("Background task error: " + task.Exception.ToString());
                 else if (task.IsCanceled)
@@ -153,8 +151,9 @@ namespace WPF
                     MessageBox.Show("\"" + w.Name + "\" has been cancelled.");
                     statusBar.Text = "\"" + w.Name + "\" has been cancelled.";
                 }
-                else
+                else //all OK
                 {
+					//w.Error = task.Result;//set experiment class itself
                     statusBar.Text = "Calculating \"" + w.Name + "\" has completed.";
                     w.Progress = 100;
                 }
