@@ -6,6 +6,10 @@ using System.IO;
 
 namespace Adastra.Algorithms
 {
+	/// <summary>
+	/// Implements Logisitc Regression for two classes that must be 0 and 1
+	/// Currently supplied classes are not 0 and 1
+	/// </summary>
     public class OctaveLogisticRegression : AMLearning
     {
         AHypothesis hypothesis;
@@ -36,14 +40,14 @@ namespace Adastra.Algorithms
 			if (this.Progress != null) this.Progress(20);
             //2. constuct script
 			string script = //"data = load('D:\\Work_anton\\anton_work\\Adastra\\data\\ex1data1.txt');\r\n"
-						  "data = load('" + Xyfile+"');\r\n"
-                          + "X = data(:, [1, 2]); y = data(:, 3);\r\n"
+						  "data = load('" + Xyfile + "');\r\n"
+						  + "X = data(:, [1, 2]); y = data(:, 3);\r\n"
 						  + "[m, n] = size(X);\r\n"
-                          + "X = [ones(m, 1) X];\r\n"
+						  + "X = [ones(m, 1) X];\r\n"
 						  + "initial_theta = zeros(n + 1, 1);\r\n"
-                          + "[theta, cost] = 0(initial_theta,X,y)\r\n"
-						  + "theta\r\n";
+						  + "[theta] = generateTheta(initial_theta,X,y)\r\n";
 
+			OctaveController.FunctionSearchPath = @"D:\Work_anton\anton_work\Adastra\scripts\octave\LogisticRegression";
             string result = OctaveController.Execute(script);
 
             //3. Parse result to extact theta
@@ -70,7 +74,7 @@ namespace Adastra.Algorithms
         {
 			double d=hypothesis.Compute(input);
 
-            return (d>0) ? 1 : 0;
+            return (d>0.5) ? 1 : 0;
         }
 
         public override double CalculateError(double[][] input, double[][] ideal)
