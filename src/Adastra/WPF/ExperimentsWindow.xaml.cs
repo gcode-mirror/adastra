@@ -41,7 +41,7 @@ namespace WPF
 			workflows.Add(new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp")));
 			workflows.Add(new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm")));
             workflows.Add(new Experiment("LDA + Radial Basis Function", null, new LdaRBF("rbf")));
-			workflows.Add(new Experiment("Linear Regression - Octave", null, new OctaveLinearRegression("lro")));
+			workflows.Add(new Experiment("Logistic Regression - Octave", null, new OctaveLogisticRegression("lro")));
 
             gvMethodsListTraining.ItemsSource = workflows;
             //gvMethodsListTesting.ItemsSource = workflows;

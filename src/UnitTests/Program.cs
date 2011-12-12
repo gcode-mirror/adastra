@@ -19,8 +19,8 @@ namespace UnitTests
 			//string script = "A=[1 2]; B=[3; 4]; C=A*B";
 			//string output = Adastra.OctaveController.Execute(script);
 
-			OctaveLinearRegression olr = new OctaveLinearRegression("lro");
-			olr.Train(new List<double[]>());
+			//OctaveLinearRegression olr = new OctaveLinearRegression("lro");
+			//olr.Train(new List<double[]>());
             
 			//Console.WriteLine(output);
         }
