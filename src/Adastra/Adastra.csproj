@@ -185,6 +185,7 @@
     <Compile Include="Forms\TrainForm.Designer.cs">
       <DependentUpon>TrainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Algorithms\OctaveMulticlassLogisticRegression.cs" />
     <Compile Include="Tools\Converters.cs" />
     <Compile Include="Tools\EmotivFileSystemDataReader.cs" />
     <Compile Include="Tools\EEGRecordStorage.cs" />

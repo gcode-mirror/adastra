@@ -32,6 +32,7 @@ namespace Adastra.Algorithms
 			//set y from first value to be last one (more comfortable for Octave)
 			foreach (double[] raw in outputInput)
 			{
+				if (raw[0] != 0 && raw[0] != 1) throw new Exception("y must be either 0 or 1");
 				Array.Reverse(raw);
 			}
 			if (this.Progress != null) this.Progress(5);
