@@ -12,12 +12,15 @@ namespace Adastra
     /// </summary>
     public class OctaveController
     {
+		public static bool NoGUI = true;
+
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
 
 		static string folder = LocateOctaveInstallDir();
-        static string executable = folder + "octave-3.2.4.exe";
-		//\..\..\..\..\scripts\octave\LinearRegression
+		static string executable = Directory.GetFiles(folder + "bin").Where(p => Path.GetFileName(p).StartsWith("octave-") && Path.GetFileName(p).Length<=16).FirstOrDefault();
+
+
 		public static string FunctionSearchPath = @"D:\Work_anton\anton_work\Adastra\scripts\octave\LinearRegression";
 
         /// <summary>
@@ -44,7 +47,6 @@ namespace Adastra
 				psi.RedirectStandardInput = true;
 				psi.RedirectStandardError = true;
 
-                bool NoGUI = true;
                 if (NoGUI)
                 {
 					psi.CreateNoWindow = true;
@@ -173,18 +175,28 @@ namespace Adastra
 
 		private static string LocateOctaveInstallDir()
 		{
-			string folder=@"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
-			if (Directory.Exists(folder)) return folder;
-            folder = @"D:\Octave\3.2.4_gcc-4.4.0\bin\";
-			if (Directory.Exists(folder)) return folder;
-		    folder = @"D:\Work_anton\octave_3.2.4_gcc-4.4.0\bin\";
-			if (Directory.Exists(folder)) return folder;
-			folder = @"c:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
-			if (Directory.Exists(folder)) return folder;
-            folder = @"C:\Program Files (x86)\octave_3.2.4_gcc-4.4.0\bin\";
-			if (Directory.Exists(folder)) return folder;
-            
-			return "octave not found";
+			string[] baseFolders = { @"c:\Program Files\",  @"C:\Program Files (x86)\", @"D:\Program Files\", @"D:\Octave\", @"D:\Work_anton\"};
+
+			string candidate = "";
+			foreach (string folder in baseFolders.Where(p => Directory.Exists(p)))
+			{
+				candidate = Directory.GetDirectories(folder).Where(p => p.Contains("octave_")).FirstOrDefault();
+				if (!string.IsNullOrEmpty(candidate)) break;
+			}
+			//string folder=@"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
+			//if (Directory.Exists(folder)) return folder;
+			//folder = @"D:\Octave\3.2.4_gcc-4.4.0\bin\";
+			//if (Directory.Exists(folder)) return folder;
+			//folder = @"D:\Work_anton\octave_3.2.4_gcc-4.4.0\bin\";
+			//if (Directory.Exists(folder)) return folder;
+			//folder = @"c:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
+			//if (Directory.Exists(folder)) return folder;
+			//folder = @"C:\Program Files (x86)\octave_3.2.4_gcc-4.4.0\bin\";
+			//if (Directory.Exists(folder)) return folder;
+
+			if (string.IsNullOrEmpty(candidate)) throw new Exception("Octave installation could not be detected!");
+			else
+				return candidate+"\\";
 		}
 
         public static string GetBaseScriptPath()

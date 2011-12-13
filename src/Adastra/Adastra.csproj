@@ -127,7 +127,6 @@
     <Compile Include="Algorithms\Matrix.cs" />
     <Compile Include="Algorithms\NNMFMatrix.cs" />
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
-    <Compile Include="Algorithms\OctaveLinearRegression.cs" />
     <Compile Include="Algorithms\OctaveLogisticRegression.cs" />
     <Compile Include="Definitions\AMLearning.cs" />
     <Compile Include="Definitions\Database.cs" />
