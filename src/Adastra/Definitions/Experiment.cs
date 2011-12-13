@@ -142,6 +142,7 @@ namespace Adastra
 		public void SetRecord(EEGRecord record)
 		{
 			_er = record;
+            _ml.ActionList = _er.actions;
 
             #region convert
             double[][] input = new double[record.FeatureVectorsInputOutput.Count][];

@@ -44,7 +44,7 @@ namespace Adastra
 				psi.RedirectStandardInput = true;
 				psi.RedirectStandardError = true;
 
-                bool NoGUI = false;
+                bool NoGUI = true;
                 if (NoGUI)
                 {
 					psi.CreateNoWindow = true;

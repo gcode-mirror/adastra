@@ -48,14 +48,14 @@ namespace Adastra.Algorithms
 						  + "initial_theta = zeros(n + 1, 1);\r\n"
 						  + "[theta] = generateTheta(initial_theta,X,y)\r\n";
 
-            OctaveController.FunctionSearchPath = OctaveController.GetBaseScriptPath() + @"scripts\octave\LogisticRegression";
+            OctaveController.FunctionSearchPath = OctaveController.GetBaseScriptPath() + @"LogisticRegression";
             string result = OctaveController.Execute(script);
 
             //3. Parse result to extact theta
 			string[] values = result.Split("\n\n".ToCharArray());
 			double d=0;
 			double[] thetas= (from s in values
-				              where double.TryParse(s.Replace("\n","").Replace(" ",""), out d)
+				              where s!=string.Empty && double.TryParse(s.Replace("\n","").Replace(" ",""), out d)
 				              select d).ToArray();
 
 			hypothesis.SetTheta(thetas);
@@ -76,6 +76,11 @@ namespace Adastra.Algorithms
 			double d=hypothesis.Compute(input);
 
             return (d>0.5) ? 1 : 0;
+        }
+
+        public double ComputeHypothesis(double[] input)
+        {
+            return hypothesis.Compute(input);
         }
 
         public override double CalculateError(double[][] input, double[][] ideal)

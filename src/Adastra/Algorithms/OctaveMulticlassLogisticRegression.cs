@@ -7,8 +7,6 @@ namespace Adastra.Algorithms
 {
 	class OctaveMulticlassLogisticRegression : AMLearning
 	{
-		int ClassCount;
-
 		OctaveLogisticRegression[] binaryClassifiers;
 
 		string name;
@@ -20,12 +18,41 @@ namespace Adastra.Algorithms
 
 		public override void Train(List<double[]> outputInput)
 		{
-			throw new NotImplementedException();
+            binaryClassifiers = new OctaveLogisticRegression[ActionList.Count];
+            foreach (var act in ActionList) //action list must contain a consequtive list of integers starting from 1
+            {
+                int c = act.Value;
+                binaryClassifiers[c - 1] = new OctaveLogisticRegression(c.ToString());
+
+                List<double[]> newOutputInput = new List<double[]>();
+
+                foreach (var d in outputInput)
+                {
+                    double[] p = new double[d.Length];
+                    Array.Copy(d, p, d.Length);
+                    p[0] = (p[0] == c) ? 1 : 0;
+                    newOutputInput.Add(p);
+                }
+
+                binaryClassifiers[c - 1].Train(newOutputInput);
+                if (this.Progress != null) this.Progress((100/ActionList.Count) * c);
+            }
 		}
 
 		public override int Classify(double[] input)
 		{
-			throw new NotImplementedException();
+            double max=-1;
+            int MaxClass=-1;
+            foreach (OctaveLogisticRegression olr in binaryClassifiers)
+            {
+                double h = olr.ComputeHypothesis(input);
+                if (h > max)
+                {
+                    max = h;
+                    MaxClass = Convert.ToInt32(olr.Name);
+                }
+            }
+            return MaxClass;
 		}
 
 		public override double CalculateError(double[][] input, double[][] ideal)
@@ -43,5 +70,7 @@ namespace Adastra.Algorithms
 
 			return mse;
 		}
+
+        public override event ChangedValuesEventHandler Progress;
 	}
 }
