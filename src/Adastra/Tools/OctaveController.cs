@@ -181,9 +181,23 @@ namespace Adastra
 			if (Directory.Exists(folder)) return folder;
 			folder = @"c:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
 			if (Directory.Exists(folder)) return folder;
-
+            folder = @"C:\Program Files (x86)\octave_3.2.4_gcc-4.4.0\bin\";
+			if (Directory.Exists(folder)) return folder;
+            
 			return "octave not found";
 		}
+
+        public static string GetBaseScriptPath()
+        {
+            string folder = "";
+            #if (DEBUG)
+            folder = Environment.CurrentDirectory + @"\..\..\..\..\scripts\octave\";
+            #else
+				folder = Environment.CurrentDirectory + @"\scripts\octave\";
+            #endif
+
+            return folder;
+        }
 
     }
 }
