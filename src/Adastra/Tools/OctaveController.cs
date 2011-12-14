@@ -18,8 +18,8 @@ namespace Adastra
         private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
 
 		static string folder = LocateOctaveInstallDir();
-		static string executable = Directory.GetFiles(folder + "bin").Where(p => Path.GetFileName(p).StartsWith("octave-") && Path.GetFileName(p).Length<=16).FirstOrDefault();
-
+		//static string executable = Directory.GetFiles(folder + "bin").Where(p => Path.GetFileName(p).StartsWith("octave-") && Path.GetFileName(p).Length<=16).FirstOrDefault();
+        static string executable = folder + "bin\\octave.exe";
 
 		public static string FunctionSearchPath = @"D:\Work_anton\anton_work\Adastra\scripts\octave\LinearRegression";
 
@@ -175,7 +175,7 @@ namespace Adastra
 
 		private static string LocateOctaveInstallDir()
 		{
-			string[] baseFolders = { @"c:\Program Files\",  @"C:\Program Files (x86)\", @"D:\Program Files\", @"D:\Octave\", @"D:\Work_anton\"};
+			string[] baseFolders = { @"c:\Program Files\",  @"C:\Program Files (x86)\", @"D:\Program Files\", @"D:\", @"D:\Work_anton\"};
 
 			string candidate = "";
 			foreach (string folder in baseFolders.Where(p => Directory.Exists(p)))
@@ -183,16 +183,6 @@ namespace Adastra
 				candidate = Directory.GetDirectories(folder).Where(p => p.Contains("octave_")).FirstOrDefault();
 				if (!string.IsNullOrEmpty(candidate)) break;
 			}
-			//string folder=@"D:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
-			//if (Directory.Exists(folder)) return folder;
-			//folder = @"D:\Octave\3.2.4_gcc-4.4.0\bin\";
-			//if (Directory.Exists(folder)) return folder;
-			//folder = @"D:\Work_anton\octave_3.2.4_gcc-4.4.0\bin\";
-			//if (Directory.Exists(folder)) return folder;
-			//folder = @"c:\Program Files\octave_3.2.4_gcc-4.4.0\bin\";
-			//if (Directory.Exists(folder)) return folder;
-			//folder = @"C:\Program Files (x86)\octave_3.2.4_gcc-4.4.0\bin\";
-			//if (Directory.Exists(folder)) return folder;
 
 			if (string.IsNullOrEmpty(candidate)) throw new Exception("Octave installation could not be detected!");
 			else
