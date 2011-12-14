@@ -13,11 +13,10 @@ namespace Adastra.Algorithms
     public class OctaveLogisticRegression : AMLearning
     {
         AHypothesis hypothesis;
-		string name;
 
         public OctaveLogisticRegression(string name)
 		{
-			this.name = name;
+			this.Name = name;
             hypothesis = new SigmoidHypothesis();
 		}
 

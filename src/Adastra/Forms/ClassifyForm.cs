@@ -114,12 +114,13 @@ namespace Adastra
             {
                 if (models != null && models.Count > 0)
                 {
-                    toolStripStatusLabel1.Text = "Models loaded: " + models.Count;
+                    string[] names = (from m in models
+                            where m != null && m.Name != null && (!(m is OctaveLogisticRegression))
+                            select m.Name).ToArray();
 
-                    foreach (AMLearning m in models)
-                    {
-                        listBoxModels.Items.Add(m.Name);
-                    }
+                    listBoxModels.Items.AddRange(names);
+
+                    toolStripStatusLabel1.Text = "Models loaded: " + names.Length;
                 }
                 else toolStripStatusLabel1.Text = "No models loaded.";
             }

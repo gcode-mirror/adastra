@@ -192,7 +192,7 @@ namespace WPF
 				MessageBox.Show("No model name supplied!");
 				return;
 			}
-		    AMLearning bestModel=workflows.OrderBy(p=>p.Error).First().GetModel();
+		    AMLearning bestModel=workflows.Where(p => p.Enabled).OrderBy(p=>p.Error).First().GetModel();
 			bestModel.Name = tbModelName.Text;
             bestModel.ActionList = currentRecord.actions;
 			ModelStorage ms = new ModelStorage();

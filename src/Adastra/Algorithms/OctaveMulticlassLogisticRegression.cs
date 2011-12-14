@@ -9,11 +9,9 @@ namespace Adastra.Algorithms
 	{
 		OctaveLogisticRegression[] binaryClassifiers;
 
-		string name;
-
 		public OctaveMulticlassLogisticRegression(string name)
 		{
-			this.name = name;
+			this.Name = name;
 		}
 
 		public override void Train(List<double[]> outputInput)

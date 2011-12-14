@@ -30,11 +30,9 @@ namespace Adastra
 
         public void SaveModel(AMLearning model)
         {
-            bool justCreated = false;
             if (!File.Exists(DbSettings.fullpath + ".eq"))
             {
                 db.CreateDatabase(DbSettings.fullpath);
-                justCreated = true;
             }
 
             db.OpenDatabase(DbSettings.fullpath);
