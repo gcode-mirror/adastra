@@ -22,6 +22,7 @@ namespace WPF
 
         List<Experiment> workflows = new List<Experiment>();
         EEGRecord currentRecord;
+        AMLearning bestModel;
 
 		Queue<Task> taskQueue;
 
@@ -44,10 +45,6 @@ namespace WPF
             workflows.Add(new Experiment("Multiclass Logistic Regression - Octave", null, new OctaveMulticlassLogisticRegression("mlro")));
 
             gvMethodsListTraining.ItemsSource = workflows;
-            //gvMethodsListTesting.ItemsSource = workflows;
-            //load eeg record - features vectors data
-            //set which experiments to perform
-            //start experiments
         }
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
@@ -60,6 +57,7 @@ namespace WPF
             if (currentRecord == null)
             { MessageBox.Show("No data loaded!"); return; }
 
+            bestModel = null;
             statusBar.Text = "";
             //second click will use already computed modeles!
 
@@ -156,6 +154,9 @@ namespace WPF
 					//w.Error = task.Result;//set experiment class itself
                     statusBar.Text = "Calculating \"" + w.Name + "\" has completed.";
                     w.Progress = 100;
+
+                    bestModel = workflows.Where(p => p.Enabled).OrderBy(p => p.Error).First().GetModel();
+                    bestModel.ActionList = currentRecord.actions;
                 }
             });
         }
@@ -192,9 +193,13 @@ namespace WPF
 				MessageBox.Show("No model name supplied!");
 				return;
 			}
-		    AMLearning bestModel=workflows.Where(p => p.Enabled).OrderBy(p=>p.Error).First().GetModel();
-			bestModel.Name = tbModelName.Text;
-            bestModel.ActionList = currentRecord.actions;
+            if (bestModel==null)
+            {
+                MessageBox.Show("No model is available!");
+                return;
+            }
+
+            bestModel.Name = tbModelName.Text;
 			ModelStorage ms = new ModelStorage();
 			ms.SaveModel(bestModel);
             statusBar.Text = "Model '"+tbModelName.Text+"' saved successfully.";
