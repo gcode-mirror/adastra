@@ -41,10 +41,10 @@ namespace Adastra.Algorithms
             //2. constuct script
 			string script = //"data = load('D:\\Work_anton\\anton_work\\Adastra\\data\\ex1data1.txt');\r\n"
 						  "data = load('" + Xyfile + "');\r\n"
-						  + "X = data(:, [1, 2]); y = data(:, 3);\r\n"
-						  + "[m, n] = size(X);\r\n"
+                          + "[m, n] = size(data);\r\n"
+						  + "X = data(:, [1:n-1]); y = data(:, n);\r\n"
 						  + "X = [ones(m, 1) X];\r\n"
-						  + "initial_theta = zeros(n + 1, 1);\r\n"
+                          + "initial_theta = zeros(n, 1);\r\n" //"initial_theta = zeros(n + 1, 1);\r\n"
 						  + "[theta] = generateTheta(initial_theta,X,y)\r\n";
 
             OctaveController.FunctionSearchPath = OctaveController.GetBaseScriptPath() + @"LogisticRegression";
