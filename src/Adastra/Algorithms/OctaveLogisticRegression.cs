@@ -47,6 +47,7 @@ namespace Adastra.Algorithms
                           + "initial_theta = zeros(n, 1);\r\n" //"initial_theta = zeros(n + 1, 1);\r\n"
 						  + "[theta] = generateTheta(initial_theta,X,y)\r\n";
 
+            OctaveController.NoGUI = true;
             OctaveController.FunctionSearchPath = OctaveController.GetBaseScriptPath() + @"LogisticRegression";
             string result = OctaveController.Execute(script);
 

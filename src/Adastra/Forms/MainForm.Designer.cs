@@ -68,6 +68,7 @@
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
             this.rbuttonExperimentator = new System.Windows.Forms.RadioButton();
+            this.octaveDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -126,7 +127,8 @@
             this.tutorialToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.homepageToolStripMenuItem,
-            this.openVibesHomepageToolStripMenuItem});
+            this.openVibesHomepageToolStripMenuItem,
+            this.octaveDownloadToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -465,6 +467,13 @@
             this.rbuttonExperimentator.UseVisualStyleBackColor = true;
             this.rbuttonExperimentator.CheckedChanged += new System.EventHandler(this.rbuttonExperimentator_CheckedChanged);
             // 
+            // octaveDownloadToolStripMenuItem
+            // 
+            this.octaveDownloadToolStripMenuItem.Name = "octaveDownloadToolStripMenuItem";
+            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.octaveDownloadToolStripMenuItem.Text = "Octave download";
+            this.octaveDownloadToolStripMenuItem.Click += new System.EventHandler(this.octaveDownloadToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,6 +548,7 @@
 		private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxDSP;
         private System.Windows.Forms.RadioButton rbuttonExperimentator;
+        private System.Windows.Forms.ToolStripMenuItem octaveDownloadToolStripMenuItem;
     }
 }
 

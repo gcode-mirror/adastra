@@ -261,12 +261,15 @@ namespace Adastra
         public static void OpenLinkInBrowser(string url)
         {
             // workaround since the default way to start a default browser does not always seem to work...
-
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = "rundll32.exe";
-            process.StartInfo.Arguments = "url.dll,FileProtocolHandler " + url;
-            process.StartInfo.UseShellExecute = true;
-            process.Start();
+            try
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                process.StartInfo.FileName = "rundll32.exe";
+                process.StartInfo.Arguments = "url.dll,FileProtocolHandler " + url;
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
+            }
+            catch { }
         }
 
         private void homepageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -446,6 +449,11 @@ namespace Adastra
 
             comboBoxScenarioType.SelectedIndex = 0;
             groupBoxCharting.Visible = false;
+        }
+
+        private void octaveDownloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenLinkInBrowser("http://sourceforge.net/projects/octave/files/Octave_Windows%20-%20MinGW/");
         }
     }
 }
