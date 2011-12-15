@@ -34,8 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>adastra.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -261,6 +260,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="adastra.ico" />
+    <Content Include="adastra2.ico" />
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
