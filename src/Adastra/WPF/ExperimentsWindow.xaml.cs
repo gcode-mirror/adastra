@@ -69,6 +69,8 @@ namespace WPF
 			foreach (var w in workflows)
 			{
 				w.Progress = 0;
+                w.Error = 0;
+                w.TimeElapsedSeconds = "0";
 				if (w.Enabled)
 					CreateStartComputeTask(w, new ProgressReporter());
 			}
@@ -171,6 +173,7 @@ namespace WPF
             {
                 w.Progress = 0;
                 w.Error = 0;
+                w.TimeElapsedSeconds = "0";
             }
         }
 
