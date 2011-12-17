@@ -11,7 +11,7 @@ namespace Adastra
     {
         const string dbName = "AdastraDB";
 
-        public static string fullpath = Environment.CurrentDirectory + "\\" + dbName;
+        public static string fullpath = AdastraConfig.GetDataFolder() + dbName;
 
         public static string ConnectionString = "server=(local);options=none;";
 

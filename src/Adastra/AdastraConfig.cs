@@ -23,13 +23,17 @@ namespace Adastra
 			return folder;
 		}
 
+		/// <summary>
+		/// Returns the path where sample EEG records are contained and .
+		/// </summary>
+		/// <returns></returns>
 		public static string GetDataFolder()
 		{
 			string folder = "";
 			#if (DEBUG)
 				 folder = Environment.CurrentDirectory + @"\..\..\..\..\data\";
 			#else
-				 folder = Environment.CurrentDirectory + @"\data\mitko-small.csv";
+				 folder = Environment.CurrentDirectory + @"\data\";
 			#endif
 				 return folder;
 		}
@@ -40,20 +44,19 @@ namespace Adastra
 		/// <returns></returns>
 		public static string GetOpenVibeScenarioFolder()
 		{
-			string scenarioFolder = Environment.CurrentDirectory + @"\..\..\..\..\scenarios\";
+			string folder = "";
+            #if (DEBUG)
+			folder = Environment.CurrentDirectory + @"\..\..\..\..\scenarios\";
+			#else
+				 folder = Environment.CurrentDirectory + @"\scenarios\";
+			#endif
+			return folder;
+		}
 
-			if (Directory.Exists(scenarioFolder))
-			{
-				return scenarioFolder;
-			}
-
-			scenarioFolder = Environment.CurrentDirectory + @"\scenarios\";
-
-			if (Directory.Exists(scenarioFolder))
-			{
-				return scenarioFolder;
-			}
-			return "";
+		public static string GetRecordsFolder()
+		{
+            string folder = GetDataFolder() + "records";
+			return folder;
 		}
 	}
 }

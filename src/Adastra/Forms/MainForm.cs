@@ -52,7 +52,7 @@ namespace Adastra
 
 			InitOpenVibeWorker();
 
-			textBoxEmotivFile.Text = AdastraConfig.GetDataFolder() + "mitko-small.csv";
+			textBoxEmotivFile.Text = AdastraConfig.GetRecordsFolder() + "mitko-small.csv";
 
 			comboBoxDSP.SelectedIndex = 0;
 		}
