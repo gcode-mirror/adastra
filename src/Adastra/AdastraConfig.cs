@@ -55,7 +55,7 @@ namespace Adastra
 
 		public static string GetRecordsFolder()
 		{
-            string folder = GetDataFolder() + "records";
+            string folder = GetDataFolder() + @"records\";
 			return folder;
 		}
 	}
