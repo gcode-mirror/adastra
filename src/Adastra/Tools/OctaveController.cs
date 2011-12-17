@@ -46,14 +46,12 @@ namespace Adastra
 				{
 					psi.CreateNoWindow = true;
 					psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-
 				}
 				else
 					psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 
 				psi.UseShellExecute = false;
 
-				//started = true;
 				System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
 				output = p.StandardOutput.ReadToEnd();
 			}
@@ -157,6 +155,10 @@ namespace Adastra
 				return candidate+"\\";
 		}
 
+		/// <summary>
+		/// Returns the path where m scripts are contained.
+		/// </summary>
+		/// <returns></returns>
         public static string GetBaseScriptPath()
         {
             string folder = "";
