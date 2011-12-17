@@ -58,6 +58,8 @@ namespace Adastra.Algorithms
 				              where s!=string.Empty && double.TryParse(s.Replace("\n","").Replace(" ",""), out d)
 				              select d).ToArray();
 
+			if (thetas.Length != outputInput[0].Length) throw new Exception("Octave script returned wrong number of Thetas!");
+
 			hypothesis.SetTheta(thetas);
             //4. Clear temp files
             if (File.Exists(Xyfile))

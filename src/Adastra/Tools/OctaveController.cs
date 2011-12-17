@@ -13,97 +13,62 @@ namespace Adastra
     public class OctaveController
     {
 		public static bool NoGUI = true;
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
-
 		static string folder = LocateOctaveInstallDir();
-		//static string executable = Directory.GetFiles(folder + "bin").Where(p => Path.GetFileName(p).StartsWith("octave-") && Path.GetFileName(p).Length<=16).FirstOrDefault();
         static string executable = folder + "bin\\octave.exe";
 
-		public static string FunctionSearchPath = @"D:\Work_anton\anton_work\Adastra\scripts\octave\LinearRegression";
+		public static string FunctionSearchPath;
 
         /// <summary>
         /// Example script="A=[1 2]; B=[3; 4]; C=A*B";
+		/// --eval is limitted to Windows command line buffer, so this why temporay files are used
         /// </summary>
         /// <param name="script"></param>
         /// <returns>result from Octave</returns>
-        public static string Execute(string script)
-        {
-            //--eval is limitted to Windows Command Line Buffer, so this why temporay files are used
-            string output = "";
-			script = "addpath('" + FunctionSearchPath + "');\r\n" + script;//addpath (genpath ("~/octave")); //for recursive search
-            string tempFile = SaveTempFile(script);
+		public static string Execute(string script)
+		{
+			string output = "";
+			string tempFile = "";
+			try
+			{
+				if (string.IsNullOrEmpty(folder)) throw new Exception("Octave installation could not be detected automatically! You can set it in .config file.");
+				script = "addpath('" + GetDosPathName(FunctionSearchPath) + "');\r\n" + script;//addpath (genpath ("~/octave")); //for recursive search
+				tempFile = SaveTempFile(script);
+				string param = tempFile;
 
-            try
-            {
-                //string param = "--eval \"" + script + "\" -p " + FunctionSearchPath;
-				string param = tempFile; //+ " -p " + FunctionSearchPath;
-
-                System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
-                psi.WorkingDirectory = GetDosPathName(folder);
+				System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), param);
+				psi.WorkingDirectory = GetDosPathName(folder);
 
 				psi.RedirectStandardOutput = true;
 				psi.RedirectStandardInput = true;
 				psi.RedirectStandardError = true;
 
-                if (NoGUI)
-                {
+				if (NoGUI)
+				{
 					psi.CreateNoWindow = true;
-                    psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                   
-                }
-                else
-                    psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+					psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 
-                psi.UseShellExecute = false;
+				}
+				else
+					psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 
-                //started = true;
-                System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
-                output = p.StandardOutput.ReadToEnd();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                if (File.Exists(tempFile))
-                  File.Delete(tempFile);
-            }
+				psi.UseShellExecute = false;
 
-            return ParseResult(output);
-        }
+				//started = true;
+				System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+				output = p.StandardOutput.ReadToEnd();
+			}
+			//catch (Exception ex)
+			//{
+			//    Console.WriteLine(ex.Message);
+			//}
+			finally
+			{
+				if (File.Exists(tempFile))
+					File.Delete(tempFile);
+			}
 
-        //public static string Interactive(string script)
-        //{
-        //    System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(GetDosPathName(executable), "");
-        //    psi.WorkingDirectory = GetDosPathName(folder);
-
-        //    psi.RedirectStandardOutput = false;
-
-        //    bool NoGUI = true;
-        //    if (NoGUI)
-        //    {
-        //        psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-        //        psi.RedirectStandardOutput = true;
-        //        psi.RedirectStandardInput = true;
-        //        psi.RedirectStandardError = true;
-        //    }
-        //    else
-        //        psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-
-        //    psi.UseShellExecute = false;
-
-        //    //started = true;
-        //    System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
-
-        //    p.StandardInput.WriteLine("a=1");
-        //    p.StandardInput.WriteLine("b=2");
-        //    string output = p.StandardOutput.ReadToEnd();
-
-        //    return output;
-        //}
+			return ParseResult(output);
+		}
 
         private static string ParseResult(string output)
         {
@@ -112,7 +77,11 @@ namespace Adastra
             return (pos != -1) ? output.Substring(pos + 7) : output;
         }
 
-        private static string GetDosPathName(string longName)
+		#region DOS names
+		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+		private static extern uint GetShortPathName([MarshalAs(UnmanagedType.LPTStr)] string lpszLongPath, [MarshalAs(UnmanagedType.LPTStr)]StringBuilder lpszShortPath, uint cchBuffer);
+        
+		private static string GetDosPathName(string longName)
         {
             uint bufferSize = 256;
 
@@ -126,8 +95,9 @@ namespace Adastra
 
             return shortNameBuffer.ToString();
         }
+		#endregion
 
-        public static string SaveTempFile(string conent)
+		public static string SaveTempFile(string conent)
         {
             string tempFile = Path.GetTempFileName();
 
@@ -156,10 +126,6 @@ namespace Adastra
 					}
 				}
 
-			}
-			catch (Exception ex)
-			{
-				int a;
 			}
 			finally
 			{
