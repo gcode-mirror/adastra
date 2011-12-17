@@ -20,7 +20,7 @@ namespace Adastra
 
         /// <summary>
         /// Example script="A=[1 2]; B=[3; 4]; C=A*B";
-		/// --eval is limitted to Windows command line buffer, so this why temporay files are used
+		/// --eval is limitted to Windows command line buffer, so this is why temporary file is used for the input script 
         /// </summary>
         /// <param name="script"></param>
         /// <returns>result from Octave</returns>
@@ -154,22 +154,5 @@ namespace Adastra
 			else
 				return candidate+"\\";
 		}
-
-		/// <summary>
-		/// Returns the path where m scripts are contained.
-		/// </summary>
-		/// <returns></returns>
-        public static string GetBaseScriptPath()
-        {
-            string folder = "";
-            #if (DEBUG)
-            folder = Environment.CurrentDirectory + @"\..\..\..\..\scripts\octave\";
-            #else
-				folder = Environment.CurrentDirectory + @"\scripts\octave\";
-            #endif
-
-            return folder;
-        }
-
     }
 }

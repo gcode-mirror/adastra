@@ -45,18 +45,15 @@ namespace Adastra
 			InitializeComponent();
 
 			textBoxOpenVibeWorkingFolder.Text = OpenVibeController.DetectOpenVibeInstallFolder();
-			textBoxScenario.Text = OpenVibeController.LocateScenarioFolder() + "\\";
+			textBoxScenario.Text = AdastraConfig.GetOpenVibeScenarioFolder();
 
 			rbuttonOpenVibe.Checked = true;
 			if (comboBoxScenarioType.Items.Count > 0) comboBoxScenarioType.SelectedIndex = 0;
 
 			InitOpenVibeWorker();
 
-			#if (DEBUG)
-				textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\..\..\..\..\data\mitko-small.csv";
-			#else
-				textBoxEmotivFile.Text = Environment.CurrentDirectory + @"\data\mitko-small.csv";
-			#endif
+			textBoxEmotivFile.Text = AdastraConfig.GetDataFolder() + "mitko-small.csv";
+
 			comboBoxDSP.SelectedIndex = 0;
 		}
 

@@ -118,6 +118,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdastraConfig.cs" />
     <Compile Include="Algorithms\DSP\BasicSignalProcessor.cs" />
     <Compile Include="Algorithms\DSP\EMDProcessor.cs" />
     <Compile Include="Algorithms\DSP\FFTSignalProcessor.cs" />

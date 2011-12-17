@@ -86,7 +86,7 @@ namespace Adastra
             if (started)
             {
                 //title can be set with the ms-dos command "title" which can be used below
-                IntPtr ptr = FindWindow(null, @"C:\Windows\System32\cmd.exe");
+                IntPtr ptr = FindWindow(null, Environment.SpecialFolder.Windows+@"\System32\cmd.exe");
 
                 if (ptr != null)
                 {
@@ -97,8 +97,6 @@ namespace Adastra
                     System.Threading.Thread.Sleep(1000);
                     WindowsInput.InputSimulator.SimulateTextEntry(GetConfirmationSymbol());
                     WindowsInput.InputSimulator.SimulateKeyPress(WindowsInput.VirtualKeyCode.RETURN);
-
-                    
                 }
                 else
                 {
@@ -227,28 +225,6 @@ namespace Adastra
 			 }
 
              return "";
-        }
-
-        /// <summary>
-        /// If possible locates the folder that contains OpenVibe scenarios specific for Adastra 
-        /// </summary>
-        /// <returns></returns>
-        public static string LocateScenarioFolder()
-        {
-            string scenarioFolder = Environment.CurrentDirectory + "\\..\\..\\..\\..\\scenarios";
-
-            if (Directory.Exists(scenarioFolder))
-            {
-                return scenarioFolder;
-            }
-
-            scenarioFolder = Environment.CurrentDirectory + "\\scenarios";
-
-            if (Directory.Exists(scenarioFolder))
-            {
-                return scenarioFolder;
-            }
-            return "";
         }
 
         public static string GetDosPathName(string longName)

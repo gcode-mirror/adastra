@@ -48,7 +48,7 @@ namespace Adastra.Algorithms
 						  + "[theta] = generateTheta(initial_theta,X,y)\r\n";
 
             OctaveController.NoGUI = true;
-            OctaveController.FunctionSearchPath = OctaveController.GetBaseScriptPath() + @"LogisticRegression";
+            OctaveController.FunctionSearchPath = AdastraConfig.GetBaseOctaveScriptPath() + @"LogisticRegression";
             string result = OctaveController.Execute(script);
 
             //3. Parse result to extact theta
