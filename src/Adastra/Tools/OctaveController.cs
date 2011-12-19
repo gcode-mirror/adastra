@@ -31,6 +31,7 @@ namespace Adastra
 			try
 			{
 				if (string.IsNullOrEmpty(folder)) throw new Exception("Octave installation could not be detected automatically! You can set it in .config file.");
+
 				script = "addpath('" + GetDosPathName(FunctionSearchPath) + "');\r\n" + script;//addpath (genpath ("~/octave")); //for recursive search
 				tempFile = SaveTempFile(script);
 				string param = tempFile;
@@ -150,9 +151,7 @@ namespace Adastra
 				if (!string.IsNullOrEmpty(candidate)) break;
 			}
 
-			if (string.IsNullOrEmpty(candidate)) throw new Exception("Octave installation could not be detected!");
-			else
-				return candidate+"\\";
+		    return candidate+"\\";
 		}
     }
 }

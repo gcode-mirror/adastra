@@ -86,7 +86,7 @@ namespace Adastra
             if (started)
             {
                 //title can be set with the ms-dos command "title" which can be used below
-				IntPtr ptr = FindWindow(null, Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\System32\cmd.exe");
+				IntPtr ptr = FindWindow(null, Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\cmd.exe");
 
                 if (ptr != null)
                 {

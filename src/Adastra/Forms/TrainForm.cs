@@ -88,6 +88,7 @@ namespace Adastra
             AsyncWorkerSaveModel.DoWork += new DoWorkEventHandler(AsyncWorkerSaveModel_DoWork);
 
             ms = new ModelStorage();
+            cbMethods.SelectedIndex = 0;
         }
 
         void ovfg_Values(double[] featureVectors)
@@ -213,20 +214,6 @@ namespace Adastra
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (radioBtnLdaMLP.Checked)
-            {
-                model = new LdaMLP();
-            }
-            else if (radioBtnLdaSVM.Checked)
-            {
-                model = new LdaSVM();
-            }
-            else if (radioBtnLdaRBF.Checked)
-            {
-                model = new LdaRBF();
-            }
-
-            model.Progress += new ChangedValuesEventHandler(model_Progress);
 			model.Train(currentRecord.FeatureVectorsInputOutput);
         }
 
@@ -283,6 +270,17 @@ namespace Adastra
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";
                 startCalculateModel = DateTime.Now;
+
+                switch (cbMethods.SelectedIndex)
+                {
+                    case 0: model = new LdaSVM("ldasvm"); break;
+                    case 1: model = new LdaMLP("ldamlp"); break;
+                    case 2: model = new LdaRBF("ldarbf"); break;
+                    case 3: model = new OctaveMulticlassLogisticRegression("omlr"); break;
+                }
+                model.ActionList = currentRecord.actions;
+                model.Progress += new ChangedValuesEventHandler(model_Progress);
+
                 AsyncWorkerCalculate.RunWorkerAsync();
             }
         }
