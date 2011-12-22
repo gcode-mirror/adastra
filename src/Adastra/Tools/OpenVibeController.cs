@@ -67,6 +67,7 @@ namespace Adastra
 
             //if (NoGUI)
             //{
+            //    psi.CreateNoWindow = true;
             //    psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             //    psi.RedirectStandardOutput = true;
             //    psi.RedirectStandardInput = true;
