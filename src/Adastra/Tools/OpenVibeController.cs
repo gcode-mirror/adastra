@@ -72,11 +72,13 @@ namespace Adastra
             //    psi.RedirectStandardOutput = true;
             //    psi.RedirectStandardInput = true;
             //    psi.RedirectStandardError = true;
+
+            //    psi.UseShellExecute = false;
             //}
             //else
-            //    psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-
-            psi.UseShellExecute = false;
+            {
+                psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+            }
 
             started = true;
             System.Diagnostics.Process.Start(psi);    
