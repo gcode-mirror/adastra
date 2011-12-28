@@ -141,7 +141,7 @@ namespace Adastra
 		private static string LocateOctaveInstallDir()
 		{
             string candidate = System.Configuration.ConfigurationManager.AppSettings["OctaveInstallDir"];
-            if (!string.IsNullOrEmpty(candidate)) return candidate; 
+            if (!string.IsNullOrEmpty(candidate)) return (!candidate.EndsWith("\\")) ? candidate+"\\" : candidate; 
 
 			string[] baseFolders = { @"c:\Program Files\",  @"C:\Program Files (x86)\", @"D:\Program Files\", @"D:\", @"D:\Work_anton\"};
 
