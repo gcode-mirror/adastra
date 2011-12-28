@@ -8,6 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using Petzold.Media2D;
+
 using Accord.Statistics.Analysis;
 using Adastra.Algorithms;
 using NLog;
@@ -56,8 +62,36 @@ namespace Adastra
             AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
             AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
 
+			BuildCanvas();
 			this.FormClosing += new FormClosingEventHandler(ClassifyForm_FormClosing);
         }
+
+		/// <summary>
+		/// Creates a WPF canvas used to visualize classes
+		/// </summary>
+		public void BuildCanvas()
+		{
+			Window w = new Window();
+			Canvas canv = new Canvas();
+			w.Content = canv;
+
+			// ArrowLine with animated arrow properties.
+			ArrowLine aline1 = new ArrowLine();
+			aline1.Stroke = System.Windows.Media.Brushes.Red;
+			aline1.StrokeThickness = 40;
+			aline1.X1 = 0;
+			aline1.Y1 = 400;
+			aline1.X2 = 400;
+			aline1.Y2 = 400;
+			canv.Children.Add(aline1);
+
+			DoubleAnimation animaDouble1 = new DoubleAnimation(10, 200, new Duration(new TimeSpan(0, 0, 2)));
+			animaDouble1.AutoReverse = true;
+			animaDouble1.RepeatBehavior = RepeatBehavior.Forever;
+			aline1.BeginAnimation(ArrowLine.X2Property, animaDouble1);//ArrowAngleProperty
+
+			w.Show();
+		}
 
         void fg_Values(double[] featureVectors)
         {
@@ -74,7 +108,7 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Error:" + e.Error.Message+" "+e.Error.StackTrace);
+                System.Windows.Forms.MessageBox.Show("Error:" + e.Error.Message+" "+e.Error.StackTrace);
                 listBoxResult.Items.Insert(0, "Classification failed.");
                 logger.Error(e.Error);
             }
@@ -105,7 +139,7 @@ namespace Adastra
         {
             if (e.Error != null)
             {
-                MessageBox.Show("Could not load available models! Database error:" + e.Error.Message);
+				System.Windows.Forms.MessageBox.Show("Could not load available models! Database error:" + e.Error.Message);
                 toolStripStatusLabel1.Text = "No models loaded.";
                 logger.Error(e.Error);
                 return;
@@ -146,7 +180,7 @@ namespace Adastra
             }
             else
             {
-                if (model == null) { MessageBox.Show("No model selected!"); return; }
+				if (model == null) { System.Windows.Forms.MessageBox.Show("No model selected!"); return; }
                 buttonStartProcessing.Text = "Cancel";
                 listBoxResult.Items.Insert(0, "Classification started...");
 

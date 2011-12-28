@@ -61,6 +61,9 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Arrowheads">
+      <HintPath>..\..\lib\Arrowheads.dll</HintPath>
+    </Reference>
     <Reference Include="BasicDSP">
       <HintPath>..\..\lib\BasicDSP.dll</HintPath>
     </Reference>
