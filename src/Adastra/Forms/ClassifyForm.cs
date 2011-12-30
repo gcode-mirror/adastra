@@ -62,7 +62,7 @@ namespace Adastra
             AsyncWorkerProcess.DoWork += new DoWorkEventHandler(AsyncWorkerProcess_DoWork);
             AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
 
-			BuildCanvas();
+			//BuildCanvas();
 			this.FormClosing += new FormClosingEventHandler(ClassifyForm_FormClosing);
         }
 
