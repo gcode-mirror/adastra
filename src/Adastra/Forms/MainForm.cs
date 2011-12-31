@@ -140,7 +140,7 @@ namespace Adastra
                                 }
                                 break;
                             case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
-                            case 2: cw = new WPF.ClassifyWindow(); cw.Show(); currentWindow = cw; break;
+                            case 2: cw = new WPF.ClassifyWindow(featureGenerator); cw.Show(); currentWindow = cw; break;
                             //case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                             //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                         }
