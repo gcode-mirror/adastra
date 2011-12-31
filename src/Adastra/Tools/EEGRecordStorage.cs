@@ -24,11 +24,9 @@ namespace Adastra
 
         public void SaveRecord(EEGRecord record)
         {
-            bool justCreated = false;
             if (!File.Exists(DbSettings.fullpath + ".eq"))
             {
                 db.CreateDatabase(DbSettings.fullpath);
-                justCreated = true;
             }
 
             db.OpenDatabase(DbSettings.fullpath);

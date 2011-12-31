@@ -203,6 +203,9 @@
     <Compile Include="Tools\OpenVibeRawDataReader.cs" />
     <Compile Include="Tools\SimpleFeatureGenerator.cs" />
     <Compile Include="Tools\TaskProgressReporter.cs" />
+    <Compile Include="WPF\ClassifyWindow.xaml.cs">
+      <DependentUpon>ClassifyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPF\ExperimentsWindow.xaml.cs">
       <DependentUpon>ExperimentsWindow.xaml</DependentUpon>
     </Compile>
@@ -290,6 +293,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="WPF\ClassifyWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WPF\ExperimentsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

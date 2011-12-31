@@ -27,6 +27,7 @@ namespace Adastra
         System.Windows.Window currentWindow;
         WPF.OutputWindow ow;
         WPF.ExperimentsWindow ew;
+        WPF.ClassifyWindow cw;
         #endregion
 
         private IFeatureGenerator featureGenerator;
@@ -139,7 +140,8 @@ namespace Adastra
                                 }
                                 break;
                             case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
-                            case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
+                            case 2: cw = new WPF.ClassifyWindow(); cw.Show(); currentWindow = cw; break;
+                            //case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                             //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                         }
 
@@ -193,6 +195,7 @@ namespace Adastra
 
             ow = null;
             ew = null;
+            cw = null;
 
             currentForm = null;
             currentWindow = null;
