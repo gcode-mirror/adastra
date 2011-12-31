@@ -22,14 +22,9 @@ namespace WPF
     public partial class ClassifyWindow : Window
     {
 
-        public ClassifyWindow()
-        {
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            BuildCanvas();
-        }
+        //public ClassifyWindow()
+        //{
+        //}
 
         /// <summary>
         /// Creates a WPF canvas used to visualize classes
@@ -55,5 +50,11 @@ namespace WPF
 
             aline1.BeginAnimation(ArrowLine.X2Property, animaDouble1);//ArrowAngleProperty
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            BuildCanvas();
+        }
+
     }
 }
