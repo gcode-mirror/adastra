@@ -11,6 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
@@ -24,9 +25,12 @@
         </ListBox>
         
         <ListBox Grid.Row="0" Grid.Column="1" Name="listActions" Padding="4,4,4,4" Margin="4,4,4,4"/>
-        <Canvas Name="canv" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,4,4,4"></Canvas>
 
-        <StatusBar Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2">
+        <Button Grid.Row="1" Grid.Column="0" Name="buttonProcess" Grid.ColumnSpan="2" Click="buttonProcess_Click" >Process</Button>
+        
+        <Canvas Name="canv" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,4,4,4"></Canvas>
+
+        <StatusBar Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2">
             <TextBlock Name="statusBar"></TextBlock>
         </StatusBar>
    

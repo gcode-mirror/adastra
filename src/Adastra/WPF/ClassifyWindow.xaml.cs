@@ -34,17 +34,15 @@ namespace WPF
 
         IFeatureGenerator fg;
 
-        //List<AMLearning> models;
-
-        //BackgroundWorker AsyncWorkerLoadModels;
-
-        //BackgroundWorker AsyncWorkerProcess;
-
         Logger logger = LogManager.GetCurrentClassLogger();
 
         ModelStorage ms;
 
         Task<List<AMLearning>> taskLoadModels;
+
+        Task taskClassification;
+
+        ProgressReporter progressReporterClassification;
 
         public ClassifyWindow(IFeatureGenerator fg)
 		{
@@ -58,47 +56,25 @@ namespace WPF
             statusBar.Text = "Loading models. Please wait...";
             ms = new ModelStorage();
 
-            ProgressReporter progressReporter = new ProgressReporter();
-
-            taskLoadModels = Task.Factory.StartNew(() =>
-            {
-                return ms.LoadModels();
-            });
-
-            progressReporter.RegisterContinuation(taskLoadModels, () =>
-            {
-                // Update UI to reflect completion.
-                if (taskLoadModels.Exception != null)
-                {
-                    statusBar.Text = "Models loaded: " + taskLoadModels.Result.Count;
-                }
-                else if (taskLoadModels.IsCanceled)
-                {
-                }
-                else //all OK
-                {
-                    if (taskLoadModels.Result != null && taskLoadModels.Result.Count > 0)
-                    {
-                        statusBar.Text = "Models loaded: " + taskLoadModels.Result.Count;
-                        listModels.DataContext = taskLoadModels.Result;
-                        listModels.ItemsSource = taskLoadModels.Result;
-                    }
-                    else statusBar.Text = "No models loaded.";
-                }
-            });
-
-            
-		}
+        }
 
         void fg_Values(double[] featureVectors)
         {
             int action = model.Classify(featureVectors);
 
-            //foreach (var key in model.ActionList.Keys)
-            //{
-            //    if (AsyncWorkerProcess != null && model.ActionList[key] == action)
-            //        AsyncWorkerProcess.ReportProgress(action, key);
-            //}
+            foreach (var key in model.ActionList.Keys)
+            {
+                if (model.ActionList[key] == action)
+                {
+                    progressReporterClassification.ReportProgress(() =>
+                    {
+                        VisualiseClassificationOutput(action);
+                    });
+
+                    break;
+                }
+            }
+            
         }
 
 		public void BuildCanvas()
@@ -122,7 +98,69 @@ namespace WPF
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			BuildCanvas();
-            taskLoadModels.Start();
+
+            #region Load Models
+            ProgressReporter progressReporterModels = new ProgressReporter();
+
+            taskLoadModels = Task.Factory.StartNew(() =>
+            {
+                return ms.LoadModels();
+            });
+
+            progressReporterModels.RegisterContinuation(taskLoadModels, () =>
+            {
+                if (taskLoadModels.Exception != null)
+                {
+                    statusBar.Text = "Models loaded: " + taskLoadModels.Result.Count;
+                }
+                else if (taskLoadModels.IsCanceled)
+                {
+                }
+                else //all OK
+                {
+                    if (taskLoadModels.Result != null && taskLoadModels.Result.Count > 0)
+                    {
+                        statusBar.Text = "Models loaded: " + taskLoadModels.Result.Count;
+                        listModels.DataContext = taskLoadModels.Result;
+                        listModels.ItemsSource = taskLoadModels.Result;
+                    }
+                    else statusBar.Text = "No models loaded.";
+                }
+            });
+            #endregion
+
+            progressReporterClassification = new ProgressReporter();
 		}
+
+        void VisualiseClassificationOutput(int action)
+        {
+            //chart class
+        }
+
+        private void buttonProcess_Click(object sender, RoutedEventArgs e)
+        {
+            taskClassification = Task.Factory.StartNew(() =>
+            {
+                fg.Update();
+            });
+
+            progressReporterClassification.RegisterContinuation(taskClassification, () =>
+            {
+                if (taskClassification.Exception != null)
+                {
+                    statusBar.Text = "Error ocurred during classification!";
+                    MessageBox.Show("Error:" + taskClassification.Exception.Message);
+                    //log
+                }
+                else if (taskClassification.IsCanceled)
+                {
+                    statusBar.Text = "Classification cancelled.";
+                }
+                else //all OK
+                {
+                    //no more signal
+                }
+            });
+        }
 	}
 }

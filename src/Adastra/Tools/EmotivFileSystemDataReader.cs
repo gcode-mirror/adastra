@@ -52,7 +52,7 @@ namespace Adastra
 				string[] columns = line.Split(',');
 
 				for (int i = 0; i < 14; i++)
-					result[i] = double.Parse(columns[i + 2]);
+                    result[i] = double.Parse(columns[i + 2], System.Globalization.CultureInfo.InvariantCulture);
 
 				counter++;
 
