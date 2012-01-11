@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuro", "AForge.Neuro\Neuro.csproj", "{02B5E453-2085-4E41-86D9-C8E8A03FB1B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Core", "AccordLibs\Accord.Core\Accord.Core.csproj", "{A177A90C-8207-466A-AF70-F2B8452A42AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Core", "Accord24\Accord.Core\Accord.Core.csproj", "{A177A90C-8207-466A-AF70-F2B8452A42AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.MachineLearning", "AccordLibs\Accord.MachineLearning\Accord.MachineLearning.csproj", "{7AB4BBCC-6222-423D-9FF9-BA9CB7C09199}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.MachineLearning", "Accord24\Accord.MachineLearning\Accord.MachineLearning.csproj", "{7AB4BBCC-6222-423D-9FF9-BA9CB7C09199}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Math", "AccordLibs\Accord.Math\Accord.Math.csproj", "{F718E9A8-DB62-4785-8C49-4333A60D256A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Math", "Accord24\Accord.Math\Accord.Math.csproj", "{F718E9A8-DB62-4785-8C49-4333A60D256A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Statistics", "AccordLibs\Accord.Statistics\Accord.Statistics.csproj", "{FD8101DD-C95D-42D6-AD44-AE01C25F2811}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accord.Statistics", "Accord24\Accord.Statistics\Accord.Statistics.csproj", "{FD8101DD-C95D-42D6-AD44-AE01C25F2811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
