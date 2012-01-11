@@ -73,11 +73,6 @@ namespace WPF
             }
         }
 
-		void listModels_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			model = (AMLearning)listModels.SelectedItem;
-		}
-
         void fg_Values(double[] featureVectors)
         {
             int action = model.Classify(featureVectors);
@@ -155,7 +150,7 @@ namespace WPF
         void VisualiseClassificationOutput(int action,string key)
         {
             statusBar.Text = DateTime.Now.Millisecond.ToString();
-			statusBar.Text = key + " " + DateTime.Now.ToLongTimeString();
+			//statusBar.Text = key + " " + DateTime.Now.ToLongTimeString();
         }
 
         private void buttonProcess_Click(object sender, RoutedEventArgs e)
@@ -165,6 +160,7 @@ namespace WPF
 				MessageBox.Show("No model selected!"); return;
 			}
 
+            buttonProcess.IsEnabled = false;
             taskClassification = Task.Factory.StartNew(() =>
             {
                 while(true) fg.Update();
@@ -172,6 +168,8 @@ namespace WPF
 
             progressReporterClassification.RegisterContinuation(taskClassification, () =>
             {
+                buttonProcess.IsEnabled = false;
+
                 if (taskClassification.Exception != null)
                 {
                     statusBar.Text = "Error ocurred during classification!";
