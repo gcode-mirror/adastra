@@ -70,5 +70,24 @@ namespace Adastra.Algorithms
 		}
 
         public override event ChangedValuesEventHandler Progress;
+
+        public override int Classify(double[] input, out double strength)
+        {
+            double max = -1;
+            int MaxClass = -1;
+            foreach (OctaveLogisticRegression olr in binaryClassifiers)
+            {
+                double h = olr.ComputeHypothesis(input);
+                if (h > max)
+                {
+                    max = h;
+                    MaxClass = Convert.ToInt32(olr.Name);
+                }
+            }
+
+            strength = max;
+
+            return MaxClass;
+        }
 	}
 }

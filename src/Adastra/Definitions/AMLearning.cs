@@ -31,6 +31,8 @@ namespace Adastra
 
         public abstract int Classify(double[] input);
 
+        public abstract int Classify(double[] input, out double stength);
+
         /// <summary>
         /// Used to store the original meaning of each class such as: "Up" -> class 1,"Down" -> class 2, etc.
         /// </summary>

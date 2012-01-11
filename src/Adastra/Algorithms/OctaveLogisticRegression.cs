@@ -102,6 +102,16 @@ namespace Adastra.Algorithms
         }
 
 		public override event ChangedValuesEventHandler Progress;
+
+        public override int Classify(double[] input, out double strength)
+        {
+            throw new Exception("Uninplemented");
+            //double d = hypothesis.Compute(input);
+
+            //strength = (d > 0.5) ? d-0.5 : 0.5-d;//return a positive value that rises with better result 
+
+            //return (d > 0.5) ? 1 : 0;
+        }
     }
 
 	/// <summary>
@@ -134,5 +144,6 @@ namespace Adastra.Algorithms
         {
             return 1 / (1 + Math.Pow(Math.E, -x));
         }
+
 	}
 }

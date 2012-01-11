@@ -108,5 +108,10 @@ namespace Adastra.Algorithms
         {
             throw new Exception("Uninplemented");
         }
+
+        public override int Classify(double[] input, out double strength)
+        {
+            throw new Exception("Uninplemented");
+        }
 	}
 }

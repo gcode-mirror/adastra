@@ -169,5 +169,10 @@ namespace Adastra.Algorithms
         }
 
         public override event ChangedValuesEventHandler Progress;
+
+        public override int Classify(double[] input, out double strength)
+        {
+            throw new Exception("Uninplemented");
+        }
     }
 }
