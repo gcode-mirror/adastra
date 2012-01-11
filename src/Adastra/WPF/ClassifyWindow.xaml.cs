@@ -52,10 +52,25 @@ namespace WPF
             fg.Values += new ChangedFeaturesEventHandler(fg_Values);
 
             listModels.SelectedIndex = -1;
+            listModels.SelectionChanged += new SelectionChangedEventHandler(listModels_SelectionChanged);
 
             statusBar.Text = "Loading models. Please wait...";
             ms = new ModelStorage();
+        }
 
+        void listModels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listModels.SelectedItem != null)
+            {
+                model = (AMLearning)listModels.SelectedItem;
+
+                listActions.Items.Clear();
+
+                foreach (var item in model.ActionList)
+                {
+                    listActions.Items.Add(item.Key);
+                }
+            }
         }
 
         void fg_Values(double[] featureVectors)
@@ -134,11 +149,15 @@ namespace WPF
 
         void VisualiseClassificationOutput(int action)
         {
-            //chart class
+            statusBar.Text = DateTime.Now.Millisecond.ToString();
         }
 
         private void buttonProcess_Click(object sender, RoutedEventArgs e)
         {
+            if (model == null) { System.Windows.MessageBox.Show("No model selected!"); return; }
+
+            buttonProcess.IsEnabled = false;
+
             taskClassification = Task.Factory.StartNew(() =>
             {
                 fg.Update();
