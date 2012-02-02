@@ -175,10 +175,6 @@ bool file_exists(const char *filename)
     return ifile;
 }
 
-//creates .user file for a VS studio project
-/*<?xml version="1.0" encoding="utf-8"?>
-<Project>
-</Project>*/
 void create_vs_user_file(string path)
 {
 	 cout<<"Creating a new file:"+path<<endl;
@@ -229,7 +225,7 @@ int _tmain(int argc, TCHAR* argv[])
 	//remove TARGET_HAS_ThirdPartyEmotivAPI
 	cout<<"Emotiv driver disabled!"<<endl;
     replace_value_walker replace_walker = replace_value_walker("PreprocessorDefinitions","TARGET_HAS_ThirdPartyEmotivAPI;","");
-    doc.traverse(walker);
+    doc.traverse(replace_walker);
 
 	doc.save_file(project.c_str());
 	cout<<"Done."<<endl;
