@@ -15,7 +15,7 @@
 
 using namespace std;
 
-string exec(char* cmd) {
+string exec(const char* cmd) {
     
 	FILE* pipe = _popen(cmd, "r");
     
@@ -33,7 +33,7 @@ string exec(char* cmd) {
     return result;
 }
 
-string custom_replace(string text, string searchString, string replaceString)
+string custom_replace(string text, const string searchString, const string replaceString)
 {
     assert( searchString != replaceString );
 
@@ -46,18 +46,6 @@ string custom_replace(string text, string searchString, string replaceString)
     }
 
 	return text;
-}
-
-std::vector<std::string> split(const std::string &s, char delim) {
-    
-	std::vector<std::string> elems;
-
-	std::stringstream ss(s);
-    std::string item;
-    while(std::getline(ss, item, delim)) {
-        elems.push_back(item);
-    }
-    return elems;
 }
 
 const char* node_types[] =
@@ -149,7 +137,7 @@ string GetGlobalIncludes(string openvibe_base)
 	return result;
 }
 
-string openvibe_executable(string full_path)
+string openvibe_executable(const string full_path)
 {
 	 int n =  full_path.find_last_of("/");
 
@@ -159,7 +147,7 @@ string openvibe_executable(string full_path)
 	 return executable + ".exe";
 }
 
-string openvibe_base_folder(string full_path)
+string openvibe_base_folder(const string full_path)
 {
 	 int n =  full_path.find_last_of("/");
 	 string folder;
@@ -175,7 +163,7 @@ bool file_exists(const char *filename)
     return ifile;
 }
 
-void create_vs_user_file(string path)
+void create_vs_user_file(const string path)
 {
 	 cout<<"Creating a new file:"+path<<endl;
 	 ofstream myfile;
