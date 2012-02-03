@@ -33,7 +33,7 @@ string exec(const char* cmd) {
     return result;
 }
 
-string custom_replace(string text, const string searchString, const string replaceString)
+void custom_replace(string& text, const string searchString, const string replaceString)
 {
     assert( searchString != replaceString );
 
@@ -44,8 +44,6 @@ string custom_replace(string text, const string searchString, const string repla
         text.replace( pos, searchString.size(), replaceString );
         pos++;
     }
-
-	return text;
 }
 
 const char* node_types[] =
@@ -55,10 +53,6 @@ const char* node_types[] =
 
 struct simple_walker: pugi::xml_tree_walker
 {
-	string _node;
-	string _value;
-	bool _append;
-
 	simple_walker(string node,string value,bool append) : _node(node), _value(value), _append(append)
 	{
 	}
@@ -79,6 +73,10 @@ struct simple_walker: pugi::xml_tree_walker
 
         return true; // continue traversal
     }
+
+	string _node;
+	string _value;
+	bool _append;
 };
 
 struct replace_value_walker: pugi::xml_tree_walker
@@ -97,8 +95,8 @@ struct replace_value_walker: pugi::xml_tree_walker
 		{
 		   pugi::xml_node child = node.first_child();
 
-		   string v = custom_replace(string(child.value()),_search_value,_new_value);
-			   
+		   string v = string(child.value());
+		   custom_replace(v,_search_value,_new_value);
 		   child.set_value(v.c_str());
 		}
 
@@ -108,46 +106,38 @@ struct replace_value_walker: pugi::xml_tree_walker
 
 string GetGlobalIncludes(string openvibe_base)
 {
-	vector<string> incl;
-
-	incl.push_back(openvibe_base+"/openvibe/trunc/include");
-    incl.push_back(openvibe_base+"/openvibe-toolkit/trunc/src");
-    incl.push_back(openvibe_base+"/cmake-modules");
-    incl.push_back(openvibe_base+"/openvibe-modules/ebml/trunc/include");
-    incl.push_back(openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit/tools");
-    incl.push_back(openvibe_base+"/openvibe-modules/system/trunc/include");
-    incl.push_back(openvibe_base+"/openvibe-modules/xml/trunc/include");
-
-	incl.push_back(openvibe_base+"/openvibe-modules/fs/trunc/include");
-	incl.push_back(openvibe_base+"/openvibe-modules/automaton/trunc/include");
-	incl.push_back(openvibe_base+"/openvibe-modules/socket/trunc/include");
-	incl.push_back(openvibe_base+"/openvibe-modules/stream/trunc/include");
-
-	incl.push_back(openvibe_base+"/dependencies/boost/include");
-	incl.push_back(openvibe_base+"/dependencies/openal/include");
-
-	incl.push_back(openvibe_base+"/openvibe/trunc/include/openvibe");
-    incl.push_back(openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit");
-
 	string result="";
-	for(vector<string>::size_type i=0;i<incl.size();i++)
-	{
-		result+=incl[i]+";";
-	}
+
+	result+=openvibe_base+"/openvibe/trunc/include;";
+    result+=openvibe_base+"/openvibe-toolkit/trunc/src;";
+    result+=openvibe_base+"/cmake-modules;";
+    result+=openvibe_base+"/openvibe-modules/ebml/trunc/include;";
+    result+=openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit/tools;";
+    result+=openvibe_base+"/openvibe-modules/system/trunc/include;";
+    result+=openvibe_base+"/openvibe-modules/xml/trunc/include;";
+	result+=openvibe_base+"/openvibe-modules/fs/trunc/include;";
+	result+=openvibe_base+"/openvibe-modules/automaton/trunc/include;";
+	result+=openvibe_base+"/openvibe-modules/socket/trunc/include;";
+	result+=openvibe_base+"/openvibe-modules/stream/trunc/include;";
+	result+=openvibe_base+"/dependencies/boost/include;";
+	result+=openvibe_base+"/dependencies/openal/include;";
+	result+=openvibe_base+"/openvibe/trunc/include/openvibe;";
+    result+=openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit;";
+
 	return result;
 }
 
-string openvibe_executable(const string full_path)
+string get_openvibe_executable(const string full_path)
 {
 	 int n =  full_path.find_last_of("/");
 
 	 string executable;
 	 executable.assign(full_path,n+1,full_path.size()-n); 
-	 executable = custom_replace(executable,".vcxproj","");
+	 custom_replace(executable,".vcxproj","");
 	 return executable + ".exe";
 }
 
-string openvibe_base_folder(const string full_path)
+string get_openvibe_base_folder(const string full_path)
 {
 	 int n =  full_path.find_last_of("/");
 	 string folder;
@@ -176,21 +166,29 @@ void create_vs_user_file(const string path)
 
 int _tmain(int argc, TCHAR* argv[])
 {
+	//std::cin.get();
 	cout<<"Please close ALL instances of Visual Studio and Openvibe!"<<endl;
 
-	string project = "D:/Data/current_work/OpenVibe_src/local-tmp/visual/trunc/OpenViBE-acquisition-server-dynamic.vcxproj";
+	string project = "";
 	if (argc>1) project = string(argv[1]);
 	else 
 	{
 		cout<<"Usage: AdjustOpenVibe.exe \"D:\\Data\\current_work\\OpenVibe_src\\local-tmp\\visual\\trunc\\OpenViBE-acquisition-server-dynamic.vcxproj\""<<endl;
 		return 0;
 	}
-	project = custom_replace(project,"\\","/");
+
+	if(!file_exists(project.c_str()))
+	{
+		cout<<"File not found! Aborting...";
+	    return 0;
+	}
+
+	custom_replace(project,"\\","/");
 	cout<<project<<endl;
 
-	string openvibe_base = openvibe_base_folder(project);
+	string openvibe_base = get_openvibe_base_folder(project);
 
-    string executable = openvibe_executable(project);
+    string executable = get_openvibe_executable(project);
 	cout<<"Executable="<<executable<<endl;
 
 	//1. Set Additional Include folders
@@ -204,7 +202,8 @@ int _tmain(int argc, TCHAR* argv[])
 	string includes = ";"+GetGlobalIncludes(openvibe_base);
     simple_walker walker("AdditionalIncludeDirectories",includes,true);
     doc.traverse(walker);
-
+	
+	//2. Setting Additional Libraries Folders
 	cout<<"2. Setting Additional Libraries Folders"<<endl;
 	string libs = ";"+openvibe_base+"/dependencies/boost/lib";
     walker = simple_walker("AdditionalLibraryDirectories",libs,true);
@@ -242,7 +241,9 @@ int _tmain(int argc, TCHAR* argv[])
 
 	pugi::xml_node node = doc.child("Project");
 
-	_chdir((openvibe_base + string("/scripts")).c_str());
+	string dir = openvibe_base + string("/scripts");
+	_chdir(dir.c_str());
+
 
 	string s = openvibe_base + string("/scripts/win32-init_env_command.cmd>NUL & set");
 	string with_openvibe_vars=exec(strdup(s.c_str()));
