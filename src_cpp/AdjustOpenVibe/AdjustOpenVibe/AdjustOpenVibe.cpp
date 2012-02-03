@@ -123,6 +123,7 @@ string GetGlobalIncludes(string openvibe_base)
 	result+=openvibe_base+"/dependencies/openal/include;";
 	result+=openvibe_base+"/openvibe/trunc/include/openvibe;";
     result+=openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit;";
+	result+=openvibe_base+"/dependencies/vrpn/include;";
 
 	return result;
 }
@@ -266,7 +267,7 @@ int _tmain(int argc, TCHAR* argv[])
 
 	cout<<"TODO:"<<endl;
 	cout<<"1) You need to disable the projects you do not need to rebuild in VS->Solution or Project properties->Confugration Manager"<<endl;
-	cout<<"2) Set-up your start-up prject"<<endl;
+	cout<<"2) Set-up your start-up project"<<endl;
 
 	return 0;
 }
