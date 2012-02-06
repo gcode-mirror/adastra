@@ -104,7 +104,7 @@ struct replace_value_walker: pugi::xml_tree_walker
     }
 };
 
-string GetGlobalIncludes(string openvibe_base)
+string get_global_openvibe_includes(string openvibe_base)
 {
 	string result="";
 
@@ -200,7 +200,7 @@ int _tmain(int argc, TCHAR* argv[])
 	pugi::xml_parse_result result = doc.load_file(project.c_str());
 	cout<<result.description()<<endl;
 
-	string includes = ";"+GetGlobalIncludes(openvibe_base);
+	string includes = ";"+get_global_openvibe_includes(openvibe_base);
     simple_walker walker("AdditionalIncludeDirectories",includes,true);
     doc.traverse(walker);
 	
@@ -247,7 +247,7 @@ int _tmain(int argc, TCHAR* argv[])
 
 
 	string s = openvibe_base + string("/scripts/win32-init_env_command.cmd>NUL & set");
-	string with_openvibe_vars=exec(strdup(s.c_str()));
+	string with_openvibe_vars=exec(_strdup(s.c_str()));
 
 	pugi::xml_node property_group1 = node.append_child("PropertyGroup");
 	pugi::xml_node env = property_group1.append_child("LocalDebuggerEnvironment");
