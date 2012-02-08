@@ -168,13 +168,17 @@ void create_vs_user_file(const string path)
 int _tmain(int argc, TCHAR* argv[])
 {
 	//std::cin.get();
-	cout<<"Please close ALL instances of Visual Studio and Openvibe!"<<endl;
+	cout<<"Prerequisites:"<<endl;
+	cout<<"1) You must have dependencies installed"<<endl;
+	cout<<"2) OpenVibe compiled using provided in \\scripts bat file"<<endl;
+	cout<<"3) You must have VS projects generated using bat file from \\scripts"<<endl<<endl;
+	cout<<"Please close ALL instances of Visual Studio!"<<endl<<endl;
 
 	string project = "";
 	if (argc>1) project = string(argv[1]);
 	else 
 	{
-		cout<<"Usage: AdjustOpenVibe.exe \"D:\\Data\\current_work\\OpenVibe_src\\local-tmp\\visual\\trunc\\OpenViBE-acquisition-server-dynamic.vcxproj\""<<endl;
+		cout<<"Usage:"<<endl<<"AdjustOpenVibe.exe \"D:\\Data\\current_work\\OpenVibe_src\\local-tmp\\visual\\trunc\\OpenViBE-acquisition-server-dynamic.vcxproj\""<<endl;
 		return 0;
 	}
 
