@@ -79,6 +79,28 @@ struct simple_walker: pugi::xml_tree_walker
 	bool _append;
 };
 
+struct simple_walker_add: pugi::xml_tree_walker
+{
+	simple_walker_add(string node,string new_node_name,string new_node_value) : _node(node), _new_node_name(new_node_name), _new_node_value(new_node_value)
+	{
+	}
+
+    virtual bool for_each(pugi::xml_node& node)
+    {
+		if (string(node.name()) == _node)
+		{
+			pugi::xml_node param = node.append_child(_new_node_name.c_str());
+			param.append_child(pugi::node_pcdata).set_value(_new_node_value.c_str());
+		}
+
+        return true; // continue traversal
+    }
+
+	string _node;
+	string _new_node_name;
+	string _new_node_value;
+};
+
 struct replace_value_walker: pugi::xml_tree_walker
 {
 	string _node;
@@ -214,6 +236,11 @@ int _tmain(int argc, TCHAR* argv[])
     walker = simple_walker("AdditionalLibraryDirectories",libs,true);
     doc.traverse(walker);
 
+	//3. Setting Multiprocessor compilation
+	cout<<"3. Setting Multiprocessor compilation"<<endl;
+	simple_walker_add walker_add("ClCompile","MultiProcessorCompilation","true");
+	doc.traverse(walker_add);
+
 	//remove TARGET_HAS_ThirdPartyEmotivAPI
 	cout<<"Emotiv driver disabled!"<<endl;
     replace_value_walker replace_walker = replace_value_walker("PreprocessorDefinitions","TARGET_HAS_ThirdPartyEmotivAPI;","");
@@ -222,16 +249,16 @@ int _tmain(int argc, TCHAR* argv[])
 	doc.save_file(project.c_str());
 	cout<<"Done."<<endl;
 	
-	//3. Change output directory
-	cout<<"3. Set output folder to dist folder"<<endl;
+	//4. Change output directory
+	cout<<"4. Set output folder to dist folder"<<endl;
 	walker = simple_walker("OutDir","..\\..\\..\\dist\\bin",false);
     doc.traverse(walker);
 	
 	doc.save_file(project.c_str());
 	cout<<"Done."<<endl;
 
-	//4. Open .user file and set variables
-	cout<<"4. Set environment variables."<<endl;
+	//5. Open .user file and set variables
+	cout<<"5. Set environment variables."<<endl;
 
 	string project_user = project + string(".user");
 
