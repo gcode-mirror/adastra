@@ -12,24 +12,19 @@ boolean CBoxAlgorithmSignalFlattener::initialize(void)
 	// Signal stream decoder
 	m_oAlgo0_SignalDecoder.initialize(*this);
 	// Stimulation stream encoder
-	m_oAlgo1_StimulationEncoder.initialize(*this);
+	m_oAlgo1_StimulationDecoder.initialize(*this);
 	// Signal stream encoder
 	m_oAlgo2_SignalEncoder.initialize(*this);
-	
-	// If you need to, you can manually set the reference targets to link the codecs input and output. To do so, you can use :
-	//m_oEncoder.getInputX().setReferenceTarget(m_oDecoder.getOutputX())
-	// Where 'X' depends on the codec type. Please refer to the Codec Toolkit Reference Page
-	// (http://openvibe.inria.fr/documentation/unstable/Doc_Tutorial_Developer_SignalProcessing_CodecToolkit_Ref.html) for a complete list.
-	
-	// If you need to retrieve setting values, use the FSettingValueAutoCast function.
-	// For example :
-	// - CString setting at index 0 in the setting list :
-	// CString l_sSettingValue = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 0);
-	// - unsigned int64 setting at index 1 in the setting list :
-	// uint64 l_ui64SettingValue = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 1);
-	// - float64 setting at index 2 in the setting list :
-	// float64 l_f64SettingValue = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 2);
-	// ...
+
+	m_oAlgo2_SignalEncoder.getInputMatrix().setReferenceTarget(m_oAlgo0_SignalDecoder.getOutputMatrix());
+	m_oAlgo2_SignalEncoder.getInputSamplingRate().setReferenceTarget(m_oAlgo0_SignalDecoder.getOutputSamplingRate());
+
+	// the "Level" setting is at index 0, we can auto cast it from CString to float64
+	m_f64LevelValue = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 0);
+	// the "Trigger" setting is at index 1, we can auto cast it from CString to uint64
+	m_ui64Trigger = FSettingValueAutoCast(*this->getBoxAlgorithmContext(), 1);
+
+	m_bFlatSignalRequested = false;
 
 	return true;
 }
@@ -38,39 +33,15 @@ boolean CBoxAlgorithmSignalFlattener::initialize(void)
 boolean CBoxAlgorithmSignalFlattener::uninitialize(void)
 {
 	m_oAlgo0_SignalDecoder.uninitialize();
-	m_oAlgo1_StimulationEncoder.uninitialize();
+	m_oAlgo1_StimulationDecoder.uninitialize();
 	m_oAlgo2_SignalEncoder.uninitialize();
 
 	return true;
 }
-/*******************************************************************************/
-
-/*
-boolean CBoxAlgorithmSignalFlattener::processClock(IMessageClock& rMessageClock)
-{
-	// some pre-processing code if needed...
-
-	// ready to process !
-	getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
-
-	return true;
-}
-/*******************************************************************************/
-
-/*
-uint64 CBoxAlgorithmSignalFlattener::getClockFrequency(void)
-{
-	// Note that the time is coded on a 64 bits unsigned integer, fixed decimal point (32:32)
-	return 1LL<<32LL; // the box clock frequency
-}
-/*******************************************************************************/
 
 
 boolean CBoxAlgorithmSignalFlattener::processInput(uint32 ui32InputIndex)
 {
-	// some pre-processing code if needed...
-
-	// ready to process !
 	getBoxAlgorithmContext()->markAlgorithmAsReadyToProcess();
 
 	return true;
@@ -79,81 +50,115 @@ boolean CBoxAlgorithmSignalFlattener::processInput(uint32 ui32InputIndex)
 
 boolean CBoxAlgorithmSignalFlattener::process(void)
 {
-	
+
 	// the static box context describes the box inputs, outputs, settings structures
-	IBox& l_rStaticBoxContext=this->getStaticBoxContext();
+	//IBox& l_rStaticBoxContext=this->getStaticBoxContext();
 	// the dynamic box context describes the current state of the box inputs and outputs (i.e. the chunks)
 	IBoxIO& l_rDynamicBoxContext=this->getDynamicBoxContext();
 
-	// here is some useful functions:
-	// - To get input/output/setting count:
-	// l_rStaticBoxContext.getInputCount();
-	// l_rStaticBoxContext.getOutputCount();
-	
-	// - To get the number of chunks currently available on a particular input :
-	// l_rDynamicBoxContext.getInputChunkCount(input_index)
-	
-	// - To send an output chunk :
-	// l_rDynamicBoxContext.markOutputAsReadyToSend(output_index, chunk_start_time, chunk_end_time);
-	
-	
-	// A typical process iteration may look like this.
-	// This example only iterate over the first input of type Signal, and output a modified Signal.
-	// thus, the box uses 1 decoder (m_oSignalDecoder) and 1 encoder (m_oSignalEncoder)
-	/*
-	IBoxIO& l_rDynamicBoxContext=this->getDynamicBoxContext();
+	//we first process input 1 = simulation input because this one controls the behaviour of the first one 0 
+	//1 is the second input of two declared (signal, simulation)
+	//i is each chunk in the let's call it "simulation channel" 1
+	for(uint32 i=0; i<l_rDynamicBoxContext.getInputChunkCount(1); i++)
+	{
+		//we decode the ith chunk on input 1 
+        m_oAlgo1_StimulationDecoder.decode(1,i);//simulation input is decoded with simulation decoder
 
-	//iterate over all chunk on input 0
+		if(m_oAlgo1_StimulationDecoder.isBufferReceived())
+		{
+			// A buffer has been received, lets' check the stimulations inside
+			IStimulationSet* l_pStimulations = m_oAlgo1_StimulationDecoder.getOutputStimulationSet();
+
+			//now we get information for the simulation itself from "l_pStimulations"
+			//getStimulationCount() gives as how many simulations we are about to process
+			for(uint32 j=0; j<l_pStimulations->getStimulationCount(); j++)
+			{
+				uint64 l_ui64StimulationCode = l_pStimulations->getStimulationIdentifier(j);
+				uint64 l_ui64StimulationDate = l_pStimulations->getStimulationDate(j);
+
+				CString l_sStimulationName   = this->getTypeManager().getEnumerationEntryNameFromValue(OV_TypeId_Stimulation, l_ui64StimulationCode);
+
+				//If the trigger is received, we switch the mode
+				if(l_pStimulations->getStimulationIdentifier(j) == m_ui64Trigger)//l_ui64StimulationCode == m_ui64Trigger
+				{
+					m_bFlatSignalRequested = !m_bFlatSignalRequested;
+					this->getLogManager() << LogLevel_Info << "Flat mode is now ["
+						<< (m_bFlatSignalRequested ? "ENABLED" : "DISABLED")
+						<< "]\n";
+				}
+
+				else
+				{
+					this->getLogManager() << LogLevel_Warning << "Received an unrecognized trigger, with code ["
+						<< l_ui64StimulationCode
+						<< "], name ["
+						<< l_sStimulationName
+						<< "] and date ["
+						<< time64(l_ui64StimulationDate)
+						<< "]\n";
+				}
+			}
+		}
+	}
+
+	//now process input 0 = signal 
+	//0 is the first input of two declared (signal, simulation)
+	//i is each chunk in the let's call it "signal channel" 0
 	for(uint32 i=0; i<l_rDynamicBoxContext.getInputChunkCount(0); i++)
 	{
 		// decode the chunk i on input 0
-		m_oSignalDecoder.decode(0,i);
-		// the decoder may have decoded 3 different parts : the header, a buffer or the end of stream.
-		if(m_oSignalDecoder.isHeaderReceived())
+		m_oAlgo0_SignalDecoder.decode(0,i); //signal input 0 is decoded with signal decoder
+
+		//1. Is Header - simply forward it
+		if(m_oAlgo0_SignalDecoder.isHeaderReceived())
 		{
-			// Header received. This happens only once when pressing "play". For example with a StreamedMatrix input, you now know the dimension count, sizes, and labels of the matrix
-			// ... maybe do some process ...
-			
 			// Pass the header to the next boxes, by encoding a header on the output 0:
-			m_oSignalEncoder.encodeHeader(0);
+			//they are already connected in initialize method, we have only one output so we index it with 0
+			m_oAlgo2_SignalEncoder.encodeHeader(0); 
+
 			// send the output chunk containing the header. The dates are the same as the input chunk:
-			l_rDynamicBoxContext.markOutputAsReadyToSend(0, l_rDynamicBoxContext.getInputChunkStartTime(0, i), l_rDynamicBoxContext.getInputChunkEndTime(0, i));
-		}
-		if(m_oSignalDecoder.isBufferReceived())
-		{
-			// Buffer received. For example the signal values
-			// Access to the buffer can be done thanks to :
-			IMatrix* l_pMatrix = m_oSignalDecoder.getOutputMatrix(); // the StreamedMatrix of samples.
-			uint64 l_uiSamplingFrequency = m_oSignalDecoder.getOutputSamplingRate(); // the sampling rate of the signal
-			
-			// ... do some process on the matrix ...
-
-			// Encode the output buffer :
-			m_oSignalEncoder.encodeBuffer(0);
-			// and send it to the next boxes :
-			l_rDynamicBoxContext.markOutputAsReadyToSend(0, l_rDynamicBoxContext.getInputChunkStartTime(0, i), l_rDynamicBoxContext.getInputChunkEndTime(0, i));
-			
-		}
-		if(m_oSignalDecoder.isEndReceived())
-		{
-			// End of stream received. This happens only once when pressing "stop". Just pass it to the next boxes so they receive the message :
-			m_oSignalEncoder.encodeEnd(0);
-			l_rDynamicBoxContext.markOutputAsReadyToSend(0, l_rDynamicBoxContext.getInputChunkStartTime(0, i), l_rDynamicBoxContext.getInputChunkEndTime(0, i));
+			l_rDynamicBoxContext.markOutputAsReadyToSend(0, l_rDynamicBoxContext.getInputChunkStartTime(0, i),
+				l_rDynamicBoxContext.getInputChunkEndTime(0, i));
 		}
 
-		// The current input chunk has been processed, and automaticcaly discarded.
-		// you don't need to call "l_rDynamicBoxContext.markInputAsDeprecated(0, i);"
+		//2. Buffer = data chunk received
+		if(m_oAlgo0_SignalDecoder.isBufferReceived())
+		{
+			//actual data in contained in a IMatrix*
+			IMatrix* l_pMatrix = m_oAlgo0_SignalDecoder.getOutputMatrix(); // the StreamedMatrix of samples.
+
+			uint32 l_ui32ChannelCount = l_pMatrix->getDimensionSize(0);
+			uint32 l_ui32SamplesPerChannel = l_pMatrix->getDimensionSize(1);
+			
+			//and the actual actual data is contained in this buffer
+			float64* l_pBuffer = l_pMatrix->getBuffer();
+
+			if(m_bFlatSignalRequested) //should we perform any actual work
+			{
+				for(uint32 j=0; j<l_pMatrix->getBufferElementCount(); j++)
+				{
+					l_pBuffer[j] = m_f64LevelValue;//replace incoming data with one and the same number to produce flat line
+				}
+			}
+
+			//incoming object is changed (no deletion or new object creation has taken place)
+			//so simply forward it
+			m_oAlgo2_SignalEncoder.encodeBuffer(0);//encodes the changed chunk
+			l_rDynamicBoxContext.markOutputAsReadyToSend(0, l_rDynamicBoxContext.getInputChunkStartTime(0, i),
+				l_rDynamicBoxContext.getInputChunkEndTime(0, i));
+
+		}
+
+		//3. End header is received
+		if(m_oAlgo0_SignalDecoder.isEndReceived())
+		{
+			//simply forward it 
+			m_oAlgo2_SignalEncoder.encodeEnd(0);
+
+			l_rDynamicBoxContext.markOutputAsReadyToSend(0, l_rDynamicBoxContext.getInputChunkStartTime(0, i),
+				l_rDynamicBoxContext.getInputChunkEndTime(0, i));
+		}
 	}
-	*/
-
-	// check the official developer documentation webpage for more example and information :
-	
-	// Tutorials:
-	// http://openvibe.inria.fr/documentation/#Developer+Documentation
-	// Codec Toolkit page :
-	// http://openvibe.inria.fr/codec-toolkit-references/
-	
-	// Feel free to ask experienced developers on the forum (http://openvibe.inria.fr/forum) and IRC (#openvibe on irc.freenode.net).
 
 	return true;
 }

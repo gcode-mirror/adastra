@@ -53,9 +53,14 @@ namespace OpenViBEPlugins
 			// Signal stream decoder
 			OpenViBEToolkit::TSignalDecoder < CBoxAlgorithmSignalFlattener > m_oAlgo0_SignalDecoder;
 			// Stimulation stream encoder
-			OpenViBEToolkit::TStimulationEncoder < CBoxAlgorithmSignalFlattener > m_oAlgo1_StimulationEncoder;
+			OpenViBEToolkit::TStimulationDecoder < CBoxAlgorithmSignalFlattener > m_oAlgo1_StimulationDecoder;
 			// Signal stream encoder
 			OpenViBEToolkit::TSignalEncoder < CBoxAlgorithmSignalFlattener > m_oAlgo2_SignalEncoder;
+
+		private:
+			OpenViBE::boolean m_bFlatSignalRequested;
+			OpenViBE::float64 m_f64LevelValue;
+			OpenViBE::uint64  m_ui64Trigger;
 
 		};
 
