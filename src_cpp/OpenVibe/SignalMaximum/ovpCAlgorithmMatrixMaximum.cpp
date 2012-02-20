@@ -1,4 +1,5 @@
 #include "ovpCAlgorithmMatrixMaximum.h"
+#include <assert.h>
 
 using namespace OpenViBE;
 using namespace OpenViBE::Kernel;
@@ -58,6 +59,10 @@ boolean CAlgorithmMatrixMaximum::process(void)
 			}
 
 			//we intialized this output matrix already with 1 dimensional vector
+			assert(op_pMatrix!=NULL);
+			assert(op_pMatrix->getBuffer()!=NULL);
+			//assert(i<op_pMatrix->getDimensionSize(1));
+
 			op_pMatrix->getBuffer()[i]= l_f64Maximum;
 		}
 

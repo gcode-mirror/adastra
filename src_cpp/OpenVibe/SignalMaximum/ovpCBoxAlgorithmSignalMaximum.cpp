@@ -77,7 +77,7 @@ boolean CBoxAlgorithmSignalMaximum::process(void)
 
         if(m_oSignalDecoder.isHeaderReceived())
         {
-            ip_pMatrixMaximumAlgorithm_Matrix->setDimensionCount(2);//Anton: originaly 3
+            //ip_pMatrixMaximumAlgorithm_Matrix->setDimensionCount(3);
             if(!m_pMatrixMaximumAlgorithm->process(OVP_Algorithm_MatrixMaximum_InputTriggerId_Initialize)) return false;
  
 			//forward
