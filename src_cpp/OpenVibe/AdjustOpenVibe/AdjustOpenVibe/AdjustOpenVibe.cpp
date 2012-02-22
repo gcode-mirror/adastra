@@ -278,7 +278,7 @@ int _tmain(int argc, TCHAR* argv[])
 
 
 	string s = openvibe_base + string("/scripts/win32-init_env_command.cmd>NUL & set");
-	string with_openvibe_vars=exec(_strdup(s.c_str()));
+	string with_openvibe_vars=exec(s.c_str());
 
 	pugi::xml_node property_group1 = node.append_child("PropertyGroup");
 	pugi::xml_node env = property_group1.append_child("LocalDebuggerEnvironment");
