@@ -382,7 +382,7 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal streamed by OpenVibe");
             //comboBoxScenarioType.Items.Add("2. Display: LDA/SVM classification output from OpenVibe");
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
-            comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+            //comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
@@ -402,7 +402,7 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
 
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
-            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+            //comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             comboBoxScenarioType.SelectedIndex = lastSelectedIndex;

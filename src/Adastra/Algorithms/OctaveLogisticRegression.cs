@@ -24,8 +24,10 @@ namespace Adastra.Algorithms
         /// Will generate thetas to be set in the Hypotheis
         /// </summary>
         /// <param name="outputInput"></param>
-        public override void Train(List<double[]> outputInput)
+        public override void Train(EEGRecord record)
         {
+            if (!EEGRecordStorage.IsRecordValid(record)) throw new Exception("Record is invalid!");
+            List<double[]> outputInput = record.FeatureVectorsInputOutput;
             //1. set data
 			
 			//set y from first value to be last one (more comfortable for Octave)

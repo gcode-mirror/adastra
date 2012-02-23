@@ -130,7 +130,7 @@ namespace Adastra
 
             List<double[]> result = Converters.Convert(trainDataInput, trainDataOutput);
 
-            _ml.Train(result);
+            _ml.Train(new EEGRecord(result));
 
             return _ml;
         }

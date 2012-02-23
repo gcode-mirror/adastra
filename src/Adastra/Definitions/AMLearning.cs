@@ -27,7 +27,7 @@ namespace Adastra
             Name = name;
         }
 
-        public abstract void Train(List<double[]> outputInput);
+        public abstract void Train(EEGRecord record);
 
         public abstract int Classify(double[] input);
 

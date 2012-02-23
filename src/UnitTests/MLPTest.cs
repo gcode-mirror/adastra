@@ -41,7 +41,7 @@ namespace UnitTests
 
             for (int k = 0; k < 1; k++)
             {
-                model.Train(r.FeatureVectorsInputOutput);
+                model.Train(new EEGRecord(r.FeatureVectorsInputOutput));
             }
 
             int i = 0;

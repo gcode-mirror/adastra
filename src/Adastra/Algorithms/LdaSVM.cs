@@ -28,8 +28,11 @@ namespace Adastra.Algorithms
             this.Name = name;
         }
 
-		public override void Train(List<double[]> outputInput)
-		{
+        public override void Train(EEGRecord record)
+        {
+            if (!EEGRecordStorage.IsRecordValid(record)) throw new Exception("Record is invalid!");
+            List<double[]> outputInput = record.FeatureVectorsInputOutput;
+
             double[,] inputs = null;
             int[] outputs = null;
             Converters.Convert(outputInput, ref inputs, ref outputs);

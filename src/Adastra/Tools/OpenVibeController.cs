@@ -198,7 +198,11 @@ namespace Adastra
         /// <returns></returns>
         public static string DetectOpenVibeInstallFolder()
         {
-            string openVibeLocation="";
+            string openVibeLocation = "";
+
+            openVibeLocation = @"D:\Work\OpenVibe_src\dist\";
+            if (Directory.Exists(openVibeLocation)) return openVibeLocation;
+
             openVibeLocation = (string)Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\openvibe", "InstallDir", "");
             if (!string.IsNullOrWhiteSpace(openVibeLocation)) return openVibeLocation;
 

@@ -51,6 +51,8 @@ namespace Adastra
 
                 result = query.ToList();
 
+                
+
                 db.Close();
             }
             return result;
@@ -74,6 +76,26 @@ namespace Adastra
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Checks dimensions
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public static bool IsRecordValid(EEGRecord record)
+        {
+            int m = record.FeatureVectorsInputOutput[0].Length;
+
+            foreach (var k in record.FeatureVectorsInputOutput)
+            {
+                if (k.Length != m)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

@@ -214,7 +214,7 @@ namespace Adastra
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
-			model.Train(currentRecord.FeatureVectorsInputOutput);
+			model.Train(new EEGRecord(currentRecord.FeatureVectorsInputOutput));
         }
 
         void model_Progress(int progress)

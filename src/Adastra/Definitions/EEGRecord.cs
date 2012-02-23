@@ -26,6 +26,20 @@ namespace Adastra
             Name = rec.Name;
         }
 
+        public EEGRecord(List<double[]> featureVectorsInputOutput)
+        {
+            FeatureVectorsInputOutput = new List<double[]>();
+
+            actions = new Dictionary<string, int>();
+
+            for (int i = 0; i < featureVectorsInputOutput.Count; i++)
+            {
+                double[] newItem = new double[featureVectorsInputOutput[i].Length];
+                featureVectorsInputOutput[i].CopyTo(newItem, 0);
+                FeatureVectorsInputOutput.Add(newItem);
+            }
+        }
+
         public EEGRecord()
         {
             FeatureVectorsInputOutput = new List<double[]>();

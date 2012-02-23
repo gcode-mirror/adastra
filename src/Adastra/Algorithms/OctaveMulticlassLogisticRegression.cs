@@ -14,8 +14,11 @@ namespace Adastra.Algorithms
 			this.Name = name;
 		}
 
-		public override void Train(List<double[]> outputInput)
+		public override void Train(EEGRecord record)
 		{
+            if (!EEGRecordStorage.IsRecordValid(record)) throw new Exception("Record is invalid!");
+            List<double[]> outputInput = record.FeatureVectorsInputOutput;
+
             binaryClassifiers = new OctaveLogisticRegression[ActionList.Count];
             foreach (var act in ActionList) //action list must contain a consequtive list of integers starting from 1
             {
@@ -32,7 +35,7 @@ namespace Adastra.Algorithms
                     newOutputInput.Add(p);
                 }
 
-                binaryClassifiers[c - 1].Train(newOutputInput);
+                binaryClassifiers[c - 1].Train(new EEGRecord(newOutputInput));
                 if (this.Progress != null) this.Progress((100/ActionList.Count) * c);
             }
 		}
