@@ -12,15 +12,15 @@ namespace Adastra
     {
         public EEGRecord(EEGRecord rec)
         {
-            FeatureVectorsInputOutput = new List<double[]>();
+            FeatureVectorsOutputInput = new List<double[]>();
 
             actions = new Dictionary<string, int>(rec.actions);
 
-            for (int i = 0; i < rec.FeatureVectorsInputOutput.Count; i++)
+            for (int i = 0; i < rec.FeatureVectorsOutputInput.Count; i++)
             {
-                double[] newItem = new double[rec.FeatureVectorsInputOutput[i].Length];
-                rec.FeatureVectorsInputOutput[i].CopyTo(newItem, 0);
-                FeatureVectorsInputOutput.Add(newItem);
+                double[] newItem = new double[rec.FeatureVectorsOutputInput[i].Length];
+                rec.FeatureVectorsOutputInput[i].CopyTo(newItem, 0);
+                FeatureVectorsOutputInput.Add(newItem);
             }
 
             Name = rec.Name;
@@ -28,7 +28,7 @@ namespace Adastra
 
         public EEGRecord(List<double[]> featureVectorsInputOutput)
         {
-            FeatureVectorsInputOutput = new List<double[]>();
+            FeatureVectorsOutputInput = new List<double[]>();
 
             actions = new Dictionary<string, int>();
 
@@ -36,13 +36,13 @@ namespace Adastra
             {
                 double[] newItem = new double[featureVectorsInputOutput[i].Length];
                 featureVectorsInputOutput[i].CopyTo(newItem, 0);
-                FeatureVectorsInputOutput.Add(newItem);
+                FeatureVectorsOutputInput.Add(newItem);
             }
         }
 
         public EEGRecord()
         {
-            FeatureVectorsInputOutput = new List<double[]>();
+            FeatureVectorsOutputInput = new List<double[]>();
 
             actions = new Dictionary<string, int>();
         }
@@ -56,7 +56,7 @@ namespace Adastra
 		/// <summary>
 		/// Contains both income feature vectors and output
 		/// </summary>
-        public List<double[]> FeatureVectorsInputOutput;
+        public List<double[]> FeatureVectorsOutputInput;
 
         public Dictionary<string, int> actions;
     }

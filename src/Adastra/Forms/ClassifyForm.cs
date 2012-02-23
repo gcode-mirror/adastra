@@ -206,7 +206,7 @@ namespace Adastra
 
         void rd_ReocordSelected(EEGRecord record)
         {
-            foreach(double[] vector in record.FeatureVectorsInputOutput)
+            foreach(double[] vector in record.FeatureVectorsOutputInput)
             {
                 double[] input = new double[vector.Length-1];
 

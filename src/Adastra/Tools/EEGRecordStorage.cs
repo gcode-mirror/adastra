@@ -88,9 +88,9 @@ namespace Adastra
         /// <returns></returns>
         public static bool IsRecordValid(EEGRecord record)
         {
-            int m = record.FeatureVectorsInputOutput[0].Length;
+            int m = record.FeatureVectorsOutputInput[0].Length;
 
-            foreach (var k in record.FeatureVectorsInputOutput)
+            foreach (var k in record.FeatureVectorsOutputInput)
             {
                 if (k.Length != m)
                 {

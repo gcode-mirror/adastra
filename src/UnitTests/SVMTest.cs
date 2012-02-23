@@ -27,12 +27,12 @@ namespace UnitTests
 
             for (int k = 0; k < 1; k++)
             {
-                model.Train(new EEGRecord(r.FeatureVectorsInputOutput));
+                model.Train(new EEGRecord(r.FeatureVectorsOutputInput));
             }
 
             int i = 0;
             int ok = 0;
-            foreach (double[] vector in r.FeatureVectorsInputOutput)
+            foreach (double[] vector in r.FeatureVectorsOutputInput)
             {
                 i++;
                 double[] input = new double[vector.Length - 1];

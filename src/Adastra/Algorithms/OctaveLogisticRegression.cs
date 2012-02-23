@@ -27,7 +27,7 @@ namespace Adastra.Algorithms
         public override void Train(EEGRecord record)
         {
             if (!EEGRecordStorage.IsRecordValid(record)) throw new Exception("Record is invalid!");
-            List<double[]> outputInput = record.FeatureVectorsInputOutput;
+            List<double[]> outputInput = record.FeatureVectorsOutputInput;
             //1. set data
 			
 			//set y from first value to be last one (more comfortable for Octave)

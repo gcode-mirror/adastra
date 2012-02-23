@@ -17,7 +17,7 @@ namespace Adastra.Algorithms
 		public override void Train(EEGRecord record)
 		{
             if (!EEGRecordStorage.IsRecordValid(record)) throw new Exception("Record is invalid!");
-            List<double[]> outputInput = record.FeatureVectorsInputOutput;
+            List<double[]> outputInput = record.FeatureVectorsOutputInput;
 
             binaryClassifiers = new OctaveLogisticRegression[ActionList.Count];
             foreach (var act in ActionList) //action list must contain a consequtive list of integers starting from 1

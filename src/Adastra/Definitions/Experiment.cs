@@ -146,16 +146,16 @@ namespace Adastra
             _ml.ActionList = _er.actions;
 
             #region convert
-            double[][] input = new double[record.FeatureVectorsInputOutput.Count][];
-            double[][] output = new double[record.FeatureVectorsInputOutput.Count][];
+            double[][] input = new double[record.FeatureVectorsOutputInput.Count][];
+            double[][] output = new double[record.FeatureVectorsOutputInput.Count][];
 
-            for(int i = 0; i < record.FeatureVectorsInputOutput.Count; i++)
+            for(int i = 0; i < record.FeatureVectorsOutputInput.Count; i++)
             {
-                input[i] = new double[_er.FeatureVectorsInputOutput[i].Length - 1];
-                Array.Copy(_er.FeatureVectorsInputOutput[i], 1, input[i], 0, input[i].Length);
+                input[i] = new double[_er.FeatureVectorsOutputInput[i].Length - 1];
+                Array.Copy(_er.FeatureVectorsOutputInput[i], 1, input[i], 0, input[i].Length);
 
                 output[i] = new double[1];
-                output[i][0] = _er.FeatureVectorsInputOutput[i][0];
+                output[i][0] = _er.FeatureVectorsOutputInput[i][0];
             }
             #endregion
 
@@ -182,7 +182,7 @@ namespace Adastra
                 error += delta * delta;
             }
 
-            double mse = error / _er.FeatureVectorsInputOutput.Count;
+            double mse = error / _er.FeatureVectorsOutputInput.Count;
 
             this.Error = mse;
             this.TimeElapsedSeconds = (DateTime.Now - startTime).TotalSeconds.ToString();//"{0:hh\\:mm\\:ss\\:fffffff}", 

@@ -97,14 +97,14 @@ namespace Adastra
 
             output_input[0] = SelectedClassNumeric;
 
-            for (int i = 1; i < featureVectors.Length + 1; i++)
+            for (int i = 1; i < output_input.Length; i++)
             {
                 output_input[i] = featureVectors[i - 1];
             }
 
             LastRecodredFeatureVectorsCount++;
 
-            currentRecord.FeatureVectorsInputOutput.Add(output_input);
+            currentRecord.FeatureVectorsOutputInput.Add(output_input);
         }
 
 		void comboBoxRecordTime_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,7 +214,7 @@ namespace Adastra
 
         void AsyncWorkerCalculate_DoWork(object sender, DoWorkEventArgs e)
         {
-			model.Train(new EEGRecord(currentRecord.FeatureVectorsInputOutput));
+			model.Train(new EEGRecord(currentRecord.FeatureVectorsOutputInput));
         }
 
         void model_Progress(int progress)
@@ -265,7 +265,7 @@ namespace Adastra
             //else //start new process
             {
                 listBoxLogger.Items.Insert(0,"Creating machine learning model to be used for classification...");
-                if (currentRecord.FeatureVectorsInputOutput.Count == 0) { MessageBox.Show("First you need to record/load some data for specific action!"); return; }
+                if (currentRecord.FeatureVectorsOutputInput.Count == 0) { MessageBox.Show("First you need to record/load some data for specific action!"); return; }
 
                 buttonCalculate.Enabled = false;
                 //buttonCalculate.Text = "Cancel";
@@ -327,7 +327,7 @@ namespace Adastra
         void rd_ReocordSelected(EEGRecord selectedRecord)
         {
             currentRecord = new EEGRecord(selectedRecord);//create a copy
-            listBoxLogger.Items.Insert(0, "Pre-recorded data '" + selectedRecord.Name + "' has been loaded containing: "+currentRecord.FeatureVectorsInputOutput.Count+" feature vectors. You can now record additional data or start 'Computing'.");
+            listBoxLogger.Items.Insert(0, "Pre-recorded data '" + selectedRecord.Name + "' has been loaded containing: "+currentRecord.FeatureVectorsOutputInput.Count+" feature vectors. You can now record additional data or start 'Computing'.");
         }
 
         private void buttonClearRecord_Click(object sender, EventArgs e)
