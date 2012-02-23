@@ -19,6 +19,9 @@ using Encog.Neural.Networks.Training.Propagation.Resilient;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Manages computed models 
+    /// </summary>
     public class ModelStorage
     {
         DB db;
@@ -53,9 +56,11 @@ namespace Adastra
 
                 db.RefreshMode = ObjectRefreshMode.AlwaysReturnUpdatedValues;
 
-                var query = from AMLearning sample in db select sample;
-
-                result = query.ToList();
+                if (db.IsTypeRegistered(typeof(AMLearning).FullName))
+                {
+                    var query = from AMLearning model in db select model;
+                    result = query.ToList();
+                }
 
                 db.Close();
             }

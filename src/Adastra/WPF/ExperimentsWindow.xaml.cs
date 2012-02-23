@@ -35,14 +35,14 @@ namespace WPF
 
 			taskQueue = new Queue<Task>();
             statusBar.Text = "Ready.";
-        }      
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-			workflows.Add(new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp")));
-			workflows.Add(new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm")));
-            workflows.Add(new Experiment("LDA + Radial Basis Function", null, new LdaRBF("rbf")));
-            workflows.Add(new Experiment("Multiclass Logistic Regression - Octave", null, new OctaveMulticlassLogisticRegression("mlro")));
+            workflows.Add(new Experiment("LDA + Multi-layer Perceptron", null, new LdaMLP("mlp"), true));
+            workflows.Add(new Experiment("LDA + Support Vector Machines", null, new LdaSVM("svm"), true));
+            workflows.Add(new Experiment("LDA + Radial Basis Function", null, new LdaRBF("rbf"), true));
+            workflows.Add(new Experiment("Multiclass Logistic Regression - Octave", null, new OctaveMulticlassLogisticRegression("mlro"), false));
 
             gvMethodsListTraining.ItemsSource = workflows;
         }

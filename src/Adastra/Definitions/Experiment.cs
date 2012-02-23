@@ -32,11 +32,12 @@ namespace Adastra
             }
         }
 
-        public Experiment(string name, EEGRecord er, AMLearning ml)
+        public Experiment(string name, EEGRecord er, AMLearning ml,bool enabled)
         {
 			Name = name;
             _er = er;
             _ml = ml;
+            _enabled = enabled;
 
             _ml.Progress += new ChangedValuesEventHandler(_ml_Progress);
         }

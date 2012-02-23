@@ -13,6 +13,9 @@ using Adastra.Algorithms;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Manages records. Each record currently contains feature vectors that describe a signal from an EEG record. 
+    /// </summary>
     public class EEGRecordStorage
     {
         DB db;
