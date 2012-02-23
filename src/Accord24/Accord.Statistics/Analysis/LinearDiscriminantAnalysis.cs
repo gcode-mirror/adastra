@@ -502,7 +502,9 @@ namespace Accord.Statistics.Analysis
             if (eigenvectors == null)
                 throw new InvalidOperationException("The analysis must have been computed first.");
 
-            if (data.GetLength(1) != source.GetLength(1))
+            //if (data.GetLength(1) != source.GetLength(1))
+            //TODO: Anton replaced the line above with the one below
+            if(data.Rank!=source.Rank)
                 throw new DimensionMismatchException("data", "The input data should have the same number of columns as the original data.");
 
             if (dimensions < 0 || dimensions > Discriminants.Count)
