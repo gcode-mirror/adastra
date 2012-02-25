@@ -77,7 +77,7 @@ namespace Adastra
             //}
             //else
             {
-                psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+                psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
             }
 
             started = true;
