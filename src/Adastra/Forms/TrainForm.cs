@@ -89,6 +89,8 @@ namespace Adastra
 
             ms = new ModelStorage();
             cbMethods.SelectedIndex = 0;
+
+            listBoxLogger.Items.Insert(0, "You are required to wait until you see: \"Initialization took xxxxx ms\" in OpenVibe.");
         }
 
         void ovfg_Values(double[] featureVectors)
