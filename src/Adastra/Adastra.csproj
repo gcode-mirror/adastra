@@ -139,6 +139,7 @@
     <Compile Include="Definitions\AHypothesis.cs" />
     <Compile Include="Definitions\IDigitalSignalProcessor.cs" />
     <Compile Include="Definitions\IFeatureGenerator.cs" />
+    <Compile Include="Definitions\InvalidRecordException.cs" />
     <Compile Include="Definitions\IRawDataReader.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>

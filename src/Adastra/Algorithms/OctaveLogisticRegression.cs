@@ -26,7 +26,7 @@ namespace Adastra.Algorithms
         /// <param name="outputInput"></param>
         public override void Train(EEGRecord record)
         {
-            if (!EEGRecordStorage.IsRecordValid(record)) throw new Exception("Record is invalid!");
+            if (!EEGRecordStorage.IsRecordValid(record)) throw new InvalidRecordException();
             List<double[]> outputInput = record.FeatureVectorsOutputInput;
             //1. set data
 			

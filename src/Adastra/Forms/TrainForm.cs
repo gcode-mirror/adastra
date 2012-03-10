@@ -90,7 +90,8 @@ namespace Adastra
             ms = new ModelStorage();
             cbMethods.SelectedIndex = 0;
 
-            listBoxLogger.Items.Insert(0, "You are required to wait until you see: \"Initialization took xxxxx ms\" in OpenVibe.");
+            if (fg is OpenVibeFeatureGenerator)
+                listBoxLogger.Items.Insert(0, "You are required to wait until you see: \"Initialization took xxxxx ms\" in OpenVibe.");
         }
 
         void ovfg_Values(double[] featureVectors)
@@ -203,7 +204,9 @@ namespace Adastra
 
             if (e.Error != null)
             {
-                MessageBox.Show("Error: " + e.Error.Message + " " + e.Error.StackTrace);
+                if (e.Error is InvalidRecordException)
+                    MessageBox.Show(e.Error.Message,"Error");
+                else MessageBox.Show(e.Error.Message + " " + e.Error.StackTrace, "Error");
                 logger.Error(e.Error);
                 listBoxLogger.Items.Insert(0, "Calculating model has been aborted! Time elapsed: " + elapsedTime);
             }
