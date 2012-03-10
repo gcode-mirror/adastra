@@ -1,3 +1,9 @@
+Adastra 2.5.1 Released 10.03.2012 (dd/mm/yyyy)
+============================================
+
+Several fixes and data checks have been added.
+Always leave OpenVibe fully load or you may acquire corrupted data.
+
 Adastra 2.4.2 Released 30.11.2011 (dd/mm/yyyy)
 ============================================
 Some bug fixes and refinements.

@@ -122,6 +122,11 @@ namespace Adastra
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (providedRecord.actions.Count < 2)
+            {
+                MessageBox.Show("Could not proceed! Your record needs at least two classes.");
+            }
+            else
             if (textBoxName.Text != "")
             {
                 buttonSave.Enabled = false;

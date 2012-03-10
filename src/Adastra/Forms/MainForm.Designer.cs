@@ -40,6 +40,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.homepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openVibesHomepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.octaveDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxOpenVibeWorkingFolder = new System.Windows.Forms.TextBox();
             this.textBoxScenario = new System.Windows.Forms.TextBox();
             this.buttonSelectOpenVibeWorkingFolder = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
             this.rbuttonExperimentator = new System.Windows.Forms.RadioButton();
-            this.octaveDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -160,6 +160,13 @@
             this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.openVibesHomepageToolStripMenuItem.Text = "OpenVibe\'s homepage";
             this.openVibesHomepageToolStripMenuItem.Click += new System.EventHandler(this.openVibesHomepageToolStripMenuItem_Click);
+            // 
+            // octaveDownloadToolStripMenuItem
+            // 
+            this.octaveDownloadToolStripMenuItem.Name = "octaveDownloadToolStripMenuItem";
+            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.octaveDownloadToolStripMenuItem.Text = "Octave download";
+            this.octaveDownloadToolStripMenuItem.Click += new System.EventHandler(this.octaveDownloadToolStripMenuItem_Click);
             // 
             // textBoxOpenVibeWorkingFolder
             // 
@@ -342,7 +349,6 @@
             this.comboBoxDSP.FormattingEnabled = true;
             this.comboBoxDSP.Items.AddRange(new object[] {
             "Basic (ButterworthBandPass + Averaging)",
-            "Fast Fourier Transform",
             "Empirical Mode Decomposition"});
             this.comboBoxDSP.Location = new System.Drawing.Point(108, 73);
             this.comboBoxDSP.Name = "comboBoxDSP";
@@ -466,13 +472,6 @@
             this.rbuttonExperimentator.Text = "Optimizator";
             this.rbuttonExperimentator.UseVisualStyleBackColor = true;
             this.rbuttonExperimentator.CheckedChanged += new System.EventHandler(this.rbuttonExperimentator_CheckedChanged);
-            // 
-            // octaveDownloadToolStripMenuItem
-            // 
-            this.octaveDownloadToolStripMenuItem.Name = "octaveDownloadToolStripMenuItem";
-            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.octaveDownloadToolStripMenuItem.Text = "Octave download";
-            this.octaveDownloadToolStripMenuItem.Click += new System.EventHandler(this.octaveDownloadToolStripMenuItem_Click);
             // 
             // MainForm
             // 
