@@ -57,7 +57,8 @@ namespace Adastra
             AsyncWorkerProcess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(AsyncWorkerProcess_RunWorkerCompleted);
 
 			this.FormClosing += new FormClosingEventHandler(ClassifyForm_FormClosing);
-            listBoxResult.Items.Insert(0, "You are required to wait until you see: \"Initialization took xxxxx ms\" in OpenVibe.");
+            if (fg is OpenVibeFeatureGenerator)
+                  listBoxResult.Items.Insert(0, "You are required to wait until you see: \"Initialization took xxxxx ms\" in OpenVibe.");
         }
 
         void fg_Values(double[] featureVectors)
