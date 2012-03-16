@@ -132,7 +132,7 @@ namespace Adastra
                             case 0:
                                 if (rbuttonWPFcharting.Checked)
                                 {
-                                    ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow;
+                                    ow = new WPF.OutputWindow(dataReader,-1,-1); ow.Show(); currentWindow = ow;
                                 }
                                 else if (rbuttonWindowsFormsCharting.Checked)
                                 {
@@ -146,7 +146,7 @@ namespace Adastra
                             case 3://xDAWN
                             if (rbuttonWPFcharting.Checked)
                             {
-                                ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow;
+                                ow = new WPF.OutputWindow(dataReader,165,730); ow.Show(); currentWindow = ow;
                             }
                             else if (rbuttonWindowsFormsCharting.Checked)
                             {

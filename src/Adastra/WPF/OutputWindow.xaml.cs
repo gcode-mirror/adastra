@@ -33,9 +33,12 @@ namespace WPF
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
 
-        public OutputWindow(IRawDataReader p_dataReader)
+        public OutputWindow(IRawDataReader p_dataReader,int height,int width)
         {
             InitializeComponent();
+
+            if (height!=-1) this.Height = height;
+            if (width != -1) this.Width = width;
 
             #region hide grid and numbering 
             this.plotter.BottomPanel.Visibility = System.Windows.Visibility.Collapsed;
