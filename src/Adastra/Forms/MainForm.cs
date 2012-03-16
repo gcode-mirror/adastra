@@ -143,6 +143,16 @@ namespace Adastra
                             //case 2: cw = new WPF.ClassifyWindow(featureGenerator); cw.Show(); currentWindow = cw; break;
                             case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                             //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
+                            case 3://xDAWN
+                            if (rbuttonWPFcharting.Checked)
+                            {
+                                ow = new WPF.OutputWindow(dataReader); ow.Show(); currentWindow = ow;
+                            }
+                            else if (rbuttonWindowsFormsCharting.Checked)
+                            {
+                                of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;
+                            }
+                            break;
                         }
 
                         if (rbuttonOpenVibe.Checked)
@@ -321,6 +331,7 @@ namespace Adastra
                     break;
                 case 1: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
                 case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
+                case 3: scenario = "xdawn-filter-charting.xml"; break;//xDAWN
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
@@ -381,9 +392,11 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal streamed by OpenVibe");
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
+            comboBoxScenarioType.Items.Add("4. Display: new channels from applied Bandpass + xDAWN + Averaged filters");
 
-            comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
+            if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
+                 comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
+            else comboBoxScenarioType.SelectedIndex = 0;
 
             groupBoxCharting.Visible = true;
         }
@@ -403,7 +416,10 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
-            comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
+            if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
+                comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
+            else comboBoxScenarioType.SelectedIndex = 0;
+
             groupBoxCharting.Visible = false;
         }
 
