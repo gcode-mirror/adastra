@@ -143,16 +143,8 @@ namespace Adastra
                             //case 2: cw = new WPF.ClassifyWindow(featureGenerator); cw.Show(); currentWindow = cw; break;
                             case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
                             //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
-                            case 3://xDAWN
-                            if (rbuttonWPFcharting.Checked)
-                            {
-                                ow = new WPF.OutputWindow(dataReader,165,730); ow.Show(); currentWindow = ow;
-                            }
-                            else if (rbuttonWindowsFormsCharting.Checked)
-                            {
-                                of = new OutputForm(dataReader); of.Show(); of.Start(); currentForm = of;
-                            }
-                            break;
+                            case 3: ow = new WPF.OutputWindow(dataReader, 165, 830); ow.Show(); currentWindow = ow; break; //xDAWN
+                            case 4: ow = new WPF.OutputWindow(dataReader, 250, 830); ow.Show(); currentWindow = ow; break; //CSP
                         }
 
                         if (rbuttonOpenVibe.Checked)
@@ -331,7 +323,8 @@ namespace Adastra
                     break;
                 case 1: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//train
                 case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
-                case 3: scenario = "xdawn-filter-charting.xml"; break;//xDAWN
+                case 3: scenario = "xdawn-filter-charting-after-training.xml"; break;//xDAWN filter
+                case 4: scenario = "csp-filter-charting-after-training.xml"; break;//CSP filter
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
@@ -392,7 +385,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal streamed by OpenVibe");
             comboBoxScenarioType.Items.Add("2. Train:  using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            comboBoxScenarioType.Items.Add("4. Display: new channels from applied Bandpass + xDAWN + Averaged filters");
+            comboBoxScenarioType.Items.Add("4. Display: new channels from applied Bandpass + trained xDAWN + Averaged filters (used in P300)");
+            comboBoxScenarioType.Items.Add("5. Display: new channels from applied Bandpass + trained CSP + Averaged filters (used in motor imaganery clasification)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                  comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
