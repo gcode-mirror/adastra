@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Collections;
 
+using OpenViBEPlugins.FileIO;
 using NLog;
 
 namespace Adastra
@@ -56,6 +57,9 @@ namespace Adastra
 			textBoxEmotivFile.Text = AdastraConfig.GetRecordsFolder() + "mitko-small.csv";
 
 			comboBoxDSP.SelectedIndex = 0;
+            
+            CBoxAlgorithmGenericStreamReader r = new CBoxAlgorithmGenericStreamReader();
+            
 		}
 
 		void InitOpenVibeWorker()
