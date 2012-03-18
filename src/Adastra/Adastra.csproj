@@ -204,6 +204,7 @@
     <Compile Include="Tools\OpenVibeRawDataReader.cs" />
     <Compile Include="Tools\SimpleFeatureGenerator.cs" />
     <Compile Include="Tools\TaskProgressReporter.cs" />
+    <Compile Include="Algorithms\DSP\TimeEpochingGenerator.cs" />
     <Compile Include="WPF\ClassifyWindow.xaml.cs">
       <DependentUpon>ClassifyWindow.xaml</DependentUpon>
     </Compile>
