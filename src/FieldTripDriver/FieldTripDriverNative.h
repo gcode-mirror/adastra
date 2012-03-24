@@ -32,8 +32,8 @@ namespace OpenViBEAcquisitionServer
 	public:
 
 		//CDriverFieldtrip(OpenViBEAcquisitionServer::IDriverContext& rDriverContext);
-		virtual ~FieldTripDriverNative(void);
-		virtual const char* getName(void);
+		//virtual ~FieldTripDriverNative(void);
+		//virtual const char* getName(void);
 
 		virtual boolean initialize(
 		const unsigned int ui32SampleCountPerSentBlock);

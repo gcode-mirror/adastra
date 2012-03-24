@@ -297,6 +297,10 @@
       <Project>{D3337309-9682-425E-8EDC-2ECFACF79565}</Project>
       <Name>DotNetEmotivSDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FieldTripDriver\FieldTripDriver.vcxproj">
+      <Project>{0C934752-EECF-4332-9FA1-0EBCBBDF8FF1}</Project>
+      <Name>FieldTripDriver</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="WPF\ClassifyWindow.xaml">

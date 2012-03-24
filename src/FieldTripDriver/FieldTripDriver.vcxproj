@@ -74,6 +74,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="FieldTripDriver.cpp" />
     <ClCompile Include="FieldTripDriverNative.cpp" />
     <ClCompile Include="fieldtrip_buffer\src\cleanup.c" />
     <ClCompile Include="fieldtrip_buffer\src\clientrequest.c" />
