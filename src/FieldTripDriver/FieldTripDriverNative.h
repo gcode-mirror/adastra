@@ -43,15 +43,15 @@ namespace OpenViBEAcquisitionServer
 	//	virtual OpenViBE::boolean initialize(
 	//		const OpenViBE::uint32 ui32SampleCountPerSentBlock,
 	//		OpenViBEAcquisitionServer::IDriverCallback& rCallback);
-	//	virtual OpenViBE::boolean uninitialize(void);
+	virtual OpenViBE::boolean uninitialize(void);
 
-	//	virtual OpenViBE::boolean start(void);
-	//	virtual OpenViBE::boolean stop(void);
-	//	virtual OpenViBE::boolean loop(void);
+	virtual OpenViBE::boolean start(void);
+	virtual OpenViBE::boolean stop(void);
+    virtual OpenViBE::boolean loop(void);
 
-	//	virtual OpenViBE::boolean isConfigurable(void);
-	//	virtual OpenViBE::boolean configure(void);
-	//	virtual const OpenViBEAcquisitionServer::IHeader* getHeader(void) { return &m_oHeader; }
+    //virtual OpenViBE::boolean isConfigurable(void);
+	virtual OpenViBE::boolean configure(void);
+    virtual const OpenViBEAcquisitionServer::IHeader* getHeader(void) { return &m_oHeader; }
 	//	
 
 	protected:

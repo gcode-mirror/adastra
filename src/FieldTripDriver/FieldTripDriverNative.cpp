@@ -121,6 +121,150 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::~FieldTripDriverNative(void)
     }
 }
 
+OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::start(void)
+{
+	//if (!m_rDriverContext.isConnected()) return false;
+	//if (m_rDriverContext.isStarted()) return false;
+
+	// ...
+	// request hardware to start
+	// sending data
+	// ...
+
+    m_bFirstGetDataRequest = true;
+    m_ui32WaitingTimeMs = (m_oHeader.getSamplingFrequency()>1000 ? 1:(1000/m_oHeader.getSamplingFrequency()));  //time for 1 sample if >= 1ms //(1000*m_ui32SampleCountPerSentBlock)
+    m_ui32TotalSampleCount=0;
+
+    m_f64DiffPerSample = (m_f64RealSamplingRate - m_oHeader.getSamplingFrequency()) / m_f64RealSamplingRate;
+    if ( m_f64DiffPerSample <= 0.0 )
+        m_f64DiffPerSample = 0.0;
+    m_f64DriftSinceLastCorrection = 0.0;
+
+	return true;
+}
+
+OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::loop(void)
+{
+	//if (!m_rDriverContext.isConnected()) return false;
+	//if (!m_rDriverContext.isStarted()) return true;
+
+	//OpenViBE::CStimulationSet l_oStimulationSet;
+ //   l_oStimulationSet.setStimulationCount(0);
+
+	//// ...
+	//// receive samples from hardware
+	//// put them the correct way in the sample array
+	//// whether the buffer is full, send it to the acquisition server
+	////...
+ //   int32 l_iSampleCount = requestChunk(l_oStimulationSet);
+ //   if ( l_iSampleCount < 0 )
+ //   {
+ //       return false;
+ //   }
+ //   else if ( l_iSampleCount == 0 )
+ //   {
+ //       return true;
+ //   }
+	//m_pCallback->setSamples(m_pSample, l_iSampleCount);
+
+ //   if (m_bGetCpuTime)
+ //   {
+ //       m_ui32mesureNumber++;
+ //       float64 clocktime1 = GetCPUTimeInMilliseconds();
+ //       for (uint32 i = 0; i < l_iSampleCount; i++)
+ //       {
+ //           if (m_pSample[m_ui32DetectionChannel*l_iSampleCount + i]!=FLT_MAX)
+ //           {
+ //               if (!m_bWasDetected)
+ //               {
+ //                   if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] >= m_f64DetectionThreshold )
+ //                     ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] <= m_f64DetectionThreshold ))
+ //                   {
+ //                       float64 clocktime = GetCPUTimeInMilliseconds();
+ //                       fprintf(m_myfile, "%.6f \n", clocktime);
+ //                       m_bWasDetected = true;
+ //                   }
+ //               }
+ //               else
+ //               {
+ //                   if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] < m_f64DetectionThreshold )
+ //                     ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] > m_f64DetectionThreshold ))
+ //                   {
+ //                       m_bWasDetected = false;
+ //                   }
+ //               }
+ //           }
+ //       }//end for
+
+ //       float64 clocktime2 = GetCPUTimeInMilliseconds();
+ //       m_f64mesureLostTime += (clocktime2 - clocktime1);
+ //   } // end get cpu time
+
+	//m_pCallback->setStimulationSet(l_oStimulationSet);
+
+ //   m_rDriverContext.correctDriftSampleCount(m_rDriverContext.getSuggestedDriftCorrectionSampleCount());
+
+    return true;
+}
+
+OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::stop(void)
+{
+	//if (!m_rDriverContext.isConnected()) return false;
+	//if (!m_rDriverContext.isStarted()) return false;
+
+	return true;
+}
+
+OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::uninitialize(void)
+{
+	//if (!m_rDriverContext.isConnected()) return false;
+	//if (m_rDriverContext.isStarted()) return false;
+
+    if ( close_connection(m_i32ConnectionID) != 0 )
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "Failed to disconnect correctly from Fieldtrip buffer\n";
+    }
+    m_i32ConnectionID = -1;
+
+	delete [] m_pSample;
+	m_pSample=NULL;
+	//m_pCallback=NULL;
+    
+    if (m_myfile)
+    {
+        /*if (m_bGetCpuTime)
+        {
+            fprintf(m_myfile, "*** mesure lost time : %.6f \n", m_f64mesureLostTime);
+            fprintf(m_myfile, "*** mesure number : %.6f \n", (float64) m_ui32mesureNumber);
+            fprintf(m_myfile, "*** average : %.6f ms per mesure\n", m_f64mesureLostTime/m_ui32mesureNumber);
+        } */
+        fclose(m_myfile);
+        m_myfile = NULL;
+    }
+
+	return true;
+}
+
+OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::configure(void)
+{
+	/*CConfigurationFieldtrip l_oConfiguration("../share/openvibe-applications/acquisition-server/interface-Fieldtrip.ui");
+    l_oConfiguration.setMinSamples(m_ui32MinSamples);
+    l_oConfiguration.setHostPort(m_ui32PortNumber);
+    l_oConfiguration.setHostName(m_sHostName);
+    l_oConfiguration.setSRCorrection(m_bCorrectNonIntegerSR);
+
+	if (l_oConfiguration.configure(m_oHeader))
+	{
+        m_ui32MinSamples = l_oConfiguration.getMinSamples();
+        m_ui32PortNumber = l_oConfiguration.getHostPort();
+        m_sHostName = l_oConfiguration.getHostName();
+        m_bCorrectNonIntegerSR = l_oConfiguration.getSRCorrection();
+        return true;
+	}
+	return false;*/
+	return true;
+}
+
 bool OpenViBEAcquisitionServer::FieldTripDriverNative::requestHeader()
 {
 	return false;
