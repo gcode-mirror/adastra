@@ -4,9 +4,11 @@
 #include <string>
 using namespace std;
 
+
 #include "FieldTripDriverNative.h"
 #include "fieldtrip_buffer\src\buffer.h"
 #include "ov_types.h"
+using namespace OpenViBE;
 
 OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
 	:
@@ -148,61 +150,61 @@ OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::loop(void)
 	//if (!m_rDriverContext.isConnected()) return false;
 	//if (!m_rDriverContext.isStarted()) return true;
 
-	//OpenViBE::CStimulationSet l_oStimulationSet;
- //   l_oStimulationSet.setStimulationCount(0);
+	/*OpenViBE::CStimulationSet l_oStimulationSet;
+    l_oStimulationSet.setStimulationCount(0);*/
 
-	//// ...
-	//// receive samples from hardware
-	//// put them the correct way in the sample array
-	//// whether the buffer is full, send it to the acquisition server
-	////...
- //   int32 l_iSampleCount = requestChunk(l_oStimulationSet);
- //   if ( l_iSampleCount < 0 )
- //   {
- //       return false;
- //   }
- //   else if ( l_iSampleCount == 0 )
- //   {
- //       return true;
- //   }
-	//m_pCallback->setSamples(m_pSample, l_iSampleCount);
+	// ...
+	// receive samples from hardware
+	// put them the correct way in the sample array
+	// whether the buffer is full, send it to the acquisition server
+	//...
+    int32 l_iSampleCount = requestChunk(/*l_oStimulationSet*/);
+    if ( l_iSampleCount < 0 )
+    {
+        return false;
+    }
+    else if ( l_iSampleCount == 0 )
+    {
+        return true;
+    }
+//	m_pCallback->setSamples(m_pSample, l_iSampleCount);
 
- //   if (m_bGetCpuTime)
- //   {
- //       m_ui32mesureNumber++;
- //       float64 clocktime1 = GetCPUTimeInMilliseconds();
- //       for (uint32 i = 0; i < l_iSampleCount; i++)
- //       {
- //           if (m_pSample[m_ui32DetectionChannel*l_iSampleCount + i]!=FLT_MAX)
- //           {
- //               if (!m_bWasDetected)
- //               {
- //                   if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] >= m_f64DetectionThreshold )
- //                     ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] <= m_f64DetectionThreshold ))
- //                   {
- //                       float64 clocktime = GetCPUTimeInMilliseconds();
- //                       fprintf(m_myfile, "%.6f \n", clocktime);
- //                       m_bWasDetected = true;
- //                   }
- //               }
- //               else
- //               {
- //                   if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] < m_f64DetectionThreshold )
- //                     ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] > m_f64DetectionThreshold ))
- //                   {
- //                       m_bWasDetected = false;
- //                   }
- //               }
- //           }
- //       }//end for
+    if (m_bGetCpuTime)
+    {
+        m_ui32mesureNumber++;
+//        float64 clocktime1 = GetCPUTimeInMilliseconds();
+        for (uint32 i = 0; i < l_iSampleCount; i++)
+        {
+            if (m_pSample[m_ui32DetectionChannel*l_iSampleCount + i]!=FLT_MAX)
+            {
+                if (!m_bWasDetected)
+                {
+                    if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] >= m_f64DetectionThreshold )
+                      ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] <= m_f64DetectionThreshold ))
+                    {
+                        //float64 clocktime = GetCPUTimeInMilliseconds();
+                        //fprintf(m_myfile, "%.6f \n", clocktime);
+                        m_bWasDetected = true;
+                    }
+                }
+                else
+                {
+                    if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] < m_f64DetectionThreshold )
+                      ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] > m_f64DetectionThreshold ))
+                    {
+                        m_bWasDetected = false;
+                    }
+                }
+            }
+        }//end for
 
- //       float64 clocktime2 = GetCPUTimeInMilliseconds();
- //       m_f64mesureLostTime += (clocktime2 - clocktime1);
- //   } // end get cpu time
+        //float64 clocktime2 = GetCPUTimeInMilliseconds();
+        //m_f64mesureLostTime += (clocktime2 - clocktime1);
+    } // end get cpu time
 
-	//m_pCallback->setStimulationSet(l_oStimulationSet);
+//	m_pCallback->setStimulationSet(l_oStimulationSet);
 
- //   m_rDriverContext.correctDriftSampleCount(m_rDriverContext.getSuggestedDriftCorrectionSampleCount());
+//    m_rDriverContext.correctDriftSampleCount(m_rDriverContext.getSuggestedDriftCorrectionSampleCount());
 
     return true;
 }
@@ -267,6 +269,413 @@ OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::configure(vo
 
 bool OpenViBEAcquisitionServer::FieldTripDriverNative::requestHeader()
 {
-	return false;
+	m_pWaitData_Request->def->command = GET_HDR;
+    m_pWaitData_Request->def->version = VERSION;
+    m_pWaitData_Request->def->bufsize = 0;
+    m_pWaitData_Request->buf = NULL;
+
+    message_t *l_pResponse = NULL;
+
+    int l_iRes = clientrequest(m_i32ConnectionID, m_pWaitData_Request, &l_pResponse);
+
+    if ( l_iRes!=0 )
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "Error while asking for header. Buffer aborted ?\n";
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+        return false;
+    }
+    else if ( l_pResponse==NULL || l_pResponse->def==NULL )
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "Error while asking for header\n";
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+        return false;
+    }
+    else if ( l_pResponse->def->command!=GET_OK || l_pResponse->def->bufsize==0 )
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "No header in the buffer\n";
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+        return false;
+    }
+    else
+    {
+        int l_iResponseBufSize = l_pResponse->def->bufsize;
+        headerdef_t* l_pHeaderDef = (headerdef_t*) l_pResponse->buf;
+
+        if ( l_iResponseBufSize < sizeof(headerdef_t) )
+        {
+            //m_rDriverContext.getLogManager() << LogLevel_Error << "Header received has wrong format\n";
+            if ( l_pResponse )
+            {
+                if (l_pResponse->buf) free(l_pResponse->buf);
+                if (l_pResponse->def) free(l_pResponse->def);
+                free(l_pResponse);
+                l_pResponse = NULL;
+            }
+            return false;
+        }
+
+        m_oHeader.setSamplingFrequency((uint32)l_pHeaderDef->fsample);
+        m_f64RealSamplingRate = l_pHeaderDef->fsample;
+	    m_oHeader.setChannelCount(l_pHeaderDef->nchans); 
+        m_ui32DataType = l_pHeaderDef->data_type;
+        if ( m_ui32DataType != DATATYPE_FLOAT32 && m_ui32DataType != DATATYPE_FLOAT64 )
+        {
+            //m_rDriverContext.getLogManager() << LogLevel_Error << "Data type is not supported\n";
+            if ( l_pResponse )
+            {
+                if (l_pResponse->buf) free(l_pResponse->buf);
+                if (l_pResponse->def) free(l_pResponse->def);
+                free(l_pResponse);
+                l_pResponse = NULL;
+            }
+            return false;
+        }
+
+        if ( l_iResponseBufSize == sizeof(headerdef_t) ) //no chunk attached to the header
+        {
+            for ( uint32 i = 0; i < l_pHeaderDef->nchans; i++ )
+            {
+                char l_sName[1024];
+                sprintf(l_sName, "Channel %i", i);
+                m_oHeader.setChannelName(i, l_sName);
+            }
+        }
+        else //chunk(s) attached to the header, maybe channel names
+        {
+            int l_iBytesInHeaderBuffer = l_pHeaderDef->bufsize;
+            void* l_pChunk = (headerdef_t*) l_pHeaderDef + 1;
+            OpenViBE::boolean l_bFoundChannelNames = false;
+            while( l_iBytesInHeaderBuffer > 0 )
+            { 
+                if ( ((ft_chunk_t*)l_pChunk)->def.type == FT_CHUNK_CHANNEL_NAMES )
+                {
+                    l_bFoundChannelNames = true;
+                    char* l_pChunkdata = ((ft_chunk_t*)l_pChunk)->data;
+                    for ( uint32 i = 0;  i < l_pHeaderDef->nchans; i++ )
+                    {
+                        std::string l_sChanName = l_pChunkdata;
+                        m_oHeader.setChannelName(i, l_sChanName.c_str());
+                        l_pChunkdata = (char*) l_pChunkdata + l_sChanName.size() + 1;
+                    }
+                }
+
+                l_iBytesInHeaderBuffer -= ((ft_chunk_t*)l_pChunk)->def.size + sizeof(ft_chunkdef_t);
+                if ( l_iBytesInHeaderBuffer > 0 )
+                {
+                    l_pChunk = (char*) l_pChunk + ((ft_chunk_t*)l_pChunk)->def.size + sizeof(ft_chunkdef_t);
+                }
+            }
+
+            if ( !l_bFoundChannelNames )
+            {
+                for ( uint32 i = 0; i < l_pHeaderDef->nchans; i++ )
+                {
+                    char l_sName[1024];
+                    sprintf(l_sName, "Channel %i", i);
+                    m_oHeader.setChannelName(i, l_sName);
+                }
+            }
+        } 
+    } /* end valid header */
+
+    if ( l_pResponse )
+    {
+        if (l_pResponse->buf) free(l_pResponse->buf);
+        if (l_pResponse->def) free(l_pResponse->def);
+        free(l_pResponse);
+    }
+
+    return true;
+}
+
+OpenViBE::int32 OpenViBEAcquisitionServer::FieldTripDriverNative::requestChunk(/*OpenViBE::CStimulationSet& oStimulationSet*/)
+{
+    // "wait data" request
+    m_pWaitData_Request->def->command = WAIT_DAT;
+    m_pWaitData_Request->def->version = VERSION;
+
+    if (m_pWaitData_Request->buf == NULL)
+    {
+        m_pWaitData_Request->def->bufsize = 0;
+        waitdef_t* l_pWaitDef = new waitdef_t();
+        unsigned int requestSize = 0;
+        requestSize = append((void**)&m_pWaitData_Request->def, sizeof(messagedef_t), l_pWaitDef, sizeof(waitdef_t));
+        m_pWaitData_Request->def->bufsize = requestSize - sizeof(messagedef_t);
+        m_pWaitData_Request->buf = (messagedef_t*) m_pWaitData_Request->def+1;
+    }
+    waitdef_t* l_pWaitDef = (waitdef_t*) m_pWaitData_Request->buf;
+    l_pWaitDef->threshold.nevents = 0xFFFFFFFF;
+    l_pWaitDef->threshold.nsamples = m_ui32SampleCountPerSentBlock;
+    l_pWaitDef->milliseconds = m_ui32WaitingTimeMs;
+
+    message_t *l_pResponse = NULL;
+    int l_iRes = clientrequest(m_i32ConnectionID, m_pWaitData_Request, &l_pResponse);
+
+    uint32 l_ui32NbDataReceived = 0;
+    uint32 l_ui32NbDataToSend = 0;
+
+    if ( l_iRes )
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "Error while asking for data. Buffer aborted ?\n";
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+        return -1;
+    }
+    else if ( l_pResponse==NULL || l_pResponse->def==NULL )
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "Error while asking for data\n";
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+        return -1;
+    }
+    else if ( l_pResponse->def->command != WAIT_OK || l_pResponse->def->bufsize!=8 || l_pResponse->buf==NULL ) 
+    {
+        //m_rDriverContext.getLogManager() << LogLevel_Error << "No header in buffer anymore\n";
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+        return -1;
+    }
+    else
+    {
+        // new header received ? stop acquisition
+        if ( ((samples_events_t*) l_pResponse->buf)->nsamples < m_ui32TotalSampleCount ) 
+        {
+            //m_rDriverContext.getLogManager() << LogLevel_Warning << "End of data\n";
+            if ( l_pResponse )
+            {
+                if (l_pResponse->buf) free(l_pResponse->buf);
+                if (l_pResponse->def) free(l_pResponse->def);
+                free(l_pResponse);
+                l_pResponse = NULL;
+            }
+            return -1;
+        }
+
+        // no new data
+        if ( ((samples_events_t*) l_pResponse->buf)->nsamples <= m_ui32TotalSampleCount+m_ui32MinSamples )
+        {
+            //m_rDriverContext.getLogManager() << LogLevel_Trace << "No new data\n";
+            if ( l_pResponse )
+            {
+                if (l_pResponse->buf) free(l_pResponse->buf);
+                if (l_pResponse->def) free(l_pResponse->def);
+                free(l_pResponse);
+                l_pResponse = NULL;
+            }
+            return 0;
+        }
+
+        // get data
+        uint32 l_ui32LastSample = ((samples_events_t*) l_pResponse->buf)->nsamples;
+        if ( l_ui32LastSample > m_ui32TotalSampleCount + m_ui32SampleCountPerSentBlock )
+        {
+            if ( m_bFirstGetDataRequest )
+            {
+                m_ui32TotalSampleCount = l_ui32LastSample - m_ui32SampleCountPerSentBlock;
+            }
+            else
+            {
+                l_ui32LastSample = m_ui32TotalSampleCount + m_ui32SampleCountPerSentBlock;
+            }
+        }
+        if ( m_bFirstGetDataRequest )
+        {
+            m_bFirstGetDataRequest = false;
+        }
+
+        if ( l_pResponse )
+        {
+            if (l_pResponse->buf) free(l_pResponse->buf);
+            if (l_pResponse->def) free(l_pResponse->def);
+            free(l_pResponse);
+            l_pResponse = NULL;
+        }
+
+        // "get data" request
+        m_pGetData_Request->def->command = GET_DAT;
+        m_pGetData_Request->def->version = VERSION;
+        
+        if (m_pGetData_Request->buf == NULL)
+        {
+            m_pGetData_Request->def->bufsize = 0;
+            datasel_t* l_pDataSel = new datasel_t();
+            unsigned int requestSize = 0;
+            requestSize = append((void**)&m_pGetData_Request->def, sizeof(messagedef_t), l_pDataSel, sizeof(datasel_t));
+            m_pGetData_Request->def->bufsize = requestSize - sizeof(messagedef_t);
+            m_pGetData_Request->buf = (messagedef_t*) m_pGetData_Request->def+1;
+        }
+        datasel_t* l_pDataSel = (datasel_t*) m_pGetData_Request->buf;
+        l_pDataSel->begsample = m_ui32TotalSampleCount;
+        l_pDataSel->endsample = l_ui32LastSample - 1;
+
+        l_iRes = clientrequest(m_i32ConnectionID, m_pGetData_Request, &l_pResponse);
+
+        if ( l_iRes || !l_pResponse || !l_pResponse->def || l_pResponse->def->version!=VERSION )
+        {
+            //m_rDriverContext.getLogManager() << LogLevel_Error << "Error while asking for data\n";
+            if ( l_pResponse )
+            {
+                if (l_pResponse->buf) free(l_pResponse->buf);
+                if (l_pResponse->def) free(l_pResponse->def);
+                free(l_pResponse);
+                l_pResponse = NULL;
+            }
+            return -1;
+        }
+        else if ( l_pResponse->def->command != GET_OK || l_pResponse->def->bufsize==0 || l_pResponse->buf==NULL )
+        {
+            //m_rDriverContext.getLogManager() << LogLevel_Error << "Data are not available anymore\n";
+            if ( l_pResponse )
+            {
+                if (l_pResponse->buf) free(l_pResponse->buf);
+                if (l_pResponse->def) free(l_pResponse->def);
+                free(l_pResponse);
+                l_pResponse = NULL;
+            }
+            return -1;
+        }
+        else // data received
+        {
+            datadef_t* l_pDatadef = (datadef_t*) l_pResponse->buf;
+            void* l_pDatabuf = (datadef_t*) l_pResponse->buf + 1;
+            if ( l_pDatadef->bufsize / (wordsize_from_type(l_pDatadef->data_type)*l_pDatadef->nchans) != l_ui32LastSample - m_ui32TotalSampleCount )
+            {
+                //m_rDriverContext.getLogManager() << LogLevel_Error << "Data received from buffer are invalid\n";
+                if ( l_pResponse )
+                {
+                    if (l_pResponse->buf) free(l_pResponse->buf);
+                    if (l_pResponse->def) free(l_pResponse->def);
+                    free(l_pResponse);
+                    l_pResponse = NULL;
+                }
+                return -1;
+            }
+            else //data correct
+            {
+                l_ui32NbDataReceived = l_ui32LastSample - m_ui32TotalSampleCount;
+
+                // Delete some samples if necessary.
+                // Sampling rate is converted into integer in openvibe, 
+                // so we can have up to 1 sample too many per second.
+                l_ui32NbDataToSend = l_ui32NbDataReceived;
+
+                if (m_bCorrectNonIntegerSR)
+                {
+                    m_f64DriftSinceLastCorrection += ( m_f64DiffPerSample * l_ui32NbDataReceived );
+                    if ( m_f64DriftSinceLastCorrection >= 1.0 )
+                    {
+                        // delete samples
+                        uint32 l_ui32DiffSamples = (uint32) m_f64DriftSinceLastCorrection;
+                        l_ui32NbDataToSend -= l_ui32DiffSamples;
+                        /*m_rDriverContext.getLogManager() << LogLevel_Trace 
+                            << "Correction for non-integer sampling rate : "
+                            << l_ui32DiffSamples << " samples deleted\n";*/
+                        m_f64DriftSinceLastCorrection -= (float64) l_ui32DiffSamples;
+                        /*oStimulationSet.appendStimulation(
+                            OVTK_GDF_Missing, 
+                            ((uint64)l_ui32NbDataToSend << 32)/m_oHeader.getSamplingFrequency(), 
+                            ((uint64)l_ui32DiffSamples   << 32)/m_oHeader.getSamplingFrequency());*/
+                    }
+                }
+
+                // set data in m_pSample
+                float64* l_pBuffer64;
+                float32* l_pBuffer32;
+                switch(m_ui32DataType)
+                {
+                case DATATYPE_FLOAT64 :
+                    l_pBuffer64 = (float64*) l_pDatabuf;
+                    for ( uint32 j = 0; j < m_oHeader.getChannelCount(); j++ )
+                    {
+                        for ( uint32 i = 0; i < l_ui32NbDataToSend; i++ )
+                        {
+                            float64 l_f64Value = l_pBuffer64[i*m_oHeader.getChannelCount() + j];
+                            /*if ( _isnan(l_f64Value) || !_finite(l_f64Value) || l_f64Value==DBL_MAX )
+                            {
+                                m_pSample[j*l_ui32NbDataToSend + i] = FLT_MAX;
+                                m_rDriverContext.getLogManager() << LogLevel_Trace << "NaN or infinite sample received.\n";
+                            }
+                            else
+                            {
+                                //data from IHM implant are in volts, must be in µvolts in openvibe
+                                m_pSample[j*l_ui32NbDataToSend + i] = (float32) 1000000.0f*l_f64Value;
+                            }*/
+                            m_pSample[j*l_ui32NbDataToSend + i] = (float32) 1000000.0f*l_f64Value;
+                        }
+                    }
+                    break;
+                case DATATYPE_FLOAT32 :
+                    l_pBuffer32 = (float32*) l_pDatabuf;
+                    for ( uint32 j = 0; j < m_oHeader.getChannelCount(); j++ )
+                    {
+                        for ( uint32 i = 0; i < l_ui32NbDataToSend; i++ )
+                        {
+                            float32 l_f32Value = l_pBuffer32[i*m_oHeader.getChannelCount() + j];
+                            /*if ( _isnan(l_f32Value) || !_finite(l_f32Value) || l_f32Value==FLT_MAX )
+                            {
+                                m_pSample[j*l_ui32NbDataToSend + i] = FLT_MAX;
+                                m_rDriverContext.getLogManager() << LogLevel_Trace << "NaN or infinite sample received.\n";
+                            }
+                            else
+                            {
+                                //data from IHM implant are in volts, must be in µvolts in openvibe
+                                m_pSample[j*l_ui32NbDataToSend + i] = 1000000.0f*l_f32Value;
+                            }*/
+                            m_pSample[j*l_ui32NbDataToSend + i] = 1000000.0f*l_f32Value;
+                        }
+                    }
+                    break;
+                default :
+                    //m_rDriverContext.getLogManager() << LogLevel_Error << "DEV ERROR : data type not suppported\n";
+                    if ( l_pResponse )
+                    {
+                        if (l_pResponse->buf) free(l_pResponse->buf);
+                        if (l_pResponse->def) free(l_pResponse->def);
+                        free(l_pResponse);
+                        l_pResponse = NULL;
+                    }
+                    return -1;
+                }//end switch
+
+            }//end data correct
+
+        }//end data received
+        m_ui32TotalSampleCount = l_ui32LastSample;
+    }
+
+    return l_ui32NbDataToSend; // no error
 }
 

@@ -63,7 +63,7 @@ namespace OpenViBEAcquisitionServer
 		OpenViBE::float32* m_pSample;
 
         bool requestHeader();
- //       OpenViBE::int32 requestChunk(OpenViBE::CStimulationSet& oStimulationSet);
+        OpenViBE::int32 requestChunk(/*OpenViBE::CStimulationSet& oStimulationSet*/);
 
         OpenViBE::uint32 m_ui32DataType;
 
