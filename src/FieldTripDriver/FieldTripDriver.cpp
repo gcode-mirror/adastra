@@ -3,9 +3,11 @@
 #include "FieldTripDriverNative.h"
 
 #include "FunctionCallback.h"
+#include <vector>
 
 using namespace System;
 using namespace System::Collections;
+using namespace System::Collections::Generic;
 using namespace OpenViBEAcquisitionServer;
 using namespace System::Runtime::InteropServices;
 
@@ -13,7 +15,7 @@ public ref class FieldTripChangeEventArgs: public System::EventArgs
 	{
 	public:
 		property System::DateTime Time;
-		property cli::array<float> ^Channels;
+		property cli::array<double> ^Channels;
 	};
 
 public delegate void CallbackFuncDelegate(float* samples,int samplesCount);
@@ -27,32 +29,33 @@ private:
 
     FieldTripDriverNative* pUnmanaged;
 
+	int sampleCount;
+
+	int m_ui32ChannelCount;
+
+	array<double>^ m_vSwapBuffer;
+
 	void Context(float* samples,int samplesCount)
 	{
 		//if (FieldTripChanged!=nullptr) //todo: check for null
 		{
-			
-			
-	       /* pin_ptr<double> clrChannels = &e->Channels[0];
 
-	        ::memcpy_s(clrChannels, info.num_channel * sizeof(double), 
-		    info.channel, info.num_channel * sizeof(double));*/
-			
-			
-
-			//todo: optimize code
-			for (int i=0;i<45;i++)
-			{
+			for(int i=0; i<samplesCount; i++)
+		    {
 				FieldTripChangeEventArgs ^e = gcnew FieldTripChangeEventArgs();
+				e->Channels = gcnew array<double>(m_vSwapBuffer->Length);
+
+				for(int j=0; j<m_ui32ChannelCount; j++)
+				{
+					//m_vSwapBuffer[j]=samples[j*samplesCount+i];
+					e->Channels[j]=samples[j*samplesCount+i];
+				}
+				
 				//todo: add time
-	            //e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
-	            e->Channels = gcnew array<float>(2);//todo: fix number of channels
-
-                e->Channels[0] = samples[i];
-				e->Channels[1] = samples[i+45];
-
+	            //e->time = vrpnutils::converttimeval(info.msg_time);
 	            FieldTripChanged(this, e);
-			}
+				
+		    }
 		}
 	}
 
@@ -68,6 +71,9 @@ public:
 		pUnmanaged = new FieldTripDriverNative();
 
 		del = gcnew CallbackFuncDelegate(this, &FieldTripDriver::Context);    
+
+		m_ui32ChannelCount = -1;
+		sampleCount=32;
 	}
     
 	~FieldTripDriver() { 
@@ -86,8 +92,14 @@ public:
 
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
 		pUnmanaged->configure();
-		initialized=pUnmanaged->initialize(45);//todo: how many samples??
-		
+		initialized=pUnmanaged->initialize(sampleCount);
+
+	    const IHeader& l_rHeader=*pUnmanaged->getHeader();
+
+	    m_ui32ChannelCount=l_rHeader.getChannelCount();
+
+		if (m_ui32ChannelCount>0)
+		   m_vSwapBuffer = gcnew array<double>(m_ui32ChannelCount);
     }
 
 	void start()
@@ -96,32 +108,14 @@ public:
 		
 		if (initialized)
 		{
-		started = pUnmanaged->start();
-
-		//if (s)
-		//for (int i=0;i<10;i++)
-		//{
-		//   float* result; 
-		//   int sampleCount;
-
-		//   //CallbackType t = &FieldTripDriver::Context;
-
-		//   //var del = &FieldTripDriver::Context;
-
-		//   pUnmanaged->loop((CallbackType)Marshal::GetFunctionPointerForDelegate(del).ToPointer());
-
-		//  /* ArrayList list=gcnew ArrayList();
-
-		//   for(int i=0;i<90;i++)
-		//   {
-		//	   double[] d=gcnew double();
-		//	   list.Add(result[i]);
-		//   }*/
+		   started = pUnmanaged->start();
 		}
 	}
 
 	void loop()
 	{
+		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+
 		if (started)
 		   pUnmanaged->loop((CallbackType)Marshal::GetFunctionPointerForDelegate(del).ToPointer());
 	}

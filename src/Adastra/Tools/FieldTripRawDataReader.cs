@@ -33,18 +33,12 @@ namespace Adastra
 
         void frv_FieldTripChanged(object sender, FieldTripChangeEventArgs e)
         {
-            //todo: make type the same 
-            double[] d = new double[e.Channels.Length];
-            for (int i = 0; i < d.Length; i++)
-            {
-                d[i]=(double)e.Channels[i];
-            }
-            Values(d);
+            Values(e.Channels);
         }
 
         public double AdjustChannel(int number, double value)
         {
-            return value/2000 + number;
+            return number + value/2000;//2000 + number;
         }
 
         public string ChannelName(int number)
