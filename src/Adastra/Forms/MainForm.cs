@@ -48,7 +48,9 @@ namespace Adastra
 			textBoxOpenVibeWorkingFolder.Text = OpenVibeController.DetectOpenVibeInstallFolder();
 			textBoxScenario.Text = AdastraConfig.GetOpenVibeScenarioFolder();
 
-			rbuttonOpenVibe.Checked = true;
+			//rbuttonOpenVibe.Checked = true;
+            rbuttonFieldTrip.Checked = true;
+
 			if (comboBoxScenarioType.Items.Count > 0) comboBoxScenarioType.SelectedIndex = 0;
 
 			InitOpenVibeWorker();
@@ -56,10 +58,6 @@ namespace Adastra
 			textBoxEmotivFile.Text = AdastraConfig.GetRecordsFolder() + "mitko-small.csv";
 
 			comboBoxDSP.SelectedIndex = 0;
-
-            FieldTripDriver d = new FieldTripDriver();
-            d.initialize();
-            d.start();
 		}
 
 		void InitOpenVibeWorker()
@@ -100,10 +98,9 @@ namespace Adastra
                         case 2: dsp = new EMDProcessor(); break;
                     }
 
-                    dataReader = new FieldTripRawDataReader();
-                    //if (rbuttonEmotivSignal.Checked)
-                    //    dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
-                    //else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+                    if (rbuttonEmotivSignal.Checked)
+                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
+                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
                     featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
                 }
@@ -112,6 +109,8 @@ namespace Adastra
                     featureGenerator = new OpenVibeFeatureGenerator();
                     dataReader = new OpenVibeRawDataReader();
                 }
+                else if (rbuttonFieldTrip.Checked)
+                    dataReader = new FieldTripRawDataReader();
 
                 #endregion
 
@@ -130,7 +129,7 @@ namespace Adastra
                     };
                 }
                 else
-                    if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked)
+                    if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked || rbuttonFieldTrip.Checked)
                     {
                         switch (comboBoxScenarioType.SelectedIndex)
                         {
@@ -422,6 +421,22 @@ namespace Adastra
             groupBoxCharting.Visible = false;
         }
 
+        private void rbuttonFieldTrip_CheckedChanged(object sender, EventArgs e)
+        {
+            int lastSelectedIndex = comboBoxScenarioType.SelectedIndex;
+
+            if (rbuttonEmotiv.Checked)
+                rbuttonOpenVibe.Checked = false;
+
+            comboBoxScenarioType.Items.Clear();
+
+            comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
+
+            if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
+                comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
+            else comboBoxScenarioType.SelectedIndex = 0;
+        }
+
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenLinkInBrowser("http://code.google.com/p/adastra/wiki/UsageTutorial");
@@ -467,6 +482,6 @@ namespace Adastra
         private void octaveDownloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenLinkInBrowser("http://sourceforge.net/projects/octave/files/Octave_Windows%20-%20MinGW/");
-        }
+        }    
     }
 }
