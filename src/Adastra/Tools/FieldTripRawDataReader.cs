@@ -12,8 +12,7 @@ namespace Adastra
         bool started = false;
 
 		public FieldTripRawDataReader()
-		{
-            
+		{           
 		}
 
 		public event RawDataChangedEventHandler Values;
@@ -25,10 +24,10 @@ namespace Adastra
               frv.initialize();
               frv.start();
               frv.FieldTripChanged += new FieldTripEventHandler(frv_FieldTripChanged);
+              started = true;
             }
 
             frv.loop();
-
 		}
 
         void frv_FieldTripChanged(object sender, FieldTripChangeEventArgs e)
