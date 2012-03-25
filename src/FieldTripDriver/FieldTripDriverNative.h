@@ -16,6 +16,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "FunctionCallback.h"
+
 using namespace std;
 
 namespace OpenViBEAcquisitionServer
@@ -47,7 +49,7 @@ namespace OpenViBEAcquisitionServer
 
 	virtual OpenViBE::boolean start(void);
 	virtual OpenViBE::boolean stop(void);
-    virtual OpenViBE::boolean loop(void);
+    virtual OpenViBE::boolean loop(CallbackType);
 
     //virtual OpenViBE::boolean isConfigurable(void);
 	virtual OpenViBE::boolean configure(void);

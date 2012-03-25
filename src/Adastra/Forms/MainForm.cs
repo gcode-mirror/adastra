@@ -59,6 +59,7 @@ namespace Adastra
 
             FieldTripDriver d = new FieldTripDriver();
             d.initialize();
+            d.start();
 		}
 
 		void InitOpenVibeWorker()

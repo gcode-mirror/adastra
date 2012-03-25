@@ -118,6 +118,9 @@
     <ClCompile Include="fieldtrip_buffer\src\util.c" />
     <ClCompile Include="fieldtrip_buffer\src\win32\gettimeofday.c" />
     <ClCompile Include="fieldtrip_buffer\src\win32\poll.c" />
+    <ClInclude Include="FunctionCallback.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClCompile Include="ovasCHeader.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

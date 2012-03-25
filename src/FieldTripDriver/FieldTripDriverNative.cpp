@@ -151,7 +151,7 @@ OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::start(void)
 	return true;
 }
 
-OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::loop(void)
+OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::loop(CallbackType context)
 {
 	//if (!m_rDriverContext.isConnected()) return false;
 	//if (!m_rDriverContext.isStarted()) return true;
@@ -173,44 +173,10 @@ OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::loop(void)
     {
         return true;
     }
-//	m_pCallback->setSamples(m_pSample, l_iSampleCount);
 
-    if (m_bGetCpuTime)
-    {
-        m_ui32mesureNumber++;
-//        float64 clocktime1 = GetCPUTimeInMilliseconds();
-        for (uint32 i = 0; i < l_iSampleCount; i++)
-        {
-            if (m_pSample[m_ui32DetectionChannel*l_iSampleCount + i]!=FLT_MAX)
-            {
-                if (!m_bWasDetected)
-                {
-                    if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] >= m_f64DetectionThreshold )
-                      ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] <= m_f64DetectionThreshold ))
-                    {
-                        //float64 clocktime = GetCPUTimeInMilliseconds();
-                        //fprintf(m_myfile, "%.6f \n", clocktime);
-                        m_bWasDetected = true;
-                    }
-                }
-                else
-                {
-                    if ( ( m_bDetectionHigher  && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] < m_f64DetectionThreshold )
-                      ||( !m_bDetectionHigher && m_pSample[m_ui32DetectionChannel*l_iSampleCount + i] > m_f64DetectionThreshold ))
-                    {
-                        m_bWasDetected = false;
-                    }
-                }
-            }
-        }//end for
-
-        //float64 clocktime2 = GetCPUTimeInMilliseconds();
-        //m_f64mesureLostTime += (clocktime2 - clocktime1);
-    } // end get cpu time
-
-//	m_pCallback->setStimulationSet(l_oStimulationSet);
-
-//    m_rDriverContext.correctDriftSampleCount(m_rDriverContext.getSuggestedDriftCorrectionSampleCount());
+	//*outSample = m_pSample;
+	//*outSampleCount = l_iSampleCount;
+	context(m_pSample,l_iSampleCount);
 
     return true;
 }
