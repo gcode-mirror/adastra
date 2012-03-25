@@ -194,6 +194,7 @@
     <Compile Include="Tools\EmotivFileSystemDataReader.cs" />
     <Compile Include="Tools\EEGRecordStorage.cs" />
     <Compile Include="Tools\EmotivRawDataReader.cs" />
+    <Compile Include="Tools\FieldTripRawDataReader.cs" />
     <Compile Include="Tools\ModelStorage.cs" />
     <Compile Include="Tools\NMFFeatureGenerator.cs" />
     <Compile Include="Tools\OctaveController.cs" />

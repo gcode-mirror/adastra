@@ -13,7 +13,7 @@ public ref class FieldTripChangeEventArgs: public System::EventArgs
 	{
 	public:
 		property System::DateTime Time;
-		property cli::array<double> ^Channels;
+		property cli::array<float> ^Channels;
 	};
 
 public delegate void CallbackFuncDelegate(float* samples,int samplesCount);
@@ -29,11 +29,37 @@ private:
 
 	void Context(float* samples,int samplesCount)
 	{
-		//throw event 
+		//if (FieldTripChanged!=nullptr) //todo: check for null
+		{
+			
+			
+	       /* pin_ptr<double> clrChannels = &e->Channels[0];
+
+	        ::memcpy_s(clrChannels, info.num_channel * sizeof(double), 
+		    info.channel, info.num_channel * sizeof(double));*/
+			
+			
+
+			//todo: optimize code
+			for (int i=0;i<45;i++)
+			{
+				FieldTripChangeEventArgs ^e = gcnew FieldTripChangeEventArgs();
+				//todo: add time
+	            //e->Time = VrpnUtils::ConvertTimeval(info.msg_time);
+	            e->Channels = gcnew array<float>(2);//todo: fix number of channels
+
+                e->Channels[0] = samples[i];
+				e->Channels[1] = samples[i+45];
+
+	            FieldTripChanged(this, e);
+			}
+		}
 	}
 
 	CallbackFuncDelegate^ del;
 
+	bool initialized;
+	bool started;
 
 public:
 
@@ -48,46 +74,56 @@ public:
 		pUnmanaged->uninitialize();
 		delete pUnmanaged; pUnmanaged = 0; 
 	}
+	//todo: is this needed
     /*!FieldTripDriver() { ?????????
 		pUnmanaged->uninitialize();
 		delete pUnmanaged; 
 	}*/
 
-	event FieldTripEventHandler^ AnalogChanged;
+	event FieldTripEventHandler^ FieldTripChanged;
 
     void initialize() { 
 
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
 		pUnmanaged->configure();
-		bool b=pUnmanaged->initialize(45);//how many samples??
+		initialized=pUnmanaged->initialize(45);//todo: how many samples??
 		
     }
 
 	void start()
 	{
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
-		bool s = pUnmanaged->start();
-
-		if (s)
-		for (int i=0;i<10;i++)
+		
+		if (initialized)
 		{
-		   float* result; 
-		   int sampleCount;
+		started = pUnmanaged->start();
 
-		   //CallbackType t = &FieldTripDriver::Context;
+		//if (s)
+		//for (int i=0;i<10;i++)
+		//{
+		//   float* result; 
+		//   int sampleCount;
 
-		   //var del = &FieldTripDriver::Context;
+		//   //CallbackType t = &FieldTripDriver::Context;
 
-		   pUnmanaged->loop((CallbackType)Marshal::GetFunctionPointerForDelegate(del).ToPointer());
+		//   //var del = &FieldTripDriver::Context;
 
-		  /* ArrayList list=gcnew ArrayList();
+		//   pUnmanaged->loop((CallbackType)Marshal::GetFunctionPointerForDelegate(del).ToPointer());
 
-		   for(int i=0;i<90;i++)
-		   {
-			   double[] d=gcnew double();
-			   list.Add(result[i]);
-		   }*/
+		//  /* ArrayList list=gcnew ArrayList();
+
+		//   for(int i=0;i<90;i++)
+		//   {
+		//	   double[] d=gcnew double();
+		//	   list.Add(result[i]);
+		//   }*/
 		}
+	}
+
+	void loop()
+	{
+		if (started)
+		   pUnmanaged->loop((CallbackType)Marshal::GetFunctionPointerForDelegate(del).ToPointer());
 	}
 };
 

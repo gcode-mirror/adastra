@@ -100,9 +100,10 @@ namespace Adastra
                         case 2: dsp = new EMDProcessor(); break;
                     }
 
-                    if (rbuttonEmotivSignal.Checked)
-                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
-                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+                    dataReader = new FieldTripRawDataReader();
+                    //if (rbuttonEmotivSignal.Checked)
+                    //    dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
+                    //else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
                     featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
                 }
