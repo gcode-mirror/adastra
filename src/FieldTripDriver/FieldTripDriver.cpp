@@ -1,7 +1,4 @@
-#include "StdAfx.h"
-
 #include "FieldTripDriverNative.h"
-
 #include "FunctionCallback.h"
 #include <vector>
 
@@ -13,7 +10,7 @@ using namespace System::Runtime::InteropServices;
 
 public ref class FieldTripChangeEventArgs: public System::EventArgs
 	{
-	public:
+	  public:
 		property System::DateTime Time;
 		property cli::array<double> ^Channels;
 	};
@@ -35,39 +32,40 @@ private:
 
 	array<double>^ m_vSwapBuffer;
 
+	CallbackFuncDelegate^ del;
+
+	bool initialized;
+
+	bool started;
+
 	void Context(float* samples,int samplesCount)
 	{
-		//if (FieldTripChanged!=nullptr) //todo: check for null
+		//if (FieldTripChanged!=nullptr) //todo: check if anyone registered
 		{
-
 			for(int i=0; i<samplesCount; i++)
 		    {
 				FieldTripChangeEventArgs ^e = gcnew FieldTripChangeEventArgs();
 				e->Channels = gcnew array<double>(m_vSwapBuffer->Length);
 
+				//drift correction should be performed here
 				for(int j=0; j<m_ui32ChannelCount; j++)
 				{
 					//m_vSwapBuffer[j]=samples[j*samplesCount+i];
 					e->Channels[j]=samples[j*samplesCount+i];
 				}
 				
-				//todo: add time
-	            //e->time = vrpnutils::converttimeval(info.msg_time);
+				e->Time = System::DateTime::Now;
 	            FieldTripChanged(this, e);
-				
 		    }
 		}
 	}
 
-	CallbackFuncDelegate^ del;
-
-	bool initialized;
-	bool started;
-
 public:
 
-    FieldTripDriver() { 
-		
+	event FieldTripEventHandler^ FieldTripChanged;
+
+    FieldTripDriver() 
+	{ 
 		pUnmanaged = new FieldTripDriverNative();
 
 		del = gcnew CallbackFuncDelegate(this, &FieldTripDriver::Context);    
@@ -76,26 +74,28 @@ public:
 		sampleCount=32;
 	}
     
-	~FieldTripDriver() { 
-		pUnmanaged->uninitialize();
-		delete pUnmanaged; pUnmanaged = 0; 
-	}
-	//todo: is this needed
-    /*!FieldTripDriver() { ?????????
+	~FieldTripDriver() 
+	{ 
 		pUnmanaged->uninitialize();
 		delete pUnmanaged; 
-	}*/
+		pUnmanaged = 0; 
+	}
 
-	event FieldTripEventHandler^ FieldTripChanged;
+	
+    !FieldTripDriver() //finalizer
+	{
+		pUnmanaged->uninitialize();
+		delete pUnmanaged; 
+	}
 
     void initialize() { 
 
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+		
 		pUnmanaged->configure();
 		initialized=pUnmanaged->initialize(sampleCount);
 
 	    const IHeader& l_rHeader=*pUnmanaged->getHeader();
-
 	    m_ui32ChannelCount=l_rHeader.getChannelCount();
 
 		if (m_ui32ChannelCount>0)

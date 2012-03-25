@@ -2,12 +2,10 @@
 
 #include "stdafx.h"
 #include <string>
-using namespace std;
-
-
 #include "FieldTripDriverNative.h"
 #include "fieldtrip_buffer\src\buffer.h"
 #include "ov_types.h"
+using namespace std;
 using namespace OpenViBE;
 
 OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
@@ -21,7 +19,7 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
     ,m_i32ConnectionID(-1)
     ,m_ui32DataType(DATATYPE_UNKNOWN)
     ,m_bFirstGetDataRequest(false)
-    ,m_myfile(NULL)
+    //,m_myfile(NULL)
     ,m_ui32MinSamples(1)
     ,m_bCorrectNonIntegerSR(true)
 {
@@ -36,11 +34,11 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
     m_pGetData_Request->def = new messagedef_t();
     m_pGetData_Request->buf = NULL;
 
-	m_bGetCpuTime = false;
+	//m_bGetCpuTime = false;
     //m_sMeasureFolder = "D:/get_cpu_time/";
-    m_f64DetectionThreshold = 0.0;
-    m_bDetectionHigher = true;
-    m_ui32DetectionChannel = 0;
+    //m_f64DetectionThreshold = 0.0;
+    //m_bDetectionHigher = true;
+    //m_ui32DetectionChannel = 0;
 }
 
 bool OpenViBEAcquisitionServer::FieldTripDriverNative::
@@ -204,17 +202,17 @@ OpenViBE::boolean OpenViBEAcquisitionServer::FieldTripDriverNative::uninitialize
 	m_pSample=NULL;
 	//m_pCallback=NULL;
     
-    if (m_myfile)
+   /* if (m_myfile)
     {
-        /*if (m_bGetCpuTime)
+        if (m_bGetCpuTime)
         {
             fprintf(m_myfile, "*** mesure lost time : %.6f \n", m_f64mesureLostTime);
             fprintf(m_myfile, "*** mesure number : %.6f \n", (float64) m_ui32mesureNumber);
             fprintf(m_myfile, "*** average : %.6f ms per mesure\n", m_f64mesureLostTime/m_ui32mesureNumber);
-        } */
+        } 
         fclose(m_myfile);
         m_myfile = NULL;
-    }
+    }*/
 
 	return true;
 }
