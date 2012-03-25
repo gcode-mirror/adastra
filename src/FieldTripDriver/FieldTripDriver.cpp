@@ -13,16 +13,42 @@ private:
 public:
 
     FieldTripDriver() { pUnmanaged = new FieldTripDriverNative(); }
-    ~FieldTripDriver() { delete pUnmanaged; pUnmanaged = 0; }
-    !FieldTripDriver() { delete pUnmanaged; }
+    
+	~FieldTripDriver() { 
+		pUnmanaged->uninitialize();
+		delete pUnmanaged; pUnmanaged = 0; 
+	}
+    /*!FieldTripDriver() { 
+		pUnmanaged->uninitialize();
+		delete pUnmanaged; 
+	}*/
 
     void initialize() { 
 
-		pUnmanaged->initialize(45);
-
-/*        if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
-        pUnmanaged->sampleMethod();*/ 
+		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+		bool b=pUnmanaged->initialize(45);//how many samples??
+		//pUnmanaged->configure();
     }
+
+	void start()
+	{
+		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+		bool s = pUnmanaged->start();
+
+		if (s)
+		for (int i=0;i<10;i++)
+		{
+		   pUnmanaged->loop();
+		}
+	}
+
+	/*void loop()
+	{
+		for (int i=0;i<10;i++)
+		{
+		   pUnmanaged->loop();
+		}
+	}*/
 };
 
 

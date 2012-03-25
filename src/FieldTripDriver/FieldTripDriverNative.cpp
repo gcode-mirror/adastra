@@ -35,6 +35,12 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
     m_pGetData_Request = new message_t();
     m_pGetData_Request->def = new messagedef_t();
     m_pGetData_Request->buf = NULL;
+
+	m_bGetCpuTime = false;
+    //m_sMeasureFolder = "D:/get_cpu_time/";
+    m_f64DetectionThreshold = 0.0;
+    m_bDetectionHigher = true;
+    m_ui32DetectionChannel = 0;
 }
 
 bool OpenViBEAcquisitionServer::FieldTripDriverNative::
