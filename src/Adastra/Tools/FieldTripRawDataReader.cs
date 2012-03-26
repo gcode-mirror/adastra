@@ -48,7 +48,11 @@ namespace Adastra
 
         public string ChannelName(int number)
         {
-            return (number + 1).ToString();
+            if (frv.FoundChannelNames())
+            {
+                return frv.GetChannelName(number);
+            }
+            else return (number + 1).ToString();
         }
     }
 }

@@ -33,17 +33,28 @@ namespace OpenViBEAcquisitionServer
 
 		FieldTripDriverNative();
 		FieldTripDriverNative(string hostname, int port);
-		virtual ~FieldTripDriverNative(void);
+		~FieldTripDriverNative(void);
 		
-		virtual bool initialize(const OpenViBE::uint32 ui32SampleCountPerSentBlock);
-		virtual OpenViBE::boolean uninitialize(void);
+		bool initialize(const OpenViBE::uint32 ui32SampleCountPerSentBlock);
+		OpenViBE::boolean uninitialize(void);
 
-		virtual OpenViBE::boolean start(void);
-		virtual OpenViBE::boolean stop(void);
-		virtual OpenViBE::boolean loop(CallbackType);
+		OpenViBE::boolean start(void);
+		OpenViBE::boolean stop(void);
+		OpenViBE::boolean loop(CallbackType);
 
-		virtual OpenViBE::boolean configure(void);
-		virtual const OpenViBEAcquisitionServer::IHeader* getHeader(void) { return &m_oHeader; }
+		OpenViBE::boolean configure(void);
+		const OpenViBEAcquisitionServer::IHeader* getHeader(void) { return &m_oHeader; }
+
+		bool FoundChannelNames(){ return l_bFoundChannelNames;}
+
+		std::string GetChannelName(const OpenViBE::uint32 index)
+		{
+			if (index>=0 && index<m_oHeader.getChannelCount())
+			{
+				return m_oHeader.getChannelName(index);
+			}
+			return "";
+		}
 
 	protected:
 
@@ -78,6 +89,7 @@ namespace OpenViBEAcquisitionServer
         OpenViBE::float64 m_f64DiffPerSample; // ???
         OpenViBE::float64 m_f64DriftSinceLastCorrection;
 
+		OpenViBE::boolean l_bFoundChannelNames;
         // edges detection for "get cpu time"
         /*FILE* m_myfile;
         bool m_bWasDetected;

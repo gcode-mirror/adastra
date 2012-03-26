@@ -22,6 +22,7 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
     //,m_myfile(NULL)
     ,m_ui32MinSamples(1)
     ,m_bCorrectNonIntegerSR(true)
+	,l_bFoundChannelNames(false)
 {
     m_oHeader.setSamplingFrequency(0);
 	m_oHeader.setChannelCount(0);
@@ -55,6 +56,7 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative(string h
     //,m_myfile(NULL)
     ,m_ui32MinSamples(1)
     ,m_bCorrectNonIntegerSR(true)
+	,l_bFoundChannelNames(false)
 {
     m_oHeader.setSamplingFrequency(0);
 	m_oHeader.setChannelCount(0);
@@ -359,7 +361,7 @@ bool OpenViBEAcquisitionServer::FieldTripDriverNative::requestHeader()
         {
             int l_iBytesInHeaderBuffer = l_pHeaderDef->bufsize;
             void* l_pChunk = (headerdef_t*) l_pHeaderDef + 1;
-            OpenViBE::boolean l_bFoundChannelNames = false;
+            l_bFoundChannelNames = false;
             while( l_iBytesInHeaderBuffer > 0 )
             { 
                 if ( ((ft_chunk_t*)l_pChunk)->def.type == FT_CHUNK_CHANNEL_NAMES )
@@ -386,7 +388,7 @@ bool OpenViBEAcquisitionServer::FieldTripDriverNative::requestHeader()
                 for ( uint32 i = 0; i < l_pHeaderDef->nchans; i++ )
                 {
                     char l_sName[1024];
-                    sprintf(l_sName, "Channel %i", i);
+                    //sprintf(l_sName, "Channel %i", i);
                     m_oHeader.setChannelName(i, l_sName);
                 }
             }

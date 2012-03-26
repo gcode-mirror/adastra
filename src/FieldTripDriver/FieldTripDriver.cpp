@@ -133,6 +133,20 @@ public:
 		if (started)
 		   pUnmanaged->loop((CallbackType)Marshal::GetFunctionPointerForDelegate(del).ToPointer());
 	}
+
+	bool FoundChannelNames()
+	{
+		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+
+		return pUnmanaged->FoundChannelNames();
+	}
+
+	System::String^ GetChannelName(int index)
+	{
+		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+
+		return marshal_as<System::String^>(pUnmanaged->GetChannelName(index));
+	}
 };
 
 
