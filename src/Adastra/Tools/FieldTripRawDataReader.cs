@@ -43,16 +43,19 @@ namespace Adastra
 
         public double AdjustChannel(int number, double value)
         {
-            return number + value/2000;//2000 + number;
+            return number + value/2000;
         }
 
         public string ChannelName(int number)
         {
             if (frv.FoundChannelNames())
             {
-                return frv.GetChannelName(number);
+                string name=frv.GetChannelName(number);
+                if (!string.IsNullOrEmpty(name))
+                    return name;
             }
-            else return (number + 1).ToString();
+            
+            return (number + 1).ToString();
         }
     }
 }
