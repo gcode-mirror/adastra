@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.ComponentModel;
 using System.Collections.Concurrent;
+using System.Configuration;
 
 using Adastra;
 using System.Windows.Controls;
@@ -31,6 +32,9 @@ namespace WPF
         int maxpoints = 180;
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        int delay = Convert.ToInt32(ConfigurationManager.AppSettings["ChartingDelayInMs"]);
+        
         #endregion
 
         public OutputWindow(IRawDataReader p_dataReader,int height,int width)
@@ -97,7 +101,7 @@ namespace WPF
                     i++;
                 }
 
-                Thread.Sleep(10);
+                Thread.Sleep(delay);//10
             }
         }
 
@@ -106,9 +110,9 @@ namespace WPF
             while (!p_asyncWorker.CancellationPending)
             {
                 dataReader.Update();
-                System.Threading.Thread.Sleep(50);
+                System.Threading.Thread.Sleep(delay);//50
                 p_asyncWorker.ReportProgress(-1, null);
-                System.Threading.Thread.Sleep(50);
+                System.Threading.Thread.Sleep(delay);//50
             }
         }
 
