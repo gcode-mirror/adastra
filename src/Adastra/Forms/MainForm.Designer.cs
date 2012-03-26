@@ -70,10 +70,17 @@
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
             this.rbuttonExperimentator = new System.Windows.Forms.RadioButton();
             this.rbuttonFieldTrip = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tboxFieldTripHost = new System.Windows.Forms.TextBox();
+            this.ndFieldTripPort = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxCharting.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ndFieldTripPort)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonStart
@@ -112,13 +119,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -131,41 +138,41 @@
             this.openVibesHomepageToolStripMenuItem,
             this.octaveDownloadToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // tutorialToolStripMenuItem
             // 
             this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.tutorialToolStripMenuItem.Text = "Tutorial";
             this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // homepageToolStripMenuItem
             // 
             this.homepageToolStripMenuItem.Name = "homepageToolStripMenuItem";
-            this.homepageToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.homepageToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.homepageToolStripMenuItem.Text = "Adastra\'s homepage";
             this.homepageToolStripMenuItem.Click += new System.EventHandler(this.homepageToolStripMenuItem_Click);
             // 
             // openVibesHomepageToolStripMenuItem
             // 
             this.openVibesHomepageToolStripMenuItem.Name = "openVibesHomepageToolStripMenuItem";
-            this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.openVibesHomepageToolStripMenuItem.Text = "OpenVibe\'s homepage";
             this.openVibesHomepageToolStripMenuItem.Click += new System.EventHandler(this.openVibesHomepageToolStripMenuItem_Click);
             // 
             // octaveDownloadToolStripMenuItem
             // 
             this.octaveDownloadToolStripMenuItem.Name = "octaveDownloadToolStripMenuItem";
-            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.octaveDownloadToolStripMenuItem.Text = "Octave download";
             this.octaveDownloadToolStripMenuItem.Click += new System.EventHandler(this.octaveDownloadToolStripMenuItem_Click);
             // 
@@ -484,11 +491,73 @@
             this.rbuttonFieldTrip.UseVisualStyleBackColor = true;
             this.rbuttonFieldTrip.CheckedChanged += new System.EventHandler(this.rbuttonFieldTrip_CheckedChanged);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.ndFieldTripPort);
+            this.groupBox3.Controls.Add(this.tboxFieldTripHost);
+            this.groupBox3.Location = new System.Drawing.Point(128, 320);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(566, 54);
+            this.groupBox3.TabIndex = 27;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "FieldTrip settings";
+            // 
+            // tboxFieldTripHost
+            // 
+            this.tboxFieldTripHost.Location = new System.Drawing.Point(53, 20);
+            this.tboxFieldTripHost.Name = "tboxFieldTripHost";
+            this.tboxFieldTripHost.Size = new System.Drawing.Size(276, 20);
+            this.tboxFieldTripHost.TabIndex = 0;
+            this.tboxFieldTripHost.Text = "localhost";
+            // 
+            // ndFieldTripPort
+            // 
+            this.ndFieldTripPort.Location = new System.Drawing.Point(404, 20);
+            this.ndFieldTripPort.Maximum = new decimal(new int[] {
+            65000,
+            0,
+            0,
+            0});
+            this.ndFieldTripPort.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.ndFieldTripPort.Name = "ndFieldTripPort";
+            this.ndFieldTripPort.Size = new System.Drawing.Size(63, 20);
+            this.ndFieldTripPort.TabIndex = 1;
+            this.ndFieldTripPort.Value = new decimal(new int[] {
+            1979,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Host:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(369, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Port:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 507);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.rbuttonFieldTrip);
             this.Controls.Add(this.rbuttonExperimentator);
             this.Controls.Add(this.groupBoxCharting);
@@ -514,6 +583,9 @@
             this.groupBox2.PerformLayout();
             this.groupBoxCharting.ResumeLayout(false);
             this.groupBoxCharting.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ndFieldTripPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -561,6 +633,11 @@
         private System.Windows.Forms.RadioButton rbuttonExperimentator;
         private System.Windows.Forms.ToolStripMenuItem octaveDownloadToolStripMenuItem;
         private System.Windows.Forms.RadioButton rbuttonFieldTrip;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown ndFieldTripPort;
+        private System.Windows.Forms.TextBox tboxFieldTripHost;
     }
 }
 

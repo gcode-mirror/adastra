@@ -110,7 +110,7 @@ namespace Adastra
                     dataReader = new OpenVibeRawDataReader();
                 }
                 else if (rbuttonFieldTrip.Checked)
-                    dataReader = new FieldTripRawDataReader();
+                    dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text,Convert.ToInt32(this.ndFieldTripPort.Value));
 
                 #endregion
 

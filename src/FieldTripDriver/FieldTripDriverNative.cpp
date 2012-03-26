@@ -41,6 +41,33 @@ OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative()
     //m_ui32DetectionChannel = 0;
 }
 
+OpenViBEAcquisitionServer::FieldTripDriverNative::FieldTripDriverNative(string hostname, int port)
+	:
+    //IDriver(rDriverContext)
+	//m_pCallback(NULL)
+	m_ui32SampleCountPerSentBlock(0)
+	,m_pSample(NULL)
+    ,m_sHostName(hostname)
+    ,m_ui32PortNumber(port)
+    ,m_i32ConnectionID(-1)
+    ,m_ui32DataType(DATATYPE_UNKNOWN)
+    ,m_bFirstGetDataRequest(false)
+    //,m_myfile(NULL)
+    ,m_ui32MinSamples(1)
+    ,m_bCorrectNonIntegerSR(true)
+{
+    m_oHeader.setSamplingFrequency(0);
+	m_oHeader.setChannelCount(0);
+
+    m_pWaitData_Request = new message_t();
+    m_pWaitData_Request->def = new messagedef_t();
+    m_pWaitData_Request->buf = NULL;
+
+    m_pGetData_Request = new message_t();
+    m_pGetData_Request->def = new messagedef_t();
+    m_pGetData_Request->buf = NULL;
+}
+
 bool OpenViBEAcquisitionServer::FieldTripDriverNative::
 	initialize(const OpenViBE::uint32 ui32SampleCountPerSentBlock)
 {

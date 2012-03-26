@@ -7,13 +7,19 @@ namespace Adastra
 {
     public class FieldTripRawDataReader : IRawDataReader
     {
-        FieldTripDriver frv=new FieldTripDriver();
+        FieldTripDriver frv;
 
         bool started = false;
 
 		public FieldTripRawDataReader()
-		{           
+		{
+            frv = new FieldTripDriver();
 		}
+
+        public FieldTripRawDataReader(string host,int port)
+        {
+            frv = new FieldTripDriver(host,port);
+        }
 
 		public event RawDataChangedEventHandler Values;
 

@@ -32,6 +32,7 @@ namespace OpenViBEAcquisitionServer
 	public:
 
 		FieldTripDriverNative();
+		FieldTripDriverNative(string hostname, int port);
 		virtual ~FieldTripDriverNative(void);
 		
 		virtual bool initialize(const OpenViBE::uint32 ui32SampleCountPerSentBlock);

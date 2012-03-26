@@ -2,11 +2,15 @@
 #include "FunctionCallback.h"
 #include <vector>
 
+#include <msclr\marshal.h>
+#include <msclr\marshal_cppstd.h> //for marshal from string^ to std::string
+
 using namespace System;
 using namespace System::Collections;
 using namespace System::Collections::Generic;
 using namespace OpenViBEAcquisitionServer;
 using namespace System::Runtime::InteropServices;
+using namespace msclr::interop; //for marshal_as
 
 public ref class FieldTripChangeEventArgs: public System::EventArgs
 	{
@@ -67,6 +71,16 @@ public:
     FieldTripDriver() 
 	{ 
 		pUnmanaged = new FieldTripDriverNative();
+
+		del = gcnew CallbackFuncDelegate(this, &FieldTripDriver::Context);    
+
+		m_ui32ChannelCount = -1;
+		sampleCount=32;
+	}
+
+	FieldTripDriver(System::String^ hostname,int port) 
+	{ 
+		pUnmanaged = new FieldTripDriverNative(marshal_as<std::string>(hostname),port);
 
 		del = gcnew CallbackFuncDelegate(this, &FieldTripDriver::Context);    
 
