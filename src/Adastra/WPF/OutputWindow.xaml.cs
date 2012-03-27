@@ -29,12 +29,11 @@ namespace WPF
 
         static long x = 0; //x axis for evey chart
 
-        int maxpoints = 180;
+        int maxpoints = Convert.ToInt32(ConfigurationManager.AppSettings["Charting.PointsBuffer"]);
+        int delay = Convert.ToInt32(ConfigurationManager.AppSettings["Charting.DelayInMs"]);
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        int delay = Convert.ToInt32(ConfigurationManager.AppSettings["ChartingDelayInMs"]);
-        
         #endregion
 
         public OutputWindow(IRawDataReader p_dataReader,int height,int width)
