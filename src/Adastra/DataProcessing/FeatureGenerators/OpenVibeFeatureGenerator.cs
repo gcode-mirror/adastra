@@ -10,30 +10,37 @@ namespace Adastra
 {
     public class OpenVibeFeatureGenerator : IFeatureGenerator
     {
-        AnalogRemote analog;
+        //AnalogRemote analog;
+        IRawDataReader reader;
 
         public OpenVibeFeatureGenerator()
         {
-            string server = ConfigurationManager.AppSettings["OpenVibeVRPNStreamer"];
-            analog = new AnalogRemote(server);
-            analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
-            analog.MuteWarnings = true;
+            //string server = ConfigurationManager.AppSettings["OpenVibeVRPNStreamer"];
+            //analog = new AnalogRemote(server);
+            //analog.AnalogChanged += new AnalogChangeEventHandler(analog_AnalogChanged);
+            //analog.MuteWarnings = true;
+            reader = new OpenVibeRawDataReader();
         }
 
         /// <summary>
         /// Request a new value (a set of values)
         /// </summary>
-        public void Update()
-        {
-            analog.Update();
-        }
+        //public void Update()
+        //{
+        //    analog.Update();
+        //}
 
-        public event ChangedFeaturesEventHandler Values;
+        //public event ChangedFeaturesEventHandler Values;
 
-        private void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
+        //private void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
+        //{
+        //    if (Values!=null)
+        //       Values(e.Channels);
+        //}
+
+        public double[] GetNextFeatureVector()
         {
-            if (Values!=null)
-               Values(e.Channels);
+            return reader.GetNextSample();
         }
     }
 }

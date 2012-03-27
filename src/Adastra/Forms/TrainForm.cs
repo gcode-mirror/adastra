@@ -56,7 +56,7 @@ namespace Adastra
             InitializeComponent();
 
             this.fg = fg;
-            fg.Values += new ChangedFeaturesEventHandler(ovfg_Values);
+            //fg.Values += new ChangedFeaturesEventHandler(ovfg_Values);
 
             comboBoxSelectedClass.SelectedIndex = 0;
             comboBoxRecordTime.SelectedIndex = 0;
@@ -173,7 +173,8 @@ namespace Adastra
 
             while (!bwAsync.CancellationPending)
             {
-                fg.Update();
+                ovfg_Values(fg.GetNextFeatureVector());
+                //fg.Update();
             }
 
             if (bwAsync.CancellationPending) e.Cancel = true;

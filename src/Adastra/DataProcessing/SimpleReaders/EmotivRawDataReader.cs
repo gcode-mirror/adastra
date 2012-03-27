@@ -21,12 +21,14 @@ namespace Adastra
         public EmotivRawDataReader()
         {
             Init();
+            data = null;
         }
 
         public EmotivRawDataReader(IDigitalSignalProcessor dsp)
         {
             Init();
             this.dsp = dsp;
+            data = null;
         }
 
         private void Init()
@@ -58,33 +60,47 @@ namespace Adastra
         //                    ", T8, FC6, F4,F8, AF4,GYROX, GYROY, TIMESTAMP, ES_TIMESTAMP" +
         //                    "FUNC_ID, FUNC_VALUE, MARKER, SYNC_SIGNAL,";
 
-        public void Update()
+        int valuesLeft;
+        Dictionary<EdkDll.EE_DataChannel_t, double[]> data;
+
+        public double[] GetNextSample()
         {
             // Handle any waiting events
             engine.ProcessEvents();
 
             // If the user has not yet connected, do not proceed
             if ((int)userID == -1)
-                return;
-
-            Dictionary<EdkDll.EE_DataChannel_t, double[]> data = engine.GetData((uint)userID);
+                throw new Exception("Emotiv user nto connected!");
 
             if (data == null)
             {
-                return;
+                data = engine.GetData((uint)userID);
+                valuesLeft = data.Count;
             }
 
-            int _bufferSize = data[EdkDll.EE_DataChannel_t.TIMESTAMP].Length;
+            if (data == null)
+                throw new Exception("Could not acquire data from Emotiv!");
 
-            for (int i = 0; i < _bufferSize; i++)
+            if (valuesLeft > 0)
             {
+                valuesLeft--;
+
                 double[] result = new double[14];
-                for (int j = 3; j <= 16; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][i];
+                for (int j = 3; j <= 16; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][valuesLeft];
 
                 if (dsp != null)
                     dsp.DoWork(ref result);
 
-                Values(result);
+                if (valuesLeft == 0)
+                {
+                    data = null; //force data reload on next call of this method
+                }
+
+                return result;
+            }
+            else
+            {
+                return null; //should never go here as far as data is available to process
             }
         }
 

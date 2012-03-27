@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.Concurrent;
 
 namespace Adastra
 {
@@ -10,6 +11,7 @@ namespace Adastra
         FieldTripDriver frv;
 
         bool started = false;
+        ConcurrentQueue<double[]> bufferQueue = new ConcurrentQueue<double[]>();
 
 		public FieldTripRawDataReader()
 		{
@@ -21,24 +23,49 @@ namespace Adastra
             frv = new FieldTripDriver(host,port);
         }
 
-		public event RawDataChangedEventHandler Values;
+        //public event RawDataChangedEventHandler Values;
 
-		public void Update()
-		{
+        //public void Update()
+        //{
+        //    if (!started)
+        //    { 
+        //      frv.initialize();
+        //      frv.start();
+        //      frv.FieldTripChanged += new FieldTripEventHandler(frv_FieldTripChanged);
+        //      started = true;
+        //    }
+
+        //    frv.loop();
+        //}
+
+        public double[] GetNextSample()
+        {
             if (!started)
-            { 
-              frv.initialize();
-              frv.start();
-              frv.FieldTripChanged += new FieldTripEventHandler(frv_FieldTripChanged);
-              started = true;
+            {
+                frv.initialize();
+                frv.start();
+                frv.FieldTripChanged += new FieldTripEventHandler(frv_FieldTripChanged);
+                started = true;
             }
 
             frv.loop();
-		}
+            double[] values = null;
+
+            bool success = bufferQueue.TryDequeue(out values);
+            while (!success)
+            {
+                System.Threading.Thread.Sleep(50);
+                frv.loop();
+                success = bufferQueue.TryDequeue(out values);
+            }
+
+            return values;
+        }
 
         void frv_FieldTripChanged(object sender, FieldTripChangeEventArgs e)
         {
-            Values(e.Channels);
+            bufferQueue.Enqueue(e.Channels);
+            //Values(e.Channels);
         }
 
         public double AdjustChannel(int number, double value)

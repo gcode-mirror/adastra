@@ -49,7 +49,7 @@ namespace WPF
 			InitializeComponent();
 
             this.fg = fg;
-            fg.Values += new ChangedFeaturesEventHandler(fg_Values);
+            //fg.Values += new ChangedFeaturesEventHandler(fg_Values);
 
             listModels.SelectedIndex = -1;
             listModels.SelectionChanged += new SelectionChangedEventHandler(listModels_SelectionChanged);
@@ -163,7 +163,9 @@ namespace WPF
             buttonProcess.IsEnabled = false;
             taskClassification = Task.Factory.StartNew(() =>
             {
-                while(true) fg.Update();
+                while (true)
+                    fg_Values(fg.GetNextFeatureVector());
+                    //fg.Update();
             });
 
             progressReporterClassification.RegisterContinuation(taskClassification, () =>

@@ -39,33 +39,36 @@ namespace Adastra
 
 		public event RawDataChangedEventHandler Values;
 
-		public void Update()
+		public double[] GetNextSample()
 		{
-			if (file == null) return;
+            if (file != null)
+            {
+                double[] result = new double[14];
 
-			double[] result = new double[14];
+                string line = file.ReadLine();
 
-			string line = file.ReadLine();
+                if (line != null)
+                {
+                    string[] columns = line.Split(',');
 
-			if (line != null)
-			{
-				string[] columns = line.Split(',');
+                    for (int i = 0; i < 14; i++)
+                        result[i] = double.Parse(columns[i + 2], System.Globalization.CultureInfo.InvariantCulture);
 
-				for (int i = 0; i < 14; i++)
-                    result[i] = double.Parse(columns[i + 2], System.Globalization.CultureInfo.InvariantCulture);
+                    counter++;
 
-				counter++;
+                    if (dsp != null)
+                        dsp.DoWork(ref result);
 
-				if (dsp != null)
-					dsp.DoWork(ref result);
-
-				Values(result);
-			}
-			else
-			{
-				file.Close();
-				file = null;
-			}
+                    return result;
+                }
+                else
+                {
+                    file.Close();
+                    file = null;
+                }
+            }
+            
+            return null;
 		}
 
 		public double AdjustChannel(int number, double value)
