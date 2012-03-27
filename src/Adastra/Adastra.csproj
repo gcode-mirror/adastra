@@ -141,7 +141,6 @@
     <Compile Include="DataProcessing\SimpleReaders\EmotivRawDataReader.cs" />
     <Compile Include="DataProcessing\SimpleReaders\FieldTripRawDataReader.cs" />
     <Compile Include="DataProcessing\SimpleReaders\OpenVibeRawDataReader.cs" />
-    <Compile Include="DataProcessing\TimeEpochingReaders\SimpleTimeEpoching.cs" />
     <Compile Include="Definitions\AMLearning.cs" />
     <Compile Include="Definitions\Database.cs" />
     <Compile Include="Definitions\EEGRecord.cs" />
