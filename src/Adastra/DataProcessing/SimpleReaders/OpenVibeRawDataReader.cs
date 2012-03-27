@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
-using System.Collections.Concurrent;
 
 using Vrpn;
 
@@ -12,7 +11,6 @@ namespace Adastra
     public class OpenVibeRawDataReader : IRawDataReader
     {
         AnalogRemote analog;
-        ConcurrentQueue<double[]> bufferQueue = new ConcurrentQueue<double[]>();
 
         public OpenVibeRawDataReader()
         {
@@ -22,33 +20,18 @@ namespace Adastra
             analog.MuteWarnings = true;
         }
 
-        //public void Update()
-        //{
-        //    analog.Update();
-        //}
+        public void Update()
+        {
+            analog.Update();
+        }
 
         void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            bufferQueue.Enqueue(e.Channels);      
+            if (Values != null)
+                Values(e.Channels);
         }
 
-        public double[] GetNextSample()
-        {
-            analog.Update();
-            double[] values = null;
-
-            bool success = bufferQueue.TryDequeue(out values);
-            while (!success)
-            {
-                System.Threading.Thread.Sleep(50);
-                analog.Update();
-                success = bufferQueue.TryDequeue(out values);
-            }
-
-            return values; 
-        }
-
-        //public event RawDataChangedEventHandler Values;
+        public event RawDataChangedEventHandler Values;
 
 		public double AdjustChannel(int number,double value)
 		{

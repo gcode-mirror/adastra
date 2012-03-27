@@ -16,46 +16,38 @@ namespace Adastra
         public SimpleFeatureGenerator(IRawDataReader reader)
         {
             this.reader = reader;
-            //reader.Values += new RawDataChangedEventHandler(er_Values);
+            reader.Values += new RawDataChangedEventHandler(er_Values);
         }
 
         public SimpleFeatureGenerator(IRawDataReader reader, IDigitalSignalProcessor dsp)
         {
             this.dsp = dsp;
             this.reader = reader;
-            //reader.Values += new RawDataChangedEventHandler(er_Values);
+            reader.Values += new RawDataChangedEventHandler(er_Values);
         }
 
-        public double[] GetNextFeatureVector()
+        public void Update()
         {
-            double[] rawData = reader.GetNextSample();
+            reader.Update();
+        }
+
+        void er_Values(double[] rawData)
+        {
             //Filter signal
             if (dsp != null)
                 dsp.DoWork(ref rawData);
 
+            //time slicing 
+
             //Generate feature vectors
             double[] featureVectors = rawData;
 
-            return featureVectors;
+            //send feature vectors
+            if (Values != null)
+                Values(featureVectors);
         }
 
-        //void er_Values(double[] rawData)
-        //{
-        //    //Filter signal
-        //    if (dsp != null)
-        //        dsp.DoWork(ref rawData);
-
-        //    //time slicing 
-
-        //    //Generate feature vectors
-        //    double[] featureVectors = rawData;
-
-        //    //send feature vectors
-        //    if (Values != null)
-        //        Values(featureVectors);
-        //}
-
-        //public event ChangedFeaturesEventHandler Values;
+        public event ChangedFeaturesEventHandler Values;
 
     }
 }

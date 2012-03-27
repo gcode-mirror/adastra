@@ -35,7 +35,7 @@ namespace Adastra
             InitializeComponent();
 
             this.fg = fg;
-            //fg.Values += new ChangedFeaturesEventHandler(fg_Values);
+            fg.Values += new ChangedFeaturesEventHandler(fg_Values);
 
             listBoxModels.SelectedIndex = -1;
 
@@ -97,8 +97,7 @@ namespace Adastra
         {
             while (!AsyncWorkerProcess.CancellationPending)
             {
-                fg_Values(fg.GetNextFeatureVector());
-                //fg.Update();
+                fg.Update();
             }
 
             if (AsyncWorkerProcess.CancellationPending) e.Cancel = true;

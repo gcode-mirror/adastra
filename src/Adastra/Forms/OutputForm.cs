@@ -79,7 +79,7 @@ namespace Adastra
             p_asyncWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(asyncWorker_RunWorkerCompleted);
             p_asyncWorker.DoWork += new DoWorkEventHandler(asyncWorker_DoWork);
 
-            //dataReader.Values += new RawDataChangedEventHandler(dataReader_Values);
+            dataReader.Values += new RawDataChangedEventHandler(dataReader_Values);
         }
 
         void dataReader_Values(double[] values)
@@ -190,8 +190,7 @@ namespace Adastra
             while (!bwAsync.CancellationPending)
             {
                 //System.Threading.Thread.Sleep(200);
-                //dataReader.Update();
-                dataReader_Values(dataReader.GetNextSample());
+                dataReader.Update();
                 System.Threading.Thread.Sleep(600);
             }
 

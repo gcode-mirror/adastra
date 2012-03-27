@@ -132,6 +132,8 @@
     <Compile Include="Algorithms\NNMFMatrix.cs" />
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
     <Compile Include="Algorithms\OctaveLogisticRegression.cs" />
+    <Compile Include="DataProcessing\Epoching\CountEpochGenerator.cs" />
+    <Compile Include="DataProcessing\FeatureGenerators\EigenVectorFeatureGenerator.cs" />
     <Compile Include="DataProcessing\FeatureGenerators\NMFFeatureGenerator.cs" />
     <Compile Include="DataProcessing\FeatureGenerators\OpenVibeFeatureGenerator.cs" />
     <Compile Include="DataProcessing\FeatureGenerators\SimpleFeatureGenerator.cs" />
@@ -145,11 +147,11 @@
     <Compile Include="Definitions\EEGRecord.cs" />
     <Compile Include="Definitions\Experiment.cs" />
     <Compile Include="Definitions\AHypothesis.cs" />
+    <Compile Include="Definitions\IEpoching.cs" />
     <Compile Include="Definitions\IDigitalSignalProcessor.cs" />
     <Compile Include="Definitions\IFeatureGenerator.cs" />
     <Compile Include="Definitions\InvalidRecordException.cs" />
     <Compile Include="Definitions\IRawDataReader.cs" />
-    <Compile Include="Definitions\ITimeEpoching.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>

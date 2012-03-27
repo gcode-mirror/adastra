@@ -9,9 +9,9 @@ namespace Adastra
 
     public interface IRawDataReader
     {
-        //event RawDataChangedEventHandler Values;
+        event RawDataChangedEventHandler Values;
 
-        double[] GetNextSample();
+        void Update();
 
 		/// <summary>
 		/// Adjust channel for visualization

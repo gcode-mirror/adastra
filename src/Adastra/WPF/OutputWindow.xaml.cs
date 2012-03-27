@@ -50,7 +50,7 @@ namespace WPF
 
             dataReader = p_dataReader;
 
-            //dataReader.Values += new RawDataChangedEventHandler(dataReader_Values);
+            dataReader.Values += new RawDataChangedEventHandler(dataReader_Values);
 
             p_asyncWorker = new BackgroundWorker();
             p_asyncWorker.WorkerReportsProgress = true;
@@ -108,8 +108,7 @@ namespace WPF
         {
             while (!p_asyncWorker.CancellationPending)
             {
-                //dataReader.Update();
-                dataReader_Values(dataReader.GetNextSample());
+                dataReader.Update();
                 System.Threading.Thread.Sleep(delay);//50
                 p_asyncWorker.ReportProgress(-1, null);
                 System.Threading.Thread.Sleep(delay);//50

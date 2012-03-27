@@ -21,14 +21,12 @@ namespace Adastra
         public EmotivRawDataReader()
         {
             Init();
-            data = null;
         }
 
         public EmotivRawDataReader(IDigitalSignalProcessor dsp)
         {
             Init();
             this.dsp = dsp;
-            data = null;
         }
 
         private void Init()
@@ -60,47 +58,33 @@ namespace Adastra
         //                    ", T8, FC6, F4,F8, AF4,GYROX, GYROY, TIMESTAMP, ES_TIMESTAMP" +
         //                    "FUNC_ID, FUNC_VALUE, MARKER, SYNC_SIGNAL,";
 
-        int valuesLeft;
-        Dictionary<EdkDll.EE_DataChannel_t, double[]> data;
-
-        public double[] GetNextSample()
+        public void Update()
         {
             // Handle any waiting events
             engine.ProcessEvents();
 
             // If the user has not yet connected, do not proceed
             if ((int)userID == -1)
-                throw new Exception("Emotiv user nto connected!");
+                return;
+
+            Dictionary<EdkDll.EE_DataChannel_t, double[]> data = engine.GetData((uint)userID);
 
             if (data == null)
             {
-                data = engine.GetData((uint)userID);
-                valuesLeft = data.Count;
+                return;
             }
 
-            if (data == null)
-                throw new Exception("Could not acquire data from Emotiv!");
+            int _bufferSize = data[EdkDll.EE_DataChannel_t.TIMESTAMP].Length;
 
-            if (valuesLeft > 0)
+            for (int i = 0; i < _bufferSize; i++)
             {
-                valuesLeft--;
-
                 double[] result = new double[14];
-                for (int j = 3; j <= 16; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][valuesLeft];
+                for (int j = 3; j <= 16; j++) result[j - 3] = data[(EdkDll.EE_DataChannel_t)j][i];
 
                 if (dsp != null)
                     dsp.DoWork(ref result);
 
-                if (valuesLeft == 0)
-                {
-                    data = null; //force data reload on next call of this method
-                }
-
-                return result;
-            }
-            else
-            {
-                return null; //should never go here as far as data is available to process
+                Values(result);
             }
         }
 

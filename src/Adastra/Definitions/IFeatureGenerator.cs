@@ -9,8 +9,8 @@ namespace Adastra
 
     public interface IFeatureGenerator
     {
-        double[] GetNextFeatureVector();
+        void Update();
 
-        //event ChangedFeaturesEventHandler Values;
+        event ChangedFeaturesEventHandler Values;
     }
 }
