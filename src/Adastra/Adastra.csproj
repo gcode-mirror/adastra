@@ -132,6 +132,12 @@
     <Compile Include="Algorithms\NNMFMatrix.cs" />
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
     <Compile Include="Algorithms\OctaveLogisticRegression.cs" />
+    <Compile Include="DataProcessing\FeatureGenerators\NMFFeatureGenerator.cs" />
+    <Compile Include="DataProcessing\FeatureGenerators\OpenVibeFeatureGenerator.cs" />
+    <Compile Include="DataProcessing\FeatureGenerators\SimpleFeatureGenerator.cs" />
+    <Compile Include="DataProcessing\SimpleReaders\EmotivFileSystemDataReader.cs" />
+    <Compile Include="DataProcessing\SimpleReaders\EmotivRawDataReader.cs" />
+    <Compile Include="DataProcessing\SimpleReaders\OpenVibeRawDataReader.cs" />
     <Compile Include="Definitions\AMLearning.cs" />
     <Compile Include="Definitions\Database.cs" />
     <Compile Include="Definitions\EEGRecord.cs" />
@@ -191,19 +197,12 @@
     </Compile>
     <Compile Include="Algorithms\OctaveMulticlassLogisticRegression.cs" />
     <Compile Include="Tools\Converters.cs" />
-    <Compile Include="Tools\EmotivFileSystemDataReader.cs" />
     <Compile Include="Tools\EEGRecordStorage.cs" />
-    <Compile Include="Tools\EmotivRawDataReader.cs" />
-    <Compile Include="Tools\FieldTripRawDataReader.cs" />
     <Compile Include="Tools\ModelStorage.cs" />
-    <Compile Include="Tools\NMFFeatureGenerator.cs" />
     <Compile Include="Tools\OctaveController.cs" />
     <Compile Include="Tools\OpenVibeController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\OpenVibeFeatureGenerator.cs" />
-    <Compile Include="Tools\OpenVibeRawDataReader.cs" />
-    <Compile Include="Tools\SimpleFeatureGenerator.cs" />
     <Compile Include="Tools\TaskProgressReporter.cs" />
     <Compile Include="Algorithms\DSP\TimeEpochingGenerator.cs" />
     <Compile Include="WPF\ClassifyWindow.xaml.cs">
@@ -316,6 +315,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataProcessing\TimeEpochingReaders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
