@@ -6,7 +6,7 @@ using System.Text;
 namespace Adastra
 {
 	/// <summary>
-	/// Currently used to hold feature vectors and outputs
+	/// Used to hold input feature vectors and output labels
 	/// </summary>
     public class EEGRecord
     {

@@ -9,7 +9,10 @@ using Emotiv;
 
 namespace Adastra
 {
-    public class EmotivRawDataReader :IRawDataReader
+    /// <summary>
+    /// Used for online EEG data acquisition from Emotiv device 
+    /// </summary>
+    public class EmotivRawDataReader : IRawDataReader
     {
         EmoEngine engine; // Access to the EDK is via the EmoEngine 
         int userID = -1; // userID is used to uniquely identify a user's headset

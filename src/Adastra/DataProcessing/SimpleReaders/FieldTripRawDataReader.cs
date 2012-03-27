@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Used for EEG data acquisition using the network protocol FieldTrip buffer
+    /// This class is a Fieldtrip client.
+    /// </summary>
     public class FieldTripRawDataReader : IRawDataReader
     {
         FieldTripDriver frv;

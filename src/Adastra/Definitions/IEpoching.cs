@@ -9,6 +9,8 @@ namespace Adastra
 
     public interface IEpoching
     {
+        void Update();
+
         event EpochReadyEventHandler NextEpoch;
     }
 }

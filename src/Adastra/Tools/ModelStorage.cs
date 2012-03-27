@@ -20,7 +20,7 @@ using Encog.Neural.Networks.Training.Propagation.Resilient;
 namespace Adastra
 {
     /// <summary>
-    /// Manages computed models 
+    /// Manages computed models which are the result of traing algorithms
     /// </summary>
     public class ModelStorage
     {

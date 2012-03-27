@@ -7,6 +7,11 @@ namespace Adastra
 {
     public class CountEpochGenerator : IEpoching
     {
+        public void Update()
+        {
+
+        }
+
         public event EpochReadyEventHandler NextEpoch;
     }
 }

@@ -8,6 +8,10 @@ using Vrpn;
 
 namespace Adastra
 {
+    /// <summary>
+    /// The feature vectors are received directly from OpenVibe.
+    /// They are not calculated in Adastra. This class is a VRPN client.
+    /// </summary>
     public class OpenVibeFeatureGenerator : IFeatureGenerator
     {
         AnalogRemote analog;

@@ -17,15 +17,19 @@ namespace Adastra
 
         void ep_NextEpoch(double[][] epoch)
         {
-            //eigen value decomposition
+            //1. Build co-varaince matrix
 
+            //2. Eigen value decomposition
+
+            //3. Set the eigen values from the main diagonal as a feature vector
             double[] EigenVector=null;
+
             Values(EigenVector);
         }
 
         public void Update()
         {
-            //reader.Update();
+            ep.Update();
         }
 
         public event ChangedFeaturesEventHandler Values;

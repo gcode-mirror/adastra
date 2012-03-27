@@ -8,6 +8,10 @@ using Vrpn;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Used to acquire EEG data from OpenVibe. A running VRPN analog server
+    /// box is required in OpenVibe. This class is a VRPN client. 
+    /// </summary>
     public class OpenVibeRawDataReader : IRawDataReader
     {
         AnalogRemote analog;

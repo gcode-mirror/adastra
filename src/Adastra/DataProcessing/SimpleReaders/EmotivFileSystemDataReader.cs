@@ -7,7 +7,7 @@ using System.IO;
 namespace Adastra
 {
 	/// <summary>
-	/// Emotiv FileSystem reader
+	/// Reads EEG data from a file
 	/// </summary>
 	public class EmotivFileSystemDataReader : IRawDataReader
 	{
