@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Adastra
 {
-    public class CountEpochGenerator
+    public class CountEpochGenerator : IEpoching
     {
+        public event EpochReadyEventHandler NextEpoch;
     }
 }

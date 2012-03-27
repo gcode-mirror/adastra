@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Adastra
 {
-    public delegate double[][] EpochReadyEventHandler(); 
+    public delegate void EpochReadyEventHandler(double[][] epoch); 
 
     public interface IEpoching
     {
