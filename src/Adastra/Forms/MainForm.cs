@@ -121,7 +121,15 @@ namespace Adastra
                     
                 }
                 else if (rbuttonFieldTrip.Checked)
-                    dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text,Convert.ToInt32(this.ndFieldTripPort.Value));
+                {
+                    dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text, Convert.ToInt32(this.ndFieldTripPort.Value));
+                    int scenario = comboBoxScenarioType.SelectedIndex;
+                    if (scenario == 1 || scenario == 2)
+                    {
+                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
+                        featureGenerator = new EigenVectorFeatureGenerator(epocher);
+                    }
+                }
 
                 #endregion
 
@@ -144,7 +152,7 @@ namespace Adastra
                     {
                         switch (comboBoxScenarioType.SelectedIndex)
                         {
-                            case 0:
+                            case 0://chart signal
                                 if (rbuttonWPFcharting.Checked)
                                 {
                                     ow = new WPF.OutputWindow(dataReader,-1,-1); ow.Show(); currentWindow = ow;
@@ -428,7 +436,7 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
 
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
-            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
@@ -448,6 +456,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Clear();
 
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
+            comboBoxScenarioType.Items.Add("2. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                 comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
