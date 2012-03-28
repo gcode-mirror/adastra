@@ -8,6 +8,11 @@ using Accord.Math.Decompositions;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Creates a co-varaince matrix from a data chunk matrix
+    /// and then calculates the eigen values which are then
+    /// used as a feature vector to describe the data
+    /// </summary>
     public class EigenVectorFeatureGenerator : IFeatureGenerator
     {
         IEpoching ep;
