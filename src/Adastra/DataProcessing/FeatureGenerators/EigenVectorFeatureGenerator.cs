@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Accord.Statistics;
+using Accord.Math.Decompositions;
+
 namespace Adastra
 {
     public class EigenVectorFeatureGenerator : IFeatureGenerator
@@ -18,13 +21,13 @@ namespace Adastra
         void ep_NextEpoch(double[][] epoch)
         {
             //1. Build co-varaince matrix
+            double[,] covariance = Accord.Statistics.Tools.Covariance(epoch);
 
             //2. Eigen value decomposition
+            EigenvalueDecomposition evd = new EigenvalueDecomposition(covariance);
 
-            //3. Set the eigen values from the main diagonal as a feature vector
-            double[] EigenVector=null;
-
-            Values(EigenVector);
+            //3. Set the eigen values as a feature vector
+            Values(evd.RealEigenvalues);
         }
 
         public void Update()
