@@ -17,7 +17,7 @@ namespace Adastra
         double[][] epoch;
         int channelCount;
 
-        CountEpochGenerator(IRawDataReader reader,int n)
+        public CountEpochGenerator(IRawDataReader reader,int n)
         {
             this.n = n;
             this.reader = reader;

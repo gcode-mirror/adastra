@@ -59,6 +59,9 @@ namespace Adastra
 				if (dsp != null)
 					dsp.DoWork(ref result);
 
+//#if (DEBUG)
+//                System.Threading.Thread.Sleep(1);
+//#endif
 				Values(result);
 			}
 			else

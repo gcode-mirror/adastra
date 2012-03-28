@@ -85,6 +85,8 @@ namespace Adastra
             //buttonStart.Text = "Cancel";
             SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
+            int samples_per_chunk = 3;
+
             try
             {
                 #region 1 Configure start
@@ -102,12 +104,21 @@ namespace Adastra
                         dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
                     else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
-                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
+                    //featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
+                    IEpoching epocher = new CountEpochGenerator(dataReader,samples_per_chunk);
+                    featureGenerator = new EigenVectorFeatureGenerator(epocher);
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {
-                    featureGenerator = new OpenVibeFeatureGenerator();
                     dataReader = new OpenVibeRawDataReader();
+                    int scenario = comboBoxScenarioType.SelectedIndex;
+                    if (scenario==5 || scenario==6)
+                    {
+                       IEpoching epocher = new CountEpochGenerator(dataReader,samples_per_chunk);
+                       featureGenerator = new EigenVectorFeatureGenerator(epocher); 
+                    }
+                    else featureGenerator = new OpenVibeFeatureGenerator();
+                    
                 }
                 else if (rbuttonFieldTrip.Checked)
                     dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text,Convert.ToInt32(this.ndFieldTripPort.Value));
@@ -149,6 +160,8 @@ namespace Adastra
                             //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                             case 3: ow = new WPF.OutputWindow(dataReader, 165, 830); ow.Show(); currentWindow = ow; break; //xDAWN
                             case 4: ow = new WPF.OutputWindow(dataReader, 250, 830); ow.Show(); currentWindow = ow; break; //CSP
+                            case 5: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;//train
+                            case 6: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;//classify
                         }
 
                         if (rbuttonOpenVibe.Checked)
@@ -329,6 +342,8 @@ namespace Adastra
                 case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
                 case 3: scenario = "xdawn-filter-charting-after-training.xml"; break;//xDAWN filter
                 case 4: scenario = "csp-filter-charting-after-training.xml"; break;//CSP filter
+                case 5: scenario = "signal-charting-vrpn.xml"; break;//train 
+                case 6: scenario = "signal-charting-vrpn.xml"; break;//clasify
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
@@ -391,6 +406,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             comboBoxScenarioType.Items.Add("4. Display: new channels from applied Bandpass + trained xDAWN + Averaged filters (used in P300)");
             comboBoxScenarioType.Items.Add("5. Display: new channels from applied Bandpass + trained CSP + Averaged filters (used in motor imaganery clasification)");
+            comboBoxScenarioType.Items.Add("6. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 6)");
+            comboBoxScenarioType.Items.Add("7. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 5)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                  comboBoxScenarioType.SelectedIndex = lastSelectedIndex;

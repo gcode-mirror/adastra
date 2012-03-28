@@ -17,7 +17,7 @@ namespace Adastra
     {
         IEpoching ep;
 
-        EigenVectorFeatureGenerator(IEpoching ep)
+        public EigenVectorFeatureGenerator(IEpoching ep)
         {
             this.ep = ep;
             ep.NextEpoch += new EpochReadyEventHandler(ep_NextEpoch);

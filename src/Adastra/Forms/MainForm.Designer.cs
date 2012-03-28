@@ -71,10 +71,10 @@
             this.rbuttonExperimentator = new System.Windows.Forms.RadioButton();
             this.rbuttonFieldTrip = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tboxFieldTripHost = new System.Windows.Forms.TextBox();
-            this.ndFieldTripPort = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ndFieldTripPort = new System.Windows.Forms.NumericUpDown();
+            this.tboxFieldTripHost = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -362,6 +362,7 @@
             this.comboBoxDSP.Name = "comboBoxDSP";
             this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
             this.comboBoxDSP.TabIndex = 6;
+            this.comboBoxDSP.Visible = false;
             // 
             // label6
             // 
@@ -423,6 +424,7 @@
             this.checkBoxEnableBasicDSP.TabIndex = 0;
             this.checkBoxEnableBasicDSP.Text = "Apply DSP";
             this.checkBoxEnableBasicDSP.UseVisualStyleBackColor = true;
+            this.checkBoxEnableBasicDSP.Visible = false;
             // 
             // rbuttonEmotiv
             // 
@@ -504,13 +506,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FieldTrip settings";
             // 
-            // tboxFieldTripHost
+            // label8
             // 
-            this.tboxFieldTripHost.Location = new System.Drawing.Point(53, 20);
-            this.tboxFieldTripHost.Name = "tboxFieldTripHost";
-            this.tboxFieldTripHost.Size = new System.Drawing.Size(276, 20);
-            this.tboxFieldTripHost.TabIndex = 0;
-            this.tboxFieldTripHost.Text = "localhost";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(369, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Port:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Host:";
             // 
             // ndFieldTripPort
             // 
@@ -534,23 +546,13 @@
             0,
             0});
             // 
-            // label7
+            // tboxFieldTripHost
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 23);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Host:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(369, 23);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(29, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Port:";
+            this.tboxFieldTripHost.Location = new System.Drawing.Point(53, 20);
+            this.tboxFieldTripHost.Name = "tboxFieldTripHost";
+            this.tboxFieldTripHost.Size = new System.Drawing.Size(276, 20);
+            this.tboxFieldTripHost.TabIndex = 0;
+            this.tboxFieldTripHost.Text = "localhost";
             // 
             // MainForm
             // 
