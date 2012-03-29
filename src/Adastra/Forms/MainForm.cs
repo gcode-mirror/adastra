@@ -76,6 +76,7 @@ namespace Adastra
             try
             {
                 #region 1 Configure start
+
                 if (rbuttonEmotiv.Checked)
                 {
                     IDigitalSignalProcessor dsp = null;
@@ -90,11 +91,10 @@ namespace Adastra
                         dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
                     else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
-                    //featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
                     int scenario = comboBoxScenarioType.SelectedIndex;
                     if (scenario == 1 || scenario == 2) //train and classify
                     {
-                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
+                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk,(checkBoxEnableBasicDSP.Checked) ? dsp : null);
                         featureGenerator = new EigenVectorFeatureGenerator(epocher);
                     }
                 }
@@ -102,9 +102,9 @@ namespace Adastra
                 {
                     dataReader = new OpenVibeRawDataReader();
                     int scenario = comboBoxScenarioType.SelectedIndex;
-                    if (scenario==5 || scenario==6)
+                    if (scenario==5 || scenario==6) //these two acquire signal from OpenVibe
                     {
-                       IEpoching epocher = new CountEpochGenerator(dataReader,samples_per_chunk);
+                       IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
                        featureGenerator = new EigenVectorFeatureGenerator(epocher); 
                     }
                     else featureGenerator = new OpenVibeFeatureGenerator();

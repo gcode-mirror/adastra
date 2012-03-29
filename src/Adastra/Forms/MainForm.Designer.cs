@@ -362,7 +362,6 @@
             this.comboBoxDSP.Name = "comboBoxDSP";
             this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
             this.comboBoxDSP.TabIndex = 6;
-            this.comboBoxDSP.Visible = false;
             // 
             // label6
             // 
