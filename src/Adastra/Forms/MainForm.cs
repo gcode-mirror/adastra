@@ -105,8 +105,12 @@ namespace Adastra
                     else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
                     //featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
-                    IEpoching epocher = new CountEpochGenerator(dataReader,samples_per_chunk);
-                    featureGenerator = new EigenVectorFeatureGenerator(epocher);
+                    int scenario = comboBoxScenarioType.SelectedIndex;
+                    if (scenario == 1 || scenario == 2) //train and classify
+                    {
+                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
+                        featureGenerator = new EigenVectorFeatureGenerator(epocher);
+                    }
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {
