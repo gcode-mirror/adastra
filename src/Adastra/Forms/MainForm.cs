@@ -39,8 +39,6 @@ namespace Adastra
 
         Form currentForm;
 
-        //string AdastraScenarioFolder;
-
 		public MainForm()
 		{
 			InitializeComponent();
@@ -71,20 +69,8 @@ namespace Adastra
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            //if (openVibeWorker!=null && openVibeWorker.IsBusy)
-            //{
-            //    //this.TopMost = false;
-
-            //    buttonStart.Enabled = false;
-
-            //    openVibeWorker.CancelAsync();
-            //}
-            //else //start new process
-            //{
             buttonStart.Enabled = false;
-            //buttonStart.Text = "Cancel";
             SelectedScenario = comboBoxScenarioType.SelectedIndex;
-
             int samples_per_chunk = 3;
 
             try
@@ -167,9 +153,7 @@ namespace Adastra
                                 }
                                 break;
                             case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
-                            //case 2: cw = new WPF.ClassifyWindow(featureGenerator); cw.Show(); currentWindow = cw; break;
                             case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
-                            //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                             case 3: ow = new WPF.OutputWindow(dataReader, 165, 830); ow.Show(); currentWindow = ow; break; //xDAWN
                             case 4: ow = new WPF.OutputWindow(dataReader, 250, 830); ow.Show(); currentWindow = ow; break; //CSP
                             case 5: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;//train
@@ -244,19 +228,13 @@ namespace Adastra
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //BackgroundWorker bwAsync = sender as BackgroundWorker;
-
-			//if (rbuttonOpenVibe.Checked)
-			//{
-                OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
-                OpenVibeController.Scenario = this.textBoxScenario.Text;
-                if (rButtonRealtime.Checked)
-                    OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
-                OpenVibeController.FastPlay = false;
-                OpenVibeController.NoGUI = true;
-                OpenVibeController.Start(true);
-                //System.Threading.Thread.Sleep(4 * 1000);
-            //}
+            OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
+            OpenVibeController.Scenario = this.textBoxScenario.Text;
+            if (rButtonRealtime.Checked)
+                OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
+            OpenVibeController.FastPlay = false;
+            OpenVibeController.NoGUI = true;
+            OpenVibeController.Start(true);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -275,8 +253,8 @@ namespace Adastra
                 fo.InitialDirectory = textBoxScenario.Text.Substring(0, lastSlash);
             }
 
-            DialogResult result = fo.ShowDialog(); // Show the dialog.
-            if (result == DialogResult.OK) // Test result.
+            DialogResult result = fo.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 try
                 {
@@ -317,8 +295,8 @@ namespace Adastra
         {
             System.Windows.Forms.FolderBrowserDialog fo = new FolderBrowserDialog();
 
-            DialogResult result = fo.ShowDialog(); // Show the dialog.
-            if (result == DialogResult.OK) // Test result.
+            DialogResult result = fo.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 try
                 {
@@ -441,7 +419,6 @@ namespace Adastra
 
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                 comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
