@@ -59,9 +59,8 @@ namespace Adastra
 				if (dsp != null)
 					dsp.DoWork(ref result);
 
-//#if (DEBUG)
-//                System.Threading.Thread.Sleep(1);
-//#endif
+                System.Threading.Thread.Sleep(2);//delay is on purpose
+
 				Values(result);
 			}
 			else
