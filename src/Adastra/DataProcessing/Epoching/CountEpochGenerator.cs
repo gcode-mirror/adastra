@@ -16,7 +16,7 @@ namespace Adastra
         IRawDataReader reader;
         double[][] epoch;
         int channelCount;
-        IDigitalSignalProcessor dsp;
+        //IDigitalSignalProcessor dsp;
 
         public CountEpochGenerator(IRawDataReader reader,int n)
         {
@@ -24,23 +24,11 @@ namespace Adastra
             this.reader = reader;
             bufferQueue = new ConcurrentQueue<double[]>();
             reader.Values += new RawDataChangedEventHandler(reader_Values);
-            dsp = null;
         }
-
-        public CountEpochGenerator(IRawDataReader reader,int n,IDigitalSignalProcessor dsp)
-        {
-            this.n = n;
-            this.reader = reader;
-            bufferQueue = new ConcurrentQueue<double[]>();
-            reader.Values += new RawDataChangedEventHandler(reader_Values);
-            this.dsp = dsp;
-        }
-        
 
         void reader_Values(double[] values)
         {
             channelCount = values.Length;
-            if (dsp != null) dsp.DoWork(ref values);
             bufferQueue.Enqueue(values);
 
             //we have n samples to produce a chunk

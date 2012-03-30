@@ -71,7 +71,6 @@ namespace Adastra
         {
             buttonStart.Enabled = false;
             SelectedScenario = comboBoxScenarioType.SelectedIndex;
-            int samples_per_chunk = 3;
 
             try
             {
@@ -94,7 +93,7 @@ namespace Adastra
                     int scenario = comboBoxScenarioType.SelectedIndex;
                     if (scenario == 1 || scenario == 2) //train and classify
                     {
-                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk,(checkBoxEnableBasicDSP.Checked) ? dsp : null);
+                        IEpoching epocher = new TimeEpochGenerator(dataReader, 300);//this value depends on your BCI scenario
                         featureGenerator = new EigenVectorFeatureGenerator(epocher);
                     }
                 }
@@ -102,12 +101,12 @@ namespace Adastra
                 {
                     dataReader = new OpenVibeRawDataReader();
                     int scenario = comboBoxScenarioType.SelectedIndex;
-                    if (scenario==5 || scenario==6) //these two acquire signal from OpenVibe
-                    {
-                       IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
-                       featureGenerator = new EigenVectorFeatureGenerator(epocher); 
-                    }
-                    else 
+                    //if (scenario==5 || scenario==6) //these two acquire signal from OpenVibe
+                    //{
+                    //   IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
+                    //   featureGenerator = new EigenVectorFeatureGenerator(epocher); 
+                    //}
+                    //else 
                     featureGenerator = new OpenVibeFeatureGenerator();
                     
                 }
@@ -117,7 +116,7 @@ namespace Adastra
                     int scenario = comboBoxScenarioType.SelectedIndex;
                     if (scenario == 1 || scenario == 2)
                     {
-                        IEpoching epocher = new TimeEpochGenerator(dataReader,300);//this value depends in your BCI scenario
+                        IEpoching epocher = new TimeEpochGenerator(dataReader,300);//this value depends on your BCI scenario
                         featureGenerator = new EigenVectorFeatureGenerator(epocher);
                     }
                 }
@@ -417,7 +416,6 @@ namespace Adastra
             comboBoxScenarioType.Items.Clear();
 
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
-
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
@@ -437,7 +435,7 @@ namespace Adastra
 
             comboBoxScenarioType.Items.Clear();
 
-            comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
+            comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from a FieldTrip buffer server");
             comboBoxScenarioType.Items.Add("2. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
             comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 

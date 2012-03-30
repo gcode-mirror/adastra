@@ -362,11 +362,12 @@
             this.comboBoxDSP.Name = "comboBoxDSP";
             this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
             this.comboBoxDSP.TabIndex = 6;
+            this.comboBoxDSP.Visible = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(105, 49);
+            this.label6.Location = new System.Drawing.Point(141, 47);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(182, 13);
             this.label6.TabIndex = 5;
@@ -385,9 +386,9 @@
             // 
             // textBoxEmotivFile
             // 
-            this.textBoxEmotivFile.Location = new System.Drawing.Point(185, 21);
+            this.textBoxEmotivFile.Location = new System.Drawing.Point(144, 21);
             this.textBoxEmotivFile.Name = "textBoxEmotivFile";
-            this.textBoxEmotivFile.Size = new System.Drawing.Size(282, 20);
+            this.textBoxEmotivFile.Size = new System.Drawing.Size(323, 20);
             this.textBoxEmotivFile.TabIndex = 3;
             // 
             // rbuttonEmotivFile
@@ -396,10 +397,10 @@
             this.rbuttonEmotivFile.Checked = true;
             this.rbuttonEmotivFile.Location = new System.Drawing.Point(16, 22);
             this.rbuttonEmotivFile.Name = "rbuttonEmotivFile";
-            this.rbuttonEmotivFile.Size = new System.Drawing.Size(164, 17);
+            this.rbuttonEmotivFile.Size = new System.Drawing.Size(86, 17);
             this.rbuttonEmotivFile.TabIndex = 2;
             this.rbuttonEmotivFile.TabStop = true;
-            this.rbuttonEmotivFile.Text = "Pre-recorded in Emotiv format";
+            this.rbuttonEmotivFile.Text = "Pre-recorded";
             this.rbuttonEmotivFile.UseVisualStyleBackColor = true;
             this.rbuttonEmotivFile.CheckedChanged += new System.EventHandler(this.rbuttonEmotivFile_CheckedChanged);
             // 

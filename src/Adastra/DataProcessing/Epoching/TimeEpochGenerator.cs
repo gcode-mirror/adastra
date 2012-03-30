@@ -25,8 +25,8 @@ namespace Adastra
 
             if (frequenchyInHz <= 0) throw new System.Exception("Wrong frequency rate!");
 
-            int samplesPerEpoch = Convert.ToInt32(Math.Truncate(timePerChunkInMilliseconds * frequenchyInHz / 1000));
-            countGenerator = new CountEpochGenerator(reader, samplesPerEpoch);
+            int samplesPerChunk = Convert.ToInt32(Math.Truncate(timePerChunkInMilliseconds * frequenchyInHz / 1000));
+            countGenerator = new CountEpochGenerator(reader, samplesPerChunk);//chunk=epoch
             countGenerator.NextEpoch += new EpochReadyEventHandler(countGenerator_NextEpoch);
         }
 
