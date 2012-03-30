@@ -27,5 +27,7 @@ namespace Adastra
 		double AdjustChannel(int number,double value);
 
         string ChannelName(int number);
+
+        void SetDspProcessor(IDigitalSignalProcessor dsp);
     }
 }

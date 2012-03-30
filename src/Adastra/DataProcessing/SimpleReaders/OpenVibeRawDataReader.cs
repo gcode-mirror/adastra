@@ -54,5 +54,10 @@ namespace Adastra
                 throw new Exception("Not implemented currently!");
             }
         }
+
+        public void SetDspProcessor(IDigitalSignalProcessor dsp)
+        {
+            throw new Exception("Unsupported");
+        }
     }
 }

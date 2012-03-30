@@ -55,7 +55,7 @@ namespace Adastra
 
 			textBoxEmotivFile.Text = AdastraConfig.GetRecordsFolder() + "mitko-small.csv";
 
-			comboBoxDSP.SelectedIndex = 0;
+			cbEmotivDspMethod.SelectedIndex = 0;
 		}
 
 		void InitOpenVibeWorker()
@@ -76,19 +76,15 @@ namespace Adastra
             {
                 #region 1 Configure start
 
+                IDigitalSignalProcessor dsp = null;
+                if (cbEmotivDSP.Checked && cbEmotivDspMethod.SelectedIndex ==0) dsp = new BasicSignalProcessor();
+                if (cbFieldTripDSP.Checked && cbFieldTripDspMethod.SelectedIndex == 0) dsp = new BasicSignalProcessor();
+
                 if (rbuttonEmotiv.Checked)
                 {
-                    IDigitalSignalProcessor dsp = null;
-                    switch (comboBoxDSP.SelectedIndex)
-                    {
-                        case 0: dsp = new BasicSignalProcessor(); break;
-                        case 1: dsp = new FFTSignalProcessor(); break;
-                        case 2: dsp = new EMDProcessor(); break;
-                    }
-
                     if (rbuttonEmotivSignal.Checked)
-                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
-                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+                        dataReader = new EmotivRawDataReader();
+                    else dataReader = new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
                     int scenario = comboBoxScenarioType.SelectedIndex;
                     if (scenario == 1 || scenario == 2) //train and classify
@@ -121,6 +117,7 @@ namespace Adastra
                     }
                 }
 
+                if (dsp != null) dataReader.SetDspProcessor(dsp);
                 #endregion
 
                 #region 2 Instantiate and run

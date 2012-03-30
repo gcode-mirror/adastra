@@ -26,12 +26,6 @@ namespace Adastra
             Init();
         }
 
-        public EmotivRawDataReader(IDigitalSignalProcessor dsp)
-        {
-            Init();
-            this.dsp = dsp;
-        }
-
         private void Init()
         {
             // create the engine
@@ -116,6 +110,11 @@ namespace Adastra
             {
                 return Convert.ToDouble(engine.DataGetSamplingRate((UInt32)userID));
             }
+        }
+
+        public void SetDspProcessor(IDigitalSignalProcessor dsp)
+        {
+            this.dsp = dsp;
         }
     }
 }

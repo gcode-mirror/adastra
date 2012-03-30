@@ -12,8 +12,8 @@ namespace Adastra
     public class FieldTripRawDataReader : IRawDataReader
     {
         FieldTripDriver frv;
-
         bool started = false;
+        IDigitalSignalProcessor dsp = null;
 
 		public FieldTripRawDataReader()
 		{
@@ -42,7 +42,9 @@ namespace Adastra
 
         void frv_FieldTripChanged(object sender, FieldTripChangeEventArgs e)
         {
-            Values(e.Channels);
+            double[] values = e.Channels;
+            if (dsp != null) dsp.DoWork(ref values);
+            Values(values);
         }
 
         public double AdjustChannel(int number, double value)
@@ -68,6 +70,11 @@ namespace Adastra
            {
                return frv.GetSamplingFrequency();
            }
+        }
+
+        public void SetDspProcessor(IDigitalSignalProcessor dsp)
+        {
+            this.dsp = dsp;
         }
          
     }

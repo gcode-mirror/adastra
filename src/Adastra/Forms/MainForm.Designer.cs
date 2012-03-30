@@ -57,13 +57,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBoxDSP = new System.Windows.Forms.ComboBox();
+            this.cbEmotivDspMethod = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonBrowseEmotivFile = new System.Windows.Forms.Button();
             this.textBoxEmotivFile = new System.Windows.Forms.TextBox();
             this.rbuttonEmotivFile = new System.Windows.Forms.RadioButton();
             this.rbuttonEmotivSignal = new System.Windows.Forms.RadioButton();
-            this.checkBoxEnableBasicDSP = new System.Windows.Forms.CheckBox();
+            this.cbEmotivDSP = new System.Windows.Forms.CheckBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
             this.rbuttonWPFcharting = new System.Windows.Forms.RadioButton();
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
@@ -75,6 +75,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.ndFieldTripPort = new System.Windows.Forms.NumericUpDown();
             this.tboxFieldTripHost = new System.Windows.Forms.TextBox();
+            this.cbFieldTripDspMethod = new System.Windows.Forms.ComboBox();
+            this.cbFieldTripDSP = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -86,7 +88,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(272, 440);
+            this.buttonStart.Location = new System.Drawing.Point(272, 448);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -119,13 +121,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -138,41 +140,41 @@
             this.openVibesHomepageToolStripMenuItem,
             this.octaveDownloadToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // tutorialToolStripMenuItem
             // 
             this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.tutorialToolStripMenuItem.Text = "Tutorial";
             this.tutorialToolStripMenuItem.Click += new System.EventHandler(this.tutorialToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // homepageToolStripMenuItem
             // 
             this.homepageToolStripMenuItem.Name = "homepageToolStripMenuItem";
-            this.homepageToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.homepageToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.homepageToolStripMenuItem.Text = "Adastra\'s homepage";
             this.homepageToolStripMenuItem.Click += new System.EventHandler(this.homepageToolStripMenuItem_Click);
             // 
             // openVibesHomepageToolStripMenuItem
             // 
             this.openVibesHomepageToolStripMenuItem.Name = "openVibesHomepageToolStripMenuItem";
-            this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.openVibesHomepageToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.openVibesHomepageToolStripMenuItem.Text = "OpenVibe\'s homepage";
             this.openVibesHomepageToolStripMenuItem.Click += new System.EventHandler(this.openVibesHomepageToolStripMenuItem_Click);
             // 
             // octaveDownloadToolStripMenuItem
             // 
             this.octaveDownloadToolStripMenuItem.Name = "octaveDownloadToolStripMenuItem";
-            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.octaveDownloadToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.octaveDownloadToolStripMenuItem.Text = "Octave download";
             this.octaveDownloadToolStripMenuItem.Click += new System.EventHandler(this.octaveDownloadToolStripMenuItem_Click);
             // 
@@ -224,7 +226,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(580, 463);
+            this.buttonExit.Location = new System.Drawing.Point(580, 469);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -317,7 +319,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 131);
+            this.label5.Location = new System.Drawing.Point(25, 112);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 21;
@@ -327,7 +329,7 @@
             // 
             this.rbuttonOpenVibe.AutoSize = true;
             this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 111);
+            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 88);
             this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
             this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
             this.rbuttonOpenVibe.TabIndex = 20;
@@ -337,13 +339,13 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBoxDSP);
+            this.groupBox2.Controls.Add(this.cbEmotivDspMethod);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.buttonBrowseEmotivFile);
             this.groupBox2.Controls.Add(this.textBoxEmotivFile);
             this.groupBox2.Controls.Add(this.rbuttonEmotivFile);
             this.groupBox2.Controls.Add(this.rbuttonEmotivSignal);
-            this.groupBox2.Controls.Add(this.checkBoxEnableBasicDSP);
+            this.groupBox2.Controls.Add(this.cbEmotivDSP);
             this.groupBox2.Location = new System.Drawing.Point(128, 210);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(566, 103);
@@ -351,18 +353,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Emotiv EPOCH settings";
             // 
-            // comboBoxDSP
+            // cbEmotivDspMethod
             // 
-            this.comboBoxDSP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDSP.FormattingEnabled = true;
-            this.comboBoxDSP.Items.AddRange(new object[] {
-            "Basic (ButterworthBandPass + Averaging)",
-            "Empirical Mode Decomposition"});
-            this.comboBoxDSP.Location = new System.Drawing.Point(108, 73);
-            this.comboBoxDSP.Name = "comboBoxDSP";
-            this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxDSP.TabIndex = 6;
-            this.comboBoxDSP.Visible = false;
+            this.cbEmotivDspMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEmotivDspMethod.FormattingEnabled = true;
+            this.cbEmotivDspMethod.Items.AddRange(new object[] {
+            "Basic (ButterworthBandPass + Averaging)"});
+            this.cbEmotivDspMethod.Location = new System.Drawing.Point(108, 73);
+            this.cbEmotivDspMethod.Name = "cbEmotivDspMethod";
+            this.cbEmotivDspMethod.Size = new System.Drawing.Size(221, 21);
+            this.cbEmotivDspMethod.TabIndex = 6;
             // 
             // label6
             // 
@@ -415,22 +415,21 @@
             this.rbuttonEmotivSignal.UseVisualStyleBackColor = true;
             this.rbuttonEmotivSignal.CheckedChanged += new System.EventHandler(this.rbuttonEmotivSignal_CheckedChanged);
             // 
-            // checkBoxEnableBasicDSP
+            // cbEmotivDSP
             // 
-            this.checkBoxEnableBasicDSP.AutoSize = true;
-            this.checkBoxEnableBasicDSP.Location = new System.Drawing.Point(16, 75);
-            this.checkBoxEnableBasicDSP.Name = "checkBoxEnableBasicDSP";
-            this.checkBoxEnableBasicDSP.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxEnableBasicDSP.TabIndex = 0;
-            this.checkBoxEnableBasicDSP.Text = "Apply DSP";
-            this.checkBoxEnableBasicDSP.UseVisualStyleBackColor = true;
-            this.checkBoxEnableBasicDSP.Visible = false;
+            this.cbEmotivDSP.AutoSize = true;
+            this.cbEmotivDSP.Location = new System.Drawing.Point(16, 75);
+            this.cbEmotivDSP.Name = "cbEmotivDSP";
+            this.cbEmotivDSP.Size = new System.Drawing.Size(77, 17);
+            this.cbEmotivDSP.TabIndex = 0;
+            this.cbEmotivDSP.Text = "Apply DSP";
+            this.cbEmotivDSP.UseVisualStyleBackColor = true;
             // 
             // rbuttonEmotiv
             // 
             this.rbuttonEmotiv.AutoSize = true;
             this.rbuttonEmotiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonEmotiv.Location = new System.Drawing.Point(18, 242);
+            this.rbuttonEmotiv.Location = new System.Drawing.Point(18, 210);
             this.rbuttonEmotiv.Name = "rbuttonEmotiv";
             this.rbuttonEmotiv.Size = new System.Drawing.Size(87, 17);
             this.rbuttonEmotiv.TabIndex = 0;
@@ -473,7 +472,7 @@
             // rbuttonExperimentator
             // 
             this.rbuttonExperimentator.AutoSize = true;
-            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 398);
+            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 421);
             this.rbuttonExperimentator.Name = "rbuttonExperimentator";
             this.rbuttonExperimentator.Size = new System.Drawing.Size(77, 17);
             this.rbuttonExperimentator.TabIndex = 25;
@@ -485,7 +484,7 @@
             // 
             this.rbuttonFieldTrip.AutoSize = true;
             this.rbuttonFieldTrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 338);
+            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 320);
             this.rbuttonFieldTrip.Name = "rbuttonFieldTrip";
             this.rbuttonFieldTrip.Size = new System.Drawing.Size(98, 17);
             this.rbuttonFieldTrip.TabIndex = 26;
@@ -495,13 +494,15 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cbFieldTripDspMethod);
+            this.groupBox3.Controls.Add(this.cbFieldTripDSP);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.ndFieldTripPort);
             this.groupBox3.Controls.Add(this.tboxFieldTripHost);
             this.groupBox3.Location = new System.Drawing.Point(128, 320);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(566, 54);
+            this.groupBox3.Size = new System.Drawing.Size(566, 81);
             this.groupBox3.TabIndex = 27;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FieldTrip settings";
@@ -554,11 +555,32 @@
             this.tboxFieldTripHost.TabIndex = 0;
             this.tboxFieldTripHost.Text = "localhost";
             // 
+            // cbFieldTripDspMethod
+            // 
+            this.cbFieldTripDspMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFieldTripDspMethod.FormattingEnabled = true;
+            this.cbFieldTripDspMethod.Items.AddRange(new object[] {
+            "Basic (ButterworthBandPass + Averaging)"});
+            this.cbFieldTripDspMethod.Location = new System.Drawing.Point(108, 46);
+            this.cbFieldTripDspMethod.Name = "cbFieldTripDspMethod";
+            this.cbFieldTripDspMethod.Size = new System.Drawing.Size(221, 21);
+            this.cbFieldTripDspMethod.TabIndex = 8;
+            // 
+            // cbFieldTripDSP
+            // 
+            this.cbFieldTripDSP.AutoSize = true;
+            this.cbFieldTripDSP.Location = new System.Drawing.Point(16, 48);
+            this.cbFieldTripDSP.Name = "cbFieldTripDSP";
+            this.cbFieldTripDSP.Size = new System.Drawing.Size(77, 17);
+            this.cbFieldTripDSP.TabIndex = 7;
+            this.cbFieldTripDSP.Text = "Apply DSP";
+            this.cbFieldTripDSP.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 507);
+            this.ClientSize = new System.Drawing.Size(702, 514);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.rbuttonFieldTrip);
             this.Controls.Add(this.rbuttonExperimentator);
@@ -628,10 +650,10 @@
         private System.Windows.Forms.TextBox textBoxEmotivFile;
         private System.Windows.Forms.RadioButton rbuttonEmotivFile;
         private System.Windows.Forms.RadioButton rbuttonEmotivSignal;
-        private System.Windows.Forms.CheckBox checkBoxEnableBasicDSP;
+        private System.Windows.Forms.CheckBox cbEmotivDSP;
         private System.Windows.Forms.Button buttonBrowseEmotivFile;
 		private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxDSP;
+        private System.Windows.Forms.ComboBox cbEmotivDspMethod;
         private System.Windows.Forms.RadioButton rbuttonExperimentator;
         private System.Windows.Forms.ToolStripMenuItem octaveDownloadToolStripMenuItem;
         private System.Windows.Forms.RadioButton rbuttonFieldTrip;
@@ -640,6 +662,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown ndFieldTripPort;
         private System.Windows.Forms.TextBox tboxFieldTripHost;
+        private System.Windows.Forms.ComboBox cbFieldTripDspMethod;
+        private System.Windows.Forms.CheckBox cbFieldTripDSP;
     }
 }
 

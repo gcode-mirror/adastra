@@ -16,13 +16,6 @@ namespace Adastra
 		System.IO.StreamReader file;
 		IDigitalSignalProcessor dsp = null;
 
-		public EmotivFileSystemDataReader(string filename, IDigitalSignalProcessor dsp)
-		{
-            Init(filename);
-
-			this.dsp = dsp;
-		}
-
         public EmotivFileSystemDataReader(string filename)
 		{
             Init(filename);
@@ -90,6 +83,11 @@ namespace Adastra
             {
                 return 128;//this is the typical Emotiv sampling rate
             }
+        }
+
+        public void SetDspProcessor(IDigitalSignalProcessor dsp)
+        {
+            this.dsp = dsp;
         }
 	}
 
