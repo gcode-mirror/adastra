@@ -133,6 +133,7 @@
     <Compile Include="Algorithms\NNTrainDataIterator.cs" />
     <Compile Include="Algorithms\OctaveLogisticRegression.cs" />
     <Compile Include="DataProcessing\Epoching\CountEpochGenerator.cs" />
+    <Compile Include="DataProcessing\Epoching\TimeEpochGenerator.cs" />
     <Compile Include="DataProcessing\FeatureGenerators\EigenVectorFeatureGenerator.cs" />
     <Compile Include="DataProcessing\FeatureGenerators\NMFFeatureGenerator.cs" />
     <Compile Include="DataProcessing\FeatureGenerators\OpenVibeFeatureGenerator.cs" />

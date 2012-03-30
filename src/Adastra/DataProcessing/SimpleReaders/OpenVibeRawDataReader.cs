@@ -46,5 +46,13 @@ namespace Adastra
         {
             return (number+1).ToString();
         }
+
+        public double SamplingFrequency
+        {
+            get
+            {
+                throw new Exception("Not implemented currently!");
+            }
+        }
     }
 }

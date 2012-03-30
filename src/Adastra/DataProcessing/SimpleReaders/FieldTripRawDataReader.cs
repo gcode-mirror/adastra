@@ -61,5 +61,14 @@ namespace Adastra
             
             return (number + 1).ToString();
         }
+
+        public double SamplingFrequency
+        {
+           get
+           {
+               return frv.GetSamplingFrequency();
+           }
+        }
+         
     }
 }

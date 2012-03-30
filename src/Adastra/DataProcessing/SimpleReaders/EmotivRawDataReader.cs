@@ -106,5 +106,13 @@ namespace Adastra
                 return value + 0.05;
             else return value;
 		}
+
+        public double SamplingFrequency
+        {
+            get
+            {
+                throw new Exception("Not implemented currently!");
+            }
+        }
     }
 }

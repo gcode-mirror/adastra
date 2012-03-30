@@ -24,6 +24,7 @@ public delegate void CallbackFuncDelegate(float* samples,int samplesCount);
 public delegate void FieldTripEventHandler(System::Object ^sender,
 		FieldTripChangeEventArgs ^e);
 
+// Managed wrapper of the C++ version of the Fieldtrip driver
 public ref class FieldTripDriver {
 
 private:
@@ -146,6 +147,14 @@ public:
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
 
 		return marshal_as<System::String^>(pUnmanaged->GetChannelName(index));
+	}
+
+	//Returns -1 if the sampling frequency is unknown
+	double GetSamplingFrequency()
+	{
+		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+
+		return pUnmanaged->GetSamplingFrequency();
 	}
 };
 

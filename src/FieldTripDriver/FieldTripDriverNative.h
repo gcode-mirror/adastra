@@ -56,6 +56,13 @@ namespace OpenViBEAcquisitionServer
 			return "";
 		}
 
+		double GetSamplingFrequency()
+		{
+			if (m_oHeader.isSamplingFrequencySet())
+			return static_cast<double>(m_oHeader.getSamplingFrequency());
+			else return -1;
+		}
+
 	protected:
 
 		OpenViBEAcquisitionServer::CHeader m_oHeader;

@@ -9,6 +9,11 @@ namespace Adastra
 
     public interface IRawDataReader
     {
+        double SamplingFrequency
+        {
+            get;
+        }
+
         event RawDataChangedEventHandler Values;
 
         void Update();
