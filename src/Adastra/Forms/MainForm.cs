@@ -56,6 +56,7 @@ namespace Adastra
 			textBoxEmotivFile.Text = AdastraConfig.GetRecordsFolder() + "mitko-small.csv";
 
 			cbEmotivDspMethod.SelectedIndex = 0;
+            cbFieldTripDspMethod.SelectedIndex = 0;
 		}
 
 		void InitOpenVibeWorker()
