@@ -92,14 +92,15 @@ public:
 	~FieldTripDriver() 
 	{ 
 		pUnmanaged->uninitialize();
+		initialized = false;
 		delete pUnmanaged; 
 		pUnmanaged = 0; 
 	}
 
-	
     !FieldTripDriver() //finalizer
 	{
 		pUnmanaged->uninitialize();
+		initialized = false;
 		delete pUnmanaged; 
 	}
 
@@ -107,14 +108,17 @@ public:
 
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
 		
-		pUnmanaged->configure();
-		initialized=pUnmanaged->initialize(sampleCount);
+		if (!initialized)
+		{
+			pUnmanaged->configure();
+			initialized=pUnmanaged->initialize(sampleCount);
 
-	    const IHeader& l_rHeader=*pUnmanaged->getHeader();
-	    m_ui32ChannelCount=l_rHeader.getChannelCount();
+			const IHeader& l_rHeader=*pUnmanaged->getHeader();
+			m_ui32ChannelCount=l_rHeader.getChannelCount();
 
-		if (m_ui32ChannelCount>0)
-		   m_vSwapBuffer = gcnew array<double>(m_ui32ChannelCount);
+			if (m_ui32ChannelCount>0)
+			   m_vSwapBuffer = gcnew array<double>(m_ui32ChannelCount);
+		}
     }
 
 	void start()
@@ -153,6 +157,11 @@ public:
 	double GetSamplingFrequency()
 	{
 		if (!pUnmanaged) throw gcnew ObjectDisposedException("Wrapper");
+
+		if (!initialized)
+		{
+			initialize();
+		}
 
 		return pUnmanaged->GetSamplingFrequency();
 	}

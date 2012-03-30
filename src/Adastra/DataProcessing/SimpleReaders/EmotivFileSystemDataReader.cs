@@ -89,7 +89,7 @@ namespace Adastra
         {
             get
             {
-                throw new Exception("Not implemented currently!");
+                return 128;//this is the typical Emotiv sampling rate
             }
         }
 	}

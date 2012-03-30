@@ -107,7 +107,8 @@ namespace Adastra
                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
                        featureGenerator = new EigenVectorFeatureGenerator(epocher); 
                     }
-                    else featureGenerator = new OpenVibeFeatureGenerator();
+                    else 
+                    featureGenerator = new OpenVibeFeatureGenerator();
                     
                 }
                 else if (rbuttonFieldTrip.Checked)
@@ -116,7 +117,7 @@ namespace Adastra
                     int scenario = comboBoxScenarioType.SelectedIndex;
                     if (scenario == 1 || scenario == 2)
                     {
-                        IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
+                        IEpoching epocher = new TimeEpochGenerator(dataReader,300);//this value depends in your BCI scenario
                         featureGenerator = new EigenVectorFeatureGenerator(epocher);
                     }
                 }
@@ -396,8 +397,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             comboBoxScenarioType.Items.Add("4. Display: new channels from applied Bandpass + trained xDAWN + Averaged filters (used in P300)");
             comboBoxScenarioType.Items.Add("5. Display: new channels from applied Bandpass + trained CSP + Averaged filters (used in motor imaganery clasification)");
-            comboBoxScenarioType.Items.Add("6. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 6)");
-            comboBoxScenarioType.Items.Add("7. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 5)");
+            //comboBoxScenarioType.Items.Add("6. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 6)");
+            //comboBoxScenarioType.Items.Add("7. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 5)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                  comboBoxScenarioType.SelectedIndex = lastSelectedIndex;

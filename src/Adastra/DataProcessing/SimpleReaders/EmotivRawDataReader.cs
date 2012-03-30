@@ -107,11 +107,14 @@ namespace Adastra
             else return value;
 		}
 
+        /// <summary>
+        /// Typically the Emotiv device uses 128Hz
+        /// </summary>
         public double SamplingFrequency
         {
             get
             {
-                throw new Exception("Not implemented currently!");
+                return Convert.ToDouble(engine.DataGetSamplingRate((UInt32)userID));
             }
         }
     }

@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Adastra
 {
+    /// <summary>
+    /// Creates epochs that are for specofic interval.
+    /// Currently no interval overlapping is supported
+    /// </summary>
     public class TimeEpochGenerator : IEpoching
     {
         CountEpochGenerator countGenerator;
@@ -13,11 +17,15 @@ namespace Adastra
         /// 
         /// </summary>
         /// <param name="reader"></param>
-        /// <param name="frequenchyInHz">for example 1000 Hz</param>
+        /// <param name="frequenchyInHz">for example 1000 Hz (if you want to say 1Khz)</param>
         /// <param name="timePerChunkInMilliseconds">300 millieseconds</param>
-        TimeEpochGenerator(IRawDataReader reader, double frequenchyInHz, int timePerChunkInMilliseconds)
+        public TimeEpochGenerator(IRawDataReader reader, int timePerChunkInMilliseconds)
         {
-            int samplesPerEpoch = Convert.ToInt32(Math.Truncate(timePerChunkInMilliseconds * frequenchyInHz));
+            double frequenchyInHz = reader.SamplingFrequency;
+
+            if (frequenchyInHz <= 0) throw new System.Exception("Wrong frequency rate!");
+
+            int samplesPerEpoch = Convert.ToInt32(Math.Truncate(timePerChunkInMilliseconds * frequenchyInHz / 1000));
             countGenerator = new CountEpochGenerator(reader, samplesPerEpoch);
             countGenerator.NextEpoch += new EpochReadyEventHandler(countGenerator_NextEpoch);
         }
