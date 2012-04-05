@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <fstream>
 
+
 using namespace std;
 
 string exec(const char* cmd) {
@@ -126,10 +127,30 @@ struct replace_value_walker: pugi::xml_tree_walker
     }
 };
 
-string get_global_openvibe_includes(string openvibe_base)
+string get_project_name_noextension(const string full_path)
 {
+	 int n =  full_path.find_last_of("/");
+
+	 string executable;
+	 executable.assign(full_path,n+1,full_path.size()-n); 
+	 custom_replace(executable,".vcxproj","");
+	 return executable;
+}
+
+bool compare_string_case_insesnsitive(string s1,string s2)
+{
+    std::transform(s1.begin(), s1.end(), s1.begin(), ::tolower);
+    std::transform(s2.begin(), s2.end(), s2.begin(), ::tolower);
+
+	return s1.compare(s2) == 0;
+}
+
+string get_global_openvibe_includes(string openvibe_base,const string full_path)
+{
+	string project_shortname= get_project_name_noextension(full_path);
 	string result="";
 
+	//global
 	result+=openvibe_base+"/openvibe/trunc/include;";
     result+=openvibe_base+"/openvibe-toolkit/trunc/src;";
     result+=openvibe_base+"/cmake-modules;";
@@ -147,6 +168,35 @@ string get_global_openvibe_includes(string openvibe_base)
     result+=openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit;";
 	result+=openvibe_base+"/dependencies/vrpn/include;";
 
+	//per project
+	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-plugins-stimulation-dynamic")))
+	{
+      result+=openvibe_base+"/dependencies/libvorbis/include;";
+      result+=openvibe_base+"/dependencies/freealut/include;";
+      result+=openvibe_base+"/dependencies/lua/include;";
+      result+=openvibe_base+"/dependencies/openal/include;";
+	  result+=openvibe_base+"/dependencies/libogg/include;";
+	}
+	return result;
+}
+
+string get_libs(string openvibe_base,const string full_path)
+{
+	string project_shortname= get_project_name_noextension(full_path);
+	string result=";";
+
+	//global
+	result+=openvibe_base+"/dependencies/boost/lib";
+
+	//per project
+	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-plugins-stimulation-dynamic")))
+	{
+        result+=openvibe_base+"/dependencies/freealut/lib;";
+        result+=openvibe_base+"/dependencies/libvorbis/lib;";
+        result+=openvibe_base+"/dependencies/openal/libs;";
+        result+=openvibe_base+"/dependencies/lua/lib;";
+		result+=openvibe_base+"/dependencies/libogg/win32/lib;";
+	}
 	return result;
 }
 
@@ -215,7 +265,7 @@ int _tmain(int argc, TCHAR* argv[])
 
 	string openvibe_base = get_openvibe_base_folder(project);
 
-    string executable = get_openvibe_executable(project);
+    string executable = get_openvibe_executable(project);//needed only for designer and acquisition server, but it is also set on other projects (even if not needed) 
 	cout<<"Executable="<<executable<<endl;
 
 	//1. Set Additional Include folders
@@ -226,13 +276,13 @@ int _tmain(int argc, TCHAR* argv[])
 	pugi::xml_parse_result result = doc.load_file(project.c_str());
 	cout<<result.description()<<endl;
 
-	string includes = ";"+get_global_openvibe_includes(openvibe_base);
+	string includes = ";"+get_global_openvibe_includes(openvibe_base,project);
     simple_walker walker("AdditionalIncludeDirectories",includes,true);
     doc.traverse(walker);
 	
 	//2. Setting Additional Libraries Folders
 	cout<<"2. Setting Additional Libraries Folders"<<endl;
-	string libs = ";"+openvibe_base+"/dependencies/boost/lib";
+	string libs = get_libs(openvibe_base,project);
     walker = simple_walker("AdditionalLibraryDirectories",libs,true);
     doc.traverse(walker);
 
