@@ -57,28 +57,38 @@
             this.label5 = new System.Windows.Forms.Label();
             this.rbuttonOpenVibe = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBoxDSP = new System.Windows.Forms.ComboBox();
+            this.cbEmotivDspMethod = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonBrowseEmotivFile = new System.Windows.Forms.Button();
             this.textBoxEmotivFile = new System.Windows.Forms.TextBox();
             this.rbuttonEmotivFile = new System.Windows.Forms.RadioButton();
             this.rbuttonEmotivSignal = new System.Windows.Forms.RadioButton();
-            this.checkBoxEnableBasicDSP = new System.Windows.Forms.CheckBox();
+            this.cbEmotivDSP = new System.Windows.Forms.CheckBox();
             this.rbuttonEmotiv = new System.Windows.Forms.RadioButton();
             this.rbuttonWPFcharting = new System.Windows.Forms.RadioButton();
             this.rbuttonWindowsFormsCharting = new System.Windows.Forms.RadioButton();
             this.groupBoxCharting = new System.Windows.Forms.GroupBox();
             this.rbuttonExperimentator = new System.Windows.Forms.RadioButton();
+            this.rbuttonFieldTrip = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbFieldTripDspMethod = new System.Windows.Forms.ComboBox();
+            this.cbFieldTripDSP = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.ndFieldTripPort = new System.Windows.Forms.NumericUpDown();
+            this.tboxFieldTripHost = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxCharting.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ndFieldTripPort)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(272, 386);
+            this.buttonStart.Location = new System.Drawing.Point(248, 355);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -216,7 +226,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(580, 409);
+            this.buttonExit.Location = new System.Drawing.Point(572, 397);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -309,7 +319,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 131);
+            this.label5.Location = new System.Drawing.Point(25, 112);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 21;
@@ -319,7 +329,7 @@
             // 
             this.rbuttonOpenVibe.AutoSize = true;
             this.rbuttonOpenVibe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 111);
+            this.rbuttonOpenVibe.Location = new System.Drawing.Point(18, 88);
             this.rbuttonOpenVibe.Name = "rbuttonOpenVibe";
             this.rbuttonOpenVibe.Size = new System.Drawing.Size(104, 17);
             this.rbuttonOpenVibe.TabIndex = 20;
@@ -329,13 +339,13 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBoxDSP);
+            this.groupBox2.Controls.Add(this.cbEmotivDspMethod);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.buttonBrowseEmotivFile);
             this.groupBox2.Controls.Add(this.textBoxEmotivFile);
             this.groupBox2.Controls.Add(this.rbuttonEmotivFile);
             this.groupBox2.Controls.Add(this.rbuttonEmotivSignal);
-            this.groupBox2.Controls.Add(this.checkBoxEnableBasicDSP);
+            this.groupBox2.Controls.Add(this.cbEmotivDSP);
             this.groupBox2.Location = new System.Drawing.Point(128, 210);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(566, 103);
@@ -343,22 +353,21 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Emotiv EPOCH settings";
             // 
-            // comboBoxDSP
+            // cbEmotivDspMethod
             // 
-            this.comboBoxDSP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDSP.FormattingEnabled = true;
-            this.comboBoxDSP.Items.AddRange(new object[] {
-            "Basic (ButterworthBandPass + Averaging)",
-            "Empirical Mode Decomposition"});
-            this.comboBoxDSP.Location = new System.Drawing.Point(108, 73);
-            this.comboBoxDSP.Name = "comboBoxDSP";
-            this.comboBoxDSP.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxDSP.TabIndex = 6;
+            this.cbEmotivDspMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEmotivDspMethod.FormattingEnabled = true;
+            this.cbEmotivDspMethod.Items.AddRange(new object[] {
+            "Basic (ButterworthBandPass + Averaging)"});
+            this.cbEmotivDspMethod.Location = new System.Drawing.Point(108, 73);
+            this.cbEmotivDspMethod.Name = "cbEmotivDspMethod";
+            this.cbEmotivDspMethod.Size = new System.Drawing.Size(221, 21);
+            this.cbEmotivDspMethod.TabIndex = 6;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(105, 49);
+            this.label6.Location = new System.Drawing.Point(141, 47);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(182, 13);
             this.label6.TabIndex = 5;
@@ -377,9 +386,9 @@
             // 
             // textBoxEmotivFile
             // 
-            this.textBoxEmotivFile.Location = new System.Drawing.Point(185, 21);
+            this.textBoxEmotivFile.Location = new System.Drawing.Point(144, 21);
             this.textBoxEmotivFile.Name = "textBoxEmotivFile";
-            this.textBoxEmotivFile.Size = new System.Drawing.Size(282, 20);
+            this.textBoxEmotivFile.Size = new System.Drawing.Size(323, 20);
             this.textBoxEmotivFile.TabIndex = 3;
             // 
             // rbuttonEmotivFile
@@ -388,10 +397,10 @@
             this.rbuttonEmotivFile.Checked = true;
             this.rbuttonEmotivFile.Location = new System.Drawing.Point(16, 22);
             this.rbuttonEmotivFile.Name = "rbuttonEmotivFile";
-            this.rbuttonEmotivFile.Size = new System.Drawing.Size(164, 17);
+            this.rbuttonEmotivFile.Size = new System.Drawing.Size(86, 17);
             this.rbuttonEmotivFile.TabIndex = 2;
             this.rbuttonEmotivFile.TabStop = true;
-            this.rbuttonEmotivFile.Text = "Pre-recorded in Emotiv format";
+            this.rbuttonEmotivFile.Text = "Pre-recorded";
             this.rbuttonEmotivFile.UseVisualStyleBackColor = true;
             this.rbuttonEmotivFile.CheckedChanged += new System.EventHandler(this.rbuttonEmotivFile_CheckedChanged);
             // 
@@ -406,21 +415,21 @@
             this.rbuttonEmotivSignal.UseVisualStyleBackColor = true;
             this.rbuttonEmotivSignal.CheckedChanged += new System.EventHandler(this.rbuttonEmotivSignal_CheckedChanged);
             // 
-            // checkBoxEnableBasicDSP
+            // cbEmotivDSP
             // 
-            this.checkBoxEnableBasicDSP.AutoSize = true;
-            this.checkBoxEnableBasicDSP.Location = new System.Drawing.Point(16, 75);
-            this.checkBoxEnableBasicDSP.Name = "checkBoxEnableBasicDSP";
-            this.checkBoxEnableBasicDSP.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxEnableBasicDSP.TabIndex = 0;
-            this.checkBoxEnableBasicDSP.Text = "Apply DSP";
-            this.checkBoxEnableBasicDSP.UseVisualStyleBackColor = true;
+            this.cbEmotivDSP.AutoSize = true;
+            this.cbEmotivDSP.Location = new System.Drawing.Point(16, 75);
+            this.cbEmotivDSP.Name = "cbEmotivDSP";
+            this.cbEmotivDSP.Size = new System.Drawing.Size(77, 17);
+            this.cbEmotivDSP.TabIndex = 0;
+            this.cbEmotivDSP.Text = "Apply DSP";
+            this.cbEmotivDSP.UseVisualStyleBackColor = true;
             // 
             // rbuttonEmotiv
             // 
             this.rbuttonEmotiv.AutoSize = true;
             this.rbuttonEmotiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonEmotiv.Location = new System.Drawing.Point(18, 242);
+            this.rbuttonEmotiv.Location = new System.Drawing.Point(18, 210);
             this.rbuttonEmotiv.Name = "rbuttonEmotiv";
             this.rbuttonEmotiv.Size = new System.Drawing.Size(87, 17);
             this.rbuttonEmotiv.TabIndex = 0;
@@ -463,21 +472,119 @@
             // rbuttonExperimentator
             // 
             this.rbuttonExperimentator.AutoSize = true;
-            this.rbuttonExperimentator.Checked = true;
-            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 333);
+            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 325);
             this.rbuttonExperimentator.Name = "rbuttonExperimentator";
             this.rbuttonExperimentator.Size = new System.Drawing.Size(77, 17);
             this.rbuttonExperimentator.TabIndex = 25;
-            this.rbuttonExperimentator.TabStop = true;
             this.rbuttonExperimentator.Text = "Optimizator";
             this.rbuttonExperimentator.UseVisualStyleBackColor = true;
             this.rbuttonExperimentator.CheckedChanged += new System.EventHandler(this.rbuttonExperimentator_CheckedChanged);
+            // 
+            // rbuttonFieldTrip
+            // 
+            this.rbuttonFieldTrip.AutoSize = true;
+            this.rbuttonFieldTrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 397);
+            this.rbuttonFieldTrip.Name = "rbuttonFieldTrip";
+            this.rbuttonFieldTrip.Size = new System.Drawing.Size(98, 17);
+            this.rbuttonFieldTrip.TabIndex = 26;
+            this.rbuttonFieldTrip.Text = "use FieldTrip";
+            this.rbuttonFieldTrip.UseVisualStyleBackColor = true;
+            this.rbuttonFieldTrip.Visible = false;
+            this.rbuttonFieldTrip.CheckedChanged += new System.EventHandler(this.rbuttonFieldTrip_CheckedChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.cbFieldTripDspMethod);
+            this.groupBox3.Controls.Add(this.cbFieldTripDSP);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.ndFieldTripPort);
+            this.groupBox3.Controls.Add(this.tboxFieldTripHost);
+            this.groupBox3.Location = new System.Drawing.Point(0, 420);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(566, 81);
+            this.groupBox3.TabIndex = 27;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "FieldTrip settings";
+            this.groupBox3.Visible = false;
+            // 
+            // cbFieldTripDspMethod
+            // 
+            this.cbFieldTripDspMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFieldTripDspMethod.FormattingEnabled = true;
+            this.cbFieldTripDspMethod.Items.AddRange(new object[] {
+            "Basic (ButterworthBandPass + Averaging)"});
+            this.cbFieldTripDspMethod.Location = new System.Drawing.Point(108, 46);
+            this.cbFieldTripDspMethod.Name = "cbFieldTripDspMethod";
+            this.cbFieldTripDspMethod.Size = new System.Drawing.Size(221, 21);
+            this.cbFieldTripDspMethod.TabIndex = 8;
+            // 
+            // cbFieldTripDSP
+            // 
+            this.cbFieldTripDSP.AutoSize = true;
+            this.cbFieldTripDSP.Location = new System.Drawing.Point(16, 48);
+            this.cbFieldTripDSP.Name = "cbFieldTripDSP";
+            this.cbFieldTripDSP.Size = new System.Drawing.Size(77, 17);
+            this.cbFieldTripDSP.TabIndex = 7;
+            this.cbFieldTripDSP.Text = "Apply DSP";
+            this.cbFieldTripDSP.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(369, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Port:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Host:";
+            // 
+            // ndFieldTripPort
+            // 
+            this.ndFieldTripPort.Location = new System.Drawing.Point(404, 20);
+            this.ndFieldTripPort.Maximum = new decimal(new int[] {
+            65000,
+            0,
+            0,
+            0});
+            this.ndFieldTripPort.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.ndFieldTripPort.Name = "ndFieldTripPort";
+            this.ndFieldTripPort.Size = new System.Drawing.Size(63, 20);
+            this.ndFieldTripPort.TabIndex = 1;
+            this.ndFieldTripPort.Value = new decimal(new int[] {
+            1979,
+            0,
+            0,
+            0});
+            // 
+            // tboxFieldTripHost
+            // 
+            this.tboxFieldTripHost.Location = new System.Drawing.Point(53, 20);
+            this.tboxFieldTripHost.Name = "tboxFieldTripHost";
+            this.tboxFieldTripHost.Size = new System.Drawing.Size(276, 20);
+            this.tboxFieldTripHost.TabIndex = 0;
+            this.tboxFieldTripHost.Text = "localhost";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 454);
+            this.ClientSize = new System.Drawing.Size(702, 436);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.rbuttonFieldTrip);
             this.Controls.Add(this.rbuttonExperimentator);
             this.Controls.Add(this.groupBoxCharting);
             this.Controls.Add(this.rbuttonOpenVibe);
@@ -502,6 +609,9 @@
             this.groupBox2.PerformLayout();
             this.groupBoxCharting.ResumeLayout(false);
             this.groupBoxCharting.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ndFieldTripPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -542,12 +652,20 @@
         private System.Windows.Forms.TextBox textBoxEmotivFile;
         private System.Windows.Forms.RadioButton rbuttonEmotivFile;
         private System.Windows.Forms.RadioButton rbuttonEmotivSignal;
-        private System.Windows.Forms.CheckBox checkBoxEnableBasicDSP;
+        private System.Windows.Forms.CheckBox cbEmotivDSP;
         private System.Windows.Forms.Button buttonBrowseEmotivFile;
 		private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxDSP;
+        private System.Windows.Forms.ComboBox cbEmotivDspMethod;
         private System.Windows.Forms.RadioButton rbuttonExperimentator;
         private System.Windows.Forms.ToolStripMenuItem octaveDownloadToolStripMenuItem;
+        private System.Windows.Forms.RadioButton rbuttonFieldTrip;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown ndFieldTripPort;
+        private System.Windows.Forms.TextBox tboxFieldTripHost;
+        private System.Windows.Forms.ComboBox cbFieldTripDspMethod;
+        private System.Windows.Forms.CheckBox cbFieldTripDSP;
     }
 }
 

@@ -39,8 +39,6 @@ namespace Adastra
 
         Form currentForm;
 
-        //string AdastraScenarioFolder;
-
 		public MainForm()
 		{
 			InitializeComponent();
@@ -49,13 +47,16 @@ namespace Adastra
 			textBoxScenario.Text = AdastraConfig.GetOpenVibeScenarioFolder();
 
 			rbuttonOpenVibe.Checked = true;
+            //rbuttonFieldTrip.Checked = true;
+
 			if (comboBoxScenarioType.Items.Count > 0) comboBoxScenarioType.SelectedIndex = 0;
 
 			InitOpenVibeWorker();
 
 			textBoxEmotivFile.Text = AdastraConfig.GetRecordsFolder() + "mitko-small.csv";
 
-			comboBoxDSP.SelectedIndex = 0;
+			cbEmotivDspMethod.SelectedIndex = 0;
+            cbFieldTripDspMethod.SelectedIndex = 0;
 		}
 
 		void InitOpenVibeWorker()
@@ -69,45 +70,55 @@ namespace Adastra
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            //if (openVibeWorker!=null && openVibeWorker.IsBusy)
-            //{
-            //    //this.TopMost = false;
-
-            //    buttonStart.Enabled = false;
-
-            //    openVibeWorker.CancelAsync();
-            //}
-            //else //start new process
-            //{
             buttonStart.Enabled = false;
-            //buttonStart.Text = "Cancel";
             SelectedScenario = comboBoxScenarioType.SelectedIndex;
 
             try
             {
                 #region 1 Configure start
+
+                IDigitalSignalProcessor dsp = null;
+                if (cbEmotivDSP.Checked && cbEmotivDspMethod.SelectedIndex ==0) dsp = new BasicSignalProcessor();
+                if (cbFieldTripDSP.Checked && cbFieldTripDspMethod.SelectedIndex == 0) dsp = new BasicSignalProcessor();
+
                 if (rbuttonEmotiv.Checked)
                 {
-                    IDigitalSignalProcessor dsp = null;
-                    switch (comboBoxDSP.SelectedIndex)
-                    {
-                        case 0: dsp = new BasicSignalProcessor(); break;
-                        case 1: dsp = new FFTSignalProcessor(); break;
-                        case 2: dsp = new EMDProcessor(); break;
-                    }
-
                     if (rbuttonEmotivSignal.Checked)
-                        dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivRawDataReader(dsp) : new EmotivRawDataReader();
-                    else dataReader = (checkBoxEnableBasicDSP.Checked) ? new EmotivFileSystemDataReader(textBoxEmotivFile.Text, dsp) : new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
+                        dataReader = new EmotivRawDataReader();
+                    else dataReader = new EmotivFileSystemDataReader(textBoxEmotivFile.Text);
 
-                    featureGenerator = (checkBoxEnableBasicDSP.Checked) ? new SimpleFeatureGenerator(dataReader, dsp) : new SimpleFeatureGenerator(dataReader);
+                    int scenario = comboBoxScenarioType.SelectedIndex;
+                    if (scenario == 1 || scenario == 2) //train and classify
+                    {
+                        IEpoching epocher = new TimeEpochGenerator(dataReader, 300);//this value depends on your BCI scenario
+                        featureGenerator = new EigenVectorFeatureGenerator(epocher);
+                    }
                 }
                 else if (rbuttonOpenVibe.Checked)
                 {
-                    featureGenerator = new OpenVibeFeatureGenerator();
                     dataReader = new OpenVibeRawDataReader();
+                    int scenario = comboBoxScenarioType.SelectedIndex;
+                    //if (scenario==5 || scenario==6) //these two acquire signal from OpenVibe
+                    //{
+                    //   IEpoching epocher = new CountEpochGenerator(dataReader, samples_per_chunk);
+                    //   featureGenerator = new EigenVectorFeatureGenerator(epocher); 
+                    //}
+                    //else 
+                    featureGenerator = new OpenVibeFeatureGenerator();
+                    
+                }
+                else if (rbuttonFieldTrip.Checked)
+                {
+                    //dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text, Convert.ToInt32(this.ndFieldTripPort.Value));
+                    //int scenario = comboBoxScenarioType.SelectedIndex;
+                    //if (scenario == 1 || scenario == 2)
+                    //{
+                    //    IEpoching epocher = new TimeEpochGenerator(dataReader,300);//this value depends on your BCI scenario
+                    //    featureGenerator = new EigenVectorFeatureGenerator(epocher);
+                    //}
                 }
 
+                if (dsp != null) dataReader.SetDspProcessor(dsp);
                 #endregion
 
                 #region 2 Instantiate and run
@@ -125,11 +136,11 @@ namespace Adastra
                     };
                 }
                 else
-                    if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked)
+                    if (rbuttonEmotiv.Checked || rbuttonOpenVibe.Checked || rbuttonFieldTrip.Checked)
                     {
                         switch (comboBoxScenarioType.SelectedIndex)
                         {
-                            case 0:
+                            case 0://chart signal
                                 if (rbuttonWPFcharting.Checked)
                                 {
                                     ow = new WPF.OutputWindow(dataReader,-1,-1); ow.Show(); currentWindow = ow;
@@ -140,11 +151,11 @@ namespace Adastra
                                 }
                                 break;
                             case 1: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;
-                            //case 2: cw = new WPF.ClassifyWindow(featureGenerator); cw.Show(); currentWindow = cw; break;
                             case 2: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;
-                            //case 3: ew = new WPF.ExperimentsWindow(); ew.Show(); currentWindow = ew; break;
                             case 3: ow = new WPF.OutputWindow(dataReader, 165, 830); ow.Show(); currentWindow = ow; break; //xDAWN
                             case 4: ow = new WPF.OutputWindow(dataReader, 250, 830); ow.Show(); currentWindow = ow; break; //CSP
+                            case 5: tf = new TrainForm(featureGenerator); tf.Show(); currentForm = tf; break;//train
+                            case 6: cf = new ClassifyForm(featureGenerator); cf.Show(); currentForm = cf; break;//classify
                         }
 
                         if (rbuttonOpenVibe.Checked)
@@ -215,19 +226,13 @@ namespace Adastra
 
         void asyncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //BackgroundWorker bwAsync = sender as BackgroundWorker;
-
-			//if (rbuttonOpenVibe.Checked)
-			//{
-                OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
-                OpenVibeController.Scenario = this.textBoxScenario.Text;
-                if (rButtonRealtime.Checked)
-                    OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
-                OpenVibeController.FastPlay = false;
-                OpenVibeController.NoGUI = true;
-                OpenVibeController.Start(true);
-                //System.Threading.Thread.Sleep(4 * 1000);
-            //}
+            OpenVibeController.OpenVibeDesignerWorkingFolder = this.textBoxOpenVibeWorkingFolder.Text;
+            OpenVibeController.Scenario = this.textBoxScenario.Text;
+            if (rButtonRealtime.Checked)
+                OpenVibeController.Scenario = OpenVibeController.Scenario.Substring(0, OpenVibeController.Scenario.Length - 4) + "-realtime.xml";
+            OpenVibeController.FastPlay = false;
+            OpenVibeController.NoGUI = true;
+            OpenVibeController.Start(true);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -246,8 +251,8 @@ namespace Adastra
                 fo.InitialDirectory = textBoxScenario.Text.Substring(0, lastSlash);
             }
 
-            DialogResult result = fo.ShowDialog(); // Show the dialog.
-            if (result == DialogResult.OK) // Test result.
+            DialogResult result = fo.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 try
                 {
@@ -288,8 +293,8 @@ namespace Adastra
         {
             System.Windows.Forms.FolderBrowserDialog fo = new FolderBrowserDialog();
 
-            DialogResult result = fo.ShowDialog(); // Show the dialog.
-            if (result == DialogResult.OK) // Test result.
+            DialogResult result = fo.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 try
                 {
@@ -325,6 +330,8 @@ namespace Adastra
                 case 2: scenario = "motor-imagery-feature-generator-vrpn.xml"; break;//classify
                 case 3: scenario = "xdawn-filter-charting-after-training.xml"; break;//xDAWN filter
                 case 4: scenario = "csp-filter-charting-after-training.xml"; break;//CSP filter
+                case 5: scenario = "signal-charting-vrpn.xml"; break;//train 
+                case 6: scenario = "signal-charting-vrpn.xml"; break;//clasify
             }
 
             int lastSlash = textBoxScenario.Text.LastIndexOf("\\");
@@ -387,6 +394,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Add("3. Display: EEG classification using OpenVibe's feature aggegator + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
             comboBoxScenarioType.Items.Add("4. Display: new channels from applied Bandpass + trained xDAWN + Averaged filters (used in P300)");
             comboBoxScenarioType.Items.Add("5. Display: new channels from applied Bandpass + trained CSP + Averaged filters (used in motor imaganery clasification)");
+            //comboBoxScenarioType.Items.Add("6. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 6)");
+            //comboBoxScenarioType.Items.Add("7. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 5)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                  comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
@@ -405,16 +414,32 @@ namespace Adastra
             comboBoxScenarioType.Items.Clear();
 
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from Emotiv");
-
             comboBoxScenarioType.Items.Add("2. Train:  using simple feature aggegator + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
-            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
-            //comboBoxScenarioType.Items.Add("4. Display: Experimentator");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification using eigen values as feature vectors + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                 comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
             else comboBoxScenarioType.SelectedIndex = 0;
 
             groupBoxCharting.Visible = false;
+        }
+
+        private void rbuttonFieldTrip_CheckedChanged(object sender, EventArgs e)
+        {
+            int lastSelectedIndex = comboBoxScenarioType.SelectedIndex;
+
+            if (rbuttonEmotiv.Checked)
+                rbuttonOpenVibe.Checked = false;
+
+            comboBoxScenarioType.Items.Clear();
+
+            comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from a FieldTrip buffer server");
+            comboBoxScenarioType.Items.Add("2. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+
+            if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
+                comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
+            else comboBoxScenarioType.SelectedIndex = 0;
         }
 
         private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
@@ -462,6 +487,6 @@ namespace Adastra
         private void octaveDownloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenLinkInBrowser("http://sourceforge.net/projects/octave/files/Octave_Windows%20-%20MinGW/");
-        }
+        }    
     }
 }

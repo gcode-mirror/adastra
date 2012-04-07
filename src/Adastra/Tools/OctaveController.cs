@@ -8,7 +8,7 @@ using System.IO;
 namespace Adastra
 {
     /// <summary>
-    /// Starts and stops Octave (Matlab compatible product).
+    /// Executes Octave scripts (Matlab compatible product).
     /// </summary>
     public class OctaveController
     {

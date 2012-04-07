@@ -7,7 +7,7 @@ using System.IO;
 namespace Adastra
 {
 	/// <summary>
-	/// Emotiv FileSystem reader
+	/// Reads EEG data from a file
 	/// </summary>
 	public class EmotivFileSystemDataReader : IRawDataReader
 	{
@@ -15,13 +15,6 @@ namespace Adastra
 		int counter = 0;
 		System.IO.StreamReader file;
 		IDigitalSignalProcessor dsp = null;
-
-		public EmotivFileSystemDataReader(string filename, IDigitalSignalProcessor dsp)
-		{
-            Init(filename);
-
-			this.dsp = dsp;
-		}
 
         public EmotivFileSystemDataReader(string filename)
 		{
@@ -59,6 +52,8 @@ namespace Adastra
 				if (dsp != null)
 					dsp.DoWork(ref result);
 
+                System.Threading.Thread.Sleep(2);//delay is on purpose
+
 				Values(result);
 			}
 			else
@@ -80,6 +75,19 @@ namespace Adastra
         {
             string[] names = { "AF3", "F7", "F3", "FC5", "T7", "P7", "O1", "O2", "P8", "T8", "FC6", "F4", "F8", "AF4" };
             return names[number];
+        }
+
+        public double SamplingFrequency
+        {
+            get
+            {
+                return 128;//this is the typical Emotiv sampling rate
+            }
+        }
+
+        public void SetDspProcessor(IDigitalSignalProcessor dsp)
+        {
+            this.dsp = dsp;
         }
 	}
 

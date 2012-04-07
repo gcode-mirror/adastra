@@ -9,6 +9,11 @@ namespace Adastra
 
     public interface IRawDataReader
     {
+        double SamplingFrequency
+        {
+            get;
+        }
+
         event RawDataChangedEventHandler Values;
 
         void Update();
@@ -22,5 +27,7 @@ namespace Adastra
 		double AdjustChannel(int number,double value);
 
         string ChannelName(int number);
+
+        void SetDspProcessor(IDigitalSignalProcessor dsp);
     }
 }

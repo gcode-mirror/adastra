@@ -63,7 +63,6 @@ namespace Adastra
 			comboBoxRecordTime.SelectedIndexChanged += new EventHandler(comboBoxRecordTime_SelectedIndexChanged);
 
             recordTimer = new System.Timers.Timer();
-            recordTimer.Enabled = true;
             recordTimer.Interval = 1000;
             recordTimer.Elapsed += new System.Timers.ElapsedEventHandler(recordTimer_Elapsed);
 
@@ -89,6 +88,7 @@ namespace Adastra
 
             ms = new ModelStorage();
             cbMethods.SelectedIndex = 0;
+            recordTime = Convert.ToInt32(comboBoxRecordTime.Text);
 
             if (fg is OpenVibeFeatureGenerator)
                 listBoxLogger.Items.Insert(0, "You are required to wait until you see: \"Initialization took xxxxx ms\" in OpenVibe.");

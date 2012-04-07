@@ -45,9 +45,9 @@
             this.buttonClearRecord = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbMethods = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.cbMethods = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -126,6 +126,7 @@
             // 
             this.comboBoxRecordTime.FormattingEnabled = true;
             this.comboBoxRecordTime.Items.AddRange(new object[] {
+            "3",
             "5",
             "10",
             "15",
@@ -233,15 +234,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Model (training)";
             // 
-            // groupBox3
+            // label4
             // 
-            this.groupBox3.Controls.Add(this.listBoxLogger);
-            this.groupBox3.Location = new System.Drawing.Point(9, 329);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(668, 159);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Log";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Algorithm:";
             // 
             // cbMethods
             // 
@@ -257,14 +257,15 @@
             this.cbMethods.Size = new System.Drawing.Size(593, 21);
             this.cbMethods.TabIndex = 19;
             // 
-            // label4
+            // groupBox3
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Algorithm:";
+            this.groupBox3.Controls.Add(this.listBoxLogger);
+            this.groupBox3.Location = new System.Drawing.Point(9, 329);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(668, 159);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Log";
             // 
             // TrainForm
             // 

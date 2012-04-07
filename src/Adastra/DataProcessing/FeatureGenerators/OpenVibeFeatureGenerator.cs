@@ -8,11 +8,15 @@ using Vrpn;
 
 namespace Adastra
 {
-    public class OpenVibeRawDataReader : IRawDataReader
+    /// <summary>
+    /// The feature vectors are received directly from OpenVibe.
+    /// They are not calculated in Adastra. This class is a VRPN client.
+    /// </summary>
+    public class OpenVibeFeatureGenerator : IFeatureGenerator
     {
         AnalogRemote analog;
 
-        public OpenVibeRawDataReader()
+        public OpenVibeFeatureGenerator()
         {
             string server = ConfigurationManager.AppSettings["OpenVibeVRPNStreamer"];
             analog = new AnalogRemote(server);
@@ -20,27 +24,20 @@ namespace Adastra
             analog.MuteWarnings = true;
         }
 
+        /// <summary>
+        /// Request a new value (a set of values)
+        /// </summary>
         public void Update()
         {
             analog.Update();
         }
 
-        void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
+        public event ChangedFeaturesEventHandler Values;
+
+        private void analog_AnalogChanged(object sender, AnalogChangeEventArgs e)
         {
-            if (Values != null)
-                Values(e.Channels);
-        }
-
-        public event RawDataChangedEventHandler Values;
-
-		public double AdjustChannel(int number,double value)
-		{
-			return value + number;
-		}
-
-        public string ChannelName(int number)
-        {
-            return (number+1).ToString();
+            if (Values!=null)
+               Values(e.Channels);
         }
     }
 }

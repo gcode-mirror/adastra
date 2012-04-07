@@ -9,7 +9,7 @@ using System.Threading;
 namespace Adastra
 {
     /// <summary>
-    /// Starts and stops an OpenVibe instance. Contains some unmanaged code.
+    /// Starts and stops an OpenVibe instance.
     /// </summary>
     public class OpenVibeController
     {

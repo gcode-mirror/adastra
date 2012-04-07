@@ -9,7 +9,10 @@ using Emotiv;
 
 namespace Adastra
 {
-    public class EmotivRawDataReader :IRawDataReader
+    /// <summary>
+    /// Used for online EEG data acquisition from Emotiv device 
+    /// </summary>
+    public class EmotivRawDataReader : IRawDataReader
     {
         EmoEngine engine; // Access to the EDK is via the EmoEngine 
         int userID = -1; // userID is used to uniquely identify a user's headset
@@ -21,12 +24,6 @@ namespace Adastra
         public EmotivRawDataReader()
         {
             Init();
-        }
-
-        public EmotivRawDataReader(IDigitalSignalProcessor dsp)
-        {
-            Init();
-            this.dsp = dsp;
         }
 
         private void Init()
@@ -103,5 +100,21 @@ namespace Adastra
                 return value + 0.05;
             else return value;
 		}
+
+        /// <summary>
+        /// Typically the Emotiv device uses 128Hz
+        /// </summary>
+        public double SamplingFrequency
+        {
+            get
+            {
+                return Convert.ToDouble(engine.DataGetSamplingRate((UInt32)userID));
+            }
+        }
+
+        public void SetDspProcessor(IDigitalSignalProcessor dsp)
+        {
+            this.dsp = dsp;
+        }
     }
 }

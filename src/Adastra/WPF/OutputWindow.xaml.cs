@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.ComponentModel;
 using System.Collections.Concurrent;
+using System.Configuration;
 
 using Adastra;
 using System.Windows.Controls;
@@ -28,9 +29,11 @@ namespace WPF
 
         static long x = 0; //x axis for evey chart
 
-        int maxpoints = 180;
+        int maxpoints = Convert.ToInt32(ConfigurationManager.AppSettings["Charting.PointsBuffer"]);
+        int delay = Convert.ToInt32(ConfigurationManager.AppSettings["Charting.DelayInMs"]);
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
         #endregion
 
         public OutputWindow(IRawDataReader p_dataReader,int height,int width)
@@ -72,32 +75,32 @@ namespace WPF
         void p_asyncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             double[] values=null;
-            bool success = bufferQueue.TryDequeue(out values);         
-            int i = 0;
-            Point[] points;
+            bool success = false;
 
-            if (sources == null && values!=null)  BuildCharts(values.Length);
-
-            if (success && !p_asyncWorker.CancellationPending)
+            if (!bufferQueue.IsEmpty)
+               success = bufferQueue.TryDequeue(out values);
+            
+            if (success)
             {
-                x++;
+                if (sources == null && values != null) BuildCharts(values.Length);
 
-                points = new Point[values.Length];
-
-                i = 0;
-                foreach (double d in values)
+                if (!p_asyncWorker.CancellationPending)
                 {
-                    points[i] = new Point(x, dataReader.AdjustChannel(i, d)); //separate different channels
-                    
-                    if (sources[i].Collection.Count > maxpoints)
-                        sources[i].Collection.RemoveAt(0);
+                    x++; //next point is on the right of the previous one 
 
-                    //if (points[i].Y!=0)
-                    sources[i].AppendAsync(Dispatcher, points[i]);
-                    i++;
+                    //every channel value is added to a line being drawn from sources[i]
+                    for (int i=0;i<values.Length;i++)
+                    {
+                        double d = values[i];
+                        Point p = new Point(x, dataReader.AdjustChannel(i, d)); //AdjustChannel - separates different channels
+
+                        if (sources[i].Collection.Count > maxpoints)
+                            sources[i].Collection.RemoveAt(0);
+
+                        //if (points[i].Y!=0)
+                        sources[i].AppendAsync(Dispatcher, p);//draws the point
+                    }
                 }
-
-                Thread.Sleep(10);
             }
         }
 
@@ -105,16 +108,22 @@ namespace WPF
         {
             while (!p_asyncWorker.CancellationPending)
             {
-                dataReader.Update();
-                System.Threading.Thread.Sleep(50);
+                if (bufferQueue.Count < (maxpoints * 1.6)) //to prevent too many points being buffered without being drawn
+                {
+                    dataReader.Update();
+                }
+
+                //System.Threading.Thread.Sleep(delay);//50
                 p_asyncWorker.ReportProgress(-1, null);
-                System.Threading.Thread.Sleep(50);
+                //this delay here is used to prevent stack overflow error
+                System.Threading.Thread.Sleep(delay);//50
             }
         }
 
         void dataReader_Values(double[] values)
         {
-            bufferQueue.Enqueue(values);        
+            if (values!=null)
+               bufferQueue.Enqueue(values);        
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

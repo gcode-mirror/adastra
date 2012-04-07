@@ -6,7 +6,8 @@ using System.Text;
 namespace Adastra
 {
     /// <summary>
-    /// Generated feature vectors are raw data itself
+    /// Generated feature vectors are the raw data itself
+    /// n channel EEG signal becomes n dimensional feature vector
     /// </summary>
     public class SimpleFeatureGenerator : IFeatureGenerator
     {
@@ -33,16 +34,13 @@ namespace Adastra
 
         void er_Values(double[] rawData)
         {
-            //Filter signal
+            //1. Filter signal
             if (dsp != null)
                 dsp.DoWork(ref rawData);
 
-            //time slicing 
-
-            //Generate feature vectors
+            //2. Generate feature vector
             double[] featureVectors = rawData;
 
-            //send feature vectors
             if (Values != null)
                 Values(featureVectors);
         }
