@@ -177,6 +177,12 @@ string get_global_openvibe_includes(string openvibe_base,const string full_path)
       result+=openvibe_base+"/dependencies/openal/include;";
 	  result+=openvibe_base+"/dependencies/libogg/include;";
 	}
+
+	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-kernel-dynamic")))
+	{
+      result+=openvibe_base+"/dependencies/ogre/include/OGRE;";
+	}
+
 	return result;
 }
 
