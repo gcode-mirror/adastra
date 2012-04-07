@@ -186,7 +186,7 @@ string get_libs(string openvibe_base,const string full_path)
 	string result=";";
 
 	//global
-	result+=openvibe_base+"/dependencies/boost/lib";
+	result+=openvibe_base+"/dependencies/boost/lib;";
 
 	//per project
 	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-plugins-stimulation-dynamic")))
