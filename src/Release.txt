@@ -4,7 +4,7 @@ Adastra 2.6 Released 07.04.2012 (dd/mm/yyyy)
 Added time based based epoching.
 Added new feature generator: chunks in the form of matrix are produced, then covariance matrix 
 is calculated and then the eigen values of the covariance matrix are used for feature vectors.
-Fixed bug in recordring in Training form.
+Fixed bug in recording in Training form.
 
 Adastra 2.5.1 Released 10.03.2012 (dd/mm/yyyy)
 ============================================
