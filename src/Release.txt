@@ -1,4 +1,4 @@
-Adastra 2.5.1 Released 07.04.2012 (dd/mm/yyyy)
+Adastra 2.6 Released 07.04.2012 (dd/mm/yyyy)
 ============================================
 
 Added time based based epoching.
