@@ -71,12 +71,12 @@
             this.rbuttonExperimentator = new System.Windows.Forms.RadioButton();
             this.rbuttonFieldTrip = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbFieldTripDspMethod = new System.Windows.Forms.ComboBox();
+            this.cbFieldTripDSP = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ndFieldTripPort = new System.Windows.Forms.NumericUpDown();
             this.tboxFieldTripHost = new System.Windows.Forms.TextBox();
-            this.cbFieldTripDspMethod = new System.Windows.Forms.ComboBox();
-            this.cbFieldTripDSP = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -88,7 +88,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(272, 448);
+            this.buttonStart.Location = new System.Drawing.Point(248, 355);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -226,7 +226,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(580, 469);
+            this.buttonExit.Location = new System.Drawing.Point(572, 397);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -472,7 +472,7 @@
             // rbuttonExperimentator
             // 
             this.rbuttonExperimentator.AutoSize = true;
-            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 421);
+            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 325);
             this.rbuttonExperimentator.Name = "rbuttonExperimentator";
             this.rbuttonExperimentator.Size = new System.Drawing.Size(77, 17);
             this.rbuttonExperimentator.TabIndex = 25;
@@ -484,12 +484,13 @@
             // 
             this.rbuttonFieldTrip.AutoSize = true;
             this.rbuttonFieldTrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 320);
+            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 397);
             this.rbuttonFieldTrip.Name = "rbuttonFieldTrip";
             this.rbuttonFieldTrip.Size = new System.Drawing.Size(98, 17);
             this.rbuttonFieldTrip.TabIndex = 26;
             this.rbuttonFieldTrip.Text = "use FieldTrip";
             this.rbuttonFieldTrip.UseVisualStyleBackColor = true;
+            this.rbuttonFieldTrip.Visible = false;
             this.rbuttonFieldTrip.CheckedChanged += new System.EventHandler(this.rbuttonFieldTrip_CheckedChanged);
             // 
             // groupBox3
@@ -500,12 +501,34 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.ndFieldTripPort);
             this.groupBox3.Controls.Add(this.tboxFieldTripHost);
-            this.groupBox3.Location = new System.Drawing.Point(128, 320);
+            this.groupBox3.Location = new System.Drawing.Point(0, 420);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(566, 81);
             this.groupBox3.TabIndex = 27;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FieldTrip settings";
+            this.groupBox3.Visible = false;
+            // 
+            // cbFieldTripDspMethod
+            // 
+            this.cbFieldTripDspMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFieldTripDspMethod.FormattingEnabled = true;
+            this.cbFieldTripDspMethod.Items.AddRange(new object[] {
+            "Basic (ButterworthBandPass + Averaging)"});
+            this.cbFieldTripDspMethod.Location = new System.Drawing.Point(108, 46);
+            this.cbFieldTripDspMethod.Name = "cbFieldTripDspMethod";
+            this.cbFieldTripDspMethod.Size = new System.Drawing.Size(221, 21);
+            this.cbFieldTripDspMethod.TabIndex = 8;
+            // 
+            // cbFieldTripDSP
+            // 
+            this.cbFieldTripDSP.AutoSize = true;
+            this.cbFieldTripDSP.Location = new System.Drawing.Point(16, 48);
+            this.cbFieldTripDSP.Name = "cbFieldTripDSP";
+            this.cbFieldTripDSP.Size = new System.Drawing.Size(77, 17);
+            this.cbFieldTripDSP.TabIndex = 7;
+            this.cbFieldTripDSP.Text = "Apply DSP";
+            this.cbFieldTripDSP.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -555,32 +578,11 @@
             this.tboxFieldTripHost.TabIndex = 0;
             this.tboxFieldTripHost.Text = "localhost";
             // 
-            // cbFieldTripDspMethod
-            // 
-            this.cbFieldTripDspMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFieldTripDspMethod.FormattingEnabled = true;
-            this.cbFieldTripDspMethod.Items.AddRange(new object[] {
-            "Basic (ButterworthBandPass + Averaging)"});
-            this.cbFieldTripDspMethod.Location = new System.Drawing.Point(108, 46);
-            this.cbFieldTripDspMethod.Name = "cbFieldTripDspMethod";
-            this.cbFieldTripDspMethod.Size = new System.Drawing.Size(221, 21);
-            this.cbFieldTripDspMethod.TabIndex = 8;
-            // 
-            // cbFieldTripDSP
-            // 
-            this.cbFieldTripDSP.AutoSize = true;
-            this.cbFieldTripDSP.Location = new System.Drawing.Point(16, 48);
-            this.cbFieldTripDSP.Name = "cbFieldTripDSP";
-            this.cbFieldTripDSP.Size = new System.Drawing.Size(77, 17);
-            this.cbFieldTripDSP.TabIndex = 7;
-            this.cbFieldTripDSP.Text = "Apply DSP";
-            this.cbFieldTripDSP.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 514);
+            this.ClientSize = new System.Drawing.Size(702, 436);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.rbuttonFieldTrip);
             this.Controls.Add(this.rbuttonExperimentator);

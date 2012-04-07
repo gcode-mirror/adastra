@@ -301,10 +301,6 @@
       <Project>{D3337309-9682-425E-8EDC-2ECFACF79565}</Project>
       <Name>DotNetEmotivSDK</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FieldTripDriver\FieldTripDriver.vcxproj">
-      <Project>{0C934752-EECF-4332-9FA1-0EBCBBDF8FF1}</Project>
-      <Name>FieldTripDriver</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="WPF\ClassifyWindow.xaml">
@@ -323,7 +319,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy  $(ProjectDir)..\FieldTripDriver\fieldtrip_buffer\src\pthreads-win32\lib\pthreadVCE2.dll $(TargetDir) /y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
