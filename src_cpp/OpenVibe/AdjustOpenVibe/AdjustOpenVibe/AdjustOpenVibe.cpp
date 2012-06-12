@@ -168,6 +168,12 @@ string get_global_openvibe_includes(string openvibe_base,const string full_path)
     result+=openvibe_base+"/openvibe-toolkit/trunc/include/openvibe-toolkit;";
 	result+=openvibe_base+"/dependencies/vrpn/include;";
 
+	//new in OpenVibe ver 0.14
+	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-acquisition-server-dynamic")))
+	{
+	   result+=openvibe_base+"/dependencies/pthreads/include;";
+	}
+
 	//per project
 	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-plugins-stimulation-dynamic")))
 	{
@@ -195,6 +201,13 @@ string get_libs(string openvibe_base,const string full_path)
 	result+=openvibe_base+"/dependencies/boost/lib;";
 
 	//per project
+
+	//new in OpenVibe ver 0.14
+	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-acquisition-server-dynamic")))
+	{
+	   result+=openvibe_base+"/dependencies/pthreads/lib;";
+	}
+
 	if (compare_string_case_insesnsitive(project_shortname,string("OpenViBE-plugins-stimulation-dynamic")))
 	{
         result+=openvibe_base+"/dependencies/freealut/lib;";
