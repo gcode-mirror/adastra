@@ -88,7 +88,7 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStart.Location = new System.Drawing.Point(248, 355);
+            this.buttonStart.Location = new System.Drawing.Point(248, 447);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(209, 34);
             this.buttonStart.TabIndex = 2;
@@ -226,7 +226,7 @@
             // buttonExit
             // 
             this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExit.Location = new System.Drawing.Point(572, 397);
+            this.buttonExit.Location = new System.Drawing.Point(572, 464);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(114, 33);
             this.buttonExit.TabIndex = 12;
@@ -472,7 +472,7 @@
             // rbuttonExperimentator
             // 
             this.rbuttonExperimentator.AutoSize = true;
-            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 325);
+            this.rbuttonExperimentator.Location = new System.Drawing.Point(18, 422);
             this.rbuttonExperimentator.Name = "rbuttonExperimentator";
             this.rbuttonExperimentator.Size = new System.Drawing.Size(77, 17);
             this.rbuttonExperimentator.TabIndex = 25;
@@ -484,13 +484,12 @@
             // 
             this.rbuttonFieldTrip.AutoSize = true;
             this.rbuttonFieldTrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 397);
+            this.rbuttonFieldTrip.Location = new System.Drawing.Point(18, 331);
             this.rbuttonFieldTrip.Name = "rbuttonFieldTrip";
             this.rbuttonFieldTrip.Size = new System.Drawing.Size(98, 17);
             this.rbuttonFieldTrip.TabIndex = 26;
             this.rbuttonFieldTrip.Text = "use FieldTrip";
             this.rbuttonFieldTrip.UseVisualStyleBackColor = true;
-            this.rbuttonFieldTrip.Visible = false;
             this.rbuttonFieldTrip.CheckedChanged += new System.EventHandler(this.rbuttonFieldTrip_CheckedChanged);
             // 
             // groupBox3
@@ -501,13 +500,12 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.ndFieldTripPort);
             this.groupBox3.Controls.Add(this.tboxFieldTripHost);
-            this.groupBox3.Location = new System.Drawing.Point(0, 420);
+            this.groupBox3.Location = new System.Drawing.Point(127, 322);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(566, 81);
             this.groupBox3.TabIndex = 27;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FieldTrip settings";
-            this.groupBox3.Visible = false;
             // 
             // cbFieldTripDspMethod
             // 
@@ -582,7 +580,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 436);
+            this.ClientSize = new System.Drawing.Size(702, 511);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.rbuttonFieldTrip);
             this.Controls.Add(this.rbuttonExperimentator);

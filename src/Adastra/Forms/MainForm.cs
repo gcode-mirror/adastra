@@ -109,13 +109,13 @@ namespace Adastra
                 }
                 else if (rbuttonFieldTrip.Checked)
                 {
-                    //dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text, Convert.ToInt32(this.ndFieldTripPort.Value));
-                    //int scenario = comboBoxScenarioType.SelectedIndex;
-                    //if (scenario == 1 || scenario == 2)
-                    //{
-                    //    IEpoching epocher = new TimeEpochGenerator(dataReader,300);//this value depends on your BCI scenario
-                    //    featureGenerator = new EigenVectorFeatureGenerator(epocher);
-                    //}
+                    dataReader = new FieldTripRawDataReader(this.tboxFieldTripHost.Text, Convert.ToInt32(this.ndFieldTripPort.Value));
+                    int scenario = comboBoxScenarioType.SelectedIndex;
+                    if (scenario == 1 || scenario == 2)
+                    {
+                        IEpoching epocher = new TimeEpochGenerator(dataReader, 300);//this value depends on your BCI scenario
+                        featureGenerator = new EigenVectorFeatureGenerator(epocher);
+                    }
                 }
 
                 if (dsp != null) dataReader.SetDspProcessor(dsp);

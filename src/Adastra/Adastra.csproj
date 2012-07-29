@@ -87,8 +87,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\encog-core-cs.dll</HintPath>
     </Reference>
-    <Reference Include="FieldTripDriver">
-      <HintPath>..\..\lib\FieldTripDriver.dll</HintPath>
+    <Reference Include="FieldTripDriver, Version=1.0.4593.16180, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\FieldTripDriver\FieldTripDriver.dll</HintPath>
     </Reference>
     <Reference Include="InputSimulator">
       <HintPath>..\..\lib\InputSimulator.dll</HintPath>
@@ -322,8 +323,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy  $(ProjectDir)..\..\lib\FieldTripDriver\pthreadVCE2.dll $(TargetDir) /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
