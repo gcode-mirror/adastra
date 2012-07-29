@@ -434,8 +434,8 @@ namespace Adastra
             comboBoxScenarioType.Items.Clear();
 
             comboBoxScenarioType.Items.Add("1. Display: chart multi-channel EEG signal from a FieldTrip buffer server");
-            comboBoxScenarioType.Items.Add("2. Train: using eigen values as feature vectors + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
-            comboBoxScenarioType.Items.Add("3. Display: EEG classification based on data from Emotiv + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
+            comboBoxScenarioType.Items.Add("2. Train: using signal from filedtrip buffer + Adastra's LDA/MLP/SVM trainer (related scenario 3)");
+            comboBoxScenarioType.Items.Add("3. Display: EEG classification from filedtrip buffer signal + Adastra's LDA/MLP/SVM classifier (related scenario 2)");
 
             if (lastSelectedIndex < comboBoxScenarioType.Items.Count)
                 comboBoxScenarioType.SelectedIndex = lastSelectedIndex;
