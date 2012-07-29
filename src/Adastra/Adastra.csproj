@@ -87,6 +87,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\encog-core-cs.dll</HintPath>
     </Reference>
+    <Reference Include="FieldTripDriver">
+      <HintPath>..\..\lib\FieldTripDriver.dll</HintPath>
+    </Reference>
     <Reference Include="InputSimulator">
       <HintPath>..\..\lib\InputSimulator.dll</HintPath>
     </Reference>
