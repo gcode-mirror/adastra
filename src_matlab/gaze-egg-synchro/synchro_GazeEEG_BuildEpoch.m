@@ -10,6 +10,7 @@ global ChannelNames; %added by Anton
 
 filterData = false;
 MaxEpochsToProcess = -1;
+NbNonEEGChan = 5; %number of Non EEG channels such as 'EOGV','EOGH'
 
 for k = 1:2:nargin
     
@@ -25,6 +26,8 @@ for k = 1:2:nargin
          TimeInterval = varargin{k+1};
     elseif strcmpi(varargin{k},'DispEvents')
         DispEvents = varargin{k+1};
+    elseif strcmpi(varargin{k},'NbNonEEGChan')
+        NbNonEEGChan = varargin{k+1};
     else 
         error('Error in arguments!')
     end
@@ -64,10 +67,10 @@ eventIndex = 0;
 for k = 1:NbNewEpochs
     
     time1 = NewEpochs(1,k); %in ms
-    time2 = NewEpochs(2,k);%in ms
+    time2 = NewEpochs(2,k); %in ms
     
     %first convert to seconds (/1000), then to points
-    %(*EegAcq.Data.Params.samplingRate) and finally to position for file
+    %(*EegAcq.Data.Params.samplingRate)
     %extraction (*NbChB)
     positionStart = (double(time1) / double(1000)) * double(EegAcq.Data.Params.samplingRate);
     positionEnd = (double(time2) / double(1000)) * double(EegAcq.Data.Params.samplingRate);
@@ -88,10 +91,10 @@ for k = 1:NbNewEpochs
         times = 1;
     end
     
-    %file positioning
+    %file positioning - one data point is all channels multiplied by the size of the value 
     fileStartPosStatusB = fseek(fid_Synchro, NbOctet * double(NbChB) * positionStart, 'bof'); %offset is in bytes
     
-    %actual reading from file
+    %Performs actual reading from file
     %One unit of EEG.pnts contains 1 sample with all the channels
     %so when we read EEG.pnts points we actually read a matrix because every point has channels 
     switch EegAcq.Data.Params.binaryFormat
@@ -103,13 +106,12 @@ for k = 1:NbNewEpochs
             tmpData = diag(EegAcq.Data.Params.channelGains) * double(fread(fid_Synchro,[double(NbChB) (times * EEG.pnts)],'*float64'));
     end
     
-    nbEEGChan = 5; % number of non EEG channels
-    eegData = tmpData(1:(NbChB-nbEEGChan),:); %anton: separate EEG data
+    eegData = tmpData(1:(NbChB-NbNonEEGChan),:); %anton: separate EEG data
     
     if filterData && isfield(EegAcq.Data.Params,'FiltStruct')
          disp ('Applying filter');
          
-         eyetrackerData = tmpData(((NbChB-nbEEGChan)+1):NbChB,(EEG.pnts+1):2*EEG.pnts); %anton: we reduce the eye-tracking data to 1 chunk - the center one
+         eyetrackerData = tmpData(((NbChB-NbNonEEGChan)+1):NbChB,(EEG.pnts+1):2*EEG.pnts); %anton: we reduce the eye-tracking data to 1 chunk - the center one
           
          size(eegData)
          %filtfilt applied on the first dimenion
@@ -118,15 +120,15 @@ for k = 1:NbNewEpochs
          size(eegData)
          size(eyetrackerData)
     else %no filtering
-         eyetrackerData = tmpData(((NbChB-nbEEGChan)+1):NbChB,1:EEG.pnts); %anton: we just separate the eyetracker channels
+         eyetrackerData = tmpData(((NbChB-NbNonEEGChan)+1):NbChB,1:EEG.pnts); %anton: we just separate the eyetracker channels
     end;
     
     %save data
-    tmpData = [eegData;eyetrackerData]; %anton: both has the same length: EEG.pnts
+    tmpData = [eegData;eyetrackerData]; %anton: both have the same length: EEG.pnts
     size(tmpData)
     EEG.data(:,:,k) = tmpData; %actual data storage
     
-     %% Add Display events
+    %% Add Display events
     epochEvent = NewEpochs(3,k); %the event that generated the epoch using the specified TimeInterval
     epochEventPos = NewEpochs(4,k); % the position in the EegAcq.Events.Triggers, used to access events that near this event 
    
@@ -168,12 +170,12 @@ for k = 1:NbNewEpochs
 
                eventPntsRelativeToEpochStart = (double(timeRelativeToEpochStart) / double(1000)) * double(EEG.srate);
 
-               %Time format used in EEG lab
+               %Time format used in EEG lab is actually in points.
                %Time for the events looks continous because its min and max values are
                %[0 EEG.pnts * epochNumber]. Time of the event is relative to the
                %epoch, but increased with the time of the previous epochs before the
                %current. This gives an increasing value for each event. 
-               latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart;
+               latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later is visualzed correctly relative to its epoch
 
                eventIndex = eventIndex + 1;
                EEG.event(eventIndex).latency = latency;
@@ -197,7 +199,7 @@ end;
 
 % Get channel names and types
 fprintf('Getting Channel Labels ...\n')
-% Attribute channel names & types (EEG/Gaze) as for the EEGlab structure
+% Set channel names & types(EEG/Gaze) in the EEGlab structure
 % Anton: types are later used by our ICA implementation
 for ChanIx = 1:EEG.nbchan
     chname = deblank(EegAcq.Data.Params.channelNames(ChanIx,:));
