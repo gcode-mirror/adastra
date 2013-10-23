@@ -9,15 +9,21 @@ global gipsapath;
 plotFig = 0;
 
 disp('Converting eyetracking asc file to mat file');
-full_asc_filename = strcat(gipsapath,asc_filename);
-ET = parseeyelink(full_asc_filename,strcat(full_asc_filename,'.mat'));
+full_asc_filename = asc_filename;
+
+if exist( strcat(full_asc_filename,'.mat'), 'file' ) ~= 0
+    disp('Loading previously generated asc file');
+    ET = load([full_asc_filename '.mat']);    
+else 
+    ET = parseeyelink(full_asc_filename,strcat(full_asc_filename,'.mat'));
+end
 disp('Done: eyetracking asc file to mat file');
 
-disp('Adding the new BLINK LEFT logocal channel by overwriting the newly create  mat file');
+disp('Adding the new BLINK LEFT logical channel by overwriting the newly create  mat file');
 ET.data = horzcat( ET.data,  zeros(size(ET.data, 1),1));
 
 for ii=1:size(ET.eyeevent.blinks.eye, 1)
-    if(ET.eyeevent.blinks.eye(ii) == 'R')
+    if(ET.eyeevent.blinks.eye(ii) == 'L')
         continue;
     end
     
@@ -31,13 +37,12 @@ save([full_asc_filename '.mat'], '-struct', 'ET');
 disp('Done: adding the new BLINK LEFT logocal channel');
 
 disp('Importing EEG data in memeory');
-EEG = pop_loadbv(gipsapath, eeg_filename);
+EEG = pop_loadbv(gipsapath, eeg_filename);%you point to the header to read the 3 files
 EEG.setname='EegData';
 EEG = eeg_checkset( EEG );
 
 disp('Synchronizing EEG and ET:');
-%EEG = pop_importeyetracker(EEG,strcat(full_asc_filename,'.mat'),[sync_start_event sync_end_event] ,[1:3 5:6 8] ,{'TIME' 'L_GAZE_X' 'L_GAZE_Y' 'R_GAZE_X' 'R_GAZE_Y', 'BLINK'},1,1,0,plotFig)
-EEG = pop_importeyetracker(EEG,strcat(full_asc_filename,'.mat'),[sync_start_event sync_end_event] ,[1:3 5:6 8] ,{'TIME' 'L_GAZE_X' 'L_GAZE_Y' 'R_GAZE_X' 'R_GAZE_Y', 'BLINK'},1,1,0,plotFig)
+EEG = pop_importeyetracker(EEG,strcat(full_asc_filename,'.mat'),[sync_start_event sync_end_event] ,[1:3 5:6 8] ,{'TIME' 'L_GAZE_X' 'L_GAZE_Y' 'R_GAZE_X' 'R_GAZE_Y', 'BLINK'},1,1,0,plotFig);
 EEG.setname='eye-eeg-synced';
 EEG = eeg_checkset( EEG );
 
@@ -57,7 +62,8 @@ EEG.setname = 'Blink channels';
 
 %save data
 global subject_name;
-result_set_filename = [gipsapath subject_name '_channels_fp1_derivative_blink.set'];
+global after_subject;
+result_set_filename = [gipsapath subject_name after_subject '_channels_fp1_derivative_blink.set'];
 EEG = pop_saveset( EEG, 'filename', result_set_filename);
 
 disp('EEGLAB store');
