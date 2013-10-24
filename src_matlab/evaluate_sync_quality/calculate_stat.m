@@ -3,7 +3,7 @@
 source_data = 'D:\Work\DATA\good_data\';
 global EEG;
 
-for k=1:1
+for k=1:87
 
   try  
     filename_set = ['k' int2str(k) '_channels_fp1_derivative_blink.set'];
@@ -16,17 +16,36 @@ for k=1:1
     %Array of first 100 blinks to be processed in sample positions
         leftEyeBlink = 0;
         deltas = [];
+        interval = 10;
         
+        indSig = -1;
+        indBlink = -1;
+        indDer = -1;
+        
+        for t =1:3
+            if strcmp(EEG.chanlocs(1,t).labels , 'FP1');
+                indSig = t; 
+            end;
+             if strcmp(EEG.chanlocs(1,t).labels , 'BLINK');
+                indBlink = t; 
+            end;
+             if strcmp(EEG.chanlocs(1,t).labels , 'Derivative_FP1');
+                indDer = t; 
+            end;
+        end;
+
         for i = 2:(EEG.pnts-1)
-            if EEG.data(2,i-1) == 0 && EEG.data(2,i) > 0 
+            if EEG.data(indBlink,i-1) == 0 && EEG.data(indBlink,i) > 0 
                 
                 leftEyeBlink = leftEyeBlink +1;
                 
                 if (i > 10) %to avoid index error
 
-                    [derivMax,maxi] = max(EEG.data(3,i-10:i+10));
+                    [derivMax,maxi] = max(EEG.data(indDer, i-interval : i+interval));
 
-                    delta = i - (i + maxi(1));
+                    t1 = i;
+                    t2 = i - (i - interval + maxi(1));
+                    delta = t1 - t2;
 
                     deltas = [deltas delta];
                 end
@@ -35,6 +54,8 @@ for k=1:1
             if leftEyeBlink == 100 break; end;
         end;
 
+        disp('leftEyeBlink:');
+        leftEyeBlink
         disp('Saving histogram:');
         save([source_data 'k' int2str(k) '_hist_delta.mat'],'deltas');
 
@@ -44,6 +65,7 @@ for k=1:1
     catch err 
        disp(['Error for:' filename_set]);
        disp(err.identifier); 
+       %rethrow(err);
     end
 end;
 

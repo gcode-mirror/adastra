@@ -1,4 +1,4 @@
-%eeglab;
+eeglab;
 global gipsapath;
 global subject_name;
 global after_subject;
@@ -9,25 +9,7 @@ gipsapath = 'D:\Work\DATA\good_data\';
 before_subject = 'k';
 after_subject = '';
 
-% gipsapath = 'D:\Work\DATA\Anton\Emanuelle\s01\dyn\'
-% before_subject = 's0';
-% after_subject = '_dyn';
-
-for i=1:1
-%for i=10:10
-   
-  
-%      if (i>9)
-%          before_subject = 's';
-%      end
-     %if i==12 || i==15
-%       if i==4 || i==7 || i==10 || i==16 || i==17 || i==18 ||  i==19 || i==20
-%          continue; 
-%       end;
-    
-%      if i==12 %it does not work
-%         continue; 
-%     end;
+for i=21:87    
     
     subject_name = strcat(before_subject,int2str(i))
     fname = strcat(subject_name,after_subject)
@@ -67,7 +49,7 @@ try
 
 catch err
    disp(['Error for:' fname]);
-   disp(err.identifier); 
+   disp(err.message); 
    %rethrow(err);
 end
 end
