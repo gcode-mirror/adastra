@@ -44,10 +44,10 @@ for k=1:87
                     [derivMax,maxi] = max(EEG.data(indDer, i-interval : i+interval));
 
                     t1 = i;
-                    t2 = i - (i - interval + maxi(1));
+                    t2 = i - interval + maxi(1);
                     delta = t1 - t2;
 
-                    deltas = [deltas delta];
+                    deltas = [deltas delta]; % no more than 100 blinks
                 end
             end;
             
@@ -57,10 +57,12 @@ for k=1:87
         disp('leftEyeBlink:');
         leftEyeBlink
         disp('Saving histogram:');
-        save([source_data 'k' int2str(k) '_hist_delta.mat'],'deltas');
+        [count bin] = hist(deltas,-10:10);
+        
+        save([source_data 'k' int2str(k) '_hist_delta.mat'],'count','bin');
 
         %deltas
-        %hist(deltas);
+        %plot(hist(deltas));
         
     catch err 
        disp(['Error for:' filename_set]);
