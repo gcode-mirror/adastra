@@ -85,9 +85,9 @@ namespace edb_tool
             web = "http://localhost/edb-json/";
             //web = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
 
-            var json = JsonHelper.DownloadJson(web + "user/list.php");
+            //var json = JsonHelper.DownloadJson(web + "user/list.php");
 
-            List<GUser> users = JsonConvert.DeserializeObject<List<GUser>>(json);
+            //List<GUser> users = JsonConvert.DeserializeObject<List<GUser>>(json);
 
             //var o = JsonConvert.SerializeObject(users);
 

@@ -25,13 +25,24 @@ namespace edb_tool
 
         public List<GSubject> ListSubjects(int iduser)
         {
-            
-            return null;
+            var json = JsonHelper.DownloadJson(RootUrl + "subject.php?function=" + "ListSubjects" 
+                                                                 + "&iduser=" + iduser.ToString());
+
+            List<GSubject> subjects = JsonConvert.DeserializeObject<List<GSubject>>(json);
+
+            return subjects;
         }
 
         public List<GSubject> ListSubjectsByExperimentId(int idexperiment, int iduser)
         {
-            return null;
+            var json = JsonHelper.DownloadJson(RootUrl + "subject.php?function=" + "ListSubjects" 
+                                                                       + "&iduser=" + iduser.ToString()
+                                                                       + "&idexperiment=" + idexperiment.ToString()
+                                                                       );
+
+            List<GSubject> subjects = JsonConvert.DeserializeObject<List<GSubject>>(json);
+
+            return subjects;
         }
 
         public void DeleteSubject(int id)
