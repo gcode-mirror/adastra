@@ -24,13 +24,9 @@ namespace edb_tool
 
         #region subjects
 
-        public void AddSubject(string name, int sex, int age,int idexperiment,int iduser)
+        public void AddSubject(GSubject subject)
         {
             conn = new MySqlConnection(connStr);
-
-
-
-
 
             conn.Open();
 
@@ -42,11 +38,11 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
-                if (age != -1) cmd.Parameters.AddWithValue("@age", age); else cmd.Parameters.AddWithValue("@age", DBNull.Value);
-                cmd.Parameters.AddWithValue("@sex", sex);
-                cmd.Parameters.AddWithValue("@idexperiment", idexperiment);
-                cmd.Parameters.AddWithValue("@iduser", iduser);
+                cmd.Parameters.AddWithValue("@name", subject.name);
+                if (subject.age != null) cmd.Parameters.AddWithValue("@age", subject.age); else cmd.Parameters.AddWithValue("@age", DBNull.Value);
+                cmd.Parameters.AddWithValue("@sex", subject.sex);
+                cmd.Parameters.AddWithValue("@idexperiment", subject.idexperiment);
+                if (subject.iduser != null) cmd.Parameters.AddWithValue("@iduser", subject.iduser); else cmd.Parameters.AddWithValue("@iduser", DBNull.Value);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -56,10 +52,9 @@ namespace edb_tool
             }
         }
 
-        public DataTable ListSubjects(int iduser)
+        public List<GSubject> ListSubjects(int iduser)
         {
             conn = new MySqlConnection(connStr);
-
 
             string query = "select * from subject where iduser = @iduser order by idsubject";
 
@@ -73,11 +68,18 @@ namespace edb_tool
                 DataTable table = new DataTable();
                 myDA.Fill(table);
 
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = table;
+                var squery = from DataRow row in table.Rows
+                             select new GSubject
+                             {
+                                 idsubject = Convert.ToInt32(row["idsubject"]),
+                                 name = (string)row["name"],
+                                 age = row["age"] != System.DBNull.Value ? Convert.ToInt32(row["age"]) : (int?)null,
+                                 sex = Convert.ToInt32(row["sex"]),
+                                 idexperiment = Convert.ToInt32(row["idexperiment"]),
+                                 iduser = iduser,
+                             };
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                return squery.ToList();
             }
             //catch (MySqlException ex)
             //{
@@ -89,10 +91,9 @@ namespace edb_tool
             }
         }
 
-        public DataTable ListSubjectsByExperimentId(int idexperiment, int iduser)
+        public List<GSubject> ListSubjectsByExperimentId(int idexperiment, int iduser)
         {
             conn = new MySqlConnection(connStr);
-
 
             string query = "select * from subject where idexperiment = @idexperiment AND iduser = @iduser";
 
@@ -111,11 +112,18 @@ namespace edb_tool
                 DataTable table = new DataTable();
                 myDA.Fill(table);
 
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = table;
+                var squery = from DataRow row in table.Rows
+                              select new GSubject
+                              {
+                                  idsubject = Convert.ToInt32(row["idsubject"]),
+                                  name = (string)row["name"],
+                                  age = row["age"] != System.DBNull.Value ? Convert.ToInt32(row["age"]) : (int?)null,
+                                  sex = Convert.ToInt32(row["sex"]),
+                                  idexperiment = Convert.ToInt32(row["idexperiment"]),
+                                  iduser = iduser,
+                              };
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                return squery.ToList();
             }
             //catch (MySqlException ex)
             //{
@@ -150,7 +158,7 @@ namespace edb_tool
             }
         }
 
-        public void UpdateSubject(int id, string name, int sex, int? age, int idexperiment)
+        public void UpdateSubject(GSubject s)
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -163,11 +171,11 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@age", age ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@sex", sex);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@idexperiment", idexperiment);             
+                cmd.Parameters.AddWithValue("@name", s.name);
+                cmd.Parameters.AddWithValue("@age", s.age ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@sex", s.sex);
+                cmd.Parameters.AddWithValue("@id", s.idsubject);
+                cmd.Parameters.AddWithValue("@idexperiment", s.idexperiment);             
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -181,7 +189,7 @@ namespace edb_tool
 
         #region experiments
 
-        public void AddExperiment(string name, string comment, string description,int iduser)
+        public void AddExperiment(GExperiment exp)
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -194,10 +202,10 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@comment", comment);
-                cmd.Parameters.AddWithValue("@description", description);
-                cmd.Parameters.AddWithValue("@iduser", iduser);
+                cmd.Parameters.AddWithValue("@name", exp.name);
+                cmd.Parameters.AddWithValue("@comment", exp.comment);
+                cmd.Parameters.AddWithValue("@description", exp.description);
+                cmd.Parameters.AddWithValue("@iduser", exp.iduser);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -270,7 +278,7 @@ namespace edb_tool
             return result;
         }
 
-        public DataTable ListExperimentsByExperimentIdUserId(int idexperiment, int iduser)
+        public List<GExperiment> ListExperimentsByExperimentIdUserId(int idexperiment, int iduser)
         {
             conn = new MySqlConnection(connStr);
 
@@ -291,8 +299,17 @@ namespace edb_tool
                 BindingSource bSource = new BindingSource();
                 bSource.DataSource = table;
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                var equery = from DataRow row in table.Rows
+                             select new GExperiment
+                             {
+                                 idexperiment = Convert.ToInt32(row.ItemArray[0]),
+                                 name = (string)row.ItemArray[1],
+                                 comment = Convert.ToString(row.ItemArray[2]),
+                                 description = Convert.ToString((string)row.ItemArray[3]),
+                                 iduser = (int)row.ItemArray[4],
+                             };
+
+                return equery.ToList();
             }
             //catch (MySqlException ex)
             //{
@@ -327,7 +344,7 @@ namespace edb_tool
             }
         }
 
-        public void UpdateExperiment(int id, string name, string comment, string description)
+        public void UpdateExperiment(GExperiment exp)
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -340,10 +357,10 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@comment", comment);
-                cmd.Parameters.AddWithValue("@description", description);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@name", exp.name);
+                cmd.Parameters.AddWithValue("@comment", exp.comment);
+                cmd.Parameters.AddWithValue("@description", exp.description);
+                cmd.Parameters.AddWithValue("@id", exp.idexperiment);
 
                 //Execute command
                 cmd.ExecuteNonQuery();

@@ -10,7 +10,7 @@ namespace edb_tool
     public class GUser
     {
         [JsonProperty("iduser")]
-        public string ID { get; set; }
+        public string iduser { get; set; }
 
         [JsonProperty("FirstName")]
         public string Name { get; set; }

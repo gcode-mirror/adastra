@@ -52,12 +52,15 @@ namespace edb_tool
         {
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
-                DataFactory.GetDataProvider().AddExperiment(textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
+                GExperiment exp = new GExperiment(-1, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
+                DataFactory.GetDataProvider().AddExperiment(exp);
                 ClearControls();
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
-                DataFactory.GetDataProvider().UpdateExperiment(updateid, textBox1.Text, textBox2.Text, textBox3.Text);
+                GExperiment exp = new GExperiment(updateid, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
+                DataFactory.GetDataProvider().UpdateExperiment(exp);
+
                 button2.Visible = false;
                 button2_Click(null, null);
             }

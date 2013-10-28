@@ -102,5 +102,28 @@ namespace edb_tool
               db.AddUser(firstname, lastname, user.Username, password, user.Mail);
             }
         }
+
+        public static string Get(string url)
+        {
+            //http://localhost/edb-json/experiment.php?function=AddExperiment&name=orel&comment=&description&iduser1999
+
+            string responseText = "";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            Stream resStream = response.GetResponseStream();
+
+            using (var streamReader = new StreamReader(resStream))
+            {
+                responseText = streamReader.ReadToEnd();
+                //Now you have your response.
+                //or false depending on information in the response
+                //return true;
+            }
+
+            return responseText;
+
+        }
     }
 }

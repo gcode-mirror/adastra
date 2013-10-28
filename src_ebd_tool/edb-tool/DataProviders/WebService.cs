@@ -14,22 +14,22 @@ namespace edb_tool
 
         public WebService()
         {
-            //RootUrl = "http://localhost/edb-json/";
-            RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
+            RootUrl = "http://localhost/edb-json/";
+            //RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
         }
 
-        public void AddSubject(string name, int sex, int age, int idexperiment, int iduser)
+        public void AddSubject(GSubject subject)
         {
 
         }
 
-        public DataTable ListSubjects(int iduser)
+        public List<GSubject> ListSubjects(int iduser)
         {
             
             return null;
         }
 
-        public DataTable ListSubjectsByExperimentId(int idexperiment, int iduser)
+        public List<GSubject> ListSubjectsByExperimentId(int idexperiment, int iduser)
         {
             return null;
         }
@@ -38,35 +38,60 @@ namespace edb_tool
         {
         }
 
-        public void UpdateSubject(int id, string name, int sex, int? age, int idexperiment)
+        public void UpdateSubject(GSubject s)
         {
         }
 
-        public void AddExperiment(string name, string comment, string description, int iduser)
+        public void AddExperiment(GExperiment exp)
         {
+            string link = 
+            RootUrl + "experiment.php?function=" + "AddExperiment" + 
+                                                "&name=" + System.Web.HttpUtility.UrlEncode(exp.name) +
+                                                "&comment=" + System.Web.HttpUtility.UrlEncode(exp.comment) + 
+                                                "&description=" + System.Web.HttpUtility.UrlEncode(exp.description) +
+                                                "&iduser=" + exp.iduser;
+
+            Helper.Get(link);
         }
 
         public List<GExperiment> ListExperiments(int iduser)
         {
-            var json = JsonHelper.DownloadJson(RootUrl + "experiment/list.php?" + "iduser=" + iduser.ToString());
+            var json = JsonHelper.DownloadJson(RootUrl + "experiment.php?function=" + "ListExperiments" + "&iduser=" + iduser.ToString());
 
             List<GExperiment> experiments = JsonConvert.DeserializeObject<List<GExperiment>>(json);
 
             return experiments;
         }
 
-        public DataTable ListExperimentsByExperimentIdUserId(int idexperiment, int iduser)
+        public List<GExperiment> ListExperimentsByExperimentIdUserId(int idexperiment, int iduser)
         {
-            return null;
+            var json = JsonHelper.DownloadJson(RootUrl + "experiment.php?function=" + "ListExperimentsByExperimentIdUserId" + "&iduser=" + iduser.ToString() + "&idexperiment" + idexperiment.ToString());
+
+            List<GExperiment> experiments = JsonConvert.DeserializeObject<List<GExperiment>>(json);
+
+            return experiments;
         }
 
         public void DeleteExperiment(int id)
         {
+            string link =
+            RootUrl + "experiment.php?function=" + "DeleteExperiment" +
+                                                "&idexperiment=" + id.ToString();
+
+            Helper.Get(link);
         }
 
-        public void UpdateExperiment(int id, string name, string comment, string description)
+        public void UpdateExperiment(GExperiment exp)
         {
+           string link =
+           RootUrl + "experiment.php?function=" + "UpdateExperiment" +
+                                               "&idexperiment=" + exp.idexperiment +
+                                               "&name=" + System.Web.HttpUtility.UrlEncode(exp.name) +
+                                               "&comment=" + System.Web.HttpUtility.UrlEncode(exp.comment) +
+                                               "&description=" + System.Web.HttpUtility.UrlEncode(exp.description) +
+                                               "&iduser=" + exp.iduser;
 
+            Helper.Get(link);
         }
 
 
@@ -155,9 +180,17 @@ namespace edb_tool
 
         public bool VerifyUserPassword(string username, string password, out int userid)
         {
-            DataProvider mysql = new MySql();
+            userid = -1;
 
-            return mysql.VerifyUserPassword(username, password, out userid);
+            string link = RootUrl + "user.php?function=" + "VerifyUserPassword"
+                                                           + "&username=" + System.Web.HttpUtility.UrlEncode(username)
+                                                           + "&password=" + System.Web.HttpUtility.UrlEncode(password);
+            var json = JsonHelper.DownloadJson(link);
+
+            userid = JsonConvert.DeserializeObject<int>(json);
+
+
+            return userid > 0;
         }
 
         public void UpdateFileTags(int[] idfiles, string tagLine)

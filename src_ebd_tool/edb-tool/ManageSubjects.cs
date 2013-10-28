@@ -77,14 +77,20 @@ namespace edb_tool
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 if (textBox2.Text == "") textBox2.Text = "-1"; //no age entered
-                DataFactory.GetDataProvider().AddSubject(textBox1.Text, comboBox1.SelectedIndex + 1, Convert.ToInt32(textBox2.Text), Convert.ToInt32(comboBox2.SelectedValue), mainform.curr.UserID);
+
+                GSubject s = new GSubject(-1, textBox1.Text, (textBox2.Text == "") ? (int?)null : Convert.ToInt32(textBox2.Text) , comboBox1.SelectedIndex + 1, Convert.ToInt32(comboBox2.SelectedValue), mainform.curr.UserID);
+
+
+                DataFactory.GetDataProvider().AddSubject(s);
                 ClearControls();
             }
+
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
                 int idexperiment = Convert.ToInt32(comboBox2.SelectedValue);
 
-                DataFactory.GetDataProvider().UpdateSubject(updateid, textBox1.Text, comboBox1.SelectedIndex + 1, (textBox2.Text == "") ? (int?)null : Convert.ToInt32(textBox2.Text), idexperiment);
+                GSubject s = new GSubject(updateid, textBox1.Text, (textBox2.Text == "") ? (int?)null : Convert.ToInt32(textBox2.Text), comboBox1.SelectedIndex + 1, idexperiment, mainform.curr.UserID);
+                DataFactory.GetDataProvider().UpdateSubject(s);
                 button2.Visible = false;
                 button2_Click(null, null);
             }
@@ -187,7 +193,7 @@ namespace edb_tool
 
                 //set controls
                 textBox1.Text = (string)dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("name",dataGridView2)].Value;
-                textBox2.Text = (dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("age", dataGridView2)].Value == System.DBNull.Value) ? "" : Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("age", dataGridView2)].Value).ToString();
+                textBox2.Text = (dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("age", dataGridView2)].Value == null) ? "" : Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("age", dataGridView2)].Value).ToString();
                 comboBox1.SelectedIndex = Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("sex",dataGridView2)].Value) - 1;
                 comboBox2.SelectedValue = Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("idexperiment",dataGridView2)].Value);
             }

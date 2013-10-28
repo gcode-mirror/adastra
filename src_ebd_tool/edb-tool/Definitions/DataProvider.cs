@@ -9,17 +9,17 @@ namespace edb_tool
 {
     public interface DataProvider
     {
-        void AddSubject(string name, int sex, int age, int idexperiment, int iduser);
-        DataTable ListSubjects(int iduser);
-        DataTable ListSubjectsByExperimentId(int idexperiment, int iduser);
+        void AddSubject(GSubject subject);
+        List<GSubject> ListSubjects(int iduser);
+        List<GSubject> ListSubjectsByExperimentId(int idexperiment, int iduser);
         void DeleteSubject(int id);
-        void UpdateSubject(int id, string name, int sex, int? age, int idexperiment);
+        void UpdateSubject(GSubject s);
 
-        void AddExperiment(string name, string comment, string description, int iduser);
+        void AddExperiment(GExperiment exp);
         List<GExperiment> ListExperiments(int iduser);
-        DataTable ListExperimentsByExperimentIdUserId(int idexperiment, int iduser);
+        List<GExperiment> ListExperimentsByExperimentIdUserId(int idexperiment, int iduser);
         void DeleteExperiment(int id);
-        void UpdateExperiment(int id, string name, string comment, string description);
+        void UpdateExperiment(GExperiment exp);
 
 
         void AddModality(string name, string comment, string description);
@@ -45,7 +45,7 @@ namespace edb_tool
         void DeleteFilesByFileIdFromListFile(int idfile);
 
 
-        void AddUser(string firstname, string lastname, string username, string password, string email);
+        void AddUser(string firstname, string lastname, string username, string password, string email);//by the web spider 
         bool VerifyUserPassword(string username, string password, out int userid);
 
         void UpdateFileTags(int[] idfiles, string tagLine);

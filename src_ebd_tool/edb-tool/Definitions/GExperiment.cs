@@ -9,6 +9,19 @@ namespace edb_tool
 {
     public class GExperiment
     {
+        public GExperiment()
+        {
+        }
+
+        public GExperiment(int idexperiment, string name, string comment, string description, int iduser)
+        {
+            this.idexperiment = idexperiment;
+            this.name = name;
+            this.comment = comment;
+            this.description = description;
+            this.iduser = iduser;
+        }
+
         [JsonProperty("idexperiment")]
         public int idexperiment { get; set; }
 
