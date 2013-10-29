@@ -25,16 +25,16 @@ namespace edb_tool
         }
 
         [JsonProperty("idmodality")]
-        public int idmodality;
+        public int idmodality { get; set; } 
 
         [JsonProperty("name")]
-        public string name;
+        public string name { get; set; } 
 
         [JsonProperty("comment")]
-        public string comment;
+        public string comment { get; set; } 
 
         [JsonProperty("description")]
-        public string description;
+        public string description { get; set; } 
 
     }
 }

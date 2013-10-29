@@ -208,7 +208,7 @@ namespace edb_tool
             int selectedTab = tabControl2.SelectedIndex;
 
             tabControl2.TabPages.Clear();
-            List<GModality> modalities = DataFactory.GetDataProvider().ListModalitiesByExperimentSubjectID(curr.ExperimentID);
+            List<GModality> modalities = DataFactory.GetDataProvider().ListModalitiesByExperimentID(curr.ExperimentID);
 
             if (modalities.Count > 0 && curr.SubjectID != -1)
             {

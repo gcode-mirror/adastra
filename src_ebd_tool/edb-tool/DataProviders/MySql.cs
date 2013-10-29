@@ -460,7 +460,7 @@ namespace edb_tool
             }
         }
 
-        public void UpdateModality(int id, string name, string comment, string description)
+        public void UpdateModality(GModality m)
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -473,10 +473,10 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@comment", comment);
-                cmd.Parameters.AddWithValue("@description", description);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@name", m.name);
+                cmd.Parameters.AddWithValue("@comment", m.comment);
+                cmd.Parameters.AddWithValue("@description", m.description);
+                cmd.Parameters.AddWithValue("@id", m.idmodality);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -662,7 +662,7 @@ namespace edb_tool
             }
         }
 
-        public List<GModality> ListModalitiesByExperimentSubjectID(int idexperiment)
+        public List<GModality> ListModalitiesByExperimentID(int idexperiment)
         {
             conn = new MySqlConnection(connStr);
 

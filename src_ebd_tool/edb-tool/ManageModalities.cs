@@ -59,7 +59,8 @@ namespace edb_tool
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
-                DataFactory.GetDataProvider().UpdateModality(updateid, textBox1.Text, textBox2.Text, textBox3.Text);
+                GModality m = new GModality(updateid, textBox1.Text, textBox2.Text, textBox3.Text);
+                DataFactory.GetDataProvider().UpdateModality(m);
                 button2.Visible = false;
                 button2_Click(null, null);
                 mainform.comboBox4.DataSource = DataFactory.GetDataProvider().ListModalities();
@@ -77,7 +78,8 @@ namespace edb_tool
 
             Bind();
 
-            dataGridView2.Columns[0].Visible = false;
+            if (dataGridView2.ColumnCount > 0)
+                dataGridView2.Columns[0].Visible = false;
 
             DataGridViewLinkColumn Editlink = new DataGridViewLinkColumn();
             Editlink.UseColumnTextForLinkValue = true;

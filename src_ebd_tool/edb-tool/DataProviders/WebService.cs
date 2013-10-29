@@ -98,7 +98,8 @@ namespace edb_tool
 
         public List<GExperiment> ListExperimentsByExperimentIdUserId(int idexperiment, int iduser)
         {
-            var json = JsonHelper.DownloadJson(RootUrl + "experiment.php?function=" + "ListExperimentsByExperimentIdUserId" + "&iduser=" + iduser.ToString() + "&idexperiment" + idexperiment.ToString());
+            string link = RootUrl + "experiment.php?function=" + "ListExperimentsByExperimentIdUserId" + "&iduser=" + iduser.ToString() + "&idexperiment=" + idexperiment.ToString();
+            var json = JsonHelper.DownloadJson(link);
 
             List<GExperiment> experiments = JsonConvert.DeserializeObject<List<GExperiment>>(json);
 
@@ -130,6 +131,13 @@ namespace edb_tool
 
         public void AddModality(GModality m)
         {
+            string link =
+            RootUrl + "modality.php?function=" + "AddModality" +
+                                                "&name=" + m.name +
+                                                "&comment=" + m.comment +
+                                                "&description=" + m.description;
+
+            Helper.Get(link);
         }
 
         public List<GModality> ListModalities()
@@ -143,10 +151,23 @@ namespace edb_tool
 
         public void DeleteModality(int id)
         {
+            string link =
+            RootUrl + "modality.php?function=" + "DeleteModality" +
+                                                "&idmodality=" + id.ToString();
+
+            Helper.Get(link);
         }
 
-        public void UpdateModality(int id, string name, string comment, string description)
+        public void UpdateModality(GModality m)
         {
+            string link =
+            RootUrl + "modality.php?function=" + "UpdateModality" +
+                                                "&idmodality=" + m.idmodality +
+                                                "&name=" + m.name +
+                                                "&comment=" + m.comment +
+                                                "&description=" + m.description;
+
+            Helper.Get(link);
         }
 
         public void AddTag(string name)
@@ -173,11 +194,12 @@ namespace edb_tool
 
         public void AddModalityToExperiment(int idmodality, int idexperiment)
         {
+
         }
 
-        public List<GModality> ListModalitiesByExperimentSubjectID(int idexperiment)
+        public List<GModality> ListModalitiesByExperimentID(int idexperiment)
         {
-            string link = RootUrl + "modality.php?function=" + "ListModalitiesByExperimentSubjectID"
+            string link = RootUrl + "modality.php?function=" + "ListModalitiesByExperimentID"
                                                               + "&idexperiment=" + idexperiment.ToString();
             var json = JsonHelper.DownloadJson(link);
 

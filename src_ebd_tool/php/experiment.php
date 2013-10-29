@@ -21,6 +21,7 @@
 		// Set a resultset. For testing we are goint to return the full table (3 rows)
 		$result = $mysqli->query("select * from experiment where iduser = $iduser order by idexperiment");
 
+		$rows = [];
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -44,6 +45,7 @@
 		// Set a resultset. For testing we are goint to return the full table (3 rows)
 		$result = $mysqli->query("select * from experiment where iduser = $iduser AND idexperiment = $idexperiment order by idexperiment");
 
+		$rows = [];
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
