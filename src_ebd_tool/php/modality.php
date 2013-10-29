@@ -64,5 +64,59 @@
 		// Returns the JSON representation of fetched data
 		print(json_encode($rows, JSON_NUMERIC_CHECK));
 	}
+	else
+	if ($_GET['function'] == "UpdateModality")
+	{
+	    $idmodality = $_GET['idmodality'];
+	    $name = mysql_real_escape_string(urldecode($_GET['name']));
+		$comment = mysql_real_escape_string(urldecode($_GET['comment']));
+		$description = mysql_real_escape_string(urldecode($_GET['description']));
+		
+		$sql = "UPDATE modality set name='$name', comment = '$comment', description = '$description' where idmodality = $idmodality";
+		//print ($sql);
+		//print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
+	else
+	if ($_GET['function'] == "DeleteModality")
+	{
+	    $idmodality = $_GET['idmodality'];
+		
+		$sql = "delete from modality where idmodality = $idmodality";
+		//print ($sql);
+		//print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
+	else
+	if ($_GET['function'] == "AddModality")
+	{
+	    $idmodality = $_GET['idmodality'];
+	    $name = mysql_real_escape_string(urldecode($_GET['name']));
+		$comment = mysql_real_escape_string(urldecode($_GET['comment']));
+		$description = mysql_real_escape_string(urldecode($_GET['description']));
+		
+		$sql = "INSERT INTO modality (name, comment, description) VALUES ('$name', '$comment', '$description')";
+		//print ($sql);
+		//print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
 	
 ?>
