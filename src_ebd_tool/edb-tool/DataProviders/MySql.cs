@@ -73,7 +73,7 @@ namespace edb_tool
                              {
                                  idsubject = Convert.ToInt32(row["idsubject"]),
                                  name = (string)row["name"],
-                                 age = row["age"] != System.DBNull.Value ? Convert.ToInt32(row["age"]) : (int?)null,
+                                 age = (row["age"] != System.DBNull.Value) ? Convert.ToInt32(row["age"]) : (int?)null,
                                  sex = Convert.ToInt32(row["sex"]),
                                  idexperiment = Convert.ToInt32(row["idexperiment"]),
                                  iduser = iduser,
@@ -117,7 +117,7 @@ namespace edb_tool
                               {
                                   idsubject = Convert.ToInt32(row["idsubject"]),
                                   name = (string)row["name"],
-                                  age = row["age"] != System.DBNull.Value ? Convert.ToInt32(row["age"]) : (int?)null,
+                                  age = (row["age"] != System.DBNull.Value) ? Convert.ToInt32(row["age"]) : (int?)null,
                                   sex = Convert.ToInt32(row["sex"]),
                                   idexperiment = Convert.ToInt32(row["idexperiment"]),
                                   iduser = iduser,
@@ -296,9 +296,6 @@ namespace edb_tool
                 DataTable table = new DataTable();
                 myDA.Fill(table);
 
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = table;
-
                 var equery = from DataRow row in table.Rows
                              select new GExperiment
                              {
@@ -375,7 +372,7 @@ namespace edb_tool
 
         #region modality
 
-        public void AddModality(string name, string comment, string description)
+        public void AddModality(GModality m)
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -388,9 +385,9 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@comment", comment);
-                cmd.Parameters.AddWithValue("@description", description);
+                cmd.Parameters.AddWithValue("@name", m.name);
+                if (m.comment != null) cmd.Parameters.AddWithValue("@comment", m.comment); else cmd.Parameters.AddWithValue("@comment", System.DBNull.Value);
+                if (m.description != null) cmd.Parameters.AddWithValue("@description", m.description); else cmd.Parameters.AddWithValue("@description", System.DBNull.Value);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -400,7 +397,7 @@ namespace edb_tool
             }
         }
 
-        public DataTable ListModalities()
+        public List<GModality> ListModalities()
         {
             conn = new MySqlConnection(connStr);
 
@@ -419,8 +416,16 @@ namespace edb_tool
                 BindingSource bSource = new BindingSource();
                 bSource.DataSource = table;
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                var equery = from DataRow row in table.Rows
+                             select new GModality
+                             {
+                                 idmodality = Convert.ToInt32(row["idmodality"]),
+                                 name = (string)row["name"],
+                                 comment = (row["comment"] != System.DBNull.Value) ? Convert.ToString(row["comment"]) : null,
+                                 description = (row["description"] != System.DBNull.Value) ? Convert.ToString(row["description"]) : null,
+                             };
+
+                return equery.ToList();
             }
             //catch (MySqlException ex)
             //{
@@ -657,7 +662,7 @@ namespace edb_tool
             }
         }
 
-        public DataTable ListModalitiesByExperimentSubjectID(int idexperiment)
+        public List<GModality> ListModalitiesByExperimentSubjectID(int idexperiment)
         {
             conn = new MySqlConnection(connStr);
 
@@ -679,11 +684,14 @@ namespace edb_tool
                 DataTable table = new DataTable();
                 myDA.Fill(table);
 
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = table;
+                var equery = from DataRow row in table.Rows
+                             select new GModality
+                             {
+                                 idmodality = Convert.ToInt32(row.ItemArray[0]),
+                                 name = (string)row.ItemArray[1],
+                             };
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                return equery.ToList();
             }
             //catch (MySqlException ex)
             //{

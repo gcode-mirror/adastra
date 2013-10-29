@@ -128,13 +128,17 @@ namespace edb_tool
         }
 
 
-        public void AddModality(string name, string comment, string description)
+        public void AddModality(GModality m)
         {
         }
 
-        public DataTable ListModalities()
+        public List<GModality> ListModalities()
         {
-            return null;
+            var json = JsonHelper.DownloadJson(RootUrl + "modality.php?function=" + "ListModalities");
+
+            List<GModality> modalities = JsonConvert.DeserializeObject<List<GModality>>(json);
+
+            return modalities;
         }
 
         public void DeleteModality(int id)
@@ -171,9 +175,15 @@ namespace edb_tool
         {
         }
 
-        public DataTable ListModalitiesByExperimentSubjectID(int idexperiment)
+        public List<GModality> ListModalitiesByExperimentSubjectID(int idexperiment)
         {
-            return null;
+            string link = RootUrl + "modality.php?function=" + "ListModalitiesByExperimentSubjectID"
+                                                              + "&idexperiment=" + idexperiment.ToString();
+            var json = JsonHelper.DownloadJson(link);
+
+            List<GModality> modalities = JsonConvert.DeserializeObject<List<GModality>>(json);
+
+            return modalities;
         }
 
         public long AddFile(string name, string path)

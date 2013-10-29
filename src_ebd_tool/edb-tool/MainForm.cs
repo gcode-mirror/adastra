@@ -208,21 +208,17 @@ namespace edb_tool
             int selectedTab = tabControl2.SelectedIndex;
 
             tabControl2.TabPages.Clear();
-            System.Data.DataTable modality = DataFactory.GetDataProvider().ListModalitiesByExperimentSubjectID(curr.ExperimentID);
+            List<GModality> modalities = DataFactory.GetDataProvider().ListModalitiesByExperimentSubjectID(curr.ExperimentID);
 
-            if (modality.Rows.Count > 0 && curr.SubjectID!=-1)
+            if (modalities.Count > 0 && curr.SubjectID != -1)
             {
                 tabControl2.Visible = true;
 
-                foreach (System.Data.DataRow row in modality.Rows)
+                foreach(GModality m in modalities)
                 {
-                    int idmodality = Convert.ToInt32(row[0]);
-
-                    string modalityname = Convert.ToString(row[1]);
-                    
-                    TabPage tb = new TabPage(modalityname);
+                    TabPage tb = new TabPage(m.name);
                     tabControl2.TabPages.Add(tb);
-                    tb.Tag = idmodality;
+                    tb.Tag = m.idmodality;
 
                     //add control gridview
                     DataGridView dgv = new DataGridView();
@@ -247,12 +243,12 @@ namespace edb_tool
                     tb.Controls.Add(dgv);
 
                     //load files
-                    dgv.DataSource = DataFactory.GetDataProvider().ListFilesByExperimentSubjectModalityID(curr.ExperimentID, curr.SubjectID, idmodality);
+                    //dgv.DataSource = DataFactory.GetDataProvider().ListFilesByExperimentSubjectModalityID(curr.ExperimentID, curr.SubjectID, m.idmodality);
 
-                    dgv.Columns[0].Visible = false; //hide id
+                    //dgv.Columns[0].Visible = false; //hide id
 
-                    dgv.Columns.Insert(1, Column1); //add checkbox
-                    dgv.Columns[1].Width = 28;
+                    //dgv.Columns.Insert(1, Column1); //add checkbox
+                    //dgv.Columns[1].Width = 28;
 
                     foreach(DataGridViewColumn column in dgv.Columns) //need because otherwise the checkbox can not be set
                     {

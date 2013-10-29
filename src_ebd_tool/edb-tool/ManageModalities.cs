@@ -52,7 +52,8 @@ namespace edb_tool
         {
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
-                DataFactory.GetDataProvider().AddModality(textBox1.Text, textBox2.Text, textBox3.Text);
+                GModality m = new GModality(-1, textBox1.Text, textBox2.Text, textBox3.Text);
+                DataFactory.GetDataProvider().AddModality(m);
                 mainform.comboBox4.DataSource = DataFactory.GetDataProvider().ListModalities();
                 ClearControls();
             }

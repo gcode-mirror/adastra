@@ -22,8 +22,8 @@ namespace edb_tool
         void UpdateExperiment(GExperiment exp);
 
 
-        void AddModality(string name, string comment, string description);
-        DataTable ListModalities();
+        void AddModality(GModality m);
+        List<GModality> ListModalities();
         void DeleteModality(int id);
         void UpdateModality(int id, string name, string comment, string description);
 
@@ -34,7 +34,7 @@ namespace edb_tool
         long AssociateTags(int[] idtag, int idfile, int idexperiment);
 
         void AddModalityToExperiment(int idmodality, int idexperiment);
-        DataTable ListModalitiesByExperimentSubjectID(int idexperiment);
+        List<GModality> ListModalitiesByExperimentSubjectID(int idexperiment);
 
         long AddFile(string name, string path);
         long AddFiles(string[] name, string[] path);
