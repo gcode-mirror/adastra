@@ -118,5 +118,22 @@
 	      print("true");
 		else print("false");
 	}
+	else
+	if ($_GET['function'] == "AddModalityToExperiment")
+	{
+	    $idmodality = $_GET['idmodality'];
+        $idexperiment = $_GET['idexperiment'];
+		
+		$sql = "INSERT INTO list_modality (idmodality, idexperiment) VALUES ($idmodality, $idexperiment)";
+		//print ($sql);
+		//print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
 	
 ?>

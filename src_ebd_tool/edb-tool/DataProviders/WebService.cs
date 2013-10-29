@@ -194,7 +194,10 @@ namespace edb_tool
 
         public void AddModalityToExperiment(int idmodality, int idexperiment)
         {
-
+            string link = RootUrl + "modality.php?function=" + "AddModalityToExperiment"
+                                                             + "&idmodality=" + idmodality.ToString()
+                                                             + "&idexperiment=" + idexperiment.ToString();
+            Helper.Get(link);
         }
 
         public List<GModality> ListModalitiesByExperimentID(int idexperiment)
