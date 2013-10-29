@@ -42,7 +42,7 @@ namespace edb_tool
 
         public List<GSubject> ListSubjectsByExperimentId(int idexperiment, int iduser)
         {
-            var json = JsonHelper.DownloadJson(RootUrl + "subject.php?function=" + "ListSubjects" 
+            var json = JsonHelper.DownloadJson(RootUrl + "subject.php?function=" + "ListSubjectsByExperimentId" 
                                                                        + "&iduser=" + iduser.ToString()
                                                                        + "&idexperiment=" + idexperiment.ToString()
                                                                        );
