@@ -1,11 +1,13 @@
 %eeglab;
 
-%source_data = 'D:\Work\DATA\good_data\';
-source_data = 'R:\vibs\Anton\results_eye_eeg\'
+source_data = 'D:\Work\DATA\good_data\';
+%source_data = 'R:\vibs\Anton\results_eye_eeg\'
 global EEG;
 
+interval2 = 100;
+
 sync_result = zeros(11,1)';%[-5 0 +5]
-delta_result = zeros(21,1)';%[-10 0 10]
+delta_result = zeros(2*interval2 + 1 ,1)';%[-10 0 10]
 
 for k=1:87
 
@@ -28,21 +30,23 @@ for k=1:87
     end
 end;
 
+%we use grouped mean and std because the data from the files is already grouped
+
 disp('Mean synchro:');
 ([-5:5] * sync_result')/sum(sync_result)
 disp('std synchro:');
 gstd([[-5:5];sync_result]',0)
 
 disp('Blink/Derivative mean:');
-([-10:10] * delta_result')/sum(delta_result)
+([-interval2:interval2] * delta_result')/sum(delta_result)
 disp('Blink/Derivative std:');
-gstd([[-10:10];delta_result]',0)
+gstd([[-interval2:interval2];delta_result]',0)
 
 
 figure;
 bar(-5:+5,sync_result);
 figure;
-bar(-10:+10,delta_result);
+bar(-interval2:+interval2,delta_result);
 
 
 
