@@ -18,9 +18,16 @@ namespace edb_tool
             //RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
         }
 
-        public void AddSubject(GSubject subject)
+        public void AddSubject(GSubject s)
         {
-
+          string link =
+          RootUrl + "subject.php?function=" + "AddSubject" +
+                                              "&name=" + System.Web.HttpUtility.UrlEncode(s.name) +
+                                              "&age=" + s.age +
+                                              "&sex=" + s.sex +
+                                              "&idexperiment=" + s.idexperiment +
+                                              "&iduser=" + s.iduser;
+          Helper.Get(link);
         }
 
         public List<GSubject> ListSubjects(int iduser)
@@ -47,10 +54,25 @@ namespace edb_tool
 
         public void DeleteSubject(int id)
         {
+            string link =
+            RootUrl + "subject.php?function=" + "DeleteSubject" +
+                                                "&idsubject=" + id;
+
+            Helper.Get(link);
         }
 
         public void UpdateSubject(GSubject s)
         {
+          string link =
+          RootUrl + "subject.php?function=" + "UpdateSubject" +
+                                              "&idsubject=" + s.idsubject +
+                                              "&name=" + System.Web.HttpUtility.UrlEncode(s.name) +
+                                              "&age=" + s.age +
+                                              "&sex=" + s.sex +
+                                              "&idexperiment=" + s.idexperiment +
+                                              "&iduser=" + s.iduser;
+
+            Helper.Get(link);
         }
 
         public void AddExperiment(GExperiment exp)

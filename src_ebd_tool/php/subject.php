@@ -60,5 +60,60 @@
 		// Returns the JSON representation of fetched data
 		print(json_encode($rows, JSON_NUMERIC_CHECK));
 	}
+	else
+	if ($_GET['function'] == "AddSubject")
+	{
+	    $name = mysql_real_escape_string(urldecode($_GET['name']));
+		$age = $_GET['age'];
+		$sex = $_GET['sex'];
+	    $iduser = $_GET['iduser'];
+		$idexperiment = $_GET['idexperiment'];
+		
+		$sql = "INSERT INTO subject (name, age, sex, idexperiment, iduser) VALUES ('$name', $age, $sex, $idexperiment, $iduser)";
+		//print ($sql);
+		//print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
+	if ($_GET['function'] == "DeleteSubject")
+	{
+	    $idsubject = $_GET['idsubject'];
+		
+		$sql = "delete from subject where idsubject = $idsubject";
+		//print ($sql);
+		//print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
+	if ($_GET['function'] == "UpdateSubject")
+	{
+	    $idsubject = $_GET['idsubject'];
+	    $name = mysql_real_escape_string(urldecode($_GET['name']));
+		$age = $_GET['age'];
+		$sex = $_GET['sex'];
+	    $iduser = $_GET['iduser'];
+		$idexperiment = $_GET['idexperiment'];
+		
+		$sql = "UPDATE subject set name='$name', age=$age, sex=$sex, idexperiment = $idexperiment where idsubject = $idsubject";
+		print ($sql);
+		print("\n");
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+	}
 	
 ?>
