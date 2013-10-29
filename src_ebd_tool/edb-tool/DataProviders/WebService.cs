@@ -14,8 +14,8 @@ namespace edb_tool
 
         public WebService()
         {
-            RootUrl = "http://localhost/edb-json/";
-            //RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
+            //RootUrl = "http://localhost/edb-json/";
+            RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
         }
 
         public void AddSubject(GSubject s)

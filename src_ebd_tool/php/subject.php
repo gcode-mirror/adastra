@@ -21,7 +21,7 @@
 		// Set a resultset. For testing we are goint to return the full table (3 rows)
 		$result = $mysqli->query("select * from subject where iduser = '$iduser' order by idsubject");
 
-		$rows = [];
+		$rows = array();
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -35,7 +35,7 @@
 		$mysqli->close();
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($rows, JSON_NUMERIC_CHECK));
+		print(json_encode($rows));
 	}
 	else
 	if ($_GET['function'] == "ListSubjectsByExperimentId")
@@ -46,7 +46,7 @@
 		// Set a resultset. For testing we are goint to return the full table (3 rows)
 		$result = $mysqli->query("select * from subject where idexperiment = $idexperiment AND iduser = '$iduser'");
 
-		$rows = [];
+		$rows = array();
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -60,12 +60,12 @@
 		$mysqli->close();
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($rows, JSON_NUMERIC_CHECK));
+		print(json_encode($rows));
 	}
 	else
 	if ($_GET['function'] == "AddSubject")
 	{
-	    $name = mysql_real_escape_string(urldecode($_GET['name']));
+	    $name = $mysqli->escape_string(urldecode($_GET['name']));
 		$age = $_GET['age'];
 		$sex = $_GET['sex'];
 	    $iduser = $_GET['iduser'];
@@ -100,7 +100,7 @@
 	if ($_GET['function'] == "UpdateSubject")
 	{
 	    $idsubject = $_GET['idsubject'];
-	    $name = mysql_real_escape_string(urldecode($_GET['name']));
+	    $name = $mysqli->escape_string(urldecode($_GET['name']));
 		$age = $_GET['age'];
 		$sex = $_GET['sex'];
 	    $iduser = $_GET['iduser'];

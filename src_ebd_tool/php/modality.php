@@ -20,7 +20,7 @@
 		$sql = "select * from modality order by idmodality";
 		$result = $mysqli->query($sql);
 
-		$rows = [];
+		$rows = array();
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -34,7 +34,7 @@
 		$mysqli->close();
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($rows, JSON_NUMERIC_CHECK));
+		print(json_encode($rows));
 	}
 	else
 	if ($_GET['function'] == "ListModalitiesByExperimentID")
@@ -48,7 +48,7 @@
                             order by list_modality.idlist_modality";
 		$result = $mysqli->query($sql);
 
-		$rows = [];
+		$rows = array();
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -62,15 +62,15 @@
 		$mysqli->close();
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($rows, JSON_NUMERIC_CHECK));
+		print(json_encode($rows));
 	}
 	else
 	if ($_GET['function'] == "UpdateModality")
 	{
 	    $idmodality = $_GET['idmodality'];
-	    $name = mysql_real_escape_string(urldecode($_GET['name']));
-		$comment = mysql_real_escape_string(urldecode($_GET['comment']));
-		$description = mysql_real_escape_string(urldecode($_GET['description']));
+	    $name = $mysqli->escape_string(urldecode($_GET['name']));
+		$comment = $mysqli->escape_string(urldecode($_GET['comment']));
+		$description = $mysqli->escape_string(urldecode($_GET['description']));
 		
 		$sql = "UPDATE modality set name='$name', comment = '$comment', description = '$description' where idmodality = $idmodality";
 		//print ($sql);
@@ -103,9 +103,9 @@
 	if ($_GET['function'] == "AddModality")
 	{
 	    $idmodality = $_GET['idmodality'];
-	    $name = mysql_real_escape_string(urldecode($_GET['name']));
-		$comment = mysql_real_escape_string(urldecode($_GET['comment']));
-		$description = mysql_real_escape_string(urldecode($_GET['description']));
+	    $name = $mysqli->escape_string(urldecode($_GET['name']));
+		$comment = $mysqli->escape_string(urldecode($_GET['comment']));
+		$description = $mysqli->escape_string(urldecode($_GET['description']));
 		
 		$sql = "INSERT INTO modality (name, comment, description) VALUES ('$name', '$comment', '$description')";
 		//print ($sql);

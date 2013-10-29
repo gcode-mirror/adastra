@@ -21,7 +21,7 @@
 		// Set a resultset. For testing we are goint to return the full table (3 rows)
 		$result = $mysqli->query("select * from experiment where iduser = $iduser order by idexperiment");
 
-		$rows = [];
+		$rows = array();
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -35,7 +35,7 @@
 		$mysqli->close();
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($rows, JSON_NUMERIC_CHECK));
+		print(json_encode($rows));
 	}
 	else
 	if ($_GET['function'] == "ListExperimentsByExperimentIdUserId")
@@ -45,7 +45,7 @@
 		// Set a resultset. For testing we are goint to return the full table (3 rows)
 		$result = $mysqli->query("select * from experiment where iduser = $iduser AND idexperiment = $idexperiment order by idexperiment");
 
-		$rows = [];
+		$rows = array();
 		// Iterate the resultset to get all data
 		while($row = mysqli_fetch_assoc($result)) 
 		{
@@ -59,13 +59,13 @@
 		$mysqli->close();
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($rows, JSON_NUMERIC_CHECK));
+		print(json_encode($rows));
 	}else
 	if ($_GET['function'] == "AddExperiment")
 	{
-	    $name = mysql_real_escape_string(urldecode($_GET['name']));
-		$comment = mysql_real_escape_string(urldecode($_GET['comment']));
-		$description = mysql_real_escape_string(urldecode($_GET['description']));
+	    $name = $mysqli->escape_string(urldecode($_GET['name']));
+		$comment = $mysqli->escape_string(urldecode($_GET['comment']));
+		$description = $mysqli->escape_string(urldecode($_GET['description']));
 		$iduser = $_GET['iduser'];
 		
 		$sql = "INSERT INTO experiment (name, comment, description, iduser) VALUES ('$name', '$comment','$description', $iduser)";
@@ -83,9 +83,9 @@
 	if ($_GET['function'] == "UpdateExperiment")
 	{
 	    $idexperiment = $_GET['idexperiment'];
-	    $name = mysql_real_escape_string(urldecode($_GET['name']));
-		$comment = mysql_real_escape_string(urldecode($_GET['comment']));
-		$description = mysql_real_escape_string(urldecode($_GET['description']));
+	    $name = $mysqli->escape_string(urldecode($_GET['name']));
+		$comment = $mysqli->escape_string(urldecode($_GET['comment']));
+		$description = $mysqli->escape_string(urldecode($_GET['description']));
 		$iduser = $_GET['iduser'];
 		
 		$sql = "UPDATE experiment set name='$name', comment = '$comment', description = '$description' where idexperiment = $idexperiment";

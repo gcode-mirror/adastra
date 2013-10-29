@@ -17,20 +17,30 @@
 
 	if ($_GET['function'] == "VerifyUserPassword")
 	{
-	    $username = mysql_real_escape_string(urldecode($_GET['username']));
-		$password = mysql_real_escape_string(urldecode($_GET['password']));
+	    $username = $mysqli->escape_string(urldecode($_GET['username']));
+		$password = $mysqli->escape_string(urldecode($_GET['password']));
 		
 		$sql = "SELECT iduser FROM user where username = '$username' AND password = '$password';";
 		
 		$result = mysqli_query($mysqli,$sql);
+		$row_cnt = $result->num_rows;
+		//print($row_cnt);
 		
 		$iduser = -1;
-		foreach($result as $row) 
-		{
+		$row = $result->fetch_assoc();
+		
+		//foreach($result as $row) 
+		//{
+		//    print("yes");
 			$iduser = $row["iduser"];
-		}
+		//}
 		
 		// Returns the JSON representation of fetched data
-		print(json_encode($iduser, JSON_NUMERIC_CHECK));
+		print(json_encode($iduser));
+		//print("$username");
+		//print("$password");
+		//print("$sql");
+		//print("$mysqli->connect_errno");
+		
 	}
 ?>

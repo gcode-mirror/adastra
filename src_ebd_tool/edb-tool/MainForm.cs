@@ -82,7 +82,7 @@ namespace edb_tool
            // int userid = o.batman();
             //var p2 = new edb_tool.EdbWebService
 
-            web = "http://localhost/edb-json/";
+            //web = "http://localhost/edb-json/";
             //web = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
 
             //var json = JsonHelper.DownloadJson(web + "user/list.php");
@@ -92,6 +92,8 @@ namespace edb_tool
             //var o = JsonConvert.SerializeObject(users);
 
             //JsonHelper.SendJson(o, web + "user/add.php");
+
+            //DataFactory.GetDataProvider().ListExperiments(1999);
 
         }
 
