@@ -12,10 +12,16 @@ namespace edb_tool
     {
         public static string DownloadJson(string url)
         {
-
-            WebClient wc = new WebClient();
-            string json = wc.DownloadString(url);
-
+            string json = "";
+            try
+            {
+                WebClient wc = new WebClient();
+                json = wc.DownloadString(url);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Unable to connect to:" + url);
+            }
             return json;
         }
 

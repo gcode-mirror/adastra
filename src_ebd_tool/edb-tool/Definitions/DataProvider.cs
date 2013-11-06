@@ -27,19 +27,19 @@ namespace edb_tool
         void DeleteModality(int id);
         void UpdateModality(GModality m);
 
-        void AddTag(string name);
-        DataTable ListTags();
+        void AddTag(GTag tag);
+        List<GTag> ListTags();
         void DeleteTag(int id);
-        void UpdateTag(int id, string name);
+        void UpdateTag(GTag tag);
         long AssociateTags(int[] idtag, int idfile, int idexperiment);
 
         void AddModalityToExperiment(int idmodality, int idexperiment);
         List<GModality> ListModalitiesByExperimentID(int idexperiment);
 
-        long AddFile(string name, string path);
-        long AddFiles(string[] name, string[] path);
+        long AddFile(GFile file);
+        void AddFiles(List<GFile> files);
         void AssociateFile(int idexperiment, int idsubject, int idmodality, long idfile);
-        DataTable ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality);
+        List<GFile> ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality);
         void DeleteFilesByExperimentIdSubjectIdModalityId(int idexperiment, int idsubject, int idmodality);
         void DeleteFilesByFileId(int idfile);
         void DeleteFilesByFileIdFromListFile(int idfile);

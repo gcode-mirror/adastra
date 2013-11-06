@@ -81,7 +81,7 @@ namespace edb_tool
                 GSubject s = new GSubject(-1, textBox1.Text, (textBox2.Text == "") ? (int?)null : Convert.ToInt32(textBox2.Text) , comboBox1.SelectedIndex + 1, Convert.ToInt32(comboBox2.SelectedValue), mainform.curr.UserID);
 
 
-                DataFactory.GetDataProvider().AddSubject(s);
+                ProviderFactory.GetDataProvider().AddSubject(s);
                 ClearControls();
             }
 
@@ -90,7 +90,7 @@ namespace edb_tool
                 int idexperiment = Convert.ToInt32(comboBox2.SelectedValue);
 
                 GSubject s = new GSubject(updateid, textBox1.Text, (textBox2.Text == "") ? (int?)null : Convert.ToInt32(textBox2.Text), comboBox1.SelectedIndex + 1, idexperiment, mainform.curr.UserID);
-                DataFactory.GetDataProvider().UpdateSubject(s);
+                ProviderFactory.GetDataProvider().UpdateSubject(s);
                 button2.Visible = false;
                 button2_Click(null, null);
             }
@@ -130,11 +130,11 @@ namespace edb_tool
 
             if (isSingleExperiment)
             {
-                comboBox2.DataSource = DataFactory.GetDataProvider().ListExperimentsByExperimentIdUserId(idSelectedExperiment, mainform.curr.UserID);
+                comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperimentsByExperimentIdUserId(idSelectedExperiment, mainform.curr.UserID);
             }
             else
             {
-                comboBox2.DataSource = DataFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+                comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
             }
             comboBox2.DisplayMember = "name";
             comboBox2.ValueMember = "idexperiment";
@@ -145,15 +145,15 @@ namespace edb_tool
         {
             if (isSingleExperiment)
             {
-                bs.DataSource = DataFactory.GetDataProvider().ListSubjectsByExperimentId(idSelectedExperiment, mainform.curr.UserID);
+                bs.DataSource = ProviderFactory.GetDataProvider().ListSubjectsByExperimentId(idSelectedExperiment, mainform.curr.UserID);
             }
             else
             {
-                bs.DataSource = DataFactory.GetDataProvider().ListSubjects(mainform.curr.UserID);
+                bs.DataSource = ProviderFactory.GetDataProvider().ListSubjects(mainform.curr.UserID);
             }
 
 
-            mainform.dataGridView2.DataSource = DataFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
         }
 
         //delete
@@ -170,7 +170,7 @@ namespace edb_tool
                      {
                          object stringid = dataGridView2.Rows[e.RowIndex].Cells[idcolumn].Value;
                          int id = Convert.ToInt32(stringid);
-                         DataFactory.GetDataProvider().DeleteSubject(id);
+                         ProviderFactory.GetDataProvider().DeleteSubject(id);
 
                          Bind();
                      }

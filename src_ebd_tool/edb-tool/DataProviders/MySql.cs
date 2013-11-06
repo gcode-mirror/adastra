@@ -490,7 +490,7 @@ namespace edb_tool
 
         #region tags
 
-        public void AddTag(string name)//, string comment, string description
+        public void AddTag(GTag tag)//, string comment, string description
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -503,7 +503,7 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@name", tag.name);
                 //cmd.Parameters.AddWithValue("@comment", comment);
                 //cmd.Parameters.AddWithValue("@description", description);
 
@@ -515,7 +515,7 @@ namespace edb_tool
             }
         }
 
-        public DataTable ListTags()
+        public List<GTag> ListTags()
         {
             conn = new MySqlConnection(connStr);
 
@@ -531,11 +531,14 @@ namespace edb_tool
                 DataTable table = new DataTable();
                 myDA.Fill(table);
 
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = table;
+                var equery = from DataRow row in table.Rows
+                             select new GTag
+                             {
+                                 idtag = Convert.ToInt32(row["idtag"]),
+                                 name = (string)row["name"],
+                             };
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                return equery.ToList();
             }
             //catch (MySqlException ex)
             //{
@@ -570,7 +573,7 @@ namespace edb_tool
             }
         }
 
-        public void UpdateTag(int id, string name) //, string comment, string description
+        public void UpdateTag(GTag tag) //, string comment, string description
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -583,10 +586,10 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@name", tag.name);
                 //cmd.Parameters.AddWithValue("@comment", comment);
                 //cmd.Parameters.AddWithValue("@description", description);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@id", tag.idtag);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -705,7 +708,7 @@ namespace edb_tool
 
         #region file
 
-        public long AddFile(string name, string path)
+        public long AddFile(GFile file)
         {
             long insertid = -1;
 
@@ -720,8 +723,8 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@filename", name);
-                cmd.Parameters.AddWithValue("@pathname", path);
+                cmd.Parameters.AddWithValue("@filename", file.filename);
+                cmd.Parameters.AddWithValue("@pathname", file.pathname);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -734,15 +737,15 @@ namespace edb_tool
             return insertid;
         }
 
-        public long AddFiles(string[] name, string[] path)
+        public void AddFiles(List<GFile> files)
         {
-            long insertid = -1;
+            //long insertid = -1;
 
             conn = new MySqlConnection(connStr);
             conn.Open();
 
             string query = "INSERT INTO file (filename, pathname) VALUES ";
-            for(int i=0; i < name.Length; i++)
+            for(int i=0; i < files.Count; i++)
             {
                 if (i!=0) query+= ",";
                 query +="(@filename"+i+", @pathname"+i+")";
@@ -755,20 +758,20 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                for(int i=0; i < name.Length; i++)
+                for(int i=0; i < files.Count; i++)
                 {
-                    cmd.Parameters.AddWithValue("@filename"+i, name);
-                    cmd.Parameters.AddWithValue("@pathname"+i, path);
+                    cmd.Parameters.AddWithValue("@filename"+i, files[i].filename);
+                    cmd.Parameters.AddWithValue("@pathname"+i, files[i].pathname);
                 }
                 //Execute command
                 cmd.ExecuteNonQuery();
-                insertid = cmd.LastInsertedId;
+                //insertid = cmd.LastInsertedId;
 
                 //close connection
                 conn.Close();
             }
 
-            return insertid;
+            //return insertid;
         }
 
         public void AssociateFile(int idexperiment, int idsubject, int idmodality,long idfile)
@@ -797,12 +800,12 @@ namespace edb_tool
             }
         }
 
-        public DataTable ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality)
+        public List<GFile> ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality)
         {
             conn = new MySqlConnection(connStr);
 
 
-            string query = @"select file.idfile,file.pathname,file.tags
+            string query = @"select file.idfile,,file.filename,file.pathname,file.tags
                             from file,list_file 
                             where file.idfile = list_file.idfile 
                             and idexperiment = @idexperiment
@@ -823,11 +826,16 @@ namespace edb_tool
                 DataTable table = new DataTable();
                 myDA.Fill(table);
 
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = table;
+                var equery = from DataRow row in table.Rows
+                             select new GFile
+                             {
+                                 idfile = Convert.ToInt32(row["idfile"]),
+                                 filename = (string)row["filename"],
+                                 pathname = (string)row["pathname"],
+                             };
 
-                return table;//bSource;
-                //tblGrid.Columns[0].Visible = false;
+                return equery.ToList();
+                
             }
             //catch (MySqlException ex)
             //{

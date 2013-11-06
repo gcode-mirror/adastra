@@ -11,32 +11,14 @@ namespace edb_tool
 {
     public partial class TagSelector : Form
     {
-        struct Tag
-        {
-            public int idtag {get;set;}
-            public string name {get;set;}
-        }
-
-        //MySql db;
-
-        //int[] idfiles;
-
-        Tag[] AllTags;
+        List<GTag> AllTags;
 
         MainForm mainform;
-
-
-        //int idexperiment;
 
         public TagSelector(MainForm mainform)
         {
             InitializeComponent();
             this.mainform = mainform;
-
-            //db = new MySql();
-
-            //this.idfiles = idfiles;
-            //this.idexperiment = idexperiment;
         }
 
         private void TagSelector_Load(object sender, EventArgs e)
@@ -44,13 +26,7 @@ namespace edb_tool
             listBox1.DisplayMember = "name";
             listBox1.ValueMember = "idtag";
 
-            var q = from DataRow t in DataFactory.GetDataProvider().ListTags().Rows
-                    select new Tag
-                    {
-                        name = (string)t[1],
-                        idtag = Convert.ToInt32(t[0]),
-                    };
-            AllTags = q.ToArray();
+            AllTags = ProviderFactory.GetDataProvider().ListTags();
 
             listBox2.DisplayMember = "name";
             listBox2.ValueMember = "idtag";
@@ -72,8 +48,8 @@ namespace edb_tool
             //UpdateFileTags(
             //insert all selected tags for this item
 
-            int[] selectedTagsIds = (from Tag t in listBox2.Items.Cast<Tag>() select t.idtag).ToArray();
-            string tagLine = (from Tag t in listBox2.Items.Cast<Tag>() select t.name).ToArray().Aggregate(new StringBuilder(),(current, next) => current.Append(", ").Append(next)).ToString();
+            int[] selectedTagsIds = (from GTag t in listBox2.Items.Cast<GTag>() select t.idtag).ToArray();
+            string tagLine = (from GTag t in listBox2.Items.Cast<GTag>() select t.name).ToArray().Aggregate(new StringBuilder(),(current, next) => current.Append(", ").Append(next)).ToString();
 
             //for each fileid 
 
@@ -83,11 +59,11 @@ namespace edb_tool
             {
                 foreach (int idfile in fileids)
                 {
-                    DataFactory.GetDataProvider().AssociateTags(selectedTagsIds, idfile, mainform.curr.ExperimentID);
+                    ProviderFactory.GetDataProvider().AssociateTags(selectedTagsIds, idfile, mainform.curr.ExperimentID);
                 }
             }
 
-            DataFactory.GetDataProvider().UpdateFileTags(fileids, (tagLine.Length > 0) ? tagLine.Substring(2) : "");
+            ProviderFactory.GetDataProvider().UpdateFileTags(fileids, (tagLine.Length > 0) ? tagLine.Substring(2) : "");
 
             mainform.ConstructTabsModalities();
 
@@ -96,9 +72,9 @@ namespace edb_tool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var right = new List<Tag>(listBox2.Items.Cast<Tag>());
+            var right = new List<GTag>(listBox2.Items.Cast<GTag>());
 
-            foreach (Tag o in listBox1.SelectedItems.Cast<Tag>())
+            foreach (GTag o in listBox1.SelectedItems.Cast<GTag>())
             {
                 if (!listBox2.Items.Contains(o))
                    right.Add(o);
@@ -108,7 +84,7 @@ namespace edb_tool
 
             #region remove from left
 
-            var q = from Tag t in AllTags
+            var q = from GTag t in AllTags
                     let selectedRightIds = from p in right select p.idtag
                     where !selectedRightIds.Contains(t.idtag)
                     select t;
@@ -120,10 +96,10 @@ namespace edb_tool
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var left = new List<Tag>(listBox1.Items.Cast<Tag>());
+            var left = new List<GTag>(listBox1.Items.Cast<GTag>());
 
 
-            foreach (Tag o in listBox2.SelectedItems.Cast<Tag>())
+            foreach (GTag o in listBox2.SelectedItems.Cast<GTag>())
             {
                 if (!listBox1.Items.Contains(o))
                     left.Add(o);
@@ -133,7 +109,7 @@ namespace edb_tool
 
             #region remove from right
 
-            var q = from Tag t in AllTags
+            var q = from GTag t in AllTags
                     let selectedLeftIds = from p in left select p.idtag
                     where !selectedLeftIds.Contains(t.idtag)
                     select t;

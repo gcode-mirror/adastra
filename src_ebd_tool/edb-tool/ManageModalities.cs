@@ -53,17 +53,17 @@ namespace edb_tool
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 GModality m = new GModality(-1, textBox1.Text, textBox2.Text, textBox3.Text);
-                DataFactory.GetDataProvider().AddModality(m);
-                mainform.comboBox4.DataSource = DataFactory.GetDataProvider().ListModalities();
+                ProviderFactory.GetDataProvider().AddModality(m);
+                mainform.comboBox4.DataSource = ProviderFactory.GetDataProvider().ListModalities();
                 ClearControls();
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
                 GModality m = new GModality(updateid, textBox1.Text, textBox2.Text, textBox3.Text);
-                DataFactory.GetDataProvider().UpdateModality(m);
+                ProviderFactory.GetDataProvider().UpdateModality(m);
                 button2.Visible = false;
                 button2_Click(null, null);
-                mainform.comboBox4.DataSource = DataFactory.GetDataProvider().ListModalities();
+                mainform.comboBox4.DataSource = ProviderFactory.GetDataProvider().ListModalities();
             }
 
             Bind();
@@ -100,7 +100,7 @@ namespace edb_tool
 
         private void Bind()
         {
-            bs.DataSource = DataFactory.GetDataProvider().ListModalities();
+            bs.DataSource = ProviderFactory.GetDataProvider().ListModalities();
         }
 
         void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -116,10 +116,10 @@ namespace edb_tool
                     {
                         object stringid = dataGridView2.Rows[e.RowIndex].Cells[idcolumn].Value;
                         int id = Convert.ToInt32(stringid);
-                        DataFactory.GetDataProvider().DeleteModality(id);
+                        ProviderFactory.GetDataProvider().DeleteModality(id);
 
                         Bind();
-                        mainform.comboBox4.DataSource = DataFactory.GetDataProvider().ListModalities();
+                        mainform.comboBox4.DataSource = ProviderFactory.GetDataProvider().ListModalities();
                         mainform.ConstructTabsModalities();
                     }
                 }

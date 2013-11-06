@@ -123,7 +123,7 @@ namespace edb_tool
 
             //db = new MySql();
 
-            dataGridView2.DataSource = DataFactory.GetDataProvider().ListExperiments(curr.UserID);
+            dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(curr.UserID);
 
             //experiment datagridview layout
             dataGridView2.Columns[0].Visible = false;
@@ -136,7 +136,7 @@ namespace edb_tool
 
             comboBox4.DisplayMember = "name";
             comboBox4.ValueMember = "idmodality";
-            comboBox4.DataSource = DataFactory.GetDataProvider().ListModalities();
+            comboBox4.DataSource = ProviderFactory.GetDataProvider().ListModalities();
 
            
             //Application.OpenForms["Login"].BringToFront();
@@ -149,7 +149,7 @@ namespace edb_tool
             {
                 int idexperiment = Convert.ToInt32(dataGridView2.SelectedRows[0].Cells[Helper.LocateColumnInGrid("idexperiment", dataGridView2)].Value);
                 curr.ExperimentID = idexperiment;
-                dataGridView3.DataSource = DataFactory.GetDataProvider().ListSubjectsByExperimentId(idexperiment, curr.UserID);
+                dataGridView3.DataSource = ProviderFactory.GetDataProvider().ListSubjectsByExperimentId(idexperiment, curr.UserID);
 
                 dataGridView3.Columns[0].Visible = false;
                 dataGridView3.Columns[2].Visible = false;
@@ -195,7 +195,7 @@ namespace edb_tool
         private void button10_Click(object sender, EventArgs e)
         {
             int idmodality = Convert.ToInt32(comboBox4.SelectedValue);
-            DataFactory.GetDataProvider().AddModalityToExperiment(idmodality, curr.ExperimentID);
+            ProviderFactory.GetDataProvider().AddModalityToExperiment(idmodality, curr.ExperimentID);
 
             ConstructTabsModalities();
 
@@ -210,7 +210,7 @@ namespace edb_tool
             int selectedTab = tabControl2.SelectedIndex;
 
             tabControl2.TabPages.Clear();
-            List<GModality> modalities = DataFactory.GetDataProvider().ListModalitiesByExperimentID(curr.ExperimentID);
+            List<GModality> modalities = ProviderFactory.GetDataProvider().ListModalitiesByExperimentID(curr.ExperimentID);
 
             if (modalities.Count > 0 && curr.SubjectID != -1)
             {
@@ -245,12 +245,13 @@ namespace edb_tool
                     tb.Controls.Add(dgv);
 
                     //load files
-                    //dgv.DataSource = DataFactory.GetDataProvider().ListFilesByExperimentSubjectModalityID(curr.ExperimentID, curr.SubjectID, m.idmodality);
+                    dgv.DataSource = ProviderFactory.GetDataProvider().ListFilesByExperimentSubjectModalityID(curr.ExperimentID, curr.SubjectID, m.idmodality);
 
-                    //dgv.Columns[0].Visible = false; //hide id
+                    if (dgv.Columns.Count>0)
+                            dgv.Columns[0].Visible = false; //hide id
 
-                    //dgv.Columns.Insert(1, Column1); //add checkbox
-                    //dgv.Columns[1].Width = 28;
+                    dgv.Columns.Insert(1, Column1); //add checkbox
+                    dgv.Columns[1].Width = 28;
 
                     foreach(DataGridViewColumn column in dgv.Columns) //need because otherwise the checkbox can not be set
                     {
@@ -293,6 +294,11 @@ namespace edb_tool
             }
         }
 
+        /// <summary>
+        /// Add files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button13_Click(object sender, EventArgs e)
         {
             if (tabControl2.TabCount == 0 || tabControl2.Visible == false)
@@ -309,13 +315,16 @@ namespace edb_tool
             DialogResult result = ofd.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
-                foreach (String file in ofd.FileNames)
+                foreach (String f in ofd.FileNames)
                 {
                     //insert in db only name for now
-                    long idfile = DataFactory.GetDataProvider().AddFile(Helper.GetFileShortName(file), file);
+                    GFile file = new GFile(-1, Helper.GetFileShortName(f), f);
+                    
+                    long idfile = ProviderFactory.GetDataProvider().AddFile(file);
 
                     int idmodality = Convert.ToInt32(tabControl2.SelectedTab.Tag);//gets the selected tab modality id
-                    DataFactory.GetDataProvider().AssociateFile(curr.ExperimentID, curr.SubjectID, idmodality, idfile);
+                    ProviderFactory.GetDataProvider().AssociateFile(curr.ExperimentID, curr.SubjectID, idmodality, idfile);
+                    
                     //add in table list_file
                 }
             }
@@ -381,10 +390,10 @@ namespace edb_tool
                             int idfile = Convert.ToInt32(raw.Cells[idfileindex].Value);
 
                             //remove from file
-                            DataFactory.GetDataProvider().DeleteFilesByFileId(idfile);
+                            ProviderFactory.GetDataProvider().DeleteFilesByFileId(idfile);
 
                             //remove from list_file
-                            DataFactory.GetDataProvider().DeleteFilesByFileIdFromListFile(idfile);
+                            ProviderFactory.GetDataProvider().DeleteFilesByFileIdFromListFile(idfile);
                         }
                     }
 

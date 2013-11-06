@@ -53,13 +53,13 @@ namespace edb_tool
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 GExperiment exp = new GExperiment(-1, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
-                DataFactory.GetDataProvider().AddExperiment(exp);
+                ProviderFactory.GetDataProvider().AddExperiment(exp);
                 ClearControls();
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
                 GExperiment exp = new GExperiment(updateid, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
-                DataFactory.GetDataProvider().UpdateExperiment(exp);
+                ProviderFactory.GetDataProvider().UpdateExperiment(exp);
 
                 button2.Visible = false;
                 button2_Click(null, null);
@@ -99,8 +99,8 @@ namespace edb_tool
 
         private void Bind()
         {
-            bs.DataSource = DataFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
-            mainform.dataGridView2.DataSource = DataFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            bs.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
         }
 
         void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -116,7 +116,7 @@ namespace edb_tool
                     {
                         object stringid = dataGridView2.Rows[e.RowIndex].Cells[idcolumn].Value;
                         int id = Convert.ToInt32(stringid);
-                        DataFactory.GetDataProvider().DeleteExperiment(id);
+                        ProviderFactory.GetDataProvider().DeleteExperiment(id);
 
                         Bind();
                     }

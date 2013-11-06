@@ -14,8 +14,9 @@ namespace edb_tool
 
         public WebService()
         {
-            //RootUrl = "http://localhost/edb-json/";
-            RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
+            ////RootUrl = "http://localhost/edb-json/";
+            //RootUrl = "http://si-devel.gipsa-lab.grenoble-inp.fr/edm/";
+            RootUrl = ProviderFactory.GetWebProvider();
         }
 
         public void AddSubject(GSubject s)
@@ -133,9 +134,9 @@ namespace edb_tool
         {
             string link =
             RootUrl + "modality.php?function=" + "AddModality" +
-                                                "&name=" + m.name +
-                                                "&comment=" + m.comment +
-                                                "&description=" + m.description;
+                                                "&name=" + System.Web.HttpUtility.UrlEncode(m.name) +
+                                                "&comment=" + System.Web.HttpUtility.UrlEncode(m.comment) +
+                                                "&description=" + System.Web.HttpUtility.UrlEncode(m.description);
 
             Helper.Get(link);
         }
@@ -163,28 +164,48 @@ namespace edb_tool
             string link =
             RootUrl + "modality.php?function=" + "UpdateModality" +
                                                 "&idmodality=" + m.idmodality +
-                                                "&name=" + m.name +
-                                                "&comment=" + m.comment +
-                                                "&description=" + m.description;
+                                                "&name=" + System.Web.HttpUtility.UrlEncode(m.name) +
+                                                "&comment=" + System.Web.HttpUtility.UrlEncode(m.comment) +
+                                                "&description=" + System.Web.HttpUtility.UrlEncode(m.description);
 
             Helper.Get(link);
         }
 
-        public void AddTag(string name)
+        public void AddTag(GTag tag)
         {
+            string link =
+            RootUrl + "tag.php?function=" + "AddTag" +
+                                                "&name=" + System.Web.HttpUtility.UrlEncode(tag.name);
+
+            Helper.Get(link);
         }
 
-        public DataTable ListTags()
+        public List<GTag> ListTags()
         {
-            return null;
+            var json = JsonHelper.DownloadJson(RootUrl + "tag.php?function=" + "ListTags");
+
+            List<GTag> tags = JsonConvert.DeserializeObject<List<GTag>>(json);
+
+            return tags;
         }
 
         public void DeleteTag(int id)
         {
+            string link =
+            RootUrl + "tag.php?function=" + "DeleteTag" +
+                                                "&idtag=" + id.ToString();
+
+            Helper.Get(link);
         }
 
-        public void UpdateTag(int id, string name)
+        public void UpdateTag(GTag tag)
         {
+            string link =
+            RootUrl + "tag.php?function=" + "UpdateTag" +
+                                                "&idtag=" + tag.idtag +
+                                                "&name=" + System.Web.HttpUtility.UrlEncode(tag.name);
+
+            Helper.Get(link);
         }
 
         public long AssociateTags(int[] idtag, int idfile, int idexperiment)
@@ -211,23 +232,38 @@ namespace edb_tool
             return modalities;
         }
 
-        public long AddFile(string name, string path)
+        public long AddFile(GFile f)
         {
-            return -1;
+           string link =
+           RootUrl + "file.php?function=" + "AddFile" +
+                                               "&filename=" + System.Web.HttpUtility.UrlEncode(f.filename) +
+                                               "&pathname=" + System.Web.HttpUtility.UrlEncode(f.pathname);
+
+           var json = JsonHelper.DownloadJson(link);
+           long idfile = JsonConvert.DeserializeObject<int>(json);
+
+           return idfile;
         }
 
-        public long AddFiles(string[] name, string[] path)
+        public void AddFiles(List<GFile> files)
         {
-            return -1;
+            //return -1;
         }
 
         public void AssociateFile(int idexperiment, int idsubject, int idmodality, long idfile)
         {
         }
 
-        public DataTable ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality)
+        public List<GFile> ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality)
         {
-            return null;
+            var json = JsonHelper.DownloadJson(RootUrl + "file.php?function=" + "ListFilesByExperimentSubjectModalityID"
+                                                + "&idexperiment=" + idexperiment.ToString()
+                                                + "&idsubject=" + idsubject.ToString()
+                                                + "&idmodality=" + idmodality.ToString());
+
+            List<GFile> files = JsonConvert.DeserializeObject<List<GFile>>(json);
+
+            return files;
         }
 
         public void DeleteFilesByExperimentIdSubjectIdModalityId(int idexperiment, int idsubject, int idmodality)

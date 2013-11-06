@@ -59,11 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFactory.cs" />
+    <Compile Include="DataProviders\ProviderFactory.cs" />
     <Compile Include="Definitions\DataProvider.cs" />
     <Compile Include="Definitions\GExperiment.cs" />
+    <Compile Include="Definitions\GFile.cs" />
     <Compile Include="Definitions\GSubject.cs" />
     <Compile Include="Definitions\GModality.cs" />
+    <Compile Include="Definitions\GTag.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="DataProviders\MySql.cs" />
     <Compile Include="Definitions\GUser.cs" />

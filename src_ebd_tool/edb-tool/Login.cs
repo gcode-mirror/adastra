@@ -13,15 +13,11 @@ namespace edb_tool
     {
         MainForm mainform;
 
-        //MySql db;
-
         public Login(MainForm mainform)
         {
             InitializeComponent();
 
             this.mainform = mainform;
-
-            //db = new MySql();
 
             label3.Visible = false;
 
@@ -39,7 +35,8 @@ namespace edb_tool
             {
                 //var o = new localhost.HelloExample();
                // userid = o.Authenticate(textBox1.Text, textBox2.Text);
-                autheticated = DataFactory.GetDataProvider().VerifyUserPassword(textBox1.Text, textBox2.Text, out mainform.curr.UserID);
+                ProviderFactory.SetWebProvider((string)comboBox1.SelectedValue);
+                autheticated = ProviderFactory.GetDataProvider().VerifyUserPassword(textBox1.Text, textBox2.Text, out mainform.curr.UserID);
             }
             catch(Exception ex)
             {
@@ -72,6 +69,11 @@ namespace edb_tool
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            comboBox1.DataSource = ProviderFactory.GetWebProvidersList();
         }
     }
 }

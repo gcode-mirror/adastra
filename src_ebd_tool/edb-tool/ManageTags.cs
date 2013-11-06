@@ -11,7 +11,7 @@ namespace edb_tool
 {
     public partial class ManageTags : Form
     {
-        MySql db;
+        //MySql db;
 
         BindingSource bs;
 
@@ -49,12 +49,12 @@ namespace edb_tool
         {
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
-                db.AddTag(textBox1.Text);
+                ProviderFactory.GetDataProvider().AddTag(new GTag(-1,textBox1.Text));
                 ClearControls();
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
-                db.UpdateTag(updateid, textBox1.Text);
+                ProviderFactory.GetDataProvider().UpdateTag(new GTag(updateid, textBox1.Text));
                 button2.Visible = false;
                 button2_Click(null, null);
             }
@@ -64,14 +64,14 @@ namespace edb_tool
 
         private void ManageTags_Load(object sender, EventArgs e)
         {
-            db = new MySql();
+            //db = new MySql();
             bs = new BindingSource();
 
             dataGridView2.DataSource = bs;
 
             Bind();
 
-            dataGridView2.Columns[0].Visible = false;
+            if (dataGridView2.Columns.Count>0) dataGridView2.Columns[0].Visible = false;
 
             DataGridViewLinkColumn Editlink = new DataGridViewLinkColumn();
             Editlink.UseColumnTextForLinkValue = true;
@@ -92,7 +92,7 @@ namespace edb_tool
 
         private void Bind()
         {
-            bs.DataSource = db.ListTags();
+            bs.DataSource = ProviderFactory.GetDataProvider().ListTags();
         }
 
         void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -108,7 +108,7 @@ namespace edb_tool
                     {
                         object stringid = dataGridView2.Rows[e.RowIndex].Cells[idcolumn].Value;
                         int id = Convert.ToInt32(stringid);
-                        db.DeleteTag(id);
+                        ProviderFactory.GetDataProvider().DeleteTag(id);
 
                         Bind();
                     }
