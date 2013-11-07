@@ -258,12 +258,12 @@ namespace edb_tool
                     dgv.Columns.Insert(1, Column1); //add checkbox
                     dgv.Columns[1].Width = 28;
 
-                    foreach(DataGridViewColumn column in dgv.Columns) //need because otherwise the checkbox can not be set
+                    foreach(DataGridViewColumn column in dgv.Columns) //needed because otherwise the checkbox can not be set
                     {
                         if (column.DisplayIndex >1)
                            column.ReadOnly = true;
 
-                        if (column.DisplayIndex > 1 && (column.Name == "filename" || column.Name == "pathname"))
+                        if (column.Name == "filename" || column.Name == "pathname" || column.Name == "checkbox1" || column.Name == "tags")
                         {
                             column.Visible = true;
                         }
