@@ -149,8 +149,13 @@ namespace edb_tool
             {
                 int idexperiment = Convert.ToInt32(dataGridView2.SelectedRows[0].Cells[Helper.LocateColumnInGrid("idexperiment", dataGridView2)].Value);
                 curr.ExperimentID = idexperiment;
+                
+                //load subjects for this experiment
                 dataGridView3.DataSource = ProviderFactory.GetDataProvider().ListSubjectsByExperimentId(idexperiment, curr.UserID);
+                if (dataGridView3.Rows.Count > 0)
+                    dataGridView3.Rows[0].Selected = true;
 
+                //set visibility
                 dataGridView3.Columns[0].Visible = false;
                 dataGridView3.Columns[2].Visible = false;
                 dataGridView3.Columns[3].Visible = false;
@@ -257,6 +262,15 @@ namespace edb_tool
                     {
                         if (column.DisplayIndex >1)
                            column.ReadOnly = true;
+
+                        if (column.DisplayIndex > 1 && (column.Name == "filename" || column.Name == "pathname"))
+                        {
+                            column.Visible = true;
+                        }
+                        else
+                        {
+                            column.Visible = false;
+                        }
                     }
 
                     #region button location
@@ -267,6 +281,7 @@ namespace edb_tool
                     Editlink.LinkBehavior = LinkBehavior.SystemDefault;
                     Editlink.Text = "Open";
                     dgv.Columns.Add(Editlink);
+                    dgv.Columns[dgv.Columns.Count - 1].Width = 50;
                     #endregion
 
                     dgv.CellContentClick += new DataGridViewCellEventHandler(dgv_CellContentClick);
@@ -289,8 +304,9 @@ namespace edb_tool
                 int columnindex  = Helper.LocateColumnInGrid("pathname",dgv);
                 string fullpath = Convert.ToString(dgv.SelectedRows[0].Cells[columnindex].Value);
 
+                string command = fullpath.Substring(0, fullpath.LastIndexOf("\\"));
                 if (fullpath.Length>0)
-                    System.Diagnostics.Process.Start(fullpath.Substring(0,fullpath.LastIndexOf("\\")));
+                    System.Diagnostics.Process.Start(command);
             }
         }
 
