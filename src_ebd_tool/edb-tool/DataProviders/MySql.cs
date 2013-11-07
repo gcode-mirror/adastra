@@ -599,15 +599,15 @@ namespace edb_tool
             }
         }
 
-        public long AssociateTags(int[] idtag, int idfile, int idexperiment)
+        public void AssociateTags(List<GTag> tags, int idfile, int idexperiment)
         {
-            long insertid = -1;
+            //long insertid = -1;
 
             conn = new MySqlConnection(connStr);
             conn.Open();
 
             string query = "INSERT list_tag (idtag, idfile, idexperiment) VALUES ";
-            for (int i = 0; i < idtag.Length; i++)
+            for (int i = 0; i < tags.Count; i++)
             {
                 if (i != 0) query += ",";
                 query += string.Format("(@idtag{0}, @idfile, @idexperiment)", i);
@@ -619,9 +619,9 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                for (int i = 0; i < idtag.Length; i++)
+                for (int i = 0; i < tags.Count; i++)
                 {
-                    cmd.Parameters.AddWithValue("@idtag" + i, idtag[i]);
+                    cmd.Parameters.AddWithValue("@idtag" + i, tags[i].idtag);
                 }
 
                 cmd.Parameters.AddWithValue("@idfile", idfile);
@@ -629,13 +629,13 @@ namespace edb_tool
 
                 //Execute command
                 cmd.ExecuteNonQuery();
-                insertid = cmd.LastInsertedId;
+                //insertid = cmd.LastInsertedId;
 
                 //close connection
                 conn.Close();
             }
 
-            return insertid;
+            //return insertid;
         }
 
     
@@ -901,10 +901,37 @@ namespace edb_tool
 
         public void DeleteFilesByFileIdFromListFile(int idfile)
         {
+            //list_file (provides the connection between the file and the experiment, subject)
+
             conn = new MySqlConnection(connStr);
             conn.Open();
 
             string query = @"delete from list_file where idfile = @idfile";
+
+            //open connection
+            if (conn.State == ConnectionState.Open == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@idfile", idfile);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                conn.Close();
+            }
+        }
+
+        public void RemoveTags(int idfile)
+        {
+            //list_tag (provides the connection between the file and tags)
+
+            conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            string query = @"delete from list_tag where idfile = @idfile";
 
             //open connection
             if (conn.State == ConnectionState.Open == true)
@@ -998,6 +1025,7 @@ namespace edb_tool
 
             string[] idfilesstring = idfiles.Select(x => x.ToString()).ToArray();
 
+            //separate somehow in the string 
             string idsLine = idfilesstring.Aggregate(new StringBuilder(), (current, next) => current.Append(", ").Append(next)).ToString();
 
             query += idsLine.Substring(1) + ")";

@@ -48,19 +48,58 @@
 	else
 	if ($_GET['function'] == "AddFile")
 	{
-	    $filename = $mysqli->escape_string(urldecode($_GET['username']));
-		$pathname = $mysqli->escape_string(urldecode($_GET['password']));
+	    $filename = $mysqli->escape_string(urldecode($_GET['filename']));
+		$pathname = $mysqli->escape_string(urldecode($_GET['pathname']));
 		
 		$sql = "INSERT INTO file (filename, pathname) VALUES ('$filename', '$pathname')";
 		
-		$result = mysqli_query($mysqli,$sql);
-		$row_cnt = $result->num_rows;
-		//print($row_cnt);
+		$mysqli->query($sql);
 		
-		$idfile = -1;
-		$row = $result->fetch_assoc();
+	    $idfile = $mysqli->insert_id;
 
-	    $idfile = $row["idfile"];
+		print(json_encode($idfile));	
+	}
+	else
+	if ($_GET['function'] == "DeleteFilesByFileId")
+	{
+	    $idfile = $_GET['idfile'];
+		
+		$sql = "delete from file where idfile = $idfile";
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+		
+	}
+	else
+	if ($_GET['function'] == "DeleteFilesByFileIdFromListFile")
+	{
+	    $idfile = $_GET['idfile'];
+		
+		$sql = "delete from list_file where idfile = $idfile";
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+		
+	}
+	else
+	if ($_GET['function'] == "AssociateFile")
+	{
+	    $idexperiment = $_GET['idexperiment'];
+		$idsubject = $_GET['idsubject'];
+		$idmodality = $_GET['idmodality'];
+		$idfile = $_GET['idfile'];
+		
+		$sql = "INSERT INTO list_file (idexperiment, idsubject, idmodality, idfile) VALUES ($idexperiment, $idsubject, $idmodality, $idfile)";
+		
+		$mysqli->query($sql);
 
 		print(json_encode($idfile));	
 	}

@@ -208,9 +208,20 @@ namespace edb_tool
             Helper.Get(link);
         }
 
-        public long AssociateTags(int[] idtag, int idfile, int idexperiment)
+        public void AssociateTags(List<GTag> tags, int idfile, int idexperiment)
         {
-            return -1;
+            string[] idfilesstring = (from t in tags 
+                                     select t.idtag.ToString()).ToArray();//idfiles.Select(x => x.ToString()).ToArray();
+
+            //separate somehow in the string 
+            string idsLine = idfilesstring.Aggregate(new StringBuilder(), (current, next) => current.Append(",").Append(next)).ToString();
+
+            string jsonTags = JsonConvert.SerializeObject(tags);
+            string link = RootUrl + "tag.php?function=" + "AssociateTags"
+                                                             + "&idfile=" + idfile.ToString()
+                                                             + "&idexperiment=" + idexperiment.ToString()
+                                                             + "&idsLine=" + idsLine;
+            string result = Helper.Get(link);
         }
 
         public void AddModalityToExperiment(int idmodality, int idexperiment)
@@ -247,11 +258,19 @@ namespace edb_tool
 
         public void AddFiles(List<GFile> files)
         {
-            //return -1;
+            throw new Exception("Unimplemented");
         }
 
         public void AssociateFile(int idexperiment, int idsubject, int idmodality, long idfile)
         {
+           string link =
+           RootUrl + "file.php?function=" + "AssociateFile"
+                                               + "&idexperiment=" + idexperiment.ToString()
+                                               + "&idsubject=" + idsubject.ToString()
+                                               + "&idmodality=" + idmodality.ToString()
+                                               + "&idfile=" + idfile.ToString();
+
+            var json = JsonHelper.DownloadJson(link);
         }
 
         public List<GFile> ListFilesByExperimentSubjectModalityID(int idexperiment, int idsubject, int idmodality)
@@ -268,18 +287,30 @@ namespace edb_tool
 
         public void DeleteFilesByExperimentIdSubjectIdModalityId(int idexperiment, int idsubject, int idmodality)
         {
+            throw new Exception("Unimplemented");
         }
 
         public void DeleteFilesByFileId(int idfile)
         {
+           string link =
+           RootUrl + "file.php?function=" + "DeleteFilesByFileId" +
+                                               "&idfile=" + idfile.ToString();
+
+            Helper.Get(link);
         }
 
         public void DeleteFilesByFileIdFromListFile(int idfile)
         {
+           string link =
+           RootUrl + "file.php?function=" + "DeleteFilesByFileIdFromListFile" +
+                                               "&idfile=" + idfile.ToString();
+
+            Helper.Get(link);
         }
 
         public void AddUser(string firstname, string lastname, string username, string password, string email)
         {
+            throw new Exception("Unimplemented");
         }
 
         public bool VerifyUserPassword(string username, string password, out int userid)
@@ -299,6 +330,26 @@ namespace edb_tool
 
         public void UpdateFileTags(int[] idfiles, string tagLine)
         {
+            string[] idfilesstring = idfiles.Select(x => x.ToString()).ToArray();
+
+            //separate somehow in the string 
+            string idsLine = idfilesstring.Aggregate(new StringBuilder(), (current, next) => current.Append(", ").Append(next)).ToString();
+
+            string link =
+            RootUrl + "tag.php?function=" + "UpdateFileTags"
+                                              + "&idsLine=" + System.Web.HttpUtility.UrlEncode(idsLine)
+                                              + "&tagLine=" + System.Web.HttpUtility.UrlEncode(tagLine);
+
+            Helper.Get(link);
+        }
+
+        public void RemoveTags(int idfile)
+        {
+           string link =
+           RootUrl + "tag.php?function=" + "RemoveTags" +
+                                               "&idfile=" + idfile.ToString();
+
+           Helper.Get(link);
         }
     }
 }

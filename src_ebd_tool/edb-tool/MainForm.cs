@@ -389,11 +389,16 @@ namespace edb_tool
                         {
                             int idfile = Convert.ToInt32(raw.Cells[idfileindex].Value);
 
-                            //remove from file
+                            //remove from list_file table (provides the connection between the file and the experiment, subject)
+                            ProviderFactory.GetDataProvider().DeleteFilesByFileIdFromListFile(idfile);
+
+                            //remove associated tags
+                            ProviderFactory.GetDataProvider().RemoveTags(idfile);
+
+                            //remove from file table
                             ProviderFactory.GetDataProvider().DeleteFilesByFileId(idfile);
 
-                            //remove from list_file
-                            ProviderFactory.GetDataProvider().DeleteFilesByFileIdFromListFile(idfile);
+                            
                         }
                     }
 

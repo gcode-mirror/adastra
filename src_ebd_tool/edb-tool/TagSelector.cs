@@ -48,21 +48,24 @@ namespace edb_tool
             //UpdateFileTags(
             //insert all selected tags for this item
 
-            int[] selectedTagsIds = (from GTag t in listBox2.Items.Cast<GTag>() select t.idtag).ToArray();
+            //int[] selectedTagsIds = (from GTag t in listBox2.Items.Cast<GTag>() select t.idtag).ToArray();
+            List<GTag> selectedTagsIds = listBox2.Items.Cast<GTag>().ToList();
             string tagLine = (from GTag t in listBox2.Items.Cast<GTag>() select t.name).ToArray().Aggregate(new StringBuilder(),(current, next) => current.Append(", ").Append(next)).ToString();
 
             //for each fileid 
 
             int[] fileids = mainform.GetSelectedFiles();
 
-            if (selectedTagsIds.Length > 0)
+            //1) update in table "list_tag" to allow future search by tag
+            if (selectedTagsIds.Count > 0)
             {
                 foreach (int idfile in fileids)
                 {
                     ProviderFactory.GetDataProvider().AssociateTags(selectedTagsIds, idfile, mainform.curr.ExperimentID);
                 }
             }
-
+            
+            //2) update in the files table for faster visualisation
             ProviderFactory.GetDataProvider().UpdateFileTags(fileids, (tagLine.Length > 0) ? tagLine.Substring(2) : "");
 
             mainform.ConstructTabsModalities();

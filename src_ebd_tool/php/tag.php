@@ -84,4 +84,62 @@
 		else print("false");
 		
 	}
+	else
+	if ($_GET['function'] == "RemoveTags")
+	{
+	    $idfile = $_GET['idfile'];
+		
+		$sql = "delete from list_tag where idfile = $idfile";
+		$result = mysqli_query($mysqli,$sql);
+
+		mysqli_close($mysqli);
+	
+	    if ($result)
+	      print("true");
+		else print("false");
+		
+	}
+	else
+	if ($_GET['function'] == "AssociateTags")
+	{
+		$idfile = $_GET['idfile'];
+		$idexperiment = $_GET['idexperiment'];
+	    $idsLine = $_GET['idsLine'];
+		
+		$idsLine = trim($idsLine, ",");
+		$ids = explode(",", $idsLine);
+		//$tags = json_decode($allrecords,true);//$mysqli->escape_string
+		//print  json_last_error();
+		$sql = "INSERT list_tag (idtag, idfile, idexperiment) VALUES ";
+		
+		foreach ($ids as $idtag) 
+		{
+           $sql = $sql . "($idtag, $idfile, $idexperiment),";
+		}	
+
+		$sql = rtrim($sql, ",");
+		mysqli_query($mysqli,$sql);		
+        print($sql);			
+		
+		mysqli_close($mysqli);
+	}
+	else
+	if ($_GET['function'] == "UpdateFileTags")
+	{
+		$idsLine = $_GET['idsLine'];
+		$tagLine = $_GET['tagLine'];
+		
+		//$tags = json_decode($allrecords,true);//$mysqli->escape_string
+		
+		$sql = "UPDATE file SET tags = '$tagLine' WHERE idfile in (";
+		
+		$idsLine = trim($idsLine, ",");
+	    $sql = $sql . $idsLine;
+		
+		$sql = $sql . ")";
+        mysqli_query($mysqli,$sql);	
+		//print($sql);			
+		
+		mysqli_close($mysqli);
+	}
 ?>
