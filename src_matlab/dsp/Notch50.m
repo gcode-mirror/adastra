@@ -13,9 +13,14 @@ f = [0:length(s)-1]/length(s)*fs;
 figure, plot(f,abs(s_fft));
 
 deg = 3;
-Wn = [45*2/fs,55*2/fs]; %this 2 is because of the nyquist frequency?  
+%we mitigate the frequency around 50 by setting an interval around 50 being [45 55]
+%Wn is the normalized cutoff frequency - in this case from both sides because we want to remove only the 50 Hz
+Wn = [45*2/fs,55*2/fs]; %this division by 2 is because of the nyquist frequency?  
 
+%design filter
 [B,A] = butter(deg,Wn,'stop');
+
+%apply filter
 filteredSignal = filter(B,A,s);
 
 y_fft=fft(filteredSignal);
