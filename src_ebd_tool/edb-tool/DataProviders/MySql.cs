@@ -246,23 +246,6 @@ namespace edb_tool
                                  iduser = (int) row.ItemArray[4],
                              };
 
-                //result = new List<GExperiment>();
-                //foreach (DataRow row in table.Rows)
-                //{
-                //    GExperiment t = new GExperiment();
-
-                //    t.idexperiment = Convert.ToInt32(row.ItemArray[0]);
-                //    t.name = Convert.ToString(row.ItemArray[1]);
-                //    t.comment = Convert.ToString(row.ItemArray[2]);
-                //    t.description = Convert.ToString((string) row.ItemArray[3]);
-                //    t.iduser = Convert.ToInt32(row.ItemArray[4]);
-
-                //    result.Add(t);
-                //}
-                ////result = new List<GExperiment>();
-                ////GExperiment t = new GExperiment();
-                ////result.Add(t);
-
                 result =  equery.ToList();  
             }
             catch (MySqlException ex)

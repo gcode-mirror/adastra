@@ -22,6 +22,8 @@ namespace edb_tool
             this.iduser = iduser;
         }
 
+        public bool isshared { get; set; }
+
         [JsonProperty("idexperiment")]
         public int idexperiment { get; set; }
 

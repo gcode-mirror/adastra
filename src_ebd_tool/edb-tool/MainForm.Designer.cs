@@ -89,6 +89,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -289,6 +290,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.button17);
             this.tabPage3.Controls.Add(this.label6);
@@ -495,7 +497,7 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(7, 29);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(116, 394);
+            this.dataGridView2.Size = new System.Drawing.Size(116, 365);
             this.dataGridView2.TabIndex = 13;
             // 
             // tabPage1
@@ -738,6 +740,16 @@
             this.tabControl1.Size = new System.Drawing.Size(695, 466);
             this.tabControl1.TabIndex = 1;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 401);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(88, 17);
+            this.checkBox1.TabIndex = 28;
+            this.checkBox1.Text = "Show shared";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -853,6 +865,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
