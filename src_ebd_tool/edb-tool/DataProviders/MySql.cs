@@ -805,7 +805,7 @@ namespace edb_tool
             conn = new MySqlConnection(connStr);
 
 
-            string query = @"select file.idfile,,file.filename,file.pathname,file.tags
+            string query = @"select file.idfile,file.filename,file.pathname,file.tags
                             from file,list_file 
                             where file.idfile = list_file.idfile 
                             and idexperiment = @idexperiment

@@ -32,7 +32,10 @@ namespace edb_tool
             this.mainform = mainform;
             this.isSingleExperiment = IsSingleExperiment;
             this.idSelectedExperiment = idSelectedExperiment;
-            selectedExperiment = mainform.dataGridView2.SelectedRows[0].Index;
+
+            if (mainform.dataGridView2.SelectedRows.Count > 0)
+                selectedExperiment = mainform.dataGridView2.SelectedRows[0].Index;
+            else selectedExperiment = -1;
 
             #region gridview configuration
             dataGridView2.ReadOnly = true;
@@ -57,7 +60,8 @@ namespace edb_tool
         void ManageSubjects_FormClosing(object sender, FormClosingEventArgs e)
         {
             mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
-            mainform.dataGridView2.Rows[selectedExperiment].Selected = true;
+            if (selectedExperiment>0)
+                mainform.dataGridView2.Rows[selectedExperiment].Selected = true;
         }
 
         void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
