@@ -18,6 +18,7 @@ namespace edb_tool
         public TagSelector(MainForm mainform)
         {
             InitializeComponent();
+            this.CenterToScreen();
             this.mainform = mainform;
         }
 

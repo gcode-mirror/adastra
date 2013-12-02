@@ -308,7 +308,14 @@ namespace edb_tool
             Helper.Get(link);
         }
 
-        public void AddUser(string firstname, string lastname, string username, string password, string email)
+        #region users
+
+        public List<GUser> ListUsers()
+        {
+            return null;
+        }
+
+        public void AddUser(GUser u, string password)
         {
             throw new Exception("Unimplemented");
         }
@@ -327,6 +334,8 @@ namespace edb_tool
 
             return userid > 0;
         }
+
+        #endregion
 
         public void UpdateFileTags(int[] idfiles, string tagLine)
         {

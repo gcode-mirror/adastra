@@ -16,6 +16,7 @@ namespace edb_tool
         public Login(MainForm mainform)
         {
             InitializeComponent();
+            this.CenterToScreen();
 
             this.mainform = mainform;
 

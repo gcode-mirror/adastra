@@ -45,9 +45,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(700, 272);
+            this.button3.Location = new System.Drawing.Point(700, 281);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 34);
+            this.button3.Size = new System.Drawing.Size(81, 25);
             this.button3.TabIndex = 14;
             this.button3.Text = "Close";
             this.button3.UseVisualStyleBackColor = true;
@@ -65,14 +65,14 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(549, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(232, 235);
+            this.groupBox1.Size = new System.Drawing.Size(232, 240);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add new";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(9, 206);
+            this.button2.Location = new System.Drawing.Point(67, 206);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
@@ -82,18 +82,18 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(96, 113);
+            this.textBox3.Location = new System.Drawing.Point(67, 113);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(130, 87);
+            this.textBox3.Size = new System.Drawing.Size(159, 87);
             this.textBox3.TabIndex = 8;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(96, 42);
+            this.textBox2.Location = new System.Drawing.Point(67, 42);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(130, 58);
+            this.textBox2.Size = new System.Drawing.Size(159, 58);
             this.textBox2.TabIndex = 7;
             // 
             // label3
@@ -125,9 +125,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(138, 206);
+            this.button1.Location = new System.Drawing.Point(151, 206);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 23);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
@@ -135,9 +135,9 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(96, 16);
+            this.textBox1.Location = new System.Drawing.Point(67, 16);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(130, 20);
+            this.textBox1.Size = new System.Drawing.Size(159, 20);
             this.textBox1.TabIndex = 3;
             // 
             // dataGridView2

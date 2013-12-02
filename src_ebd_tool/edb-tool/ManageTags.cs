@@ -20,6 +20,7 @@ namespace edb_tool
         public ManageTags()
         {
             InitializeComponent();
+            this.CenterToScreen();
 
             #region gridview configuration
             dataGridView2.ReadOnly = true;

@@ -22,6 +22,7 @@ namespace edb_tool
         public ManageModalities(MainForm mainform)
         {
             InitializeComponent();
+            this.CenterToScreen();
             this.mainform = mainform;
 
             #region gridview configuration

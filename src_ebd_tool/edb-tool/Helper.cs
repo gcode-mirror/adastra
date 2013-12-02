@@ -71,11 +71,14 @@ namespace edb_tool
                       //&& (Regex.Match(entry, regLink, RegexOptions.IgnoreCase)).Success
                       let mail = (Regex.Match(entry, regMail, RegexOptions.IgnoreCase)).Groups[1].Value.Replace("\"","")
                       where mail!=""
+                      let Name = (Regex.Match(entry, regName, RegexOptions.IgnoreCase)).Groups[1].Value
+                      let pos = Name.IndexOf(".")
                       select new GUser
                       {
-                          Name = (Regex.Match(entry, regName, RegexOptions.IgnoreCase)).Groups[1].Value,
-                          Mail = mail,
-                          Username = mail.Substring(0,mail.IndexOf("@")),
+                         FirstName = Name.Substring(pos + 1),
+                         LastName = Name.Substring(0, pos),
+                         EMail = mail,
+                         Username = mail.Substring(0,mail.IndexOf("@")),
                       };
 
             var extracted = qq2.ToArray();
@@ -95,11 +98,7 @@ namespace edb_tool
 
             foreach (var user in users)
             {
-              int pos = user.Username.IndexOf(".");
-              string lastname = user.Username.Substring(pos + 1);
-              string firstname = user.Username.Substring(0, pos);
-              string password = user.Username;
-              db.AddUser(firstname, lastname, user.Username, password, user.Mail);
+              db.AddUser(user, user.Username);
             }
         }
 

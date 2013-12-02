@@ -53,9 +53,11 @@ namespace edb_tool
         //remove tags
         #endregion
 
-
-        void AddUser(string firstname, string lastname, string username, string password, string email);//by the web spider 
+        #region users
+        void AddUser(GUser u,string password);//by the web spider 
         bool VerifyUserPassword(string username, string password, out int userid);
+        List<GUser> ListUsers();
+        #endregion
 
         void UpdateFileTags(int[] idfiles, string tagLine);
     }

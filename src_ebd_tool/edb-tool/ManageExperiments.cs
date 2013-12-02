@@ -22,6 +22,7 @@ namespace edb_tool
         public ManageExperiments(MainForm mainform)
         {
             InitializeComponent();
+            this.CenterToScreen();
             this.mainform = mainform;
 
             #region gridview configuration
@@ -88,6 +89,14 @@ namespace edb_tool
             Editlink.Text = "Edit";
             dataGridView2.Columns.Add(Editlink);
 
+            DataGridViewLinkColumn Sharelink = new DataGridViewLinkColumn();
+            Sharelink.UseColumnTextForLinkValue = true;
+            Sharelink.HeaderText = "Share";
+            Sharelink.DataPropertyName = "lnkColumn";
+            Sharelink.LinkBehavior = LinkBehavior.SystemDefault;
+            Sharelink.Text = "Share";
+            dataGridView2.Columns.Add(Sharelink);
+
             DataGridViewLinkColumn Deletelink = new DataGridViewLinkColumn();
             Deletelink.UseColumnTextForLinkValue = true;
             Deletelink.HeaderText = "delete";
@@ -121,6 +130,25 @@ namespace edb_tool
                         Bind();
                     }
                 }
+            }
+            if (dataGridView2.Columns[e.ColumnIndex].HeaderText.ToLower() == "share")
+            {
+                MessageBox.Show("Share", "Share Delete!!", MessageBoxButtons.YesNo);
+                //show new form
+
+                //if (confirmResult == DialogResult.Yes)
+                //{
+                //    int idcolumn = Helper.LocateColumnInGrid("idexperiment", dataGridView2);
+
+                //    if (idcolumn != -1)
+                //    {
+                //        object stringid = dataGridView2.Rows[e.RowIndex].Cells[idcolumn].Value;
+                //        int id = Convert.ToInt32(stringid);
+                //        ProviderFactory.GetDataProvider().DeleteExperiment(id);
+
+                //        Bind();
+                //    }
+                //}
             }
             else if (dataGridView2.Columns[e.ColumnIndex].HeaderText.ToLower() == "edit")
             {

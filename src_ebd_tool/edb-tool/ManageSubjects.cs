@@ -23,12 +23,16 @@ namespace edb_tool
 
         int idSelectedExperiment;
 
+        int selectedExperiment;
+
         public ManageSubjects(MainForm mainform, bool IsSingleExperiment, int idSelectedExperiment)
         {
             InitializeComponent();
+            this.CenterToScreen();
             this.mainform = mainform;
             this.isSingleExperiment = IsSingleExperiment;
             this.idSelectedExperiment = idSelectedExperiment;
+            selectedExperiment = mainform.dataGridView2.SelectedRows[0].Index;
 
             #region gridview configuration
             dataGridView2.ReadOnly = true;
@@ -46,6 +50,14 @@ namespace edb_tool
 
             button2.Visible = false;
             comboBox1.SelectedIndex = 0;
+
+            this.FormClosing += new FormClosingEventHandler(ManageSubjects_FormClosing);
+        }
+
+        void ManageSubjects_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            mainform.dataGridView2.Rows[selectedExperiment].Selected = true;
         }
 
         void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -151,9 +163,6 @@ namespace edb_tool
             {
                 bs.DataSource = ProviderFactory.GetDataProvider().ListSubjects(mainform.curr.UserID);
             }
-
-
-            mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
         }
 
         //delete

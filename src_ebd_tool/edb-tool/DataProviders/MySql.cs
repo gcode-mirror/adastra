@@ -953,7 +953,7 @@ namespace edb_tool
         #endregion
 
         #region users
-        public void AddUser(string firstname, string lastname, string username, string password, string email)
+        public void AddUser(GUser u,string password)
         {
             conn = new MySqlConnection(connStr);
             conn.Open();
@@ -966,10 +966,10 @@ namespace edb_tool
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@firstname", firstname);
-                cmd.Parameters.AddWithValue("@lastname", lastname);
-                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", u.Username);
+                cmd.Parameters.AddWithValue("@firstname", u.FirstName);
+                cmd.Parameters.AddWithValue("@lastname", u.LastName);
+                cmd.Parameters.AddWithValue("@email", u.EMail);
                 cmd.Parameters.AddWithValue("@password", password);
 
                 //Execute command
@@ -1013,6 +1013,43 @@ namespace edb_tool
 
             if (table.Rows.Count > 0) return true;
             else return false;
+        }
+
+        public List<GUser> ListUsers()
+        {
+            DataTable table = new DataTable();
+            conn = new MySqlConnection(connStr);
+            string query = "SELECT iduser FROM user";
+
+            try
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataAdapter myDA = new MySqlDataAdapter();
+
+                myDA.SelectCommand = cmd;
+
+                myDA.Fill(table);
+
+                var equery = from DataRow row in table.Rows
+                                select new GUser
+                                {
+                                    iduser = Convert.ToInt32(row["iduser"]),
+                                    FirstName = (string)row["firstname"],
+                                    LastName = (string)row["lastname"],
+                                    EMail = (string)row["email"],
+                                    Username = (string)row["username"],
+                                };
+
+                return equery.ToList();
+                
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
         #endregion
 

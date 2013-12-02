@@ -36,6 +36,7 @@ namespace edb_tool
         public MainForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
 
             #region gridview configuration
             //grid experiments
@@ -101,8 +102,9 @@ namespace edb_tool
         {
             //load the modalities for this experimentid/subject id
 
-            if (dataGridView3.SelectedRows.Count>0)
+            if (dataGridView3.SelectedRows.Count > 0)
             {
+                panel1.Enabled = true;
                 int idcolumn = Helper.LocateColumnInGrid("idsubject", dataGridView3);
                 if (idcolumn != -1)
                 {
@@ -111,8 +113,13 @@ namespace edb_tool
                     curr.SubjectID = id;
                 }
             }
+            else
+            {
+                panel1.Enabled = false;
+            }
             
             ConstructTabsModalities();
+
             if (tabControl2.TabPages.Count > 0) tabControl2.SelectedIndex = 0;
         }
 
@@ -190,21 +197,6 @@ namespace edb_tool
         {
             ManageTags mt = new ManageTags();
             mt.Show();
-        }
-
-        /// <summary>
-        /// Add modality
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button10_Click(object sender, EventArgs e)
-        {
-            int idmodality = Convert.ToInt32(comboBox4.SelectedValue);
-            ProviderFactory.GetDataProvider().AddModalityToExperiment(idmodality, curr.ExperimentID);
-
-            ConstructTabsModalities();
-
-            tabControl2.SelectedIndex = tabControl2.TabPages.Count - 1;
         }
 
         /// <summary>
@@ -526,6 +518,26 @@ namespace edb_tool
             int[] fileids = GetSelectedItems(dgv, cbindex);
 
             return fileids;
+        }
+
+        private void buttonSwitchTabFiles_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
+
+        /// <summary>
+        /// Add modality
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button10_Click(object sender, EventArgs e)
+        {
+            int idmodality = Convert.ToInt32(comboBox4.SelectedValue);
+            ProviderFactory.GetDataProvider().AddModalityToExperiment(idmodality, curr.ExperimentID);
+
+            ConstructTabsModalities();
+
+            tabControl2.SelectedIndex = tabControl2.TabPages.Count - 1;
         }
     }
 }

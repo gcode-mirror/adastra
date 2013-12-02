@@ -115,6 +115,12 @@
       <DependentUpon>TagSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="DataProviders\WebService.cs" />
+    <Compile Include="UserSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserSelector.Designer.cs">
+      <DependentUpon>UserSelector.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +151,9 @@
     </Compile>
     <EmbeddedResource Include="TagSelector.resx">
       <DependentUpon>TagSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserSelector.resx">
+      <DependentUpon>UserSelector.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

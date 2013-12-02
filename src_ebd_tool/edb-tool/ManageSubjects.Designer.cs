@@ -47,9 +47,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(677, 272);
+            this.button3.Location = new System.Drawing.Point(667, 281);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(85, 34);
+            this.button3.Size = new System.Drawing.Size(95, 25);
             this.button3.TabIndex = 14;
             this.button3.Text = "Close";
             this.button3.UseVisualStyleBackColor = true;
@@ -99,9 +99,9 @@
             this.comboBox1.Items.AddRange(new object[] {
             "male",
             "female"});
-            this.comboBox1.Location = new System.Drawing.Point(128, 113);
+            this.comboBox1.Location = new System.Drawing.Point(140, 113);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(75, 21);
+            this.comboBox1.Size = new System.Drawing.Size(63, 21);
             this.comboBox1.TabIndex = 10;
             // 
             // button2
@@ -116,10 +116,10 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(128, 79);
+            this.textBox2.Location = new System.Drawing.Point(140, 79);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(75, 20);
+            this.textBox2.Size = new System.Drawing.Size(63, 20);
             this.textBox2.TabIndex = 7;
             // 
             // label3
@@ -151,9 +151,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(105, 146);
+            this.button1.Location = new System.Drawing.Point(118, 146);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 23);
+            this.button1.Size = new System.Drawing.Size(85, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
