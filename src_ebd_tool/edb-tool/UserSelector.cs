@@ -11,7 +11,7 @@ namespace edb_tool
 {
     public partial class UserSelector : Form
     {
-        List<GTag> AllItems;
+        List<GUser> AllItems;
 
         MainForm mainform;
 
@@ -27,7 +27,7 @@ namespace edb_tool
             listBox1.DisplayMember = "username";
             listBox1.ValueMember = "iduser";
 
-            AllItems = ProviderFactory.GetDataProvider().ListTags();
+            AllItems = ProviderFactory.GetDataProvider().ListUsers();
 
             listBox2.DisplayMember = "username";
             listBox2.ValueMember = "iduser";
@@ -64,9 +64,9 @@ namespace edb_tool
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            var right = new List<GTag>(listBox2.Items.Cast<GTag>());
+            var right = new List<GUser>(listBox2.Items.Cast<GUser>());
 
-            foreach (GTag o in listBox1.SelectedItems.Cast<GTag>())
+            foreach (GUser o in listBox1.SelectedItems.Cast<GUser>())
             {
                 if (!listBox2.Items.Contains(o))
                     right.Add(o);
@@ -76,9 +76,9 @@ namespace edb_tool
 
             #region remove from left
 
-            var q = from GTag t in AllItems
-                    let selectedRightIds = from p in right select p.idtag
-                    where !selectedRightIds.Contains(t.idtag)
+            var q = from GUser t in AllItems
+                    let selectedRightIds = from p in right select p.iduser
+                    where !selectedRightIds.Contains(t.iduser)
                     select t;
 
             listBox1.DataSource = q.ToList();
@@ -93,10 +93,10 @@ namespace edb_tool
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            var left = new List<GTag>(listBox1.Items.Cast<GTag>());
+            var left = new List<GUser>(listBox1.Items.Cast<GUser>());
 
 
-            foreach (GTag o in listBox2.SelectedItems.Cast<GTag>())
+            foreach (GUser o in listBox2.SelectedItems.Cast<GUser>())
             {
                 if (!listBox1.Items.Contains(o))
                     left.Add(o);
@@ -106,9 +106,9 @@ namespace edb_tool
 
             #region remove from right
 
-            var q = from GTag t in AllItems
-                    let selectedLeftIds = from p in left select p.idtag
-                    where !selectedLeftIds.Contains(t.idtag)
+            var q = from GUser t in AllItems
+                    let selectedLeftIds = from p in left select p.iduser
+                    where !selectedLeftIds.Contains(t.iduser)
                     select t;
 
             listBox2.DataSource = q.ToList();

@@ -133,7 +133,10 @@ namespace edb_tool
             }
             if (dataGridView2.Columns[e.ColumnIndex].HeaderText.ToLower() == "share")
             {
-                MessageBox.Show("Share", "Share Delete!!", MessageBoxButtons.YesNo);
+                //MessageBox.Show("Share", "Share Delete!!", MessageBoxButtons.YesNo);
+
+                UserSelector sf = new UserSelector(this.mainform);
+                sf.Show();
                 //show new form
 
                 //if (confirmResult == DialogResult.Yes)

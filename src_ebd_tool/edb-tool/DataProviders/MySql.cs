@@ -1019,7 +1019,7 @@ namespace edb_tool
         {
             DataTable table = new DataTable();
             conn = new MySqlConnection(connStr);
-            string query = "SELECT iduser FROM user";
+            string query = "SELECT * FROM user";
 
             try
             {

@@ -46,6 +46,7 @@
             this.button4.TabIndex = 15;
             this.button4.Text = "Cancel";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -55,6 +56,7 @@
             this.button3.TabIndex = 14;
             this.button3.Text = "Save";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -64,6 +66,7 @@
             this.button2.TabIndex = 13;
             this.button2.Text = "<<";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -73,6 +76,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = ">>";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -125,6 +129,7 @@
             this.Text = "UserSelector";
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.Load += new System.EventHandler(this.UserSelector_Load);
 
         }
 
