@@ -375,14 +375,105 @@ namespace edb_tool
             }
         }
 
-        public List<GUser> ListTagetUsers(int idexperiment, int iduser)
+        public List<GUser> ListTagetUsers(int idexperiment, int owner_userid)
         {
-            return null;
+            DataTable table = new DataTable();
+            conn = new MySqlConnection(connStr);
+            string query = "SELECT * FROM user WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=@idexperiment AND owner_userid=@owner_userid)";
+
+            try
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataAdapter myDA = new MySqlDataAdapter();
+                myDA.SelectCommand = cmd;
+                cmd.Parameters.AddWithValue("@idexperiment", idexperiment);
+                cmd.Parameters.AddWithValue("@owner_userid", owner_userid);
+
+                myDA.Fill(table);
+
+                var equery = from DataRow row in table.Rows
+                                select new GUser
+                                {
+                                    iduser = Convert.ToInt32(row["iduser"]),
+                                    FirstName = (string)row["firstname"],
+                                    LastName = (string)row["lastname"],
+                                    EMail = (string)row["email"],
+                                    Username = (string)row["username"],
+                                };
+
+                return equery.ToList();
+                
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
-        public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser)
+        public void DeleteSharedExperiment(int idexperiment, int owner_userid)
         {
-            return null;
+            conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            string query = "delete from shared_experiment_user where idexperiment = @idexperiment and owner_userid = @owner_userid";
+
+            //open connection
+            if (conn.State == ConnectionState.Open == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@idexperiment", idexperiment);
+                cmd.Parameters.AddWithValue("@owner_userid", owner_userid);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                conn.Close();
+            }
+        }
+
+        public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int target_userid)
+        {
+            conn = new MySqlConnection(connStr);
+
+
+            string query = "select * from experiment where idexperiment in (select idexperiment from shared_experiment_user where @target_userid = target_userid)";
+
+            try
+            {
+                conn.Open();
+                MySqlDataAdapter myDA = new MySqlDataAdapter();
+                myDA.SelectCommand = new MySqlCommand(query, conn);
+                myDA.SelectCommand.Parameters.AddWithValue("@target_userid", target_userid);
+
+                DataTable table = new DataTable();
+                myDA.Fill(table);
+
+                var equery = from DataRow row in table.Rows
+                             select new GExperiment
+                             {
+                                 idexperiment = Convert.ToInt32(row.ItemArray[0]),
+                                 name = (string)row.ItemArray[1],
+                                 comment = Convert.ToString(row.ItemArray[2]),
+                                 description = Convert.ToString((string)row.ItemArray[3]),
+                                 iduser = (int)row.ItemArray[4],
+                             };
+
+                return equery.ToList();
+            }
+            //catch (MySqlException ex)
+            //{
+            //  dbase.displayError(ex.Message, ex.Number);
+            //}
+            finally
+            {
+                conn.Close();
+            }
         }
 
         #endregion

@@ -35,7 +35,17 @@ namespace edb_tool
             listBox2.DisplayMember = "username";
             listBox2.ValueMember = "iduser";
 
-            listBox1.DataSource = AllItems;
+            //set the right 
+            List<GUser> previouslySelected = ProviderFactory.GetDataProvider().ListTagetUsers(current_experiment_id, mainform.curr.UserID);
+            
+            //set the left by removing the ones that are on the right
+            listBox1.DataSource = (from GUser u in AllItems
+                                   let selectedRightIds = from p in previouslySelected select p.iduser
+                                   where !selectedRightIds.Contains(u.iduser)
+                                   select u).ToList();
+                                   
+
+            listBox2.DataSource = previouslySelected;
         }
 
         /// <summary>
@@ -55,6 +65,9 @@ namespace edb_tool
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
+            //remove all records
+            ProviderFactory.GetDataProvider().DeleteSharedExperiment(current_experiment_id, mainform.curr.UserID);
+
             //save data to table
             List<GUser> selectedUsers = listBox2.Items.Cast<GUser>().ToList();
 
@@ -115,12 +128,14 @@ namespace edb_tool
 
             #region remove from right
 
+            //all - left = right
             var q = from GUser t in AllItems
                     let selectedLeftIds = from p in left select p.iduser
                     where !selectedLeftIds.Contains(t.iduser)
                     select t;
 
-            listBox2.DataSource = q.ToList();
+            var right = q.ToList();
+            listBox2.DataSource = right;
             #endregion
         }
     }

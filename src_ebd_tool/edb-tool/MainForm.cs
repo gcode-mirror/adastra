@@ -95,6 +95,7 @@ namespace edb_tool
             //JsonHelper.SendJson(o, web + "user/add.php");
 
             //DataFactory.GetDataProvider().ListExperiments(1999);
+            
 
         }
 
@@ -148,7 +149,7 @@ namespace edb_tool
 
            
             //Application.OpenForms["Login"].BringToFront();
-            
+            //var list = ProviderFactory.GetDataProvider().ListExperimentsSharedToTheUserByOthers(curr.UserID);
         }
 
         void dataGridView2_SelectionChanged(object sender, EventArgs e)

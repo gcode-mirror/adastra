@@ -134,12 +134,17 @@ namespace edb_tool
             throw new Exception("Not implemented!");
         }
 
-        public List<GUser> ListTagetUsers(int idexperiment, int iduser)
+        public List<GUser> ListTagetUsers(int idexperiment, int owner_userid)
         {
             throw new Exception("Not implemented!");
         }
 
         public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser)
+        {
+            throw new Exception("Not implemented!");
+        }
+
+        public void DeleteSharedExperiment(int idexperiment, int owner_userid)
         {
             throw new Exception("Not implemented!");
         }

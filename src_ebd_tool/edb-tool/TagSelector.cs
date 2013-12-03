@@ -113,6 +113,7 @@ namespace edb_tool
 
             #region remove from right
 
+            // all - left 
             var q = from GTag t in AllTags
                     let selectedLeftIds = from p in left select p.idtag
                     where !selectedLeftIds.Contains(t.idtag)
