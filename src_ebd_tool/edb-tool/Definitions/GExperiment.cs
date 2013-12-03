@@ -22,8 +22,6 @@ namespace edb_tool
             this.iduser = iduser;
         }
 
-        public bool isshared { get; set; }
-
         [JsonProperty("idexperiment")]
         public int idexperiment { get; set; }
 
@@ -38,5 +36,10 @@ namespace edb_tool
 
         [JsonProperty("iduser")]
         public int iduser { get; set; }
+
+        /// <summary>
+        /// You do not have full rigts on experiments that are shared to you
+        /// </summary>
+        public bool IsSharedToCurrentUser { get; set; }
     }
 }

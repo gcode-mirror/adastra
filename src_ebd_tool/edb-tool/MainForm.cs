@@ -137,6 +137,7 @@ namespace edb_tool
             dataGridView2.Columns[2].Visible = false;
             dataGridView2.Columns[3].Visible = false;
             dataGridView2.Columns[4].Visible = false;
+            dataGridView2.Columns[5].Visible = false;
 
             //dataGridView3_SelectionChanged(null, null);
             //ConstructTabsModalities();

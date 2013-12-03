@@ -78,9 +78,6 @@ namespace edb_tool
 
             Bind();
 
-            dataGridView2.Columns[0].Visible = false;
-            dataGridView2.Columns[4].Visible = false;
-
             DataGridViewLinkColumn Editlink = new DataGridViewLinkColumn();
             Editlink.UseColumnTextForLinkValue = true;
             Editlink.HeaderText = "Edit";
@@ -108,8 +105,17 @@ namespace edb_tool
 
         private void Bind()
         {
-            bs.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
-            mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            List<GExperiment> result = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            
+            bs.DataSource = result;
+            mainform.dataGridView2.DataSource = result;
+
+            if (dataGridView2.Columns.Count >= 6)
+            {
+                dataGridView2.Columns[0].Visible = false;
+                dataGridView2.Columns[4].Visible = false;
+                dataGridView2.Columns[5].Visible = false;
+            }
         }
 
         void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -135,8 +141,17 @@ namespace edb_tool
             {
                 //MessageBox.Show("Share", "Share Delete!!", MessageBoxButtons.YesNo);
 
-                UserSelector sf = new UserSelector(this.mainform);
-                sf.Show();
+                int idcolumn = Helper.LocateColumnInGrid("idexperiment",dataGridView2);
+
+                if (idcolumn != -1)
+                {
+
+                    object stringid = dataGridView2.Rows[e.RowIndex].Cells[idcolumn].Value;
+                    int id = Convert.ToInt32(stringid);
+
+                    UserSelector sf = new UserSelector(this.mainform, id);
+                    sf.Show();
+                }
                 //show new form
 
                 //if (confirmResult == DialogResult.Yes)

@@ -15,12 +15,17 @@ namespace edb_tool
         void DeleteSubject(int id);
         void UpdateSubject(GSubject s);
 
+        //experiment
         void AddExperiment(GExperiment exp);
         List<GExperiment> ListExperiments(int iduser);
         List<GExperiment> ListExperimentsByExperimentIdUserId(int idexperiment, int iduser);
         void DeleteExperiment(int id);
         void UpdateExperiment(GExperiment exp);
 
+        //share experiment
+        void AddSharedExperiment(int idexperiment, int owneruserid, int targetuserid);
+        List<GUser> ListTagetUsers(int idexperiment, int iduser);
+        List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser);
 
         void AddModality(GModality m);
         List<GModality> ListModalities();
@@ -54,9 +59,11 @@ namespace edb_tool
         #endregion
 
         #region users
+
         void AddUser(GUser u,string password);//by the web spider 
         bool VerifyUserPassword(string username, string password, out int userid);
         List<GUser> ListUsers();
+
         #endregion
 
         void UpdateFileTags(int[] idfiles, string tagLine);

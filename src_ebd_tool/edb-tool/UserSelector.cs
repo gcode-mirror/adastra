@@ -15,11 +15,14 @@ namespace edb_tool
 
         MainForm mainform;
 
-        public UserSelector(MainForm mainform)
+        int current_experiment_id;
+
+        public UserSelector(MainForm mainform, int current_experiment_id)
         {
             InitializeComponent();
             this.CenterToScreen();
             this.mainform = mainform;
+            this.current_experiment_id = current_experiment_id;
         }
 
         private void UserSelector_Load(object sender, EventArgs e)
@@ -53,6 +56,12 @@ namespace edb_tool
         private void button3_Click(object sender, EventArgs e)
         {
             //save data to table
+            List<GUser> selectedUsers = listBox2.Items.Cast<GUser>().ToList();
+
+            foreach (GUser u in selectedUsers)
+            {
+                ProviderFactory.GetDataProvider().AddSharedExperiment(current_experiment_id, mainform.curr.UserID, u.iduser);
+            }
 
             this.Close();
         }

@@ -129,6 +129,21 @@ namespace edb_tool
             Helper.Get(link);
         }
 
+        public void AddSharedExperiment(int idexperiment, int owneruserid, int targetuserid)
+        {
+            throw new Exception("Not implemented!");
+        }
+
+        public List<GUser> ListTagetUsers(int idexperiment, int iduser)
+        {
+            throw new Exception("Not implemented!");
+        }
+
+        public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser)
+        {
+            throw new Exception("Not implemented!");
+        }
+
 
         public void AddModality(GModality m)
         {

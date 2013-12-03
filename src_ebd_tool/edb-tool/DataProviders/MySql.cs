@@ -350,6 +350,41 @@ namespace edb_tool
             }
         }
 
+        public void AddSharedExperiment(int idexperiment, int owneruserid, int targetuserid)
+        {
+            conn = new MySqlConnection(connStr);
+            conn.Open();
+
+            string query = "INSERT INTO shared_experiment_user (idexperiment, owner_userid, target_userid) VALUES (@idexperiment, @owneruserid,@targetuserid)";
+
+            //open connection
+            if (conn.State == ConnectionState.Open == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@idexperiment", idexperiment);
+                cmd.Parameters.AddWithValue("@owneruserid", owneruserid);
+                cmd.Parameters.AddWithValue("@targetuserid", targetuserid);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                conn.Close();
+            }
+        }
+
+        public List<GUser> ListTagetUsers(int idexperiment, int iduser)
+        {
+            return null;
+        }
+
+        public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser)
+        {
+            return null;
+        }
+
         #endregion
 
 
