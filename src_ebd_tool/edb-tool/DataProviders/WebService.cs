@@ -83,7 +83,8 @@ namespace edb_tool
                                                 "&name=" + System.Web.HttpUtility.UrlEncode(exp.name) +
                                                 "&comment=" + System.Web.HttpUtility.UrlEncode(exp.comment) + 
                                                 "&description=" + System.Web.HttpUtility.UrlEncode(exp.description) +
-                                                "&iduser=" + exp.iduser;
+                                                "&iduser=" + exp.iduser +
+                                                "&exp_date=" + System.Web.HttpUtility.UrlEncode(exp.exp_date.ToString());
 
             Helper.Get(link);
         }
@@ -124,7 +125,8 @@ namespace edb_tool
                                                "&name=" + System.Web.HttpUtility.UrlEncode(exp.name) +
                                                "&comment=" + System.Web.HttpUtility.UrlEncode(exp.comment) +
                                                "&description=" + System.Web.HttpUtility.UrlEncode(exp.description) +
-                                               "&iduser=" + exp.iduser;
+                                               "&iduser=" + exp.iduser +
+                                               "&exp_date=" + System.Web.HttpUtility.UrlEncode(exp.exp_date.ToString());
 
             Helper.Get(link);
         }

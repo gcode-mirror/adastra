@@ -68,8 +68,9 @@
 		$comment = $mysqli->escape_string(urldecode($_GET['comment']));
 		$description = $mysqli->escape_string(urldecode($_GET['description']));
 		$iduser = $_GET['iduser'];
+		$exp_date = $mysqli->escape_string(urldecode($_GET['exp_date']));
 		
-		$sql = "INSERT INTO experiment (name, comment, description, iduser) VALUES ('$name', '$comment','$description', $iduser)";
+		$sql = "INSERT INTO experiment (name, comment, description, iduser, exp_date) VALUES ('$name', '$comment','$description', $iduser, STR_TO_DATE('$exp_date','%m/%d/%Y %h:%i:%s'))";
 		print ($sql);
 		print("\n");
 		$result = mysqli_query($mysqli,$sql);
@@ -88,8 +89,11 @@
 		$comment = $mysqli->escape_string(urldecode($_GET['comment']));
 		$description = $mysqli->escape_string(urldecode($_GET['description']));
 		$iduser = $_GET['iduser'];
+		$exp_date = $mysqli->escape_string(urldecode($_GET['exp_date']));
 		
-		$sql = "UPDATE experiment set name='$name', comment = '$comment', description = '$description' where idexperiment = $idexperiment";
+		print($exp_date);
+		
+		$sql = "UPDATE experiment set name='$name', comment = '$comment', description = '$description', exp_date = STR_TO_DATE('$exp_date','%m/%d/%Y %h:%i:%s') where idexperiment = $idexperiment";
 		print ($sql);
 		print("\n");
 		$result = mysqli_query($mysqli,$sql);

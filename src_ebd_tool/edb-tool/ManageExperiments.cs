@@ -54,7 +54,7 @@ namespace edb_tool
         {
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
-                GExperiment exp = new GExperiment(-1, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
+                GExperiment exp = new GExperiment(-1, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID,this.dateTimePicker1.Value);
                 
                 ProviderFactory.GetDataProvider().AddExperiment(exp);
                 
@@ -62,7 +62,7 @@ namespace edb_tool
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
             {
-                GExperiment exp = new GExperiment(updateid, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
+                GExperiment exp = new GExperiment(updateid, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID, this.dateTimePicker1.Value);
                 ProviderFactory.GetDataProvider().UpdateExperiment(exp);
 
                 button2.Visible = false;
@@ -119,6 +119,8 @@ namespace edb_tool
                 dataGridView2.Columns[Helper.LocateColumnInGrid("idexperiment", dataGridView2)].Visible = false;
                 dataGridView2.Columns[Helper.LocateColumnInGrid("iduser", dataGridView2)].Visible = false;
                 dataGridView2.Columns[Helper.LocateColumnInGrid("IsSharedToCurrentUser", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("description", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "dd'/'MM'/'yy";
                 //dataGridView2.Columns[0].Visible = false;
                 //dataGridView2.Columns[4].Visible = false;
                 //dataGridView2.Columns[5].Visible = false;
@@ -194,6 +196,7 @@ namespace edb_tool
                 textBox1.Text = (string)dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("name",dataGridView2)].Value;
                 textBox2.Text = (string)dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("comment",dataGridView2)].Value;
                 textBox3.Text = (string)dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("description", dataGridView2)].Value;
+                dateTimePicker1.Value = (DateTime)dataGridView2.Rows[e.RowIndex].Cells[Helper.LocateColumnInGrid("exp_date", dataGridView2)].Value;
             }
         }
 

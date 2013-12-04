@@ -13,13 +13,14 @@ namespace edb_tool
         {
         }
 
-        public GExperiment(int idexperiment, string name, string comment, string description, int iduser)
+        public GExperiment(int idexperiment, string name, string comment, string description, int iduser,DateTime exp_date)
         {
             this.idexperiment = idexperiment;
             this.name = name;
             this.comment = comment;
             this.description = description;
             this.iduser = iduser;
+            this.exp_date = exp_date;
         }
 
         [JsonProperty("idexperiment")]
@@ -36,6 +37,9 @@ namespace edb_tool
 
         [JsonProperty("iduser")]
         public int iduser { get; set; }
+
+        [JsonProperty("exp_date")]
+        public DateTime exp_date { get; set; }
 
         /// <summary>
         /// You do not have full rigts on experiments that are shared to you

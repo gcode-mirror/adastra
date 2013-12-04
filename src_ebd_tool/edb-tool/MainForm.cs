@@ -559,11 +559,12 @@ namespace edb_tool
                 dataGridView2.DataSource = allExp;
 
                 //experiment datagridview layout
-                dataGridView2.Columns[0].Visible = false;
-                dataGridView2.Columns[2].Visible = false;
-                dataGridView2.Columns[3].Visible = false;
-                dataGridView2.Columns[4].Visible = false;
-                dataGridView2.Columns[5].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("idexperiment", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("iduser", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("IsSharedToCurrentUser", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("description", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("comment", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "dd'/'MM'/'yy";
             }
             else
             {

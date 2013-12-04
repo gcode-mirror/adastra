@@ -125,7 +125,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(714, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(733, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -317,7 +317,7 @@
             this.tabPage3.Controls.Add(this.dataGridView2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(687, 440);
+            this.tabPage3.Size = new System.Drawing.Size(703, 440);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "File Association";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -345,7 +345,7 @@
             this.panel1.Controls.Add(this.button12);
             this.panel1.Controls.Add(this.button10);
             this.panel1.Enabled = false;
-            this.panel1.Location = new System.Drawing.Point(240, 12);
+            this.panel1.Location = new System.Drawing.Point(256, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(444, 425);
             this.panel1.TabIndex = 27;
@@ -482,7 +482,7 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(129, 401);
+            this.button17.Location = new System.Drawing.Point(144, 401);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(107, 23);
             this.button17.TabIndex = 26;
@@ -493,7 +493,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(126, 13);
+            this.label6.Location = new System.Drawing.Point(141, 13);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 13);
             this.label6.TabIndex = 16;
@@ -513,7 +513,7 @@
             this.dataGridView3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(129, 29);
+            this.dataGridView3.Location = new System.Drawing.Point(144, 29);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(107, 365);
             this.dataGridView3.TabIndex = 14;
@@ -525,7 +525,7 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(7, 29);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(116, 365);
+            this.dataGridView2.Size = new System.Drawing.Size(131, 365);
             this.dataGridView2.TabIndex = 13;
             // 
             // tabPage1
@@ -765,14 +765,14 @@
             this.tabControl1.Location = new System.Drawing.Point(10, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(695, 466);
+            this.tabControl1.Size = new System.Drawing.Size(711, 466);
             this.tabControl1.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 505);
+            this.ClientSize = new System.Drawing.Size(733, 505);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

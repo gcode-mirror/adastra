@@ -195,7 +195,7 @@ namespace edb_tool
             conn = new MySqlConnection(connStr);
             conn.Open();
 
-            string query = "INSERT INTO experiment (name, comment, description, iduser) VALUES (@name, @comment,@description, @iduser)";
+            string query = "INSERT INTO experiment (name, comment, description, iduser,exp_date) VALUES (@name, @comment,@description, @iduser,@exp_date)";
 
             //open connection
             if (conn.State == ConnectionState.Open == true)
@@ -207,6 +207,7 @@ namespace edb_tool
                 cmd.Parameters.AddWithValue("@comment", exp.comment);
                 cmd.Parameters.AddWithValue("@description", exp.description);
                 cmd.Parameters.AddWithValue("@iduser", exp.iduser);
+                cmd.Parameters.AddWithValue("@exp_date", exp.exp_date);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -245,6 +246,7 @@ namespace edb_tool
                                  comment = Convert.ToString(row.ItemArray[2]),
                                  description = Convert.ToString((string) row.ItemArray[3]),
                                  iduser = (int) row.ItemArray[4],
+                                 exp_date = (DateTime)row.ItemArray[5],
                              };
 
                 result =  equery.ToList();  
@@ -288,6 +290,7 @@ namespace edb_tool
                                  comment = Convert.ToString(row.ItemArray[2]),
                                  description = Convert.ToString((string)row.ItemArray[3]),
                                  iduser = (int)row.ItemArray[4],
+                                 exp_date = (DateTime)row.ItemArray[5],
                              };
 
                 return equery.ToList();
@@ -330,7 +333,7 @@ namespace edb_tool
             conn = new MySqlConnection(connStr);
             conn.Open();
 
-            string query = "UPDATE experiment set name=@name, comment = @comment, description = @description where idexperiment = @id";
+            string query = "UPDATE experiment set name=@name, comment = @comment, description = @description, exp_date = @exp_date where idexperiment = @id";
 
             //open connection
             if (conn.State == ConnectionState.Open == true)
@@ -342,6 +345,7 @@ namespace edb_tool
                 cmd.Parameters.AddWithValue("@comment", exp.comment);
                 cmd.Parameters.AddWithValue("@description", exp.description);
                 cmd.Parameters.AddWithValue("@id", exp.idexperiment);
+                cmd.Parameters.AddWithValue("@exp_date", exp.exp_date);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -463,6 +467,7 @@ namespace edb_tool
                                  comment = Convert.ToString(row.ItemArray[2]),
                                  description = Convert.ToString((string)row.ItemArray[3]),
                                  iduser = (int)row.ItemArray[4],
+                                 exp_date = (DateTime)row.ItemArray[5],
                              };
 
                 return equery.ToList();
