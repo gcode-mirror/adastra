@@ -561,5 +561,10 @@ namespace edb_tool
             dataGridView2.Columns[4].Visible = false;
             dataGridView2.Columns[5].Visible = false;
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

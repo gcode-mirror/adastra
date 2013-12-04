@@ -125,6 +125,19 @@ namespace edb_tool
 
             Bind();
 
+            if (isSingleExperiment)
+            {
+                //disable filtering because filtering is already selected
+                comboBox3.Enabled = false;
+                buttonFilter.Enabled = false;
+            }
+            else
+            {
+                comboBox3.DisplayMember = "name";
+                comboBox3.ValueMember = "idexperiment";
+                comboBox3.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            }
+
             dataGridView2.Columns[0].Visible = false;//id
             dataGridView2.Columns[4].Visible = false;//idexperiment
             dataGridView2.Columns[5].Visible = false;//iduser
@@ -154,6 +167,7 @@ namespace edb_tool
             {
                 comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
             }
+
             comboBox2.DisplayMember = "name";
             comboBox2.ValueMember = "idexperiment";
 
@@ -234,6 +248,13 @@ namespace edb_tool
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonFilter_Click(object sender, EventArgs e)
+        {
+            int idexperiment = Convert.ToInt32(comboBox3.SelectedValue);
+
+            dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListSubjectsByExperimentId(idexperiment, mainform.curr.UserID);
         }
     }
 }
