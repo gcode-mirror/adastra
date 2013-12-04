@@ -95,7 +95,7 @@ namespace edb_tool
         {
             conn = new MySqlConnection(connStr);
 
-            string query = "select * from subject where idexperiment = @idexperiment AND iduser = @iduser";
+            string query = "select * from subject where idexperiment = @idexperiment"; //AND iduser = @iduser
 
             try
             {
@@ -105,7 +105,7 @@ namespace edb_tool
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@idexperiment", idexperiment);
-                cmd.Parameters.AddWithValue("@iduser", iduser);
+                //cmd.Parameters.AddWithValue("@iduser", iduser);
 
                 myDA.SelectCommand = cmd;
 
@@ -266,14 +266,14 @@ namespace edb_tool
             conn = new MySqlConnection(connStr);
 
 
-            string query = "select * from experiment where iduser = @iduser AND idexperiment = @idexperiment order by idexperiment";
+            string query = "select * from experiment where idexperiment = @idexperiment order by idexperiment"; //iduser = @iduser AND 
 
             try
             {
                 conn.Open();
                 MySqlDataAdapter myDA = new MySqlDataAdapter();
                 myDA.SelectCommand = new MySqlCommand(query, conn);
-                myDA.SelectCommand.Parameters.AddWithValue("@iduser", iduser);
+                //myDA.SelectCommand.Parameters.AddWithValue("@iduser", iduser);
                 myDA.SelectCommand.Parameters.AddWithValue("@idexperiment", idexperiment);
 
                 DataTable table = new DataTable();
