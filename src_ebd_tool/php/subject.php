@@ -43,8 +43,8 @@
 		$iduser = $_GET['iduser'];
 		$idexperiment = $_GET['idexperiment'];
 		
-		// Set a resultset. For testing we are goint to return the full table (3 rows)
-		$result = $mysqli->query("select * from subject where idexperiment = $idexperiment AND iduser = '$iduser'");
+		//modified 4/12/2013 not to consider iduser: //AND iduser = @iduser
+		$result = $mysqli->query("select * from subject where idexperiment = $idexperiment");
 
 		$rows = array();
 		// Iterate the resultset to get all data

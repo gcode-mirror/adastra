@@ -131,22 +131,47 @@ namespace edb_tool
 
         public void AddSharedExperiment(int idexperiment, int owneruserid, int targetuserid)
         {
-            throw new Exception("Not implemented!");
+            string link =
+            RootUrl + "share_experiment.php?function=" + "AddSharedExperiment" +
+                                                    "&idexperiment=" + idexperiment +
+                                                    "&owneruserid=" + owneruserid +
+                                                    "&targetuserid=" + targetuserid;
+
+            Helper.Get(link);
         }
 
-        public List<GUser> ListTagetUsers(int idexperiment, int owner_userid)
+        public List<GUser> ListTagetUsers(int idexperiment, int owneruserid)
         {
-            throw new Exception("Not implemented!");
+            string link = RootUrl + "share_experiment.php?function=" + "ListTagetUsers"
+                                                                     + "&idexperiment=" + idexperiment
+                                                                     + "&owneruserid=" + owneruserid;
+
+            var json = JsonHelper.DownloadJson(link);
+
+            List<GUser> users = JsonConvert.DeserializeObject<List<GUser>>(json);
+
+            return users;
         }
 
-        public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser)
+        public List<GExperiment> ListExperimentsSharedToTheUserByOthers(int target_userid)
         {
-            throw new Exception("Not implemented!");
+            string link = RootUrl + "share_experiment.php?function=" + "ListExperimentsSharedToTheUserByOthers"
+                                                           + "&target_userid=" + target_userid.ToString();
+            var json = JsonHelper.DownloadJson(link);
+
+            List<GExperiment> experiments = JsonConvert.DeserializeObject<List<GExperiment>>(json);
+
+            return experiments;
         }
 
         public void DeleteSharedExperiment(int idexperiment, int owner_userid)
         {
-            throw new Exception("Not implemented!");
+            string link =
+            RootUrl + "share_experiment.php?function=" + "DeleteSharedExperiment"
+                                                       + "&idexperiment=" + idexperiment.ToString()
+                                                       + "&owner_userid=" + owner_userid.ToString();
+
+            Helper.Get(link);
         }
 
 
@@ -332,7 +357,13 @@ namespace edb_tool
 
         public List<GUser> ListUsers()
         {
-            return null;
+            string link = RootUrl + "user.php?function=" + "ListUsers";
+                                                            
+            var json = JsonHelper.DownloadJson(link);
+
+            List<GUser> users = JsonConvert.DeserializeObject<List<GUser>>(json);
+
+            return users;
         }
 
         public void AddUser(GUser u, string password)

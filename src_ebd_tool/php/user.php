@@ -43,4 +43,25 @@
 		//print("$mysqli->connect_errno");
 		
 	}
+	else
+	if ($_GET['function'] == "ListUsers")
+	{
+		$result = $mysqli->query("select * from user");
+
+		$rows = array();
+		// Iterate the resultset to get all data
+		while($row = mysqli_fetch_assoc($result)) 
+		{
+			$rows[] = $row;
+		}
+		
+		// Close the resultset
+		$result->close();
+
+		// Close the database connection
+		$mysqli->close();
+		
+		// Returns the JSON representation of fetched data
+		print(json_encode($rows));
+	}
 ?>

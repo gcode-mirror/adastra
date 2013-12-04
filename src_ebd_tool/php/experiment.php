@@ -42,8 +42,9 @@
 	{
 	    $iduser = $_GET['iduser'];
 		$idexperiment = $_GET['idexperiment'];
-		// Set a resultset. For testing we are goint to return the full table (3 rows)
-		$result = $mysqli->query("select * from experiment where iduser = $iduser AND idexperiment = $idexperiment order by idexperiment");
+		
+		//modified 4/12/2013 not to consider the iduser: iduser = $iduser AND
+		$result = $mysqli->query("select * from experiment where idexperiment = $idexperiment order by idexperiment");
 
 		$rows = array();
 		// Iterate the resultset to get all data

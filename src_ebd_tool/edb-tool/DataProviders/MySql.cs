@@ -95,7 +95,8 @@ namespace edb_tool
         {
             conn = new MySqlConnection(connStr);
 
-            string query = "select * from subject where idexperiment = @idexperiment"; //AND iduser = @iduser
+            //modified 4/12/2013 not to consider iduser: //AND iduser = @iduser
+            string query = "select * from subject where idexperiment = @idexperiment"; 
 
             try
             {
@@ -265,7 +266,7 @@ namespace edb_tool
         {
             conn = new MySqlConnection(connStr);
 
-
+            //modified 4/12/2013 not to consider the iduser
             string query = "select * from experiment where idexperiment = @idexperiment order by idexperiment"; //iduser = @iduser AND 
 
             try
