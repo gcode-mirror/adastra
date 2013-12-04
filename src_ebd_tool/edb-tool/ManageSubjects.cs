@@ -177,10 +177,12 @@ namespace edb_tool
         {
             if (isSingleExperiment)
             {
+                //when we load for a preselected experiment
                 bs.DataSource = ProviderFactory.GetDataProvider().ListSubjectsByExperimentId(idSelectedExperiment, mainform.curr.UserID);
             }
             else
             {
+                //when we load all subjects from all experiments
                 bs.DataSource = ProviderFactory.GetDataProvider().ListSubjects(mainform.curr.UserID);
             }
         }

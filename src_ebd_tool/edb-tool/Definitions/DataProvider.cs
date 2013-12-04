@@ -10,7 +10,7 @@ namespace edb_tool
     public interface DataProvider
     {
         void AddSubject(GSubject subject);
-        //used in Manage Subjects when you want ot see all subjects 
+        //used in Manage Subjects when you want ot see all subjects from all experiments (does not include shared ones)
         List<GSubject> ListSubjects(int iduser);
         List<GSubject> ListSubjectsByExperimentId(int idexperiment, int iduser);
         void DeleteSubject(int id);
