@@ -49,12 +49,15 @@ namespace edb_tool
             }
         }
 
+        //Perform Add or Update
         private void button1_Click(object sender, EventArgs e)
         {
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 GExperiment exp = new GExperiment(-1, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID);
+                
                 ProviderFactory.GetDataProvider().AddExperiment(exp);
+                
                 ClearControls();
             }
             else if (button1.Text.ToLower().IndexOf("update") >= 0)
@@ -113,9 +116,12 @@ namespace edb_tool
 
             if (dataGridView2.Columns.Count >= 6)
             {
-                dataGridView2.Columns[0].Visible = false;
-                dataGridView2.Columns[4].Visible = false;
-                dataGridView2.Columns[5].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("idexperiment", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("iduser", dataGridView2)].Visible = false;
+                dataGridView2.Columns[Helper.LocateColumnInGrid("IsSharedToCurrentUser", dataGridView2)].Visible = false;
+                //dataGridView2.Columns[0].Visible = false;
+                //dataGridView2.Columns[4].Visible = false;
+                //dataGridView2.Columns[5].Visible = false;
             }
         }
 

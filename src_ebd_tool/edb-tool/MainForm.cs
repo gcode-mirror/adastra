@@ -142,9 +142,11 @@ namespace edb_tool
             comboBox4.ValueMember = "idmodality";
             comboBox4.DataSource = ProviderFactory.GetDataProvider().ListModalities();
 
-           
-            //Application.OpenForms["Login"].BringToFront();
-            //var list = ProviderFactory.GetDataProvider().ListExperimentsSharedToTheUserByOthers(curr.UserID);
+            //TODO: optimize code not to use all users
+            string current_username = (from GUser u in ProviderFactory.GetDataProvider().ListUsers()
+                                                 where u.iduser == curr.UserID
+                                                 select u.Username).Single();
+            this.Text += " - " + current_username;
         }
 
         void dataGridView2_SelectionChanged(object sender, EventArgs e)
@@ -552,14 +554,23 @@ namespace edb_tool
                 allExp = ownExp;
             }
 
-            dataGridView2.DataSource = allExp;
+            if (allExp.Count > 0)
+            {
+                dataGridView2.DataSource = allExp;
 
-            //experiment datagridview layout
-            dataGridView2.Columns[0].Visible = false;
-            dataGridView2.Columns[2].Visible = false;
-            dataGridView2.Columns[3].Visible = false;
-            dataGridView2.Columns[4].Visible = false;
-            dataGridView2.Columns[5].Visible = false;
+                //experiment datagridview layout
+                dataGridView2.Columns[0].Visible = false;
+                dataGridView2.Columns[2].Visible = false;
+                dataGridView2.Columns[3].Visible = false;
+                dataGridView2.Columns[4].Visible = false;
+                dataGridView2.Columns[5].Visible = false;
+            }
+            else
+            {
+                //panel1.Enabled = false;
+                dataGridView2.DataSource = null;
+                dataGridView3.DataSource = null;
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
