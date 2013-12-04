@@ -47,7 +47,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowSharedToMe = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -290,7 +290,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBox1);
+            this.tabPage3.Controls.Add(this.checkBoxShowSharedToMe);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.button17);
             this.tabPage3.Controls.Add(this.label6);
@@ -304,15 +304,15 @@
             this.tabPage3.Text = "File Association";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxShowSharedToMe
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(37, 264);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 17);
-            this.checkBox1.TabIndex = 28;
-            this.checkBox1.Text = "Show shared to me";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxShowSharedToMe.AutoSize = true;
+            this.checkBoxShowSharedToMe.Location = new System.Drawing.Point(7, 400);
+            this.checkBoxShowSharedToMe.Name = "checkBoxShowSharedToMe";
+            this.checkBoxShowSharedToMe.Size = new System.Drawing.Size(117, 17);
+            this.checkBoxShowSharedToMe.TabIndex = 28;
+            this.checkBoxShowSharedToMe.Text = "Show shared to me";
+            this.checkBoxShowSharedToMe.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -865,7 +865,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxShowSharedToMe;
     }
 }
 

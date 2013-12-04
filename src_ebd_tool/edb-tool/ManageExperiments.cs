@@ -108,7 +108,8 @@ namespace edb_tool
             List<GExperiment> result = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
             
             bs.DataSource = result;
-            mainform.dataGridView2.DataSource = result;
+
+            mainform.BindExperimentGrid(); // mainform.dataGridView2
 
             if (dataGridView2.Columns.Count >= 6)
             {

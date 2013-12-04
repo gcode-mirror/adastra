@@ -65,6 +65,8 @@ namespace edb_tool
             dataGridView3.MultiSelect = false;
             #endregion
 
+            checkBoxShowSharedToMe.CheckedChanged += new EventHandler(checkBoxShowSharedToMe_CheckedChanged);
+
             tabControl2.Visible = false;
 
             curr.ExperimentID = -1;
@@ -99,6 +101,11 @@ namespace edb_tool
 
         }
 
+        void checkBoxShowSharedToMe_CheckedChanged(object sender, EventArgs e)
+        {
+            BindExperimentGrid();
+        }
+
         void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
             //load the modalities for this experimentid/subject id
@@ -129,19 +136,7 @@ namespace edb_tool
             Login lf = new Login(this);
             lf.ShowDialog();
 
-            //db = new MySql();
-
-            dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(curr.UserID);
-
-            //experiment datagridview layout
-            dataGridView2.Columns[0].Visible = false;
-            dataGridView2.Columns[2].Visible = false;
-            dataGridView2.Columns[3].Visible = false;
-            dataGridView2.Columns[4].Visible = false;
-            dataGridView2.Columns[5].Visible = false;
-
-            //dataGridView3_SelectionChanged(null, null);
-            //ConstructTabsModalities();
+            BindExperimentGrid();
 
             comboBox4.DisplayMember = "name";
             comboBox4.ValueMember = "idmodality";
@@ -540,6 +535,31 @@ namespace edb_tool
             ConstructTabsModalities();
 
             tabControl2.SelectedIndex = tabControl2.TabPages.Count - 1;
+        }
+
+        public void BindExperimentGrid()
+        {
+            var ownExp = ProviderFactory.GetDataProvider().ListExperiments(curr.UserID);
+            List<GExperiment> allExp;
+
+            if (checkBoxShowSharedToMe.Checked)
+            {
+                var sharedExp = ProviderFactory.GetDataProvider().ListExperimentsSharedToTheUserByOthers(curr.UserID);
+                allExp = ownExp.Union(sharedExp).ToList();
+            }
+            else
+            {
+                allExp = ownExp;
+            }
+
+            dataGridView2.DataSource = allExp;
+
+            //experiment datagridview layout
+            dataGridView2.Columns[0].Visible = false;
+            dataGridView2.Columns[2].Visible = false;
+            dataGridView2.Columns[3].Visible = false;
+            dataGridView2.Columns[4].Visible = false;
+            dataGridView2.Columns[5].Visible = false;
         }
     }
 }

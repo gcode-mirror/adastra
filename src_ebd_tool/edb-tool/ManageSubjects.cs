@@ -59,7 +59,9 @@ namespace edb_tool
 
         void ManageSubjects_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mainform.dataGridView2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            //force refresh of all: experiments and subjects
+            mainform.BindExperimentGrid();
+
             if (selectedExperiment>0)
                 mainform.dataGridView2.Rows[selectedExperiment].Selected = true;
         }
