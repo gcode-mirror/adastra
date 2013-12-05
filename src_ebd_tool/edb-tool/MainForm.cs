@@ -564,7 +564,7 @@ namespace edb_tool
                 dataGridView2.Columns[Helper.LocateColumnInGrid("IsSharedToCurrentUser", dataGridView2)].Visible = false;
                 dataGridView2.Columns[Helper.LocateColumnInGrid("description", dataGridView2)].Visible = false;
                 dataGridView2.Columns[Helper.LocateColumnInGrid("comment", dataGridView2)].Visible = false;
-                dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "dd'/'MM'/'yy";
+                dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "yyyy'/'MM'/'dd";
             }
             else
             {
@@ -577,6 +577,24 @@ namespace edb_tool
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button12_Click_1(object sender, EventArgs e)
+        {
+             //var confirmResult = MessageBox.Show("Are you sure you want to delete this item ??", "Confirm Delete!!", MessageBoxButtons.YesNo);
+             //if (confirmResult == DialogResult.No) return;
+
+             //confirmResult = MessageBox.Show("Are you sure you want to delete this modality. This will also delete all associate files??", "Confirm Delete!!", MessageBoxButtons.YesNo);
+
+             //if (confirmResult == DialogResult.Yes)
+             //{
+             //}
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            ManageModalities mm = new ManageModalities(this);
+            mm.Show();
         }
     }
 }

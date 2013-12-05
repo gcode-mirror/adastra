@@ -947,6 +947,7 @@ namespace edb_tool
                                  idfile = Convert.ToInt32(row["idfile"]),
                                  filename = (string)row["filename"],
                                  pathname = (string)row["pathname"],
+                                 tags = (row["tags"]==System.DBNull.Value) ? "" : (string)row["tags"],
                              };
 
                 return equery.ToList();

@@ -92,6 +92,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.button18 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -334,6 +335,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button18);
             this.panel1.Controls.Add(this.button16);
             this.panel1.Controls.Add(this.button15);
             this.panel1.Controls.Add(this.button11);
@@ -415,7 +417,7 @@
             // 
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(107, 1);
+            this.comboBox4.Location = new System.Drawing.Point(217, 3);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 21);
             this.comboBox4.TabIndex = 31;
@@ -463,16 +465,17 @@
             // button12
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button12.Location = new System.Drawing.Point(339, 32);
+            this.button12.Location = new System.Drawing.Point(344, 36);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(102, 27);
+            this.button12.Size = new System.Drawing.Size(96, 27);
             this.button12.TabIndex = 30;
             this.button12.Text = "Unlink modality";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click_1);
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(5, 0);
+            this.button10.Location = new System.Drawing.Point(344, 3);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(96, 27);
             this.button10.TabIndex = 28;
@@ -544,7 +547,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(687, 440);
+            this.tabPage1.Size = new System.Drawing.Size(703, 440);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Manage Entities";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -768,6 +771,16 @@
             this.tabControl1.Size = new System.Drawing.Size(711, 466);
             this.tabControl1.TabIndex = 1;
             // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(7, 3);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(103, 27);
+            this.button18.TabIndex = 36;
+            this.button18.Text = "Add modality";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -886,6 +899,7 @@
         private System.Windows.Forms.CheckBox checkBoxShowSharedToMe;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Button button18;
     }
 }
 

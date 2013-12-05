@@ -147,9 +147,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Codename:";
+            this.label1.Text = "Code name:";
             // 
             // button1
             // 
@@ -208,7 +208,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView2);
             this.Name = "ManageSubjects";
-            this.Text = "Manage Subjects";
+            this.Text = "Manage Subjects per Experiment";
             this.Load += new System.EventHandler(this.ManageSubjects_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

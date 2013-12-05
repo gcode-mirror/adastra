@@ -42,32 +42,32 @@ namespace edb_tool
             this.Close();
         }
 
+        /// <summary>
+        /// Save data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            //delete all tags for this file
-
-            //UpdateFileTags(
-            //insert all selected tags for this item
-
-            //int[] selectedTagsIds = (from GTag t in listBox2.Items.Cast<GTag>() select t.idtag).ToArray();
             List<GTag> selectedTagsIds = listBox2.Items.Cast<GTag>().ToList();
-            string tagLine = (from GTag t in listBox2.Items.Cast<GTag>() select t.name).ToArray().Aggregate(new StringBuilder(),(current, next) => current.Append(", ").Append(next)).ToString();
-
-            //for each fileid 
-
+            string tagLine = (from GTag t in listBox2.Items.Cast<GTag>() select t.name).ToArray().Aggregate(new StringBuilder(), (current, next) => current.Append(", ").Append(next)).ToString();
+            tagLine = tagLine.Substring(2);
             int[] fileids = mainform.GetSelectedFiles();
 
-            //1) update in table "list_tag" to allow future search by tag
+            //1) Remove the old tags for each file 
+            //2) Add again the new tags
             if (selectedTagsIds.Count > 0)
             {
                 foreach (int idfile in fileids)
                 {
+                    //This is for table list_tag
+                    ProviderFactory.GetDataProvider().RemoveTags(idfile);
                     ProviderFactory.GetDataProvider().AssociateTags(selectedTagsIds, idfile, mainform.curr.ExperimentID);
                 }
             }
-            
-            //2) update in the files table for faster visualisation
-            ProviderFactory.GetDataProvider().UpdateFileTags(fileids, (tagLine.Length > 0) ? tagLine.Substring(2) : "");
+
+            //3) We also store the tags in the file table, so we need to update there also
+            ProviderFactory.GetDataProvider().UpdateFileTags(fileids, tagLine);
 
             mainform.ConstructTabsModalities();
 

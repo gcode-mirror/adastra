@@ -25,6 +25,7 @@ namespace edb_tool
 
         int selectedExperiment;
 
+
         public ManageSubjects(MainForm mainform, bool IsSingleExperiment, int idSelectedExperiment)
         {
             InitializeComponent();
@@ -123,6 +124,17 @@ namespace edb_tool
 
             dataGridView2.DataSource = bs;
 
+            comboBox2.DisplayMember = "name";
+            comboBox2.ValueMember = "idexperiment";
+            if (isSingleExperiment)
+            {
+                comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperimentsByExperimentIdUserId(idSelectedExperiment, mainform.curr.UserID);
+            }
+            else
+            {
+                comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
+            }
+
             Bind();
 
             if (isSingleExperiment)
@@ -138,9 +150,12 @@ namespace edb_tool
                 comboBox3.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
             }
 
-            dataGridView2.Columns[0].Visible = false;//id
-            dataGridView2.Columns[4].Visible = false;//idexperiment
-            dataGridView2.Columns[5].Visible = false;//iduser
+            dataGridView2.Columns[Helper.LocateColumnInGrid("idsubject", dataGridView2)].Visible = false;
+            dataGridView2.Columns[Helper.LocateColumnInGrid("idexperiment", dataGridView2)].Visible = false;
+            dataGridView2.Columns[Helper.LocateColumnInGrid("iduser", dataGridView2)].Visible = false;
+            //dataGridView2.Columns[0].Visible = false;//id
+            //dataGridView2.Columns[4].Visible = false;//idexperiment
+            //dataGridView2.Columns[5].Visible = false;//iduser
 
             DataGridViewLinkColumn Editlink = new DataGridViewLinkColumn();
             Editlink.UseColumnTextForLinkValue = true;
@@ -158,19 +173,7 @@ namespace edb_tool
             Deletelink.Text = "Delete";
             dataGridView2.Columns.Add(Deletelink);
 
-
-            if (isSingleExperiment)
-            {
-                comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperimentsByExperimentIdUserId(idSelectedExperiment, mainform.curr.UserID);
-            }
-            else
-            {
-                comboBox2.DataSource = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
-            }
-
-            comboBox2.DisplayMember = "name";
-            comboBox2.ValueMember = "idexperiment";
-
+          
         }
 
         private void Bind()
@@ -185,6 +188,36 @@ namespace edb_tool
                 //when we load all subjects from all experiments
                 bs.DataSource = ProviderFactory.GetDataProvider().ListSubjects(mainform.curr.UserID);
             }
+
+            #region set expriment name
+            //extra column "Experiment Name"
+
+            int colExpNamePos = 4;
+            if (!dataGridView2.Columns.Contains("experimentname"))
+            {
+                
+                DataGridViewColumn experimentColumn = new DataGridViewColumn(dataGridView2.Columns[0].CellTemplate);
+                experimentColumn.Name = "experimentname";
+                //experimentColumn.CellType = 
+                dataGridView2.Columns.Insert(colExpNamePos, experimentColumn);
+            }
+
+            int idExpColumn = Helper.LocateColumnInGrid("idexperiment", dataGridView2);
+            colExpNamePos = Helper.LocateColumnInGrid("experimentname", dataGridView2);
+
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            {
+                for (int j = 0; j < comboBox2.Items.Count; j++)
+                {
+                    object stringid = dataGridView2.Rows[i].Cells[idExpColumn].Value;
+                    int idExp = Convert.ToInt32(stringid);
+
+                    GExperiment e = (GExperiment)comboBox2.Items[j];
+                    if (e.idexperiment == idExp)
+                        dataGridView2.Rows[i].Cells[colExpNamePos].Value = e.name;
+                }
+            }
+            #endregion
         }
 
         //delete

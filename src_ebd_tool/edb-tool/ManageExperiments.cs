@@ -120,7 +120,8 @@ namespace edb_tool
                 dataGridView2.Columns[Helper.LocateColumnInGrid("iduser", dataGridView2)].Visible = false;
                 dataGridView2.Columns[Helper.LocateColumnInGrid("IsSharedToCurrentUser", dataGridView2)].Visible = false;
                 dataGridView2.Columns[Helper.LocateColumnInGrid("description", dataGridView2)].Visible = false;
-                dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "dd'/'MM'/'yy";
+                //dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "dd'/'MM'/'yy";
+                dataGridView2.Columns[Helper.LocateColumnInGrid("exp_date", dataGridView2)].DefaultCellStyle.Format = "yyyy'/'MM'/'dd";
                 //dataGridView2.Columns[0].Visible = false;
                 //dataGridView2.Columns[4].Visible = false;
                 //dataGridView2.Columns[5].Visible = false;
