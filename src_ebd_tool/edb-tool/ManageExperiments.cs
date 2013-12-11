@@ -36,9 +36,33 @@ namespace edb_tool
             dataGridView2.SelectionChanged += new EventHandler(dataGridView2_SelectionChanged);
             dataGridView2.AllowUserToResizeRows = false;
             dataGridView2.MultiSelect = false;
+            dataGridView2.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView2_ColumnHeaderMouseClick);
             #endregion
 
             button2.Visible = false;
+        }
+
+        void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView2.Columns[e.ColumnIndex].Name.ToLower() == "name")
+            {
+                var list = (from DataGridViewRow row in dataGridView2.Rows
+                            let exp = row.DataBoundItem as GExperiment
+                            orderby exp.name ascending
+                            select exp).ToList();
+
+                dataGridView2.DataSource = list;
+            }
+
+            if (dataGridView2.Columns[e.ColumnIndex].Name.ToLower() == "exp_date")
+            {
+                var list = (from DataGridViewRow row in dataGridView2.Rows
+                            let exp = row.DataBoundItem as GExperiment
+                            orderby exp.exp_date descending
+                            select exp).ToList();
+
+                dataGridView2.DataSource = list;
+            }
         }
 
         void dataGridView2_SelectionChanged(object sender, EventArgs e)
@@ -109,7 +133,9 @@ namespace edb_tool
         private void Bind()
         {
             List<GExperiment> result = ProviderFactory.GetDataProvider().ListExperiments(mainform.curr.UserID);
-            
+
+            //result.Sort( (exp1, exp2) => exp1.name.CompareTo(exp2.name) );
+
             bs.DataSource = result;
 
             mainform.BindExperimentGrid(); // mainform.dataGridView2

@@ -41,7 +41,7 @@ namespace edb_tool
             #region gridview configuration
             //grid experiments
             dataGridView2.ReadOnly = true;
-            dataGridView2.ColumnHeadersVisible = false;
+            //dataGridView2.ColumnHeadersVisible = false;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView2.RowHeadersVisible = false;
             dataGridView2.AllowUserToDeleteRows = false;
@@ -51,10 +51,11 @@ namespace edb_tool
             dataGridView2.SelectionChanged += new EventHandler(dataGridView2_SelectionChanged);
             dataGridView2.AllowUserToResizeRows = false;
             dataGridView2.MultiSelect = false;
+            dataGridView2.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView2_ColumnHeaderMouseClick);
 
             //grid subjects
             dataGridView3.ReadOnly = true;
-            dataGridView3.ColumnHeadersVisible = false;
+            //dataGridView3.ColumnHeadersVisible = false;
             dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView3.RowHeadersVisible = false;
             dataGridView3.AllowUserToDeleteRows = false;
@@ -63,6 +64,7 @@ namespace edb_tool
             dataGridView3.SelectionChanged += new EventHandler(dataGridView3_SelectionChanged);
             dataGridView3.AllowUserToResizeRows = false;
             dataGridView3.MultiSelect = false;
+            dataGridView3.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView3_ColumnHeaderMouseClick);
             #endregion
 
             checkBoxShowSharedToMe.CheckedChanged += new EventHandler(checkBoxShowSharedToMe_CheckedChanged);
@@ -98,6 +100,43 @@ namespace edb_tool
 
             //DataFactory.GetDataProvider().ListExperiments(1999);
             
+
+        }
+
+        void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView3.Columns[e.ColumnIndex].Name.ToLower() == "name")
+            {
+                var list = (from DataGridViewRow row in dataGridView3.Rows
+                            let sub = row.DataBoundItem as GSubject
+                            orderby sub.name ascending
+                            select sub).ToList();
+
+                dataGridView3.DataSource = list;
+            }
+        }
+
+        void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView2.Columns[e.ColumnIndex].Name.ToLower() == "name")
+            {
+                var list = (from DataGridViewRow row in dataGridView2.Rows
+                        let exp = row.DataBoundItem as GExperiment
+                        orderby exp.name ascending
+                        select exp).ToList();
+
+                dataGridView2.DataSource = list;
+            }
+
+            if (dataGridView2.Columns[e.ColumnIndex].Name.ToLower() == "exp_date")
+            {
+                var list = (from DataGridViewRow row in dataGridView2.Rows
+                            let exp = row.DataBoundItem as GExperiment
+                            orderby exp.exp_date descending
+                            select exp).ToList();
+
+                dataGridView2.DataSource = list;
+            }
 
         }
 
@@ -276,6 +315,7 @@ namespace edb_tool
                     #endregion
 
                     dgv.CellContentClick += new DataGridViewCellEventHandler(dgv_CellContentClick);
+                    dgv.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dgv_ColumnHeaderMouseClick);
                 }
 
                 tabControl2.SelectedIndex = selectedTab;
@@ -283,6 +323,21 @@ namespace edb_tool
             else
             {
                 tabControl2.Visible = false;
+            }
+        }
+
+        void dgv_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            if (dgv.Columns[e.ColumnIndex].Name.ToLower() == "filename")
+            {
+                var list = (from DataGridViewRow row in dgv.Rows
+                            let file = row.DataBoundItem as GFile
+                            orderby file.filename ascending
+                            select file).ToList();
+
+                dgv.DataSource = list;
             }
         }
 
@@ -553,6 +608,8 @@ namespace edb_tool
             {
                 allExp = ownExp;
             }
+
+            //allExp.Sort((exp1, exp2) => exp1.name.CompareTo(exp2.name));
 
             if (allExp.Count > 0)
             {

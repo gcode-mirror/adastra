@@ -50,12 +50,26 @@ namespace edb_tool
             dataGridView2.CellFormatting += new DataGridViewCellFormattingEventHandler(dataGridView2_CellFormatting);
             dataGridView2.AllowUserToResizeRows = false;
             dataGridView2.MultiSelect = false;
+            dataGridView2.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView2_ColumnHeaderMouseClick);
             #endregion
 
             button2.Visible = false;
             comboBox1.SelectedIndex = 0;
 
             this.FormClosing += new FormClosingEventHandler(ManageSubjects_FormClosing);
+        }
+
+        void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView2.Columns[e.ColumnIndex].Name.ToLower() == "name")
+            {
+                var list = (from DataGridViewRow row in dataGridView2.Rows
+                            let sub = row.DataBoundItem as GSubject
+                            orderby sub.name ascending
+                            select sub).ToList();
+
+                dataGridView2.DataSource = list;
+            }
         }
 
         void ManageSubjects_FormClosing(object sender, FormClosingEventArgs e)

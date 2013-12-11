@@ -36,9 +36,23 @@ namespace edb_tool
             dataGridView2.SelectionChanged += new EventHandler(dataGridView2_SelectionChanged);
             dataGridView2.AllowUserToResizeRows = false;
             dataGridView2.MultiSelect = false;
+            dataGridView2.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dataGridView2_ColumnHeaderMouseClick);
             #endregion
 
             button2.Visible = false;
+        }
+
+        void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView2.Columns[e.ColumnIndex].Name.ToLower() == "name")
+            {
+                var list = (from DataGridViewRow row in dataGridView2.Rows
+                            let mod = row.DataBoundItem as GModality
+                            orderby mod.name ascending
+                            select mod).ToList();
+
+                dataGridView2.DataSource = list;
+            }
         }
 
         void dataGridView2_SelectionChanged(object sender, EventArgs e)
