@@ -1,5 +1,8 @@
 %% Set parmaters
 
+% where EEGLAB is located, use 11_0_5_4b or higher
+EEGLabPath = 'D:\Work\eeglab11_0_5_4b'
+
 % full path to an eeg-eyetracking file - only synchronized files are
 % expected
 synchro_filename = 'D:\Dropbox\Gipsa-work\GazeEeg\Data\new_s1\synchro_s1.asc.eeg.mat' %new file from gelu with new triggers above 2000, below 1000
@@ -26,4 +29,4 @@ NbNonEEGChan = 5;
 GazeEegLabImporter_setChannelNamesMontageParis();
 
 %% Execute
-GazeEegLabImporter_Process(synchro_filename, EpochEventsStr, DisplayEventsStr, TimeInterval, StartFromTrigger, FilterData, NbNonEEGChan);
+GazeEegLabImporter_Process(EEGLabPath, synchro_filename, EpochEventsStr, DisplayEventsStr, TimeInterval, StartFromTrigger, FilterData, NbNonEEGChan);
