@@ -51,6 +51,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.checkBoxShowSharedToMe = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button18 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
@@ -92,7 +93,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.button18 = new System.Windows.Forms.Button();
+            this.viewNetworkSharesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -133,6 +134,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewNetworkSharesToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
@@ -141,7 +143,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -178,7 +180,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(687, 440);
+            this.tabPage2.Size = new System.Drawing.Size(703, 440);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Search";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -351,6 +353,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(444, 425);
             this.panel1.TabIndex = 27;
+            // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(7, 3);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(103, 27);
+            this.button18.TabIndex = 36;
+            this.button18.Text = "Add modality";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // button16
             // 
@@ -771,15 +783,12 @@
             this.tabControl1.Size = new System.Drawing.Size(711, 466);
             this.tabControl1.TabIndex = 1;
             // 
-            // button18
+            // viewNetworkSharesToolStripMenuItem
             // 
-            this.button18.Location = new System.Drawing.Point(7, 3);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(103, 27);
-            this.button18.TabIndex = 36;
-            this.button18.Text = "Add modality";
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
+            this.viewNetworkSharesToolStripMenuItem.Name = "viewNetworkSharesToolStripMenuItem";
+            this.viewNetworkSharesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.viewNetworkSharesToolStripMenuItem.Text = "View network shares";
+            this.viewNetworkSharesToolStripMenuItem.Click += new System.EventHandler(this.viewNetworkSharesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -900,6 +909,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.ToolStripMenuItem viewNetworkSharesToolStripMenuItem;
     }
 }
 

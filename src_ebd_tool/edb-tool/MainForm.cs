@@ -100,9 +100,9 @@ namespace edb_tool
 
             //DataFactory.GetDataProvider().ListExperiments(1999);
 
-            MappedDriveResolver.GetSharedFolders();
-            
+            //MappedDriveResolver.GetSharedFolders();
 
+            //MappedDriveResolver.GetRemoteMappedDrives();
         }
 
         void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -377,15 +377,33 @@ namespace edb_tool
             ofd.Multiselect = true;
 
             DialogResult result = ofd.ShowDialog();
+            
+            List<GFile> files = new List<GFile>();
+
             if (result == DialogResult.OK) // Test result.
             {
+
                 foreach (String f in ofd.FileNames)
                 {
                     //insert in db only name for now
                     GFile file = new GFile(-1, Helper.GetFileShortName(f), f);
+                    files.Add(file);
+                }
 
+                try
+                {   //replace local paths with local network shares
+                    MappedDriveResolver.ReplaceLocalPathWithShared(files, MappedDriveResolver.GetSharedFolders());
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                foreach(GFile file in files)
+                { 
                     try
                     {
+                        //replace remote mapped network drives with full server namec (UNC)
                         file.pathname = MappedDriveResolver.ResolveToUNC(file.pathname);
                     }
                     catch (Exception ex)
@@ -393,13 +411,17 @@ namespace edb_tool
 
                     }
                     
+                    #region add file
                     long idfile = ProviderFactory.GetDataProvider().AddFile(file);
 
                     int idmodality = Convert.ToInt32(tabControl2.SelectedTab.Tag);//gets the selected tab modality id
                     ProviderFactory.GetDataProvider().AssociateFile(curr.ExperimentID, curr.SubjectID, idmodality, idfile);
-                    
+                    #endregion
+
                     //add in table list_file
                 }
+
+                
             }
 
             ConstructTabsModalities();
@@ -663,6 +685,12 @@ namespace edb_tool
         {
             ManageModalities mm = new ManageModalities(this);
             mm.Show();
+        }
+
+        private void viewNetworkSharesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NetworkShares ns = new NetworkShares();
+            ns.Show();
         }
     }
 }

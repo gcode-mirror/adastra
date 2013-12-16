@@ -2,6 +2,7 @@
 using System.IO;
 using System.Management;    // System.Management.dll
 using System.Collections.Generic;
+using System.Linq;
 
 public static class MappedDriveResolver
 {
@@ -55,6 +56,24 @@ public static class MappedDriveResolver
         }
     }
 
+    public static List<edb_tool.GNetworkShare> GetRemoteMappedDrives()
+    {
+        List<edb_tool.GNetworkShare> mappedDrives;
+        string[] drives = Environment.GetLogicalDrives();
+
+        var q = from d in drives
+                where isNetworkDrive(d)
+                select new edb_tool.GNetworkShare
+                {
+                    name = d,
+                    path = ResolveToRootUNC(d)
+                };
+
+        mappedDrives = q.ToList();
+
+        return mappedDrives;
+    }
+
     /// <summary>Checks if the given path is on a network drive.</summary>
     /// <param name="pPath"></param>
     /// <returns></returns>
@@ -85,10 +104,9 @@ public static class MappedDriveResolver
         return Directory.GetDirectoryRoot(pPath).Replace(Path.DirectorySeparatorChar.ToString(), "");
     }
 
-    public static List<string> GetSharedFolders()
+    public static List<edb_tool.GNetworkShare> GetSharedFolders()
     {
-
-        List<string> sharedFolders = new List<string>();
+        List<edb_tool.GNetworkShare> sharedFolders;
 
         // Object to query the WMI Win32_Share API for shared files...
 
@@ -98,26 +116,40 @@ public static class MappedDriveResolver
 
         ManagementClass mc = new ManagementClass("Win32_Share"); //for local shares
 
-        foreach (ManagementObject share in searcher.Get())
-        {
+        var q = from ManagementObject share in searcher.Get()
+                let type = share["Type"].ToString()
+                where type == "0"
+                select new edb_tool.GNetworkShare()
+                {
+                      name = share["Name"].ToString(), //getting share name
 
-            string type = share["Type"].ToString();
+                      path = share["Path"].ToString(), //getting share path
 
-            if (type == "0") // 0 = DiskDrive (1 = Print Queue, 2 = Device, 3 = IPH)
-            {
-                string name = share["Name"].ToString(); //getting share name
+                      //caption = share["Caption"].ToString(), //getting share description
+                };
 
-                string path = share["Path"].ToString(); //getting share path
 
-                string caption = share["Caption"].ToString(); //getting share description
-
-                sharedFolders.Add(path);
-            }
-
-        }
-
+        sharedFolders = q.ToList();
         return sharedFolders;
-
     }
+
+     public static List<edb_tool.GFile> ReplaceLocalPathWithShared(List<edb_tool.GFile> files, List<edb_tool.GNetworkShare> localShares)
+     {
+         foreach (edb_tool.GFile file in files)
+         {
+             foreach (edb_tool.GNetworkShare share in localShares)
+             {
+                 if (file.pathname.StartsWith(share.path))
+                 {
+                     int pos = share.path.Length;
+                     file.pathname = @"\\" + System.Environment.MachineName + "\\" + share.name + file.pathname.Substring(pos);
+                 }
+             }
+         }
+
+
+
+         return files;
+     }
 
 }
