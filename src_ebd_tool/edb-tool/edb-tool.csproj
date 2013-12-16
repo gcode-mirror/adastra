@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -66,10 +67,10 @@
     <Compile Include="Definitions\GSubject.cs" />
     <Compile Include="Definitions\GModality.cs" />
     <Compile Include="Definitions\GTag.cs" />
-    <Compile Include="JsonHelper.cs" />
+    <Compile Include="Tools\JsonHelper.cs" />
     <Compile Include="DataProviders\MySql.cs" />
     <Compile Include="Definitions\GUser.cs" />
-    <Compile Include="Helper.cs" />
+    <Compile Include="Tools\Helper.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +116,7 @@
       <DependentUpon>TagSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="DataProviders\WebService.cs" />
+    <Compile Include="Tools\MappedDriveResolver.cs" />
     <Compile Include="UserSelector.cs">
       <SubType>Form</SubType>
     </Compile>

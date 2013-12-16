@@ -99,6 +99,8 @@ namespace edb_tool
             //JsonHelper.SendJson(o, web + "user/add.php");
 
             //DataFactory.GetDataProvider().ListExperiments(1999);
+
+            MappedDriveResolver.GetSharedFolders();
             
 
         }
@@ -381,6 +383,15 @@ namespace edb_tool
                 {
                     //insert in db only name for now
                     GFile file = new GFile(-1, Helper.GetFileShortName(f), f);
+
+                    try
+                    {
+                        file.pathname = MappedDriveResolver.ResolveToUNC(file.pathname);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                     
                     long idfile = ProviderFactory.GetDataProvider().AddFile(file);
 
