@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.DirectoryServices.AccountManagement;
 
 namespace edb_tool
 {
@@ -123,6 +124,16 @@ namespace edb_tool
 
             return responseText;
 
+        }
+
+        public static bool VerifyPassword(string username,string password)
+        {
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "gipsa-lab.local"))
+            {
+                // validate the credentials
+                bool isValid = pc.ValidateCredentials(username, password);
+                return isValid;
+            }
         }
     }
 }
