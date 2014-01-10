@@ -390,6 +390,13 @@ namespace edb_tool
 
         #endregion
 
+        #region user groups
+        public List<GGroup> ListUserGroups()
+        {
+            return null;
+        }
+        #endregion
+
         public void UpdateFileTags(int[] idfiles, string tagLine)
         {
             string[] idfilesstring = idfiles.Select(x => x.ToString()).ToArray();

@@ -384,7 +384,8 @@ namespace edb_tool
         {
             DataTable table = new DataTable();
             conn = new MySqlConnection(connStr);
-            string query = "SELECT * FROM user WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=@idexperiment AND owner_userid=@owner_userid)";
+            //string query = "SELECT * FROM user WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=@idexperiment AND owner_userid=@owner_userid)";
+            string query = "SELECT * FROM si_personnel_actuel WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=@idexperiment AND owner_userid=@owner_userid)";
 
             try
             {
@@ -403,10 +404,10 @@ namespace edb_tool
                                 select new GUser
                                 {
                                     iduser = Convert.ToInt32(row["iduser"]),
-                                    FirstName = (string)row["firstname"],
-                                    LastName = (string)row["lastname"],
-                                    EMail = (string)row["email"],
-                                    Username = (string)row["username"],
+                                    FirstName = (string)row["prenom"],
+                                    LastName = (string)row["nom"],
+                                    EMail = (string)row["email_agalan"],
+                                    Username = (string)row["login_agalan"],
                                 };
 
                 return equery.ToList();
@@ -1102,7 +1103,8 @@ namespace edb_tool
             conn = new MySqlConnection(connStr);
             conn.Open();
 
-            string query = "SELECT iduser FROM user where username = @username AND password = @password;";
+            //fake user authentication
+            string query = "SELECT iduser FROM si_personnel_actuel where prenom = @username AND prenom = @password;";
             userid = -1;
 
             //open connection
@@ -1135,7 +1137,7 @@ namespace edb_tool
         {
             DataTable table = new DataTable();
             conn = new MySqlConnection(connStr);
-            string query = "SELECT * FROM user";
+            string query = "SELECT * FROM si_personnel_actuel";
 
             try
             {
@@ -1153,15 +1155,53 @@ namespace edb_tool
                                 select new GUser
                                 {
                                     iduser = Convert.ToInt32(row["iduser"]),
-                                    FirstName = (string)row["firstname"],
-                                    LastName = (string)row["lastname"],
-                                    EMail = (string)row["email"],
-                                    Username = (string)row["username"],
+                                    FirstName = (string)row["prenom"],
+                                    LastName = (string)row["nom"],
+                                    EMail = (string)row["email_agalan"],
+                                    Username = (string)row["login_agalan"],
                                 };
 
                 return equery.ToList();
                 
             }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        #endregion
+
+        #region user groups
+        public List<GGroup> ListUserGroups()
+        {
+            conn = new MySqlConnection(connStr);
+
+
+            string query = "SELECT * FROM si_groupe";
+
+            try
+            {
+                conn.Open();
+                MySqlDataAdapter myDA = new MySqlDataAdapter();
+                myDA.SelectCommand = new MySqlCommand(query, conn);              
+
+                DataTable table = new DataTable();
+                myDA.Fill(table);
+
+                var equery = from DataRow row in table.Rows
+                             select new GGroup
+                             {
+                                 idgroup = Convert.ToInt32(row["id_groupe"]),
+                                 Name = Convert.ToString(row["nom_groupe"]),
+                                 ShortName = Convert.ToString(row["mail"]),
+                             };
+
+                return equery.ToList();
+            }
+            //catch (MySqlException ex)
+            //{
+            //  dbase.displayError(ex.Message, ex.Number);
+            //}
             finally
             {
                 conn.Close();

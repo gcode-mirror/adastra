@@ -157,7 +157,7 @@
             // listBox3
             // 
             this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(248, 238);
+            this.listBox3.Location = new System.Drawing.Point(14, 235);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(154, 186);
             this.listBox3.TabIndex = 17;
@@ -165,7 +165,7 @@
             // listBox4
             // 
             this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(14, 238);
+            this.listBox4.Location = new System.Drawing.Point(248, 235);
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(154, 186);
             this.listBox4.TabIndex = 16;

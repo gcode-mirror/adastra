@@ -27,12 +27,12 @@ namespace edb_tool
 
         private void UserSelector_Load(object sender, EventArgs e)
         {
-            listBox1.DisplayMember = "username";
+            listBox1.DisplayMember = "FullName";
             listBox1.ValueMember = "iduser";
 
             AllItems = ProviderFactory.GetDataProvider().ListUsers();
 
-            listBox2.DisplayMember = "username";
+            listBox2.DisplayMember = "FullName";
             listBox2.ValueMember = "iduser";
 
             //set the right 
@@ -46,6 +46,13 @@ namespace edb_tool
                                    
 
             listBox2.DataSource = previouslySelected;
+
+            //================================================
+
+            listBox3.DisplayMember = "ShortName";
+            listBox3.ValueMember = "idgroup";
+
+            listBox3.DataSource = ProviderFactory.GetDataProvider().ListUserGroups();
         }
 
         /// <summary>
@@ -68,9 +75,9 @@ namespace edb_tool
             //remove all records
             ProviderFactory.GetDataProvider().DeleteSharedExperiment(current_experiment_id, mainform.curr.UserID);
 
-            //save data to table
             List<GUser> selectedUsers = listBox2.Items.Cast<GUser>().ToList();
 
+            //save data to database
             foreach (GUser u in selectedUsers)
             {
                 ProviderFactory.GetDataProvider().AddSharedExperiment(current_experiment_id, mainform.curr.UserID, u.iduser);

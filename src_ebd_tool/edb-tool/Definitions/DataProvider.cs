@@ -68,6 +68,10 @@ namespace edb_tool
 
         #endregion
 
+        #region user groups
+        List<GGroup> ListUserGroups();
+        #endregion
+
         void UpdateFileTags(int[] idfiles, string tagLine);
     }
 }

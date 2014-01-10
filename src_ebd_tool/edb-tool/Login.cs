@@ -38,6 +38,8 @@ namespace edb_tool
                 //var o = new localhost.HelloExample();
                // userid = o.Authenticate(textBox1.Text, textBox2.Text);
                 ProviderFactory.SetWebProvider((string)comboBox1.SelectedValue);
+
+
                 autheticated = ProviderFactory.GetDataProvider().VerifyUserPassword(textBox1.Text, textBox2.Text, out mainform.curr.UserID);
             }
             catch(Exception ex)

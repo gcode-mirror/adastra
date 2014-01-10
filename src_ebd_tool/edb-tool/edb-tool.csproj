@@ -65,6 +65,7 @@
     <Compile Include="Definitions\DataProvider.cs" />
     <Compile Include="Definitions\GExperiment.cs" />
     <Compile Include="Definitions\GFile.cs" />
+    <Compile Include="Definitions\GGroup.cs" />
     <Compile Include="Definitions\GNetworkShare.cs" />
     <Compile Include="Definitions\GSubject.cs" />
     <Compile Include="Definitions\GModality.cs" />

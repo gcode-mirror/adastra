@@ -23,5 +23,13 @@ namespace edb_tool
 
         [JsonProperty("username")]
         public string Username { get; set; }
+
+        public string FullName 
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
     }
 }
