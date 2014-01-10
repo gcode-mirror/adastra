@@ -107,6 +107,12 @@ namespace edb_tool
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e) 
         {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("No name for this subject has been entered!", "Error");
+                return;
+            }
+
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 if (textBox2.Text == "") textBox2.Text = "-1"; //no age entered

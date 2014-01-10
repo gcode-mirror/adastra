@@ -76,6 +76,12 @@ namespace edb_tool
         //Perform Add or Update
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("No name for this experiment has been entered!", "Error");
+                return;
+            }
+
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 GExperiment exp = new GExperiment(-1, textBox1.Text, textBox2.Text, textBox3.Text, mainform.curr.UserID,this.dateTimePicker1.Value);

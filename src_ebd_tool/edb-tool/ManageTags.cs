@@ -62,6 +62,12 @@ namespace edb_tool
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("No name for this tag has been entered!", "Error");
+                return;
+            }
+
             if (button1.Text.ToLower().IndexOf("add") >= 0)
             {
                 ProviderFactory.GetDataProvider().AddTag(new GTag(-1,textBox1.Text));
