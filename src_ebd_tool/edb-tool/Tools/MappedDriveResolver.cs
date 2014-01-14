@@ -142,7 +142,7 @@ public static class MappedDriveResolver
                  if (file.pathname.StartsWith(share.path))
                  {
                      int pos = share.path.Length;
-                     file.pathname = @"\\" + System.Environment.MachineName + "\\" + share.name + file.pathname.Substring(pos);
+                     file.pathname = @"\\" + System.Environment.MachineName + @"\" + share.name + file.pathname.Substring(pos);
                  }
              }
          }

@@ -353,8 +353,20 @@ namespace edb_tool
                 string fullpath = Convert.ToString(dgv.SelectedRows[0].Cells[columnindex].Value);
 
                 string command = fullpath.Substring(0, fullpath.LastIndexOf("\\"));
-                if (fullpath.Length>0)
-                    System.Diagnostics.Process.Start(command);
+                if (fullpath.Length > 0)
+                {
+
+                    try
+                    {
+                        System.Diagnostics.Process.Start(command);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Could not open the disk/network location specified!",
+                        "Error",
+                        MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        }
+                }
             }
         }
 

@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewNetworkSharesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +94,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.viewNetworkSharesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button19 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -139,6 +140,13 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.fileToolStripMenuItem.Text = "System";
+            // 
+            // viewNetworkSharesToolStripMenuItem
+            // 
+            this.viewNetworkSharesToolStripMenuItem.Name = "viewNetworkSharesToolStripMenuItem";
+            this.viewNetworkSharesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.viewNetworkSharesToolStripMenuItem.Text = "View network shares";
+            this.viewNetworkSharesToolStripMenuItem.Click += new System.EventHandler(this.viewNetworkSharesToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -311,6 +319,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button19);
             this.tabPage3.Controls.Add(this.checkBoxShowSharedToMe);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.button17);
@@ -320,7 +329,7 @@
             this.tabPage3.Controls.Add(this.dataGridView2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(703, 440);
+            this.tabPage3.Size = new System.Drawing.Size(703, 461);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "File Association";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -328,7 +337,7 @@
             // checkBoxShowSharedToMe
             // 
             this.checkBoxShowSharedToMe.AutoSize = true;
-            this.checkBoxShowSharedToMe.Location = new System.Drawing.Point(7, 400);
+            this.checkBoxShowSharedToMe.Location = new System.Drawing.Point(7, 420);
             this.checkBoxShowSharedToMe.Name = "checkBoxShowSharedToMe";
             this.checkBoxShowSharedToMe.Size = new System.Drawing.Size(117, 17);
             this.checkBoxShowSharedToMe.TabIndex = 28;
@@ -351,7 +360,7 @@
             this.panel1.Enabled = false;
             this.panel1.Location = new System.Drawing.Point(256, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(444, 425);
+            this.panel1.Size = new System.Drawing.Size(444, 446);
             this.panel1.TabIndex = 27;
             // 
             // button18
@@ -366,7 +375,7 @@
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(167, 388);
+            this.button16.Location = new System.Drawing.Point(131, 417);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(75, 23);
             this.button16.TabIndex = 35;
@@ -376,7 +385,7 @@
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(86, 388);
+            this.button15.Location = new System.Drawing.Point(131, 388);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(75, 23);
             this.button15.TabIndex = 34;
@@ -386,7 +395,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(355, 388);
+            this.button11.Location = new System.Drawing.Point(8, 417);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(87, 23);
             this.button11.TabIndex = 33;
@@ -406,9 +415,9 @@
             // button13
             // 
             this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button13.Location = new System.Drawing.Point(5, 388);
+            this.button13.Location = new System.Drawing.Point(7, 388);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(75, 23);
+            this.button13.Size = new System.Drawing.Size(88, 23);
             this.button13.TabIndex = 27;
             this.button13.Text = "Add file(s)";
             this.button13.UseVisualStyleBackColor = true;
@@ -417,11 +426,11 @@
             // button14
             // 
             this.button14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button14.Location = new System.Drawing.Point(248, 388);
+            this.button14.Location = new System.Drawing.Point(234, 388);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(101, 23);
+            this.button14.Size = new System.Drawing.Size(206, 23);
             this.button14.TabIndex = 29;
-            this.button14.Text = "Add tag to file(s)";
+            this.button14.Text = "Add tag(s) to file(s)";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
@@ -477,7 +486,8 @@
             // button12
             // 
             this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button12.Location = new System.Drawing.Point(344, 36);
+            this.button12.Enabled = false;
+            this.button12.Location = new System.Drawing.Point(344, 39);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(96, 27);
             this.button12.TabIndex = 30;
@@ -497,7 +507,7 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(144, 401);
+            this.button17.Location = new System.Drawing.Point(144, 420);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(107, 23);
             this.button17.TabIndex = 26;
@@ -530,7 +540,7 @@
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Location = new System.Drawing.Point(144, 29);
             this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(107, 365);
+            this.dataGridView3.Size = new System.Drawing.Size(107, 386);
             this.dataGridView3.TabIndex = 14;
             // 
             // dataGridView2
@@ -540,7 +550,7 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(7, 29);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(131, 365);
+            this.dataGridView2.Size = new System.Drawing.Size(131, 386);
             this.dataGridView2.TabIndex = 13;
             // 
             // tabPage1
@@ -780,21 +790,23 @@
             this.tabControl1.Location = new System.Drawing.Point(10, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(711, 466);
+            this.tabControl1.Size = new System.Drawing.Size(711, 487);
             this.tabControl1.TabIndex = 1;
             // 
-            // viewNetworkSharesToolStripMenuItem
+            // button19
             // 
-            this.viewNetworkSharesToolStripMenuItem.Name = "viewNetworkSharesToolStripMenuItem";
-            this.viewNetworkSharesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.viewNetworkSharesToolStripMenuItem.Text = "View network shares";
-            this.viewNetworkSharesToolStripMenuItem.Click += new System.EventHandler(this.viewNetworkSharesToolStripMenuItem_Click);
+            this.button19.Location = new System.Drawing.Point(490, 429);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(206, 23);
+            this.button19.TabIndex = 29;
+            this.button19.Text = "Share local folder on the network";
+            this.button19.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(733, 505);
+            this.ClientSize = new System.Drawing.Size(733, 516);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -910,6 +922,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.ToolStripMenuItem viewNetworkSharesToolStripMenuItem;
+        private System.Windows.Forms.Button button19;
     }
 }
 
