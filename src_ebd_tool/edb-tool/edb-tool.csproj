@@ -70,6 +70,22 @@
     <Compile Include="Definitions\GSubject.cs" />
     <Compile Include="Definitions\GModality.cs" />
     <Compile Include="Definitions\GTag.cs" />
+    <Compile Include="EntitiesForms\ManageExperiments.cs" />
+    <Compile Include="EntitiesForms\ManageExperiments.Designer.cs">
+      <DependentUpon>ManageExperiments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntitiesForms\ManageModalities.cs" />
+    <Compile Include="EntitiesForms\ManageModalities.Designer.cs">
+      <DependentUpon>ManageModalities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntitiesForms\ManageSubjects.cs" />
+    <Compile Include="EntitiesForms\ManageSubjects.Designer.cs">
+      <DependentUpon>ManageSubjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntitiesForms\ManageTags.cs" />
+    <Compile Include="EntitiesForms\ManageTags.Designer.cs">
+      <DependentUpon>ManageTags.cs</DependentUpon>
+    </Compile>
     <Compile Include="NetworkShares.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,30 +108,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageExperiments.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageExperiments.Designer.cs">
-      <DependentUpon>ManageExperiments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManageModalities.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageModalities.Designer.cs">
-      <DependentUpon>ManageModalities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManageSubjects.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageSubjects.Designer.cs">
-      <DependentUpon>ManageSubjects.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManageTags.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageTags.Designer.cs">
-      <DependentUpon>ManageTags.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagSelector.cs">
@@ -132,23 +124,23 @@
     <Compile Include="UserSelector.Designer.cs">
       <DependentUpon>UserSelector.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EntitiesForms\ManageExperiments.resx">
+      <DependentUpon>ManageExperiments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntitiesForms\ManageModalities.resx">
+      <DependentUpon>ManageModalities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntitiesForms\ManageSubjects.resx">
+      <DependentUpon>ManageSubjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntitiesForms\ManageTags.resx">
+      <DependentUpon>ManageTags.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageExperiments.resx">
-      <DependentUpon>ManageExperiments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageModalities.resx">
-      <DependentUpon>ManageModalities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageSubjects.resx">
-      <DependentUpon>ManageSubjects.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageTags.resx">
-      <DependentUpon>ManageTags.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NetworkShares.resx">
       <DependentUpon>NetworkShares.cs</DependentUpon>
@@ -186,6 +178,7 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
