@@ -48,16 +48,32 @@
 	else
 	if ($_GET['function'] == "AddFile")
 	{
-	    $filename = $mysqli->escape_string(urldecode($_GET['filename']));
-		$pathname = $mysqli->escape_string(urldecode($_GET['pathname']));
+	    $filename = urldecode($_GET['filename']);
+		$pathname = urldecode($_GET['pathname']);
 		
-		$sql = "INSERT INTO file (filename, pathname) VALUES ('$filename', '$pathname')";
+		if ($stmt = $mysqli->prepare("INSERT INTO file (filename, pathname) VALUES (?, ?)")) 
+		{
+			/* bind parameters for markers */
+			$stmt->bind_param("ss", $filename, $pathname);
+
+			/* execute query */
+			$stmt->execute();
+
+			/* close statement */
+			$stmt->close();
+		}
+
+		//$sql = "INSERT INTO file (filename, pathname) VALUES ('$filename', '$pathname')";
 		
-		$mysqli->query($sql);
+		//$mysqli->query($sql);
 		
 	    $idfile = $mysqli->insert_id;
-
-		print(json_encode($idfile));	
+        
+		mysqli_close($mysqli);
+		
+		print(json_encode($idfile));
+		//print(urldecode($_GET['pathname']));
+        //print($pathname);
 	}
 	else
 	if ($_GET['function'] == "DeleteFilesByFileId")
