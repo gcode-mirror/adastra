@@ -42,12 +42,13 @@
 		print(json_encode($rows));
 	}
 	else
-	if ($_GET['function'] == "ListTagetUsers")
+	if ($_GET['function'] == "ListTargetUsers")
 	{
 	    $idexperiment = $_GET['idexperiment'];
 		$owner_userid = $_GET['owneruserid'];
 	
-		$result = $mysqli->query("SELECT * FROM user WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=$idexperiment AND owner_userid=$owner_userid)");
+		//$result = $mysqli->query("SELECT * FROM user WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=$idexperiment AND owner_userid=$owner_userid)");
+		$result = $mysqli->query("SELECT * FROM si_personnel_actuel WHERE  iduser IN (SELECT target_userid FROM shared_experiment_user WHERE idexperiment=$idexperiment AND owner_userid=$owner_userid)");
 
 		$rows = array();
 		// Iterate the resultset to get all data
@@ -98,5 +99,26 @@
 	    if ($result)
 	      print("true");
 		else print("false");
+	}
+	else
+	if ($_GET['function'] == "ListUserGroups")
+	{
+		$result = $mysqli->query("SELECT * FROM si_groupe");
+
+		$rows = array();
+		// Iterate the resultset to get all data
+		while($row = mysqli_fetch_assoc($result)) 
+		{
+			$rows[] = $row;
+		}
+		
+		// Close the resultset
+		$result->close();
+
+		// Close the database connection
+		$mysqli->close();
+		
+		// Returns the JSON representation of fetched data
+		print(json_encode($rows));
 	}
 ?>

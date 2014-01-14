@@ -25,7 +25,7 @@ namespace edb_tool
 
         //share experiment
         void AddSharedExperiment(int idexperiment, int owneruserid, int targetuserid);
-        List<GUser> ListTagetUsers(int idexperiment, int owner_userid); //List the users to which the selcted experiment has been shared
+        List<GUser> ListTargetUsers(int idexperiment, int owner_userid); //List the users to which the selcted experiment has been shared
         List<GExperiment> ListExperimentsSharedToTheUserByOthers(int iduser);
         void DeleteSharedExperiment(int idexperiment, int owner_userid); //deletes to whom it is shared
 

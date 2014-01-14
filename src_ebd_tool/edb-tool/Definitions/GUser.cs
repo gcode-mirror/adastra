@@ -12,16 +12,16 @@ namespace edb_tool
         [JsonProperty("iduser")]
         public int iduser { get; set; }
 
-        [JsonProperty("FirstName")]
+        [JsonProperty("prenom")]
         public string FirstName { get; set; }
 
-        [JsonProperty("LastName")]
+        [JsonProperty("nom")]
         public string LastName { get; set; }
 
-        [JsonProperty("Email")]
+        [JsonProperty("email_agalan")]
         public string EMail { get; set; }
 
-        [JsonProperty("username")]
+        [JsonProperty("login_agalan")]
         public string Username { get; set; }
 
         public string FullName 

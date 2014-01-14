@@ -120,6 +120,7 @@
             // 
             // button5
             // 
+            this.button5.Enabled = false;
             this.button5.Location = new System.Drawing.Point(179, 334);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(60, 23);
@@ -129,6 +130,7 @@
             // 
             // button6
             // 
+            this.button6.Enabled = false;
             this.button6.Location = new System.Drawing.Point(179, 305);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(60, 23);
@@ -139,6 +141,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Enabled = false;
             this.label3.Location = new System.Drawing.Point(245, 219);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
@@ -164,6 +167,7 @@
             // 
             // listBox4
             // 
+            this.listBox4.Enabled = false;
             this.listBox4.FormattingEnabled = true;
             this.listBox4.Location = new System.Drawing.Point(248, 235);
             this.listBox4.Name = "listBox4";

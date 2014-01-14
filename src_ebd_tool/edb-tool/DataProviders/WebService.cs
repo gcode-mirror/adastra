@@ -142,9 +142,9 @@ namespace edb_tool
             Helper.Get(link);
         }
 
-        public List<GUser> ListTagetUsers(int idexperiment, int owneruserid)
+        public List<GUser> ListTargetUsers(int idexperiment, int owneruserid)
         {
-            string link = RootUrl + "share_experiment.php?function=" + "ListTagetUsers"
+            string link = RootUrl + "share_experiment.php?function=" + "ListTargetUsers"
                                                                      + "&idexperiment=" + idexperiment
                                                                      + "&owneruserid=" + owneruserid;
 
@@ -393,7 +393,13 @@ namespace edb_tool
         #region user groups
         public List<GGroup> ListUserGroups()
         {
-            return null;
+            string link = RootUrl + "share_experiment.php?function=" + "ListUserGroups";
+
+            var json = JsonHelper.DownloadJson(link);
+
+            List<GGroup> users = JsonConvert.DeserializeObject<List<GGroup>>(json);
+
+            return users;
         }
         #endregion
 

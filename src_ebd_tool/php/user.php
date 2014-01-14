@@ -20,7 +20,9 @@
 	    $username = $mysqli->escape_string(urldecode($_GET['username']));
 		$password = $mysqli->escape_string(urldecode($_GET['password']));
 		
-		$sql = "SELECT iduser FROM user where username = '$username' AND password = '$password';";
+		//fake password authentication for testing
+		$sql = "SELECT iduser FROM si_personnel_actuel where prenom = '$username' AND prenom = '$password'";
+		//$sql = "SELECT iduser FROM user where username = '$username' AND password = '$password';";
 		
 		$result = mysqli_query($mysqli,$sql);
 		$row_cnt = $result->num_rows;
@@ -46,7 +48,7 @@
 	else
 	if ($_GET['function'] == "ListUsers")
 	{
-		$result = $mysqli->query("select * from user");
+		$result = $mysqli->query("SELECT * FROM si_personnel_actuel");
 
 		$rows = array();
 		// Iterate the resultset to get all data

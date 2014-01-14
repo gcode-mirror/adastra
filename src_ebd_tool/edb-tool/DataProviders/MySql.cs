@@ -380,7 +380,7 @@ namespace edb_tool
             }
         }
 
-        public List<GUser> ListTagetUsers(int idexperiment, int owner_userid)
+        public List<GUser> ListTargetUsers(int idexperiment, int owner_userid)
         {
             DataTable table = new DataTable();
             conn = new MySqlConnection(connStr);

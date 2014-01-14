@@ -36,7 +36,7 @@ namespace edb_tool
             listBox2.ValueMember = "iduser";
 
             //set the right 
-            List<GUser> previouslySelected = ProviderFactory.GetDataProvider().ListTagetUsers(current_experiment_id, mainform.curr.UserID);
+            List<GUser> previouslySelected = ProviderFactory.GetDataProvider().ListTargetUsers(current_experiment_id, mainform.curr.UserID);
             
             //set the left by removing the ones that are on the right
             listBox1.DataSource = (from GUser u in AllItems
