@@ -70,19 +70,27 @@
     <Compile Include="Definitions\GSubject.cs" />
     <Compile Include="Definitions\GModality.cs" />
     <Compile Include="Definitions\GTag.cs" />
-    <Compile Include="EntitiesForms\ManageExperiments.cs" />
+    <Compile Include="EntitiesForms\ManageExperiments.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EntitiesForms\ManageExperiments.Designer.cs">
       <DependentUpon>ManageExperiments.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntitiesForms\ManageModalities.cs" />
+    <Compile Include="EntitiesForms\ManageModalities.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EntitiesForms\ManageModalities.Designer.cs">
       <DependentUpon>ManageModalities.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntitiesForms\ManageSubjects.cs" />
+    <Compile Include="EntitiesForms\ManageSubjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EntitiesForms\ManageSubjects.Designer.cs">
       <DependentUpon>ManageSubjects.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntitiesForms\ManageTags.cs" />
+    <Compile Include="EntitiesForms\ManageTags.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EntitiesForms\ManageTags.Designer.cs">
       <DependentUpon>ManageTags.cs</DependentUpon>
     </Compile>

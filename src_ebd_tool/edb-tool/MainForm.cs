@@ -103,6 +103,13 @@ namespace edb_tool
             //MappedDriveResolver.GetSharedFolders();
 
             //MappedDriveResolver.GetRemoteMappedDrives();
+            //if (Helper.IsAdministrator()) button19.Enabled = true;
+            //else
+            //{
+            //    button19.Enabled = false;
+            //    //Tooltip toolTip1 = new System.Windows.Forms.ToolTip();
+            //    //toolTip1.SetToolTip(button1, "test");
+            //}
         }
 
         void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -700,6 +707,12 @@ namespace edb_tool
         }
 
         private void viewNetworkSharesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NetworkShares ns = new NetworkShares();
+            ns.Show();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
         {
             NetworkShares ns = new NetworkShares();
             ns.Show();

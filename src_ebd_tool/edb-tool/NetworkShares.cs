@@ -14,6 +14,7 @@ namespace edb_tool
         public NetworkShares()
         {
             InitializeComponent();
+            this.CenterToScreen();
 
             #region gridview configuration
             dataGridView1.AutoGenerateColumns = true;
@@ -45,6 +46,11 @@ namespace edb_tool
 
         private void NetworkShares_Load(object sender, EventArgs e)
         {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             var listLocal = MappedDriveResolver.GetSharedFolders();
 
             foreach (GNetworkShare s in listLocal)
@@ -53,8 +59,36 @@ namespace edb_tool
             }
             dataGridView1.DataSource = listLocal;
 
-            var mappedDrives  =  MappedDriveResolver.GetRemoteMappedDrives();
+            var mappedDrives = MappedDriveResolver.GetRemoteMappedDrives();
             dataGridView2.DataSource = mappedDrives;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MappedDriveResolver.QshareFolder(textBox2.Text, textBox1.Text, textBox3.Text);
+
+                LoadData();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Could not share folder! "+ ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string folderPath = "";
+            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                folderPath = folderBrowserDialog1.SelectedPath;
+            }
+            textBox2.Text = folderPath;
         }
     }
 }

@@ -50,6 +50,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button19 = new System.Windows.Forms.Button();
             this.checkBoxShowSharedToMe = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button18 = new System.Windows.Forms.Button();
@@ -94,7 +95,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.button19 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -188,7 +188,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(703, 440);
+            this.tabPage2.Size = new System.Drawing.Size(703, 461);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Search";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -333,6 +333,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "File Association";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(490, 429);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(206, 23);
+            this.button19.TabIndex = 29;
+            this.button19.Text = "View my netwotk shares";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // checkBoxShowSharedToMe
             // 
@@ -569,7 +579,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(703, 440);
+            this.tabPage1.Size = new System.Drawing.Size(703, 461);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Manage Entities";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -792,15 +802,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(711, 487);
             this.tabControl1.TabIndex = 1;
-            // 
-            // button19
-            // 
-            this.button19.Location = new System.Drawing.Point(490, 429);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(206, 23);
-            this.button19.TabIndex = 29;
-            this.button19.Text = "Share local folder on the network";
-            this.button19.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

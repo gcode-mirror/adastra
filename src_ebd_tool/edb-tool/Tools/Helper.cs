@@ -10,10 +10,20 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.DirectoryServices.AccountManagement;
 
+using System.Security.Principal;
+using System.Security.AccessControl;
+
 namespace edb_tool
 {
     public static class Helper
     {
+        public static bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
         public static int LocateColumnInGrid(string name, DataGridView gridview)
         {
             int idcolumn = -1;//column localization required
