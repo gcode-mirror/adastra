@@ -319,7 +319,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button19);
             this.tabPage3.Controls.Add(this.checkBoxShowSharedToMe);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.button17);
@@ -336,7 +335,8 @@
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(490, 429);
+            this.button19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button19.Location = new System.Drawing.Point(234, 417);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(206, 23);
             this.button19.TabIndex = 29;
@@ -346,6 +346,7 @@
             // 
             // checkBoxShowSharedToMe
             // 
+            this.checkBoxShowSharedToMe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxShowSharedToMe.AutoSize = true;
             this.checkBoxShowSharedToMe.Location = new System.Drawing.Point(7, 420);
             this.checkBoxShowSharedToMe.Name = "checkBoxShowSharedToMe";
@@ -356,6 +357,10 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.button19);
             this.panel1.Controls.Add(this.button18);
             this.panel1.Controls.Add(this.button16);
             this.panel1.Controls.Add(this.button15);
@@ -385,9 +390,10 @@
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(131, 417);
+            this.button16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button16.Location = new System.Drawing.Point(115, 417);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(75, 23);
+            this.button16.Size = new System.Drawing.Size(113, 23);
             this.button16.TabIndex = 35;
             this.button16.Text = "Uncheck all";
             this.button16.UseVisualStyleBackColor = true;
@@ -395,9 +401,10 @@
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(131, 388);
+            this.button15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button15.Location = new System.Drawing.Point(115, 388);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(75, 23);
+            this.button15.Size = new System.Drawing.Size(113, 23);
             this.button15.TabIndex = 34;
             this.button15.Text = "Check all";
             this.button15.UseVisualStyleBackColor = true;
@@ -405,9 +412,10 @@
             // 
             // button11
             // 
+            this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button11.Location = new System.Drawing.Point(8, 417);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(87, 23);
+            this.button11.Size = new System.Drawing.Size(101, 23);
             this.button11.TabIndex = 33;
             this.button11.Text = "Delete file(s)";
             this.button11.UseVisualStyleBackColor = true;
@@ -424,10 +432,10 @@
             // 
             // button13
             // 
-            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button13.Location = new System.Drawing.Point(7, 388);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(88, 23);
+            this.button13.Size = new System.Drawing.Size(102, 23);
             this.button13.TabIndex = 27;
             this.button13.Text = "Add file(s)";
             this.button13.UseVisualStyleBackColor = true;
@@ -435,7 +443,7 @@
             // 
             // button14
             // 
-            this.button14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button14.Location = new System.Drawing.Point(234, 388);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(206, 23);
@@ -446,6 +454,7 @@
             // 
             // comboBox4
             // 
+            this.comboBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(217, 3);
@@ -455,6 +464,9 @@
             // 
             // tabControl2
             // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(7, 72);
             this.tabControl2.Name = "tabControl2";
@@ -495,7 +507,7 @@
             // 
             // button12
             // 
-            this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button12.Enabled = false;
             this.button12.Location = new System.Drawing.Point(344, 39);
             this.button12.Name = "button12";
@@ -507,6 +519,7 @@
             // 
             // button10
             // 
+            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button10.Location = new System.Drawing.Point(344, 3);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(96, 27);
@@ -517,6 +530,7 @@
             // 
             // button17
             // 
+            this.button17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button17.Location = new System.Drawing.Point(144, 420);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(107, 23);
@@ -793,6 +807,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);

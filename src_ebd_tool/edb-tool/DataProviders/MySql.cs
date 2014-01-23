@@ -828,6 +828,8 @@ namespace edb_tool
         {
             long insertid = -1;
 
+            file.pathname = file.pathname.Replace("\\", "#"); //to fix db incompatibility with "\"
+
             conn = new MySqlConnection(connStr);
             conn.Open();
 
@@ -877,6 +879,9 @@ namespace edb_tool
                 for(int i=0; i < files.Count; i++)
                 {
                     cmd.Parameters.AddWithValue("@filename"+i, files[i].filename);
+
+                    files[i].pathname = files[i].pathname.Replace("\\", "#"); //to fix db incompatibility with "\"
+
                     cmd.Parameters.AddWithValue("@pathname"+i, files[i].pathname);
                 }
                 //Execute command
@@ -947,7 +952,7 @@ namespace edb_tool
                              {
                                  idfile = Convert.ToInt32(row["idfile"]),
                                  filename = (string)row["filename"],
-                                 pathname = (string)row["pathname"],
+                                 pathname = ((string)row["pathname"]).Replace("#","\\"), //to fix db incompatibility with "\"
                                  tags = (row["tags"]==System.DBNull.Value) ? "" : (string)row["tags"],
                              };
 

@@ -279,6 +279,7 @@ namespace edb_tool
                     dgv.Size = new Size(tb.Size.Width - 1,tb.Size.Height-1);
                     dgv.AllowUserToResizeRows = false;
                     dgv.MultiSelect = false;
+                    dgv.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom);
 
                     System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
                     Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -325,6 +326,7 @@ namespace edb_tool
 
                     dgv.CellContentClick += new DataGridViewCellEventHandler(dgv_CellContentClick);
                     dgv.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dgv_ColumnHeaderMouseClick);
+                    
                 }
 
                 tabControl2.SelectedIndex = selectedTab;
