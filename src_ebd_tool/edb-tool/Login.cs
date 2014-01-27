@@ -39,8 +39,9 @@ namespace edb_tool
                // userid = o.Authenticate(textBox1.Text, textBox2.Text);
                 ProviderFactory.SetWebProvider((string)comboBox1.SelectedValue);
 
-
-                autheticated = ProviderFactory.GetDataProvider().VerifyUserPassword(textBox1.Text, textBox2.Text, out mainform.curr.UserID);
+                autheticated = Helper.VerifyPassword(textBox1.Text, textBox2.Text);
+ 
+                //ProviderFactory.GetDataProvider().VerifyUserPassword(textBox1.Text, textBox2.Text, out mainform.curr.UserID);
             }
             catch(Exception ex)
             {
@@ -48,8 +49,16 @@ namespace edb_tool
                 return;
             }
 
-            if (mainform.curr.UserID > 0 && autheticated)
+            if (autheticated)
             {
+                //TODO: optimize code not to use all users
+                GUser user = (from GUser u in ProviderFactory.GetDataProvider().ListUsers()
+                              where u.Username == textBox1.Text
+                              select u).First();
+
+                mainform.curr.UserID = user.iduser;
+                mainform.Text += " - " + user.Username;
+
                 mainform.tabControl1.Enabled = true;
                 this.Close();
             }

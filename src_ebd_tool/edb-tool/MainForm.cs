@@ -189,12 +189,6 @@ namespace edb_tool
             comboBox4.DisplayMember = "name";
             comboBox4.ValueMember = "idmodality";
             comboBox4.DataSource = ProviderFactory.GetDataProvider().ListModalities();
-
-            //TODO: optimize code not to use all users
-            string current_username = (from GUser u in ProviderFactory.GetDataProvider().ListUsers()
-                                                 where u.iduser == curr.UserID
-                                                 select u.Username).Single();
-            this.Text += " - " + current_username;
         }
 
         void dataGridView2_SelectionChanged(object sender, EventArgs e)

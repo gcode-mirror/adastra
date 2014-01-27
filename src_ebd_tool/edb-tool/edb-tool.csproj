@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>edb_tool</RootNamespace>
-    <AssemblyName>edb-tool</AssemblyName>
+    <AssemblyName>djedai</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -186,7 +186,27 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\user_female.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\experiment.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\250px-Magnetoencephalography.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye_tracking_headgear.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calcium_channel_blockers_classification.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scientists.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

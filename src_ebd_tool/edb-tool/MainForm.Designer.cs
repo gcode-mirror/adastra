@@ -50,9 +50,9 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button19 = new System.Windows.Forms.Button();
             this.checkBoxShowSharedToMe = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button19 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
@@ -95,6 +95,10 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -119,6 +123,10 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -330,19 +338,8 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(703, 461);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "File Association";
+            this.tabPage3.Text = "File Associations";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button19
-            // 
-            this.button19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button19.Location = new System.Drawing.Point(234, 417);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(206, 23);
-            this.button19.TabIndex = 29;
-            this.button19.Text = "View my netwotk shares";
-            this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // checkBoxShowSharedToMe
             // 
@@ -377,6 +374,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(444, 446);
             this.panel1.TabIndex = 27;
+            // 
+            // button19
+            // 
+            this.button19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button19.Location = new System.Drawing.Point(234, 417);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(206, 23);
+            this.button19.TabIndex = 29;
+            this.button19.Text = "View my netwotk shares";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // button18
             // 
@@ -601,9 +609,9 @@
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.label11);
-            this.groupBox12.Location = new System.Drawing.Point(160, 308);
+            this.groupBox12.Location = new System.Drawing.Point(160, 395);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(363, 48);
+            this.groupBox12.Size = new System.Drawing.Size(411, 48);
             this.groupBox12.TabIndex = 18;
             this.groupBox12.TabStop = false;
             // 
@@ -620,7 +628,7 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.buttonSwitchTabFiles);
-            this.groupBox11.Location = new System.Drawing.Point(17, 308);
+            this.groupBox11.Location = new System.Drawing.Point(17, 395);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(137, 60);
             this.groupBox11.TabIndex = 17;
@@ -640,7 +648,7 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.button4);
-            this.groupBox10.Location = new System.Drawing.Point(17, 239);
+            this.groupBox10.Location = new System.Drawing.Point(17, 313);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(137, 60);
             this.groupBox10.TabIndex = 16;
@@ -660,7 +668,7 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.button3);
-            this.groupBox9.Location = new System.Drawing.Point(17, 170);
+            this.groupBox9.Location = new System.Drawing.Point(17, 208);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(137, 60);
             this.groupBox9.TabIndex = 15;
@@ -689,7 +697,7 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.button2);
-            this.groupBox8.Location = new System.Drawing.Point(17, 101);
+            this.groupBox8.Location = new System.Drawing.Point(17, 121);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(137, 60);
             this.groupBox8.TabIndex = 13;
@@ -728,79 +736,86 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.pictureBox4);
             this.groupBox6.Controls.Add(this.label9);
-            this.groupBox6.Location = new System.Drawing.Point(160, 239);
+            this.groupBox6.Location = new System.Drawing.Point(160, 313);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(363, 48);
+            this.groupBox6.Size = new System.Drawing.Size(411, 72);
             this.groupBox6.TabIndex = 11;
             this.groupBox6.TabStop = false;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 16);
-            this.label9.MaximumSize = new System.Drawing.Size(360, 40);
+            this.label9.Location = new System.Drawing.Point(91, 16);
+            this.label9.MaximumSize = new System.Drawing.Size(340, 40);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(353, 13);
+            this.label9.Size = new System.Drawing.Size(305, 26);
             this.label9.TabIndex = 7;
-            this.label9.Text = "Tags add extra information to files. Ex: \"raw-data\", \"processed-data\", etc.";
+            this.label9.Text = "Tags add extra meta information to files. Examples: \"raw-data\", \"processed-data\"," +
+    " etc.\r\n";
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.pictureBox3);
             this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Location = new System.Drawing.Point(160, 170);
+            this.groupBox5.Location = new System.Drawing.Point(160, 209);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(363, 48);
+            this.groupBox5.Size = new System.Drawing.Size(411, 99);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 16);
-            this.label3.MaximumSize = new System.Drawing.Size(360, 40);
+            this.label3.Location = new System.Drawing.Point(91, 16);
+            this.label3.MaximumSize = new System.Drawing.Size(320, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(343, 26);
+            this.label3.Size = new System.Drawing.Size(320, 39);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Enter, delete, update. Ex. modailties: \"EEG:, \"eye-tracking\", \"speech\", \"video\". " +
-    "Files are then associated with modalities.";
+            this.label3.Text = "Example modailties are: \"EEG:, \"eye-tracking\", \"speech\", \"video\", etc. Files prod" +
+    "uced by expriments are then associated with modalities. Here you can edit the li" +
+    "st of available modalities.";
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(160, 101);
+            this.groupBox4.Location = new System.Drawing.Point(160, 121);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(363, 48);
+            this.groupBox4.Size = new System.Drawing.Size(411, 82);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 16);
-            this.label2.MaximumSize = new System.Drawing.Size(360, 40);
+            this.label2.Location = new System.Drawing.Point(91, 13);
+            this.label2.MaximumSize = new System.Drawing.Size(320, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(337, 26);
+            this.label2.Size = new System.Drawing.Size(319, 39);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Enter, delete, update and associate with expeirment. Subjects are per experiment " +
-    "and are visible only by you.";
+            this.label2.Text = "Every experiment has assiciated subjects or acqusitions. At this step you can ent" +
+    "er, delete, update and/or associate subjects with your expeirment. Subjects are " +
+    "per experiment.";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.pictureBox2);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Location = new System.Drawing.Point(158, 32);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(365, 48);
+            this.groupBox3.Size = new System.Drawing.Size(413, 83);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.MaximumSize = new System.Drawing.Size(340, 40);
+            this.label1.Location = new System.Drawing.Point(93, 16);
+            this.label1.MaximumSize = new System.Drawing.Size(320, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(329, 26);
+            this.label1.Size = new System.Drawing.Size(308, 26);
             this.label1.TabIndex = 4;
             this.label1.Text = "First enter a new experiment.  Here you can also update, delete and share experim" +
     "ents.";
@@ -820,6 +835,46 @@
             this.tabControl1.Size = new System.Drawing.Size(711, 487);
             this.tabControl1.TabIndex = 1;
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::edb_tool.Properties.Resources.Calcium_channel_blockers_classification;
+            this.pictureBox4.Location = new System.Drawing.Point(5, 13);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(80, 50);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 8;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::edb_tool.Properties.Resources.eye_tracking_headgear;
+            this.pictureBox3.Location = new System.Drawing.Point(7, 16);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(78, 75);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 7;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::edb_tool.Properties.Resources.users;
+            this.pictureBox1.Location = new System.Drawing.Point(5, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(66, 63);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::edb_tool.Properties.Resources.experiment;
+            this.pictureBox2.Location = new System.Drawing.Point(7, 16);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(66, 60);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -829,7 +884,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Gipsa-lab Experimental Data Management Tool";
+            this.Text = "Djedai - Gipsa-lab tool for managing data produced by experiments";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -867,6 +922,10 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -941,6 +1000,10 @@
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.ToolStripMenuItem viewNetworkSharesToolStripMenuItem;
         private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }
 
