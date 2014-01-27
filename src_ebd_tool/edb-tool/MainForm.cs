@@ -368,7 +368,7 @@ namespace edb_tool
                         MessageBox.Show("Could not open the disk/network location specified!",
                         "Error",
                         MessageBoxButtons.OK,MessageBoxIcon.Error);
-                        }
+                    }
                 }
             }
         }
@@ -712,6 +712,28 @@ namespace edb_tool
         {
             NetworkShares ns = new NetworkShares();
             ns.Show();
+        }
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string helpFile = "Help_djedai.pdf";
+            if (File.Exists(helpFile))
+            {
+                System.Diagnostics.Process.Start(helpFile);
+            }
+            else
+            {
+
+                MessageBox.Show("Could not open help file: " + helpFile,
+                "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About af = new About();
+            af.Show();
         }
     }
 }
