@@ -124,6 +124,8 @@ namespace edb_tool
             listBox1.DataSource = q.ToList();
             #endregion
 
+            textBoxUsers.Text = "";
+
         }
 
         /// <summary>
