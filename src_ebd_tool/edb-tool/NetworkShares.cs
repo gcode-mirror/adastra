@@ -51,14 +51,24 @@ namespace edb_tool
 
         private void LoadData()
         {
-            var listLocal = MappedDriveResolver.GetSharedFolders();
-
-            foreach (GNetworkShare s in listLocal)
+            //1. Get local drives
+            List<GNetworkShare> listLocal;
+            try
             {
-                s.name = "\\\\" + Environment.MachineName + "\\" + s.name;
-            }
-            dataGridView1.DataSource = listLocal;
+                listLocal = MappedDriveResolver.GetSharedFolders();
 
+                foreach (GNetworkShare s in listLocal)
+                {
+                    s.name = "\\\\" + Environment.MachineName + "\\" + s.name;
+                }
+                dataGridView1.DataSource = listLocal;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not retireive the list of local shared folders! " + ex.Message,"Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            //2. Get remote drives
             var mappedDrives = MappedDriveResolver.GetRemoteMappedDrives();
             dataGridView2.DataSource = mappedDrives;
         }
@@ -73,9 +83,7 @@ namespace edb_tool
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Could not share folder! "+ ex.Message,
-                        "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not share folder! "+ ex.Message,"Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
           
         }

@@ -23,6 +23,17 @@ namespace edb_tool
             this.CenterToScreen();
             this.mainform = mainform;
             this.current_experiment_id = current_experiment_id;
+
+            textBoxUsers.KeyPress += new KeyPressEventHandler(textBoxUsers_KeyPress);
+        }
+
+        void textBoxUsers_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var query = from GUser item in AllItems
+                        where item.FirstName.ToLower().StartsWith(textBoxUsers.Text.ToLower()) || item.LastName.ToLower().StartsWith(textBoxUsers.Text.ToLower())
+                        select item;
+
+            listBox1.DataSource = query.ToList();
         }
 
         private void UserSelector_Load(object sender, EventArgs e)

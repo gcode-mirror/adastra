@@ -42,6 +42,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.listBox4 = new System.Windows.Forms.ListBox();
+            this.textBoxUsers = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button4
@@ -115,7 +117,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(14, 30);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(154, 186);
+            this.listBox1.Size = new System.Drawing.Size(154, 160);
             this.listBox1.TabIndex = 8;
             // 
             // button5
@@ -169,16 +171,36 @@
             // 
             this.listBox4.Enabled = false;
             this.listBox4.FormattingEnabled = true;
+            this.listBox4.Items.AddRange(new object[] {
+            "(currently disabled)"});
             this.listBox4.Location = new System.Drawing.Point(248, 235);
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(154, 186);
             this.listBox4.TabIndex = 16;
+            // 
+            // textBoxUsers
+            // 
+            this.textBoxUsers.Location = new System.Drawing.Point(47, 193);
+            this.textBoxUsers.Name = "textBoxUsers";
+            this.textBoxUsers.Size = new System.Drawing.Size(121, 20);
+            this.textBoxUsers.TabIndex = 22;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 196);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Filter";
             // 
             // UserSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(413, 474);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBoxUsers);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.label3);
@@ -217,5 +239,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.TextBox textBoxUsers;
+        private System.Windows.Forms.Label label5;
     }
 }
