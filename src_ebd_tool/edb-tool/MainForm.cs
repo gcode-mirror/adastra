@@ -263,7 +263,7 @@ namespace edb_tool
                     //add control gridview
                     DataGridView dgv = new DataGridView();
 
-                    #region grid settings
+                    #region files grid settings
                     //dgv.ReadOnly = true;
                     dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dgv.RowHeadersVisible = false;
@@ -331,6 +331,7 @@ namespace edb_tool
             }
         }
 
+        //sorting
         void dgv_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;

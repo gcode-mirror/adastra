@@ -143,7 +143,7 @@ public static class MappedDriveResolver
          {
              foreach (edb_tool.GNetworkShare share in localShares)
              {
-                 if (file.pathname.StartsWith(share.path))
+                 if (file.pathname.ToLower().StartsWith(share.path.ToLower()))
                  {
                      int pos = share.path.Length;
                      file.pathname = @"\\" + System.Environment.MachineName + @"\" + share.name + file.pathname.Substring(pos);

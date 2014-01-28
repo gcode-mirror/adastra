@@ -292,6 +292,8 @@ namespace edb_tool
 
         public long AddFile(GFile f)
         {
+            f.pathname = f.pathname.Replace("\\", "#"); //to fix db incompatibility with "\"
+
            string link =
            RootUrl + "file.php?function=" + "AddFile" +
                                                "&filename=" + System.Web.HttpUtility.UrlEncode(f.filename) +
@@ -305,6 +307,9 @@ namespace edb_tool
 
         public void AddFiles(List<GFile> files)
         {
+            
+            //files[i].pathname = files[i].pathname.Replace("\\", "#");
+            
             throw new Exception("Unimplemented");
         }
 
@@ -328,6 +333,11 @@ namespace edb_tool
                                                 + "&idmodality=" + idmodality.ToString());
 
             List<GFile> files = JsonConvert.DeserializeObject<List<GFile>>(json);
+
+            foreach(GFile f in files)
+            {
+                f.pathname = f.pathname.Replace("#", "\\"); //to fix db incompatibility with "\"
+            }
 
             return files;
         }

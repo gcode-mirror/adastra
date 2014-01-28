@@ -12,8 +12,8 @@ namespace edb_tool
 
         public static DataProvider GetDataProvider()
         {
-           // if (provider == null) provider = new edb_tool.WebService();//
-            if (provider == null) provider = new MySql();
+            if (provider == null) provider = new edb_tool.WebService();//
+            //if (provider == null) provider = new MySql();
 
             return provider;
         }
