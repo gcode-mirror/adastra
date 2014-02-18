@@ -66,8 +66,8 @@ eventIndex = 0;
 
 for k = 1:NbNewEpochs
     
-    time1 = NewEpochs(1,k); %in ms - start time of the epoch
-    time2 = NewEpochs(2,k); %in ms - end time of the epoch
+    time1 = NewEpochs(1,k); %start time of the current epoch (in ms)
+    time2 = NewEpochs(2,k); %end time of the current epoch (in ms)
     
     %first convert to seconds (/1000), then to points
     %(*EegAcq.Data.Params.samplingRate)
@@ -165,7 +165,7 @@ for k = 1:NbNewEpochs
            %[0 EEG.pnts * epochNumber]. Time of the event is relative to the
            %epoch, but increased with the time of the previous epochs before the
            %current. This gives an increasing value for each event. 
-           latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later is visualzed correctly relative to its epoch
+           latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later it is visualzed correctly relative to its epoch
 
            eventIndex = eventIndex + 1;
            EEG.event(eventIndex).latency = latency;
