@@ -66,8 +66,8 @@ eventIndex = 0;
 
 for k = 1:NbNewEpochs
     
-    time1 = NewEpochs(1,k); %in ms
-    time2 = NewEpochs(2,k); %in ms
+    time1 = NewEpochs(1,k); %in ms - start time of the epoch
+    time2 = NewEpochs(2,k); %in ms - end time of the epoch
     
     %first convert to seconds (/1000), then to points
     %(*EegAcq.Data.Params.samplingRate)
@@ -134,54 +134,44 @@ for k = 1:NbNewEpochs
    
     if isempty(DispEvents) == false
         
-        %Check range [-eventRange eventRange+] for events that are in the
-        %same epoch including the one that generated the epoch
-        eventRange = 30;%this value must be big enough to cover all the events in the epoch 
+        % we get only the events contained in the current epoch
+        EpochOwnEventsPositions = find(EegAcq.Events.Triggers.time(1,:)>=time1 & EegAcq.Events.Triggers.time(1,:)<=time2);
         
-        if (epochEventPos-eventRange) < 1 
-            EventsBefore=1;
-        else
-            EventsBefore = epochEventPos-eventRange;
-        end
-        EventsAfter = (epochEventPos+eventRange);
-        
-        for pos = EventsBefore:1:EventsAfter
-        
-            if (EegAcq.Events.Triggers.time(1:1,pos)>=time1) && (EegAcq.Events.Triggers.time(1:1,pos)<=time2)
+        for pos = EpochOwnEventsPositions %we iterate over the events which belong to this epoch
+            
+           type = EegAcq.Events.Triggers.value(pos);
 
-               type = EegAcq.Events.Triggers.value(pos);
+           if type<1000 %we are only interested in the ones above 1000
+               continue; 
+           end;
 
-               if type<1000 %we are only interested in the ones above 1000
-                   continue; 
+           addEvent = false;
+           for r = 1:length(DispEvents)
+               if type == DispEvents(r) || type == epochEvent
+                  addEvent = true;
                end;
-               
-               addEvent = false;
-               for r = 1:length(DispEvents)
-                   if type == DispEvents(r) || type == epochEvent
-                      addEvent = true;
-                   end;
-               end;
-               
-               if (addEvent == false) %skip if the event is neither Display one or the one that generated this epoch
-                   continue; 
-               end;
-               
-               timeRelativeToEpochStart = EegAcq.Events.Triggers.time(1:1,pos) - time1;
+           end;
 
-               eventPntsRelativeToEpochStart = (double(timeRelativeToEpochStart) / double(1000)) * double(EEG.srate);
+           if (addEvent == false) %skip if the event is neither Display one or the one that generated this epoch
+               continue; 
+           end;
 
-               %Time format used in EEG lab is actually in points.
-               %Time for the events looks continous because its min and max values are
-               %[0 EEG.pnts * epochNumber]. Time of the event is relative to the
-               %epoch, but increased with the time of the previous epochs before the
-               %current. This gives an increasing value for each event. 
-               latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later is visualzed correctly relative to its epoch
+           timeRelativeToEpochStart = EegAcq.Events.Triggers.time(1:1,pos) - time1;
 
-               eventIndex = eventIndex + 1;
-               EEG.event(eventIndex).latency = latency;
-               EEG.event(eventIndex).type = eventsMap(int2str(type));
-               EEG.event(eventIndex).epoch = k;
-            end;
+           eventPntsRelativeToEpochStart = (double(timeRelativeToEpochStart) / double(1000)) * double(EEG.srate);
+
+           %Time format used in EEG lab is actually in points.
+           %Time for the events looks continous because its min and max values are
+           %[0 EEG.pnts * epochNumber]. Time of the event is relative to the
+           %epoch, but increased with the time of the previous epochs before the
+           %current. This gives an increasing value for each event. 
+           latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later is visualzed correctly relative to its epoch
+
+           eventIndex = eventIndex + 1;
+           EEG.event(eventIndex).latency = latency;
+           EEG.event(eventIndex).type = eventsMap(int2str(type));
+           EEG.event(eventIndex).epoch = k;
+            
         end;
     end;
     
