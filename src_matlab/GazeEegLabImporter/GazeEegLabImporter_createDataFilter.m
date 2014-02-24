@@ -12,7 +12,7 @@ function res = GazeEegLabImporter_createDataFilter(varargin)
 %   'HP'            a high pass filter (butterworth order 4) with cut off
 %                       frequency specified by the user (in Hz)
 %
-%   'HP'            a low pass filter (butterworth order 4) with cut off
+%   'LP'            a low pass filter (butterworth order 4) with cut off
 %                       frequency specified by the user (in Hz)
 %
 %   'feedback'      set true for visual feedback 
