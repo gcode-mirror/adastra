@@ -160,7 +160,7 @@ if apply_IcaRmBase_make_chart
          
         %% Filter events - create ALLEEG(3)
         EEG = pop_selectevent( EEG, 'type',DisplayEvents,'deleteevents','on','deleteepochs','off','invertepochs','off');
-        EEG.setname= [EEG.setname ', selected events'];
+        EEG.setname= ['selected events'];
         [ALLEEG EEG CURRENTSET] = eeg_store(ALLEEG, EEG);
         
         eeglab redraw;   
