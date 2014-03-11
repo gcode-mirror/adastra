@@ -11,7 +11,7 @@ SynchroFilename = 'D:\Dropbox\Gipsa-work\GazeEeg\Data\new_s1\synchro_s1.asc.eeg.
 EpochEventsStr = '[EegAcq.Events.EventTypes.flowBlinkRight]';
 
 %events that can be seen with data scroll
-DisplayEventsStr = '[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight]';
+DisplayEventsStr = '{''flowFixationLeft''}';
 
 % epoch interval in milliseconds
 TimeInterval = [-100, 500];

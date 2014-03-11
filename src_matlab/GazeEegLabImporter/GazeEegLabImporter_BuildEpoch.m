@@ -24,8 +24,6 @@ for k = 1:2:nargin
          MaxEpochsToProcess = varargin{k+1};
     elseif strcmpi(varargin{k},'TimeInterval')
          TimeInterval = varargin{k+1};
-    elseif strcmpi(varargin{k},'DispEvents')
-        DispEvents = varargin{k+1};
     elseif strcmpi(varargin{k},'NbNonEEGChan')
         NbNonEEGChan = varargin{k+1};
     else 
@@ -131,48 +129,30 @@ for k = 1:NbNewEpochs
     %% Add Display events
     epochEvent = NewEpochs(3,k); %the event that generated the epoch using the specified TimeInterval
     epochEventPos = NewEpochs(4,k); % the position in the EegAcq.Events.Triggers, used to access events that near this event 
-   
-    if isempty(DispEvents) == false
-        
-        % we get only the events contained in the current epoch
-        EpochOwnEventsPositions = find(EegAcq.Events.Triggers.time(1,:)>=time1 & EegAcq.Events.Triggers.time(1,:)<=time2);
-        
-        for pos = EpochOwnEventsPositions %we iterate over the events which belong to this epoch
-            
-           type = EegAcq.Events.Triggers.value(pos);
+       
+    % we get only the events contained in the current epoch
+    EpochOwnEventsPositions = find(EegAcq.Events.Triggers.time(1,:)>=time1 & EegAcq.Events.Triggers.time(1,:)<=time2);
 
-           if type<1000 %we are only interested in the ones above 1000
-               continue; 
-           end;
+    for pos = EpochOwnEventsPositions %we iterate over the events which belong to this epoch
 
-           addEvent = false;
-           for r = 1:length(DispEvents)
-               if type == DispEvents(r) || type == epochEvent
-                  addEvent = true;
-               end;
-           end;
+       type = EegAcq.Events.Triggers.value(pos);
 
-           if (addEvent == false) %skip if the event is neither Display one or the one that generated this epoch
-               continue; 
-           end;
+       timeRelativeToEpochStart = EegAcq.Events.Triggers.time(1:1,pos) - time1;
 
-           timeRelativeToEpochStart = EegAcq.Events.Triggers.time(1:1,pos) - time1;
+       eventPntsRelativeToEpochStart = (double(timeRelativeToEpochStart) / double(1000)) * double(EEG.srate);
 
-           eventPntsRelativeToEpochStart = (double(timeRelativeToEpochStart) / double(1000)) * double(EEG.srate);
+       %Time format used in EEG lab is actually in points.
+       %Time for the events looks continous because its min and max values are
+       %[0 EEG.pnts * epochNumber]. Time of the event is relative to the
+       %epoch, but increased with the time of the previous epochs before the
+       %current. This gives an increasing value for each event. 
+       latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later it is visualzed correctly relative to its epoch
 
-           %Time format used in EEG lab is actually in points.
-           %Time for the events looks continous because its min and max values are
-           %[0 EEG.pnts * epochNumber]. Time of the event is relative to the
-           %epoch, but increased with the time of the previous epochs before the
-           %current. This gives an increasing value for each event. 
-           latency = (k-1) * EEG.pnts + eventPntsRelativeToEpochStart; % the correct position of the event, so that later it is visualzed correctly relative to its epoch
+       eventIndex = eventIndex + 1;
+       EEG.event(eventIndex).latency = latency;
+       EEG.event(eventIndex).type = eventsMap(int2str(type));
+       EEG.event(eventIndex).epoch = k;
 
-           eventIndex = eventIndex + 1;
-           EEG.event(eventIndex).latency = latency;
-           EEG.event(eventIndex).type = eventsMap(int2str(type));
-           EEG.event(eventIndex).epoch = k;
-            
-        end;
     end;
     
     %disp('================');
