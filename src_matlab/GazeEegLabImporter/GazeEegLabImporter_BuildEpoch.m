@@ -11,6 +11,7 @@ global ChannelNames; %added by Anton
 filterData = false;
 MaxEpochsToProcess = -1;
 NbNonEEGChan = 5; %number of Non EEG channels such as 'EOGV','EOGH'
+KeepAll = true;
 
 for k = 1:2:nargin
     
@@ -24,11 +25,14 @@ for k = 1:2:nargin
          MaxEpochsToProcess = varargin{k+1};
     elseif strcmpi(varargin{k},'TimeInterval')
          TimeInterval = varargin{k+1};
-    elseif strcmpi(varargin{k},'KeepEvents')
-        KeepEvents = varargin{k+1};
+    elseif strcmpi(varargin{k},'KeepEventsList')
+        KeepEventsList = varargin{k+1};
+    elseif strcmpi(varargin{k},'KeepAll')
+        KeepAll = varargin{k+1};
     elseif strcmpi(varargin{k},'NbNonEEGChan')
         NbNonEEGChan = varargin{k+1};
     else 
+        disp(varargin{k});
         error('Error in arguments!')
     end
 end
@@ -132,7 +136,7 @@ for k = 1:NbNewEpochs
     epochEvent = NewEpochs(3,k); %the event that generated the epoch using the specified TimeInterval
     epochEventPos = NewEpochs(4,k); % the position in the EegAcq.Events.Triggers, used to access events that near this event 
    
-    if isempty(KeepEvents) == false
+    if (isempty(KeepEventsList) == false || KeepAll == true)
         
         % we get only the events contained in the current epoch
         EpochOwnEventsPositions = find(EegAcq.Events.Triggers.time(1,:)>=time1 & EegAcq.Events.Triggers.time(1,:)<=time2);
@@ -140,10 +144,14 @@ for k = 1:NbNewEpochs
         for pos = EpochOwnEventsPositions %we iterate over the events which belong to this epoch
             
            type = EegAcq.Events.Triggers.value(pos);
+           
+           if (KeepAll==true)
+              addEvent = true;
+           else 
+              addEvent = ismember(type, [KeepEventsList epochEvent]);
+           end;
 
-           addEvent = ismember(type, [KeepEvents epochEvent]);
-
-           if (addEvent == false) %skip if the event is neither from KeepEvents or the one that generated this epoch
+           if (addEvent == false) %skip if the event is neither from KeepEventsList or the one that generated this epoch
                continue; 
            end;
 

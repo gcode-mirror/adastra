@@ -14,6 +14,7 @@ EpochEventsStr = '[EegAcq.Events.EventTypes.flowBlinkRight]';
 %EEGLAB Plot -> Channel data (scroll)
 %KeepEventsStr = '[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight]';
 KeepEventsStr = '[EegAcq.Events.EventTypes.flowFixationLeft]';
+KeepAll = true; %overrides KeepEventsList
 
 % epoch interval in milliseconds
 TimeInterval = [-100, 500];
@@ -31,4 +32,4 @@ NbNonEEGChan = 5;
 GazeEegLabImporter_setChannelNamesMontageParis();
 
 %% Execute
-GazeEegLabImporter_Process(EEGLabPath, SynchroFilename, EpochEventsStr, KeepEventsStr, TimeInterval, StartFromTrigger, FilterData, NbNonEEGChan);
+GazeEegLabImporter_Process(EEGLabPath, SynchroFilename, EpochEventsStr, KeepEventsStr, KeepAll, TimeInterval, StartFromTrigger, FilterData, NbNonEEGChan);

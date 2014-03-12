@@ -1,4 +1,4 @@
-function NewEpochs = GazeEegLabImporter_Process(EEGLabPath, synchro_filename, EpochEventsStr, KeepEventsStr, TimeInterval, StartFromTriggerStr, FilterData, NbNonEEGChan)
+function NewEpochs = GazeEegLabImporter_Process(EEGLabPath, synchro_filename, EpochEventsStr, KeepEventsListStr, KeepAll, TimeInterval, StartFromTriggerStr, FilterData, NbNonEEGChan)
 
 %% Initialize Gaze
 %% It is needed for the ICA implementation and others
@@ -73,7 +73,7 @@ end;
 % TimeInterval = [-100, 500];
 
 EpochEvents = eval(EpochEventsStr);%[EegAcq.Events.EventTypes.flowBlinkRight];%events which are used for the epochs generation
-KeepEvents = eval(KeepEventsStr);%[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight];%events that can be seen with data scroll
+KeepEventsList = eval(KeepEventsListStr);%[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight];%events that can be seen with data scroll
 %MaxEpochs = 100;
 StartFromTrigger = eval(StartFromTriggerStr);
 
@@ -88,7 +88,8 @@ GazeEegLabImporter_BuildEpoch('FileNameRawData',filename_egg_raw, ...
                            'TimeInterval', TimeInterval, ...
                            'Epochs',NewEpochs, ...
                            'FilterData',FilterData, ...
-                           'KeepEvents', KeepEvents, ...
+                           'KeepEventsList', KeepEventsList, ...
+                           'KeepAll', KeepAll, ...
                            'NbNonEEGChan', NbNonEEGChan ... non EEG channels such as 'EOGV','EOGH'
                            );   
                        %'MaxEpochsToProcess',MaxEpochs);
