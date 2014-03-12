@@ -1,7 +1,7 @@
-function NewEpochs = GazeEegLabImporter_Process(EEGLabPath, synchro_filename, EpochEventsStr, DisplayEventsStr, TimeInterval, StartFromTriggerStr, FilterData, NbNonEEGChan)
+function NewEpochs = GazeEegLabImporter_Process(EEGLabPath, synchro_filename, EpochEventsStr, KeepEventsStr, TimeInterval, StartFromTriggerStr, FilterData, NbNonEEGChan)
 
 %% Initialize Gaze
-% It is needed for the ICA implementation and others
+%% It is needed for the ICA implementation and others
 GazeEEG_init(                   ...
     'EEGLabPath',       EEGLabPath, ...
     ...    'EEGLab', false,...
@@ -73,7 +73,7 @@ end;
 % TimeInterval = [-100, 500];
 
 EpochEvents = eval(EpochEventsStr);%[EegAcq.Events.EventTypes.flowBlinkRight];%events which are used for the epochs generation
-DisplayEvents = eval(DisplayEventsStr);%[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight];%events that can be seen with data scroll
+KeepEvents = eval(KeepEventsStr);%[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight];%events that can be seen with data scroll
 %MaxEpochs = 100;
 StartFromTrigger = eval(StartFromTriggerStr);
 
@@ -88,6 +88,7 @@ GazeEegLabImporter_BuildEpoch('FileNameRawData',filename_egg_raw, ...
                            'TimeInterval', TimeInterval, ...
                            'Epochs',NewEpochs, ...
                            'FilterData',FilterData, ...
+                           'KeepEvents', KeepEvents, ...
                            'NbNonEEGChan', NbNonEEGChan ... non EEG channels such as 'EOGV','EOGH'
                            );   
                        %'MaxEpochsToProcess',MaxEpochs);
@@ -101,10 +102,10 @@ GazeEegLabImporter_BuildEpoch('FileNameRawData',filename_egg_raw, ...
 EEG = pop_select(EEG, 'nochannel', {'EOGH'}); % anton: prevents error "integers vs doubles", EOGH channel does not exist
 
 if (FilterData)
-   EEG.setname = 'Loaded with filtering';
-else
-   EEG.setname = 'Loaded no filtering';
-end;
+    EEG.setname = 'Loaded with filtering';
+    else
+    EEG.setname = 'Loaded without filtering';
+end
 
 %% remove noisy channels
 % EEG = pop_select(EEG, 'nochannel', {'TP10', 'AF7'});
@@ -125,21 +126,27 @@ if apply_IcaRmBase_make_chart
 
         % Remove eye artifacts from EEG signal - reconstruction
         %...    GazeEEG_reconstructAfterJointICA('Replace',false);
-        GazeEEG_reconstructAfterJointICA('Replace',false);% anton: false was the default - it should make a new copy ALLEEG(2)
+        GazeEEG_reconstructAfterJointICA('Replace',false);% anton: false was the default - it should make a new copy EEG(2)
 
 
         %% Remove baseline
 
         EEG = pop_rmbase(EEG, [-100 0]); 
         EEG.setname = 'RPM base, ICA';
+        %EEG = pop_rmbase(EEG, [0 100]); % modified by Anton
+        %EEG.setname = [SyncEventsName{cnt} ' - baseline'];
+        %[ALLEEG EEG CURRENTSET] = eeg_store(ALLEEG, EEG);
+        eeglab redraw;
 
         %% Remove eye signals - for scaling in drawings 
 
         EEG = pop_select(EEG, 'nochannel', {'EOGH', 'EOGV', 'EyeRx', 'EyeRy', 'EyeLx', 'EyeLy'});
-        
-        %% Replace in ALLEEG
-        ALLEEG(2) = EEG;
+        %EEG = pop_select(EEG, 'nochannel', {'EOGH', 'EOGV', 'EyeRx', 'EyeRy', 'EyeLx', 'EyeLy','F7','F3','Fz','F4','F8','FC5','FC1','FC2','FC6','T7','C3','Cz','C4','T8','TP9','CP5','CP1','EOGV','CP6','TP10','P7','P3','Pz','P4','P8','PO9','O1','Oz','O2','PO10'});
+        %[ALLEEG, EEG] = eeg_store(ALLEEG, EEG); % ALLEEG(2)
+        %eeglab redraw;
 
+        ALLEEG(2) = EEG; 
+         
         %% Save EEGLab Set
         ALLEEG(2) = pop_saveset( ALLEEG(2), 'filename',[synchro_filename '.set']);
         ALLEEG(2) = eeg_checkset( ALLEEG(2) );
@@ -147,6 +154,8 @@ if apply_IcaRmBase_make_chart
         % Anton: Remove channels from the first - raw data set in order to make the number
         % of channels the same in the two datasets
         ALLEEG(1) = pop_select(ALLEEG(1), 'nochannel', {'EOGH', 'EOGV', 'EyeRx', 'EyeRy', 'EyeLx', 'EyeLy'});
+        
+        eeglab redraw;
         
         %% Plot the (F)ERP
         %pop_comperp( ALLEEG, 1, 1,2,'addavg','on','addstd','off','subavg','on','diffavg','on','diffstd','off','tplotopt',{'ydir' -1});
@@ -157,13 +166,7 @@ if apply_IcaRmBase_make_chart
         pop_comperp( ALLEEG, useICA , dataadd , datasub ,'addavg','on','addstd','off','subavg','on','diffavg','on','diffstd','off','tplotopt',{'ydir' -1});
         %5 common average reference is the third chart
         %pop_comperp( ALLEEG, 1, 2);%anton: 
-         
-        %% Filter events - create ALLEEG(3)
-        EEG = pop_selectevent( EEG, 'type',DisplayEvents,'deleteevents','on','deleteepochs','off','invertepochs','off');
-        EEG.setname= ['selected events'];
-        [ALLEEG EEG CURRENTSET] = eeg_store(ALLEEG, EEG);
-        
-        eeglab redraw;   
+        eeglab redraw;
         
 else
   %just show the epochs on FP1 and FP2      

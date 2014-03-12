@@ -10,8 +10,10 @@ SynchroFilename = 'D:\Dropbox\Gipsa-work\GazeEeg\Data\new_s1\synchro_s1.asc.eeg.
 %events which are used for the epochs generation
 EpochEventsStr = '[EegAcq.Events.EventTypes.flowBlinkRight]';
 
-%events that can be seen with data scroll
-DisplayEventsStr = '{''flowFixationLeft''}';
+%events that will be imported from the mat files and that can be seen with
+%EEGLAB Plot -> Channel data (scroll)
+%KeepEventsStr = '[EegAcq.Events.EventTypes.flowFixationLeft EegAcq.Events.EventTypes.flowFixationRight EegAcq.Events.EventTypes.flowBlinkLeft EegAcq.Events.EventTypes.flowBlinkRight]';
+KeepEventsStr = '[EegAcq.Events.EventTypes.flowFixationLeft]';
 
 % epoch interval in milliseconds
 TimeInterval = [-100, 500];
@@ -29,4 +31,4 @@ NbNonEEGChan = 5;
 GazeEegLabImporter_setChannelNamesMontageParis();
 
 %% Execute
-GazeEegLabImporter_Process(EEGLabPath, SynchroFilename, EpochEventsStr, DisplayEventsStr, TimeInterval, StartFromTrigger, FilterData, NbNonEEGChan);
+GazeEegLabImporter_Process(EEGLabPath, SynchroFilename, EpochEventsStr, KeepEventsStr, TimeInterval, StartFromTrigger, FilterData, NbNonEEGChan);
