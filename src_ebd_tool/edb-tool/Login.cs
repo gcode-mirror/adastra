@@ -39,32 +39,47 @@ namespace edb_tool
                // userid = o.Authenticate(textBox1.Text, textBox2.Text);
                 ProviderFactory.SetWebProvider((string)comboBox1.SelectedValue);
 
-                autheticated = Helper.VerifyPassword(textBox1.Text, textBox2.Text);
- 
+                
+                autheticated = Helper.VerifyPassword(textBox1.Text, textBox2.Text); //|| textBox1.Text=="boel"; 
+                
                 //ProviderFactory.GetDataProvider().VerifyUserPassword(textBox1.Text, textBox2.Text, out mainform.curr.UserID);
+
+                if (autheticated)
+                {
+                    //TODO: optimize code not to use all users
+                    List<GUser> users =  ProviderFactory.GetDataProvider().ListUsers();
+
+                    bool userExists = users.Any(u => u.Username == textBox1.Text);
+
+                    if (userExists)
+                    {
+                        GUser user = (from u in users
+                                      where u.Username == textBox1.Text
+                                      select u).First();
+
+                        mainform.curr.UserID = user.iduser;
+                        mainform.Text += " - " + user.Username;
+
+                        mainform.tabControl1.Enabled = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        label3.Text = "Authenticated, but not found locally!";
+                        label3.Visible = true;
+                    }
+                }
+                else
+                {
+                    label3.Text = "Authentication failed!";
+                    label3.Visible = true;
+                    textBox2.Text = "";
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Error");
+                MessageBox.Show(ex.Message, "Error");
                 return;
-            }
-
-            if (autheticated)
-            {
-                //TODO: optimize code not to use all users
-                GUser user = (from GUser u in ProviderFactory.GetDataProvider().ListUsers()
-                              where u.Username == textBox1.Text
-                              select u).First();
-
-                mainform.curr.UserID = user.iduser;
-                mainform.Text += " - " + user.Username;
-
-                mainform.tabControl1.Enabled = true;
-                this.Close();
-            }
-            else
-            {
-                label3.Visible = true;
             }
         }
 
